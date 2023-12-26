@@ -10,7 +10,7 @@ htmlFiles.forEach((file) => {
 });
 
 export default defineConfig({
-  base: '/vite-landing-template',
+  base: '/Staffex',
   root: 'src',
   publicDir: '../public',
   plugins: [

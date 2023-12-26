@@ -1,0 +1,133 @@
+#wrapper {
+    position: relative;
+    overflow: hidden;
+    margin: 20px;
+    border-radius: 6px;
+    border: 0.5px solid rgba($white, .3);
+    height: calc(100vh - 40px);
+}
+
+.fp-tableCell {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 40px;
+    margin: 0 auto;
+}
+
+.text {
+    color: $white;
+    font-family: $DegularText;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+
+/* -----------------------------main-section----------------------- */
+
+.main-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    perspective: 100vh;
+	overflow: hidden;
+    transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+    
+    .content{
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+        transform-style: preserve-3d;
+        transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+        will-change: transform;
+        transition: transform var(--transition);
+    }
+
+    .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1 0 auto;
+        z-index: 1;
+        padding: 100px 40px;
+    }
+
+    .text {
+        max-width: 413px;
+        opacity: 0;
+        transition: $anim_2;
+
+        &.show {
+            opacity: 1;
+        }
+    }
+
+    .main-titel {
+        color: $white;
+        font-family: $DegularText;
+        font-size: 132px;
+        font-weight: 800;
+        line-height: 80%;
+        text-transform: uppercase;
+        margin: 0;
+
+        span {
+           display: block;
+           text-align: right;
+
+           &:first-child {
+            padding-right: 15%;
+           }
+        }
+    }
+
+    .bg {
+        position: absolute;
+    }
+
+    .bot {
+        position: absolute;
+        display: block;
+        bottom: 0;
+    }
+
+    .bot1 {
+        width: 700px;
+        left: 0;
+        bottom: -5%;
+    }
+
+    .bot2 {
+        width: 600px;
+        left: 50%;
+    }
+
+    .bot3 {
+        width: 550px;
+        right: 0;
+        bottom: -10%;
+    }
+
+    .layer-1 {
+        transform: translateZ(180px) scale(.8);
+    }
+    .layer-2 {
+        transform: translateZ(-280px) scale(2);
+    }
+    .layer-3 {
+        transform: translateZ(-150px);
+    }
+    .layer-4 {
+        transform: translateX(-50%) translateZ(0px);
+    }
+    .layer-5 {
+        transform: translateZ(-150px);
+    }
+}

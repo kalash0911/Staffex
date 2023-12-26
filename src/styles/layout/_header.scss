@@ -1,1 +1,218 @@
-#header {}
+.overflow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+    visibility: hidden;
+    opacity: 0;
+    transition: $anim_03;
+}
+
+.overflow_active {
+    z-index: 0;
+    visibility: visible;
+    opacity: 1;
+}
+
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 5;
+    border-bottom: 0.5px solid rgba($white, .3);
+
+    @include media('<desktop'){
+        padding: 16px 0;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .logo {
+        display: block;
+        width: 20px;
+        z-index: 1;
+        
+        svg {
+            fill: $white;
+            transition: $anim_03;
+        }
+
+        &:hover {
+
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .menu-block {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        @include media('<widescreen'){
+            gap: 30px;
+        }
+
+        @include media('<desktop'){
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 40%;
+            height: 100vh;
+            min-height: 100vh;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 140px 20px 100px 20px;
+            transition: $anim_07;
+            overflow: auto;
+        }
+
+        @include media('<tablet'){
+            width: 60%;
+        }
+
+        @include media('<phone'){
+            width: 100%;
+        }
+
+        .active & {
+            right: 0;
+        }
+    }
+
+    .menu-wrap {
+        z-index: 1;
+        margin: 0 auto;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        @include media('<desktop'){
+            flex-direction: column;
+        }
+    }
+        
+    .link {
+        position: relative;
+        color: $white;
+        font-family: $PlexMono;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: 0.7px;
+        text-transform: uppercase;
+        box-shadow: inset 0px 0px 25px transparent;
+        transition: box-shadow .3s ease-in 0;
+        padding: 10px;  
+        border-radius: 6px;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%);
+            height: 0;
+            width: 0;
+            opacity: 0;
+            border-radius: 6px;
+            border: 1px ridge rgba($green4F, .8);
+        }
+
+        &:hover {
+            box-shadow: inset 0px 0px 25px rgba($green4F, .8);
+            transition: box-shadow .3s ease-in .3s;
+
+            &::before {
+                animation: hover-link .3s ease-in;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+    @keyframes hover-link {
+        0%{
+            height: 0;
+            width: 0;
+            opacity: 1;
+        }
+        50% {
+            width: 100%;
+            height: 0;
+        }
+        100%{
+            height: 100%;
+            width: 100%;
+            opacity: 1;
+        }
+    }
+
+    .mute-btn {
+        width: 20px;
+    }
+
+}
+
+/* ---------------burger */
+
+.burger{
+    display: none;
+    position: relative;
+    width: 24px;
+    height: 15px;
+    z-index: 1;
+    border: none;
+    outline: none;
+    background: none;
+
+    @include media('<desktop'){
+        display: block;
+    }
+
+    span{
+        position: absolute;
+        top: 6px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $white;
+        border-radius: 10px;
+        transition: all .7s ease 0s;
+    }
+    
+    &::before, &::after{
+        content:'';
+        position: absolute;
+        right: 0;
+        height: 2px;
+        width: 100%;
+        background-color: $white;
+        border-radius: 10px;
+    }
+
+    &::before{
+        top: 0;
+    }
+
+    &::after{
+        bottom: 0;
+    }
+}
