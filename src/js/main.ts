@@ -78,4 +78,19 @@ document.addEventListener('mousemove', e => {
     })
 })
 
+/* Song Btn */
+
+document.addEventListener("DOMContentLoaded", function () {
+    var songBtn = document.querySelector('.song-btn');
+    var audio = document.querySelector('.song-btn audio');
+
+    songBtn.addEventListener('click', function () {
+        // Переключаем состояние mute
+        audio.muted = !audio.muted;
+
+        // Добавляем/удаляем класс mute
+        songBtn.classList.toggle('mute');
+    });
+});
+
 
