@@ -31,6 +31,10 @@
         padding: 16px 0;
     }
 
+    @include media('<phone'){
+        padding: 20px 0;
+    }
+
     .container {
         display: flex;
         align-items: center;

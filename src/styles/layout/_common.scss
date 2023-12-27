@@ -5,6 +5,14 @@
     border-radius: 6px;
     border: 0.5px solid rgba($white, .3);
     height: calc(100vh - 40px);
+
+    @include media('<tablet'){
+        border: none;
+        margin: 0;
+        overflow: visible;
+        overflow-x: hidden;
+        height: 100vh;
+    }
 }
 
 .fp-tableCell {
@@ -17,6 +25,10 @@
     max-width: 1400px;
     padding: 0 40px;
     margin: 0 auto;
+
+    @include media('<phone'){
+        padding: 0 20px;
+    }
 }
 
 .text {
@@ -38,6 +50,15 @@
     perspective: 100vh;
 	overflow: hidden;
     transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+
+    @include media('<tablet'){
+        height: 100vh;
+        transform: none;
+    }
+
+    @include media('<phone'){
+        min-height: 750px;
+    }
     
     .content{
         display: flex;
@@ -47,6 +68,32 @@
         transform: rotateX(var(--move-y)) rotateY(var(--move-x));
         will-change: transform;
         transition: transform var(--transition);
+
+        @include media('<tablet'){
+            min-height: 100vh;
+            transform: none;
+        }
+
+        &::after {
+            content:'';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 350px;
+            display: none;
+            z-index: 1;
+            background: $black03;
+            background: linear-gradient(180deg, rgba($black03, 0) 0%, $black03 100%);
+    
+            @include media('<tablet'){
+                display: block;
+            }
+
+            @include media('<phone'){
+                background: linear-gradient(180deg, rgba($black03, 0) 0%, $black03 50%);
+            }
+        }
     }
 
     .container {
@@ -57,6 +104,15 @@
         flex: 1 0 auto;
         z-index: 1;
         padding: 100px 40px;
+
+        @include media('<tablet'){
+            z-index: 2;
+            padding: 100px 40px 60px 40px;
+        }
+
+        @include media('<phone'){
+            padding: 150px 20px 30px 20px;
+        }
     }
 
     .text {
@@ -66,6 +122,11 @@
 
         &.show {
             opacity: 1;
+        }
+
+        @include media('<tablet'){
+            max-width: 100%;
+            text-align: center;
         }
     }
 
@@ -78,18 +139,42 @@
         text-transform: uppercase;
         margin: 0;
 
+        @include media('<widescreen'){
+            font-size: 100px;
+        }
+
+        @include media('<tablet'){
+            font-size: 52px;
+        }
+
+        @include media('<phone'){
+           background: $black03;
+           margin: 0 -20px;
+           padding: 20px;
+        }
+
         span {
            display: block;
            text-align: right;
 
            &:first-child {
-            padding-right: 15%;
-           }
+                padding-right: 15%;
+
+                @include media('<phone'){
+                    padding: 0;
+                    text-align: left;
+                }
+            }
         }
     }
 
     .bg {
         position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .bot {
@@ -101,33 +186,106 @@
     .bot1 {
         width: 700px;
         left: 0;
-        bottom: -5%;
+        bottom: -10%;
+
+        @include media('<widescreen'){
+            width: 500px;
+        }
+
+        @include media('<desktop'){
+            left: -10%;
+        }
+
+        @include media('<tablet'){
+            width: 60%;
+            bottom: 0;
+        }
+
+        @include media('<phone'){
+            width: 250px;
+            left: -60px;
+            bottom: 170px;
+        }
     }
 
     .bot2 {
         width: 600px;
         left: 50%;
+
+        @include media('<widescreen'){
+            width: 400px;
+        }
+
+        @include media('<tablet'){
+            width: 50%;
+            bottom: 0;
+        }
+
+        @include media('<phone'){
+            width: 200px;
+            bottom: 180px;
+        }
     }
 
     .bot3 {
         width: 550px;
         right: 0;
-        bottom: -10%;
+        bottom: -15%;
+
+        @include media('<widescreen'){
+            width: 450px;
+            bottom: -25%;
+        }
+
+        @include media('<desktop'){
+            right: -10%;
+        }
+
+        @include media('<tablet'){
+            width: 55%;
+            bottom: -15%;
+        }
+
+        @include media('<phone'){
+            width: 245px;
+            bottom: 60px;
+            right: -70px;
+        }
     }
 
     .layer-1 {
         transform: translateZ(180px) scale(.8);
     }
+
     .layer-2 {
         transform: translateZ(-280px) scale(2);
     }
+
     .layer-3 {
         transform: translateZ(-150px);
     }
+
     .layer-4 {
         transform: translateX(-50%) translateZ(0px);
+  
+        @include media('<tablet'){
+            transform: translateX(-50%);
+            z-index: 1;
+        }
     }
+
     .layer-5 {
         transform: translateZ(-150px);
     }
+
+    .layer-1,
+    .layer-2,
+    .layer-3,
+    .layer-5 {
+
+        @include media('<tablet'){
+            transform: none;
+        }
+    }  
+
 }

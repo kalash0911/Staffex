@@ -1,6 +1,27 @@
-// @ts-ignore
-new fullpage("#fullpage", {
-    scrollingSpeed: 1000,
+var fullpageInstance;
+
+function toggleFullPage() {
+    var screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+    if (screenSize <= 767) {
+        if (fullpageInstance) {
+            fullpageInstance.destroy('all');
+            fullpageInstance = null;
+        }
+    } else {
+        if (!fullpageInstance) {
+            // @ts-ignore
+            fullpageInstance = new fullpage("#fullpage", {
+                scrollingSpeed: 1000,
+            });
+        }
+    }
+}
+
+toggleFullPage();
+
+window.addEventListener('resize', function () {
+    toggleFullPage();
 });
 
 function onEntry(entry) {
