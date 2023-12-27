@@ -1,3 +1,4 @@
+// @ts-ignore
 new fullpage("#fullpage", {
     scrollingSpeed: 1000,
 });
@@ -36,32 +37,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
         element.textContent = shuffledText;
 
-        // Проверка, завершена ли анимация
+
         if (shuffledText !== originalText && iteration < 20) {
             setTimeout(() => updateText(element, originalText, iteration + 1), speed);
         } else {
-            // Возвращаем исходный текст после завершения анимации
             setTimeout(() => {
                 element.textContent = originalText;
             }, speed);
         }
     }
 
-    // Обработчик события для запуска анимации при добавлении класса "show"
     function handleShowClass(element) {
         const originalText = element.textContent;
 
-        // Проверка, есть ли у элемента класс "show" перед началом анимации
         if (element.classList.contains('show')) {
             updateText(element, originalText, 0);
         }
     }
 
-    // Запуск анимации для каждого элемента с классом "shuffle"
     shuffleElements.forEach(function (shuffleElement) {
         handleShowClass(shuffleElement);
 
-        // Наблюдатель за изменениями в атрибутах класса
         const observer = new MutationObserver(() => {
             handleShowClass(shuffleElement);
         });
