@@ -81,16 +81,21 @@ document.addEventListener('mousemove', e => {
 /* Song Btn */
 
 document.addEventListener("DOMContentLoaded", function () {
-    var songBtn = document.querySelector('.song-btn');
-    var audio = document.querySelector('.song-btn audio');
+    const songBtn: HTMLElement | null = document.querySelector('.song-btn');
+    const audio: HTMLAudioElement | null = document.querySelector('.song-btn audio');
 
-    songBtn.addEventListener('click', function () {
-        // Переключаем состояние mute
-        audio.muted = !audio.muted;
+    if (songBtn && audio) {
+        songBtn.addEventListener('click', function () {
 
-        // Добавляем/удаляем класс mute
-        songBtn.classList.toggle('mute');
-    });
+            if (audio.muted === undefined) {
+                audio.muted = true;
+            } else {
+                audio.muted = !audio.muted;
+            }
+
+            songBtn.classList.toggle('mute');
+        });
+    }
 });
 
 
