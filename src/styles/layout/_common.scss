@@ -216,7 +216,7 @@
     .bot2 {
         width: 600px;
         left: 50%;
-        bottom: -10%;
+        bottom: -15%;
 
         @include media('<widescreen'){
             width: 400px;
@@ -236,7 +236,7 @@
     .bot3 {
         width: 550px;
         right: 0;
-        bottom: -20%;
+        bottom: -30%;
 
         @include media('<widescreen'){
             width: 450px;

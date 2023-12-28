@@ -161,6 +161,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const audio: HTMLAudioElement | null = document.querySelector('.song-btn audio');
 
     if (songBtn && audio) {
+        audio.play()
+        audio.muted = false
         songBtn.addEventListener('click', function () {
 
             if (audio.muted === undefined) {
