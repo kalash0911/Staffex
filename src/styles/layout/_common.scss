@@ -15,6 +15,10 @@
     }
 }
 
+.body_lock  {
+    overflow-y: hidden !important;
+}
+
 .fp-tableCell {
     display: flex;
     flex-direction: column;
@@ -186,10 +190,11 @@
     .bot1 {
         width: 700px;
         left: 0;
-        bottom: -10%;
+        bottom: -20%;
 
         @include media('<widescreen'){
             width: 500px;
+            bottom: -15%;
         }
 
         @include media('<desktop'){
@@ -211,6 +216,7 @@
     .bot2 {
         width: 600px;
         left: 50%;
+        bottom: -10%;
 
         @include media('<widescreen'){
             width: 400px;
@@ -230,11 +236,11 @@
     .bot3 {
         width: 550px;
         right: 0;
-        bottom: -15%;
+        bottom: -20%;
 
         @include media('<widescreen'){
             width: 450px;
-            bottom: -25%;
+            bottom: -35%;
         }
 
         @include media('<desktop'){
@@ -254,19 +260,19 @@
     }
 
     .layer-1 {
-        transform: translateZ(180px) scale(.8);
+        transform: translateZ(50px) scale(.8);
     }
 
     .layer-2 {
-        transform: translateZ(-280px) scale(2);
+        transform: translateZ(-380px) scale(2);
     }
 
     .layer-3 {
-        transform: translateZ(-150px);
+        transform: translateZ(-250px);
     }
 
     .layer-4 {
-        transform: translateX(-50%) translateZ(0px);
+        transform: translateX(-50%) translateZ(-50px);
   
         @include media('<tablet'){
             transform: translateX(-50%);
@@ -275,7 +281,7 @@
     }
 
     .layer-5 {
-        transform: translateZ(-150px);
+        transform: translateZ(-250px);
     }
 
     .layer-1,

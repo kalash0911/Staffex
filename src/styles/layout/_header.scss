@@ -27,24 +27,16 @@
     z-index: 5;
     border-bottom: 0.5px solid rgba($white, .3);
 
-    @include media('<desktop'){
-        padding: 16px 0;
-    }
-
-    @include media('<phone'){
-        padding: 20px 0;
-    }
-
     .container {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 30px;
+        gap: 15px;
     }
 
     .logo {
         display: block;
-        min-width: 150px;
+        margin-right: 150px;
         z-index: 1;
         
         svg {
@@ -64,31 +56,45 @@
         width: 100%;
         display: flex;
         align-items: center;
+        gap: 15px;
 
         @include media('<widescreen'){
-            gap: 30px;
-        }
-
-        @include media('<desktop'){
             position: absolute;
             top: 0;
             right: -100%;
             width: 40%;
             height: 100vh;
             min-height: 100vh;
+            align-items: start;
             flex-direction: column;
             justify-content: space-between;
-            padding: 140px 20px 100px 20px;
+            padding-top: 100px;
             transition: $anim_07;
             overflow: auto;
+            background-color: $black03;
         }
 
-        @include media('<tablet'){
+        @include media('<desktop_s'){
             width: 60%;
         }
 
-        @include media('<phone'){
+        @include media('<tablet_s'){
             width: 100%;
+        }
+
+        &::before {
+            content:'';
+            position: absolute;
+            top: 65px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            display: none;
+            background-color: rgba($white, .3);
+
+            @include media('<widescreen'){
+                display: block;
+            }
         }
 
         .active & {
@@ -99,18 +105,48 @@
     .menu-wrap {
         z-index: 1;
         margin: 0 auto;
+
+        @include media('<widescreen'){
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1 0 auto;
+            margin: 0;
+            padding: 0 20px;
+        }
     }
 
     .menu {
+        position: relative;
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 36px;
         list-style: none;
         margin: 0;
         padding: 0;
 
-        @include media('<desktop'){
+        @include media('<widescreen'){
             flex-direction: column;
+            align-items: start;
+            padding: 20px 8px;
+            width: 100%;
+        }
+
+        &::before {
+            content:'';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            display: none;
+            z-index: 1;
+            background: url(../../images/icons/menu-line.svg) 0 0/auto 100% no-repeat;
+
+            @include media('<widescreen'){
+                display: block;
+            }
         }
     }
         
@@ -123,44 +159,17 @@
         line-height: 140%;
         letter-spacing: 0.7px;
         text-transform: uppercase;
-        box-shadow: inset 0px 0px 25px transparent;
         transition: $anim_03;
-        padding: 10px;  
+        padding: 2px 6px;  
 
-        &::before,
-        &::after {
-            content:'';
-            position: absolute;
-            width: 0;
-            height: 0;
-            transition: .5s;
-        }   
-
-        &::after {
-            top: -1px;
-            left: -1px;
-            border-top: 1px solid transparent;
-            border-left: 1px solid transparent;        
-        }
-
-        &::before {
-            bottom: -1px;
-            right: -1px;
-            border-bottom: 1px solid transparent;
-            border-right: 1px solid transparent;
-            
+        @include media('<widescreen'){
+            font-size: 32px;
+            padding: 1px 20px;
         }
 
         &:hover {
-            color: rgba($green4F, .8);
-
-            &::before,
-            &::after {
-                width: calc(50% + 3px);
-                height: calc(50% + 3px);
-                border-color: rgba($white, .8);
-                
-            }
+            background-color: $white;
+            color: $black03;
         }
         
     }
@@ -169,6 +178,39 @@
         position: relative;
         min-width: 170px;
         min-height: 20px;
+
+        @include media('<widescreen'){
+           min-width: 100%;
+           min-height: auto;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           border-top: 1px solid rgba($white, .3);
+           padding-bottom: 40px;
+        }
+
+        @include media('<tablet'){
+            padding-bottom: 0;
+        }
+    }
+
+    .yer {
+        display: none;
+        flex: 1 0 auto;
+        margin: 0;
+        color: rgba($white, .3);
+        font-family: $PlexMono;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        padding: 20px;
+
+        @include media('<widescreen'){
+            display: block;
+            border-right: 1px solid rgba($white, .3);
+        }
     }
 
     .song-btn {
@@ -184,6 +226,11 @@
         padding: 0;
         overflow: hidden;
         transition: all .3s ease .3s;
+
+        @include media('<widescreen'){
+            position: relative;
+            margin: 20px;
+        }
 
         &.mute {
             width: 100%;
@@ -302,7 +349,7 @@
     outline: none;
     background: none;
 
-    @include media('<desktop'){
+    @include media('<widescreen'){
         display: block;
     }
 
