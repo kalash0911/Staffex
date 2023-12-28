@@ -299,16 +299,25 @@
         gap: 8px;
         min-height: 20px;
 
-        &::after {
+        &::after,
+        &::before {
             content:'';
             position: absolute;
-            left: 50%;
-            transform: translate(-50%);
+            left: 0;
             bottom: 0;
-            width: 0;
             height: 1px;
-            background:  rgba($white, .3);
+
             transition: $anim_03;
+        }
+
+        &::after {
+            width: 0; 
+            background: $white;          
+        }
+
+        &::before {
+            width: 100%;
+            background:  rgba($white, .3);           
         }
 
         &:hover {
@@ -361,13 +370,11 @@
         height: 2px;
         background-color: $white;
         border-radius: 10px;
-        transition: all .7s ease 0s;
     }
     
     &::before, &::after{
         content:'';
         position: absolute;
-        right: 0;
         height: 2px;
         width: 100%;
         background-color: $white;
@@ -376,9 +383,149 @@
 
     &::before{
         top: 0;
+        right: 0;
     }
 
     &::after{
         bottom: 0;
+        left: 0;
+    }
+
+    $burger-anim-speed: .5s;
+    $burger-anim-steps: 4;
+
+    &.burger_active {
+
+        span {
+            animation: burger-line3 $burger-anim-speed steps($burger-anim-steps) forwards;
+        }
+
+        &::before{
+            animation: burger-line2 $burger-anim-speed steps($burger-anim-steps) forwards;
+        }
+    
+        &::after{
+            animation: burger-line1 $burger-anim-speed steps($burger-anim-steps) forwards;
+        }
+    }
+
+    &.burger_finish {
+
+        span {
+            animation: burger-line3-rev $burger-anim-speed steps($burger-anim-steps) forwards;
+        }
+
+        &::before{
+            animation: burger-line2-rev $burger-anim-speed steps($burger-anim-steps) forwards;
+        }
+    
+        &::after{
+            animation: burger-line1-rev $burger-anim-speed steps($burger-anim-steps) forwards ;
+        }
+    }
+
+}
+
+@keyframes burger-line1 {
+    0%{
+        transform: rotate(0);
+        bottom: 0;
+    }
+    50%{
+        transform: rotate(-90deg);
+        bottom: 45%;
+        left: -15px;
+    }
+    100%{
+        transform: rotate(-45deg);
+        bottom: 45%;
+    }
+    
+}
+
+@keyframes burger-line2 {
+    0%{
+        transform: rotate(0);
+        top: 0;
+    }
+    50%{
+        transform: rotate(90deg);
+        top: 45%;
+        right: -15px;
+    }
+    100%{
+        transform: rotate(45deg);
+        top: 45%;
+    }
+}
+
+@keyframes burger-line1-rev {
+    0%{
+        transform: rotate(-45deg);
+        bottom: 45%;
+
+    }
+    50%{
+        transform: rotate(-90deg);
+        bottom: 45%;
+        left: -15px;
+    }
+    100%{
+        transform: rotate(0);
+        bottom: 0;
+    }
+    
+}
+
+@keyframes burger-line2-rev {
+    0%{
+        transform: rotate(45deg);
+        top: 45%;
+    }
+    50%{
+        transform: rotate(90deg);
+        top: 45%;
+        right: -15px;
+    }
+    100%{
+        transform: rotate(0);
+        top: 0;
+    }
+}
+
+@keyframes burger-line3{
+
+    0%{
+        transform: translate(0) rotate(0);
+        opacity: 1;
+    }
+
+    50%{
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+
+    100%{
+        transform: translateY(40px) rotate(90deg);
+        opacity: 0;
+    }
+}
+
+
+@keyframes burger-line3-rev{
+
+    0%{
+        transform: translateY(40px) rotate(90deg);
+        opacity: 0;
+    }
+
+    50%{
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+
+    100%{
+        transform: translate(0) rotate(0);
+        opacity: 1;
     }
 }
