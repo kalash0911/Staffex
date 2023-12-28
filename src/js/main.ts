@@ -161,14 +161,15 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.song-btn audio');
 
   if (songBtn && audio) {
-    audio.removeAttribute('muted');
+    audio.style.display = 'none';
+    audio.setAttribute('muted', 'false');
     audio.muted = false;
     songBtn.addEventListener('click', function () {
       if (!audio.muted) {
-        audio.setAttribute('muted', 'false');
+        audio.setAttribute('muted', 'true');
         audio.muted = true;
       } else {
-        audio.removeAttribute('muted');
+        audio.setAttribute('muted', 'false');
         audio.muted = false;
       }
 
