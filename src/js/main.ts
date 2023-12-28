@@ -165,12 +165,10 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.setAttribute('muted', 'false');
     audio.muted = false;
     songBtn.addEventListener('click', function () {
-      if (!audio.muted) {
-        audio.setAttribute('muted', 'true');
-        audio.muted = true;
+      if (!audio.paused) {
+        audio.pause();
       } else {
-        audio.setAttribute('muted', 'false');
-        audio.muted = false;
+        audio.play();
       }
 
       songBtn.classList.toggle('mute');
