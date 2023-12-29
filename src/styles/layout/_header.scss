@@ -142,7 +142,7 @@
             height: 100%;
             display: none;
             z-index: 1;
-            background: url(../../images/icons/menu-line.svg) 0 0/auto 100% no-repeat;
+            background: url(../images/icons/menu-line.svg) 0 0/auto 100% no-repeat;
 
             @include media('<widescreen'){
                 display: block;
