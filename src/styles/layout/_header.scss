@@ -192,6 +192,10 @@
         @include media('<tablet'){
             padding-bottom: 0;
         }
+
+        @include media('<phone'){
+            align-items: flex-start;
+        }
     }
 
     .yer {
@@ -210,6 +214,10 @@
         @include media('<widescreen'){
             display: block;
             border-right: 1px solid rgba($white, .3);
+        }
+
+        @include media('<phone'){
+            padding: 20px 20px 90px 20px;
         }
     }
 
