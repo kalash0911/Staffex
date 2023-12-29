@@ -223,8 +223,7 @@ function checkScreenSize() {
         speed: 2000,
 
         autoplay: {
-            delay: 0,
-            disableOnInteraction: false,
+            delay: 2,
         },
 
         breakpoints: {
