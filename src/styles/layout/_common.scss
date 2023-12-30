@@ -775,15 +775,21 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        min-height: 80px;
     }
 
     .avatar {
         position: relative;
         width: 80px;
-        height: 80px;
+        height: 0;
         border: 0.5px solid rgba($white, .3);
         backdrop-filter: blur(12px);
         overflow: hidden;
+        transition: all .7s ease-in .5s;
+
+        &.show {
+            height: 80px;
+        }
     }
 
     .name {
@@ -794,6 +800,14 @@
         line-height: 100%;
         text-transform: uppercase;
         margin-bottom: 10px;
+        opacity: 0;
+        transform: translate(50px);
+        transition: all .7s ease-in .5s;
+
+        &.show {
+            opacity: 1;
+            transform: translate(0);
+        }
 
         span {
             font-weight: 500;
@@ -815,9 +829,11 @@
     .icon-wrap {
         display: flex;
         gap: 26px;
+        margin-bottom: 15px;
     }
 
     .icon {
+        position: relative;
         width: 50px;
         height: 50px;
         display: grid;
@@ -832,6 +848,195 @@
             line-height: 100%;
             letter-spacing: -0.18px;
             text-transform: uppercase;
+        }
+    }
+
+    $width-num: -3px;
+    $anim-speed: 2s;
+    $anim-steps: 2;
+
+    .icon-line {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border: 1px solid rgba($white, .3);
+
+        &.top-left-line {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+
+            animation: top-left-anim $anim-speed steps($anim-steps) infinite;
+        }
+
+        &.top-right-line {
+            top: 0;
+            right: 0;
+            border-left: none;
+            border-bottom: none;
+
+            animation: top-right-anim $anim-speed steps($anim-steps) infinite;
+        }
+
+        &.bot-left-line {
+            bottom: 0;
+            left: 0;
+            border-top: none;
+            border-right: none;
+
+            animation: bottom-left-anim $anim-speed steps($anim-steps) infinite;
+        }
+
+        &.bot-right-line {
+            bottom: 0;
+            right: 0;
+            border-top: none;
+            border-left: none;
+
+            animation: bottom-right-anim $anim-speed steps($anim-steps) infinite;
+        }
+    }
+
+    @keyframes top-left-anim {
+        0%{
+            top: 0;
+            left: 0;
+        }
+
+        1%{
+            top: $width-num;
+            left: $width-num;
+        }
+
+        30%{
+            top: 0px;
+            left: 0px;
+        }
+
+        100%{
+            top: 0;
+            left: 0;
+        }
+    }
+
+    @keyframes top-right-anim {
+        0%{
+            top: 0;
+            right: 0;
+        }
+
+        1%{
+            top: $width-num;
+            right: $width-num;
+        }
+
+        30%{
+            top: 0px;
+            right: 0px;
+        }
+
+        100%{
+            top: 0;
+            right: 0;
+        }
+    }
+
+    @keyframes bottom-left-anim {
+        0%{
+            bottom: 0;
+            left: 0;
+        }
+
+        1%{
+            bottom: $width-num;
+            left: $width-num;
+        }
+
+        30%{
+            bottom: 0px;
+            left: 0px;
+        }
+
+        100%{
+            bottom: 0;
+            left: 0;
+        }
+    }
+
+    @keyframes bottom-right-anim {
+        0%{
+            bottom: 0;
+            right: 0;
+        }
+
+        1%{
+            bottom: $width-num;
+            right: $width-num;
+        }
+
+        30%{
+            bottom: 0px;
+            right: 0px;
+        }
+
+        100%{
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    .loop-line {
+        display: flex;
+        width: 100%;
+        max-width: 206px;
+        white-space: nowrap;
+        overflow: hidden;
+
+        img {
+            height: 9px;
+            min-width: 206px;
+            animation: scroll 8s infinite linear;
+            overflow: hidden;
+        }
+    }
+
+    @keyframes scroll{
+        0% {
+          transform: translate(0, 0);
+        }
+      
+        100% {
+          transform: translate(-100%, 0);
+        }
+    }
+
+
+    .item {
+        width: 100%;
+        max-width: 320px;
+        padding: 18px 24px;
+        border: 0.5px solid rgba($white, .3);
+        background: rgba($black, .3);
+        backdrop-filter: blur(15px);
+    }
+
+    .item-icon-wrap {
+        margin-bottom: 12px;
+    }
+
+    .title {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .text {
+        font-size: 14px;
+        color: rgba($white, .7);
+
+        span {
+            font-weight: 500;
+            color: $white;
         }
     }
 }
