@@ -5,6 +5,7 @@
     border-radius: 6px;
     border: 0.5px solid rgba($white, .3);
     height: calc(100vh - 40px);
+    transition: $anim_07;
 
     @include media('<tablet'){
         border: none;
@@ -108,6 +109,146 @@
                 background: #19f006;            
             }
         }
+    }
+}
+
+$width-num: -3px;
+$anim-speed: 2s;
+$anim-steps: 2;
+
+.icon-line {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba($white, .3);
+
+    @include media('<tablet'){
+        width: 11px;
+        height: 11px;
+    }
+
+    &.top-left-line {
+        top: 0;
+        left: 0;
+        border-right: none;
+        border-bottom: none;
+
+        animation: top-left-anim $anim-speed steps($anim-steps) infinite;
+    }
+
+    &.top-right-line {
+        top: 0;
+        right: 0;
+        border-left: none;
+        border-bottom: none;
+
+        animation: top-right-anim $anim-speed steps($anim-steps) infinite;
+    }
+
+    &.bot-left-line {
+        bottom: 0;
+        left: 0;
+        border-top: none;
+        border-right: none;
+
+        animation: bottom-left-anim $anim-speed steps($anim-steps) infinite;
+    }
+
+    &.bot-right-line {
+        bottom: 0;
+        right: 0;
+        border-top: none;
+        border-left: none;
+
+        animation: bottom-right-anim $anim-speed steps($anim-steps) infinite;
+    }
+}
+
+@keyframes top-left-anim {
+    0%{
+        top: 0;
+        left: 0;
+    }
+
+    1%{
+        top: $width-num;
+        left: $width-num;
+    }
+
+    30%{
+        top: 0px;
+        left: 0px;
+    }
+
+    100%{
+        top: 0;
+        left: 0;
+    }
+}
+
+@keyframes top-right-anim {
+    0%{
+        top: 0;
+        right: 0;
+    }
+
+    1%{
+        top: $width-num;
+        right: $width-num;
+    }
+
+    30%{
+        top: 0px;
+        right: 0px;
+    }
+
+    100%{
+        top: 0;
+        right: 0;
+    }
+}
+
+@keyframes bottom-left-anim {
+    0%{
+        bottom: 0;
+        left: 0;
+    }
+
+    1%{
+        bottom: $width-num;
+        left: $width-num;
+    }
+
+    30%{
+        bottom: 0px;
+        left: 0px;
+    }
+
+    100%{
+        bottom: 0;
+        left: 0;
+    }
+}
+
+@keyframes bottom-right-anim {
+    0%{
+        bottom: 0;
+        right: 0;
+    }
+
+    1%{
+        bottom: $width-num;
+        right: $width-num;
+    }
+
+    30%{
+        bottom: 0px;
+        right: 0px;
+    }
+
+    100%{
+        bottom: 0;
+        right: 0;
     }
 }
 
@@ -864,7 +1005,7 @@
     .info-block {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 40px;
+        margin-bottom: -60px;
 
         @include media('<tablet_s'){
             align-items: flex-start;
@@ -987,146 +1128,6 @@
             @include media('<tablet'){
                 transform: scale(.8);
             } 
-        }
-    }
-
-    $width-num: -3px;
-    $anim-speed: 2s;
-    $anim-steps: 2;
-
-    .icon-line {
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        border: 1px solid rgba($white, .3);
-
-        @include media('<tablet'){
-            width: 11px;
-            height: 11px;
-        }
-
-        &.top-left-line {
-            top: 0;
-            left: 0;
-            border-right: none;
-            border-bottom: none;
-
-            animation: top-left-anim $anim-speed steps($anim-steps) infinite;
-        }
-
-        &.top-right-line {
-            top: 0;
-            right: 0;
-            border-left: none;
-            border-bottom: none;
-
-            animation: top-right-anim $anim-speed steps($anim-steps) infinite;
-        }
-
-        &.bot-left-line {
-            bottom: 0;
-            left: 0;
-            border-top: none;
-            border-right: none;
-
-            animation: bottom-left-anim $anim-speed steps($anim-steps) infinite;
-        }
-
-        &.bot-right-line {
-            bottom: 0;
-            right: 0;
-            border-top: none;
-            border-left: none;
-
-            animation: bottom-right-anim $anim-speed steps($anim-steps) infinite;
-        }
-    }
-
-    @keyframes top-left-anim {
-        0%{
-            top: 0;
-            left: 0;
-        }
-
-        1%{
-            top: $width-num;
-            left: $width-num;
-        }
-
-        30%{
-            top: 0px;
-            left: 0px;
-        }
-
-        100%{
-            top: 0;
-            left: 0;
-        }
-    }
-
-    @keyframes top-right-anim {
-        0%{
-            top: 0;
-            right: 0;
-        }
-
-        1%{
-            top: $width-num;
-            right: $width-num;
-        }
-
-        30%{
-            top: 0px;
-            right: 0px;
-        }
-
-        100%{
-            top: 0;
-            right: 0;
-        }
-    }
-
-    @keyframes bottom-left-anim {
-        0%{
-            bottom: 0;
-            left: 0;
-        }
-
-        1%{
-            bottom: $width-num;
-            left: $width-num;
-        }
-
-        30%{
-            bottom: 0px;
-            left: 0px;
-        }
-
-        100%{
-            bottom: 0;
-            left: 0;
-        }
-    }
-
-    @keyframes bottom-right-anim {
-        0%{
-            bottom: 0;
-            right: 0;
-        }
-
-        1%{
-            bottom: $width-num;
-            right: $width-num;
-        }
-
-        30%{
-            bottom: 0px;
-            right: 0px;
-        }
-
-        100%{
-            bottom: 0;
-            right: 0;
         }
     }
 
@@ -1464,13 +1465,10 @@
         max-width: 380px;
         left: 50%;
         transform: translate(-50%);
-        bottom: 80px;
-
-        @include media('<widescreen_x'){
-            bottom: 10%;
-        }
+        top: 75%;
 
         @include media('<desktop'){
+            top: auto;
             bottom: -100px;
             min-width: 300px;
         }
@@ -1585,5 +1583,114 @@
         @include media('<phone'){
             right: 60px;
         }
+    }
+}
+
+/* ------------------------------control-section------------------- */
+
+.control-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 120px;
+
+    @include media('<tablet'){
+        padding-top: 80px;
+    }
+
+    &::after {
+        content:'';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 200px;
+        opacity: 0.8;
+        background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);
+    }
+
+    &::before {
+        content:'';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, #000 100%);
+        z-index: -1;
+
+        @include media('<phone'){
+            opacity: 0.6;
+        }
+    }
+
+    .bg {
+        z-index: -2;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1 0 auto;
+        gap: 40px;
+    }
+
+    .text-wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+        opacity: 0;
+        transition: all .7s ease .3s;
+
+        &.show {
+            opacity: 1;
+        }
+    }
+
+    .title {
+        font-size: 48px;
+        margin-bottom: 16px;
+
+        @include media('<tablet'){
+            font-size: 36px;
+        }
+    }
+
+    .text {
+        max-width: 660px;
+        margin: 0 auto;
+        font-size: 20px;
+
+        @include media('<tablet'){
+            font-size: 16px;
+        }
+    }
+
+    .block {
+        position: relative;
+        margin-bottom: 40px;
+
+        @include media('<tablet'){
+            margin: 0;
+        }
+    }
+
+    .img {
+        display: block;
+        width: 310px;
+        margin: 0 auto;
+    }
+
+    .main-btn {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: 30px;
+        width: 100%;
+        max-width: 380px;
+        z-index: 2;
     }
 }

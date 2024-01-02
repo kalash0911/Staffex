@@ -26,6 +26,7 @@
     padding: 20px 0;
     z-index: 5;
     border-bottom: 0.5px solid rgba($white, .3);
+    transition: $anim_07;
 
     .container {
         display: flex;
