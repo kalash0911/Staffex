@@ -341,7 +341,6 @@ clickButtons.forEach(function (button) {
 });
 
 
-
 /* For pre-bot auto paly video */
 
 interface ScrollHandler {
@@ -378,7 +377,79 @@ function handleScroll(event: Event): void {
 const scrollHandler: ScrollHandler = handleScroll;
 window.addEventListener('scroll', scrollHandler);
 
+/* For tabs */
 
+window.onload = () => {
+    function changeTab(tabNumber: number): void {
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabContents.forEach((content) => {
+            content.classList.remove('active');
+        });
 
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach((button) => {
+            button.classList.remove('active');
+        });
 
+        const selectedTabContent = document.getElementById(`content${tabNumber}`);
+        const selectedTabButton = document.getElementById(`tab${tabNumber}`);
 
+        if (selectedTabContent && selectedTabButton) {
+            selectedTabContent.classList.add('active');
+            selectedTabButton.classList.add('active');
+        }
+    }
+
+    (window as any).changeTab = changeTab;
+};
+
+/* For accordions */
+
+document.addEventListener("DOMContentLoaded", function () {
+    let accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function () {
+            toggleAccordion(this);
+        });
+    });
+
+    // Делаем первый аккордеон активным
+    let firstAccordion = document.querySelector('.accordion-item');
+    if (firstAccordion) {
+        firstAccordion.classList.add('active');
+        let firstContent = firstAccordion.querySelector('.accordion-content');
+        // @ts-ignore
+        firstContent.style.maxHeight = firstContent.scrollHeight + "px";
+    }
+
+    function toggleAccordion(header) {
+        let item = header.parentElement;
+
+        if (item && item.classList.contains('accordion-item')) {
+            let isOpen = item.classList.toggle('active');
+            let content = item.querySelector('.accordion-content');
+
+            if (isOpen) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
+
+            // Закрыть остальные аккордеоны
+            closeOtherAccordions(item);
+        }
+    }
+
+    function closeOtherAccordions(currentItem) {
+        let allItems = document.querySelectorAll('.accordion-item');
+        allItems.forEach(item => {
+            if (item !== currentItem) {
+                item.classList.remove('active');
+                let content = item.querySelector('.accordion-content');
+                // @ts-ignore
+                content.style.maxHeight = null;
+            }
+        });
+    }
+});

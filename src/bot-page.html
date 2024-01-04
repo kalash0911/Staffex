@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staffex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="/styles/main.scss">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+
+<body>
+  <div id="wrapper-page">
+    
+    <main id="main">
+      
+      {{> header }}
+
+      <section class="bot-page-section">
+
+        <div class="container">
+
+          <div class="content">
+
+            <div class="video-wrap">
+
+              <div class="name-box">
+                <div class="avatar anim">
+                  <img class="bot" src="./images/avatar2.webp" alt="Bot">
+                </div>
+                <div class="text-wrap">
+                  <p class="name anim">secretary <span>Monica</span></p>
+                  <p class="price">$<span class="count-progress" data-animated="false" data-speed="1" data-step="50">20000</span></p>
+                </div>
+              </div>
+
+              <div class="video-block">
+
+                <video class="bot video-play" autoplay muted src="./files/bot2.webm"></video>
+
+              </div>
+
+            </div>
+
+            <div class="tex-wrap">
+
+              <div class="tab-container">
+
+                <div class="tabs">
+                  <button id="tab1" class="tab-button click-song active" onclick="changeTab(1)">basic features</button>
+                  <button id="tab2" class="tab-button click-song" onclick="changeTab(2)">Additional features</button>
+                </div>
+
+                <div id="content1" class="tab-content active">
+
+                  <ol class="accordion">
+
+                    <li class="accordion-item active">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Appointment Scheduling and Calendar Management&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Email Management&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Data Entry and Management&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Task Management and To-Do Lists&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Meeting Preparation&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Information Retrieval and Research&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Personal Reminders&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;File Organization&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Language and Translation Support&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+
+                    <li class="accordion-item">
+                      <button class="accordion-header" >
+                        <span class="arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <g clip-path="url(#clip0_812_56)">
+                              <path d="M0.439575 14L0.439575 0L13.5515 7.00026L0.439575 14Z" fill-opacity="0.7"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_812_56">
+                                <rect width="14" height="14"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                        <span class="accordion-title">&#60;Expense Tracking and Reporting&#62;</span>
+                      </button>
+                      <div class="accordion-content">
+                        <p class="accordion-text"><span>Helps manage</span> the user's calendar, <span>schedule</span> appointments, meetings, and reminders, and sends notifications for upcoming events.</p>
+                      </div>   
+                    </li>
+                    
+                  </ol>
+
+                </div>
+                <div id="content2" class="tab-content">
+                  <p>Content for Tab 2</p>
+                </div>
+              </div>
+
+              <a class="main-btn click-song" href="#">
+                <span class="btn-text">order secretary</span>
+                <span class="icon-line top-left-line"></span>
+                <span class="icon-line top-right-line"></span>
+                <span class="icon-line bot-left-line"></span>
+                <span class="icon-line bot-right-line"></span>
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>     
+
+  </div>
+
+  <script type="module" src="/js/main.ts"></script>
+
+</body>
+
+</html>
