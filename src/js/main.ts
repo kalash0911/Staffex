@@ -327,3 +327,58 @@ if (document.querySelectorAll(".count-progress").length) {
 }
 
 
+/* For clicl song */
+
+function playSound() {
+    var audio = new Audio('../files/click-song.mp3');
+    audio.play();
+}
+
+var clickButtons = document.querySelectorAll('.click-song');
+
+clickButtons.forEach(function (button) {
+    button.addEventListener('click', playSound);
+});
+
+
+
+/* For pre-bot auto paly video */
+
+interface ScrollHandler {
+    (event: Event): void;
+}
+
+function isElementInViewport(el: HTMLElement): boolean {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+function handleScroll(event: Event): void {
+    const videoElement = document.querySelector('.bot.layer-2.video-play') as HTMLVideoElement;
+
+    if (videoElement && isElementInViewport(videoElement)) {
+        if (videoElement.paused) {
+            videoElement.play().then(() => {
+                setTimeout(() => {
+                    videoElement.pause();
+                }, videoElement.duration * 1000);
+            }).catch((error) => {
+                console.error('Ошибка воспроизведения видео:', error);
+            });
+        }
+        window.removeEventListener('scroll', scrollHandler);
+    }
+}
+
+const scrollHandler: ScrollHandler = handleScroll;
+window.addEventListener('scroll', scrollHandler);
+
+
+
+
+

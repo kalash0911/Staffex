@@ -899,10 +899,10 @@ $anim-steps: 2;
         position: absolute;
         left: 50%;
         bottom: 0;
-        width: 500px;
+        width: 1500px;
 
         @include media('<widescreen'){
-            width: 400px;
+            width: 1300px;
         }
     }
 
