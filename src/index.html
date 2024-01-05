@@ -124,7 +124,7 @@
           <section class="prev-bot-section">
             <div class="content">
               <video class="bg layer-1" autoplay muted loop src="./files/pre-bot-bg.webm"></video>
-              <video class="bot layer-2 video-play" autoplay muted src="./files/bot2.webm"></video>
+              <video class="bot layer-2 video-play bot-video" autoplay muted src="./files/bot1.webm"></video>
               <div class="container layer-3">
                 <h2 class="title shuffle anim">Secretary</h2>
               </div>
@@ -315,7 +315,7 @@
           <section class="prev-bot-section">
             <div class="content">
               <video class="bg layer-1" autoplay muted loop src="./files/pre-bot-bg.webm"></video>
-              <video class="bot layer-2" autoplay muted src="./files/bot3.webm"></video>
+              <video class="bot layer-2 video-play bot-video" autoplay muted src="./files/bot2.webm"></video>
               <div class="container layer-3">
                 <h2 class="title shuffle anim">smm manager</h2>
               </div>
@@ -506,7 +506,7 @@
           <section class="prev-bot-section">
             <div class="content">
               <video class="bg layer-1" autoplay muted loop src="./files/pre-bot-bg.webm"></video>
-              <video class="bot layer-2" autoplay muted src="./files/bot1.webm"></video>
+              <video class="bot layer-2 video-play bot-video" autoplay muted src="./files/bot3.webm"></video>
               <div class="container layer-3">
                 <h2 class="title shuffle anim">Accountant</h2>
               </div>
@@ -736,6 +736,25 @@
   </div>
 
   <script type="module" src="/js/main.ts"></script>
+
+  <script>
+    function supportsHEVCAlpha() {
+      const navigator = window.navigator;
+      const ua = navigator.userAgent.toLowerCase()
+      const hasMediaCapabilities = !!(navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo)
+      const isSafari = ((ua.indexOf('safari') != -1) && (!(ua.indexOf('chrome') != -1) && (ua.indexOf('version/') != -1)))
+      const isiphone = (/iPad|iPhone|iPod/.test(navigator.userAgent)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+      return (isSafari || isiphone) && hasMediaCapabilities
+    }
+  
+    const playerBots = document.querySelectorAll('.bot-video');
+  
+    playerBots.forEach((video, ind) => {
+      video.src = supportsHEVCAlpha() ? `../files/bot${ind + 1}.mov` : `../files/bot${ind + 1}.webm`;
+    })
+
+  
+  </script>
 
 </body>
 
