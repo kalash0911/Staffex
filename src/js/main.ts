@@ -375,7 +375,7 @@ clickButtons.forEach(function (button) {
 });
 
 
-/* For pre-bot auto paly video */
+/* For scroll auto paly video */
 
 interface ScrollHandler {
     (event: Event): void;

@@ -1058,10 +1058,16 @@ $anim-steps: 2;
         transform: translate(-50%);
         bottom: 0;
         width: 1500px;
+        z-index: 3;
 
         @include media('<widescreen'){
             width: 1300px;
         }
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
     }
 
     .content {
@@ -1688,6 +1694,7 @@ $anim-steps: 2;
     display: flex;
     flex-direction: column;
     padding-top: 120px;
+    overflow: hidden;
 
     @include media('<laptop'){
         padding-top: 80px;
@@ -1775,8 +1782,9 @@ $anim-steps: 2;
     }
 
     .img {
+        position: relative;
         display: block;
-        width: 310px;
+        max-height: 450px;
         margin: 0 auto;
 
         @include media('<laptop'){
@@ -1785,6 +1793,34 @@ $anim-steps: 2;
 
         @include media('<desktop'){
             width: 310px;
+        }
+    }
+
+    .mocap {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%);
+        width: 310px;
+        z-index: 1;
+    }
+
+    .video {
+        display: block;
+        width: 260px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 25px;
+        transform: translateY(30px);
+
+        @include media('<laptop'){
+            width: 240px;
+            transform: translateY(25px);
+        }
+
+        @include media('<desktop'){
+            width: 260px;
+            transform: translateY(30px);
         }
     }
 
