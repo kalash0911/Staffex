@@ -330,7 +330,7 @@ if (document.querySelectorAll(".count-progress").length) {
 /* For clicl song */
 
 function playSound() {
-    var audio = new Audio('../files/click-song.mp3');
+    var audio = new Audio('./files/click-song.mp3');
     audio.play();
 }
 
@@ -358,7 +358,7 @@ function isElementInViewport(el: HTMLElement): boolean {
 }
 
 function handleScroll(event: Event): void {
-    const videoElement = document.querySelector('.bot.layer-2.video-play') as HTMLVideoElement;
+    const videoElement = document.querySelector('.video-play') as HTMLVideoElement;
 
     if (videoElement && isElementInViewport(videoElement)) {
         if (videoElement.paused) {
@@ -367,7 +367,7 @@ function handleScroll(event: Event): void {
                     videoElement.pause();
                 }, videoElement.duration * 1000);
             }).catch((error) => {
-                console.error('Ошибка воспроизведения видео:', error);
+                console.error('Error', error);
             });
         }
         window.removeEventListener('scroll', scrollHandler);
@@ -414,7 +414,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Делаем первый аккордеон активным
     let firstAccordion = document.querySelector('.accordion-item');
     if (firstAccordion) {
         firstAccordion.classList.add('active');
@@ -436,7 +435,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 content.style.maxHeight = null;
             }
 
-            // Закрыть остальные аккордеоны
             closeOtherAccordions(item);
         }
     }

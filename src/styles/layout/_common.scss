@@ -1073,7 +1073,7 @@ $anim-steps: 2;
     }
 
     @include media('<tablet_s'){
-        padding: 40px 0;
+        padding: 40px 0 180px 0;
     }
 
     &::before {
@@ -1120,11 +1120,10 @@ $anim-steps: 2;
     .info-block {
         display: flex;
         justify-content: space-between;
-        margin-bottom: -60px;
+        margin-bottom: 20px;
 
         @include media('<tablet_s'){
             align-items: flex-start;
-            margin: 0;
         }
     }
 
@@ -1517,7 +1516,7 @@ $anim-steps: 2;
 
         @include media('<tablet_s'){
             bottom: 50px;
-            z-index: 1;
+            z-index: 2;
         }
     }
 }
