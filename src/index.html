@@ -750,7 +750,7 @@
     const playerBots = document.querySelectorAll('.bot-video');
   
     playerBots.forEach((video, ind) => {
-      video.src = supportsHEVCAlpha() ? `../files/bot${ind + 1}.mov` : `../files/bot${ind + 1}.webm`;
+      video.src = supportsHEVCAlpha() ? `./files/bot${ind + 1}.mov` : `./files/bot${ind + 1}.webm`;
     })
 
   
