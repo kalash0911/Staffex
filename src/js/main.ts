@@ -60,7 +60,7 @@ function toggleFullPage() {
         document.documentElement.clientWidth ||
         document.body.clientWidth;
 
-    if (screenSize <= 767) {
+    if (screenSize <= 1024) {
         if (fullpageInstance) {
             fullpageInstance.destroy('all');
             fullpageInstance = null;
@@ -99,60 +99,94 @@ for (let elm of elements) {
 }
 
 /* Text effect */
-
 document.addEventListener('DOMContentLoaded', function () {
     const shuffleElements = document.querySelectorAll('.shuffle');
-    const speed = 50;
 
-    function updateText(element, originalText, iteration) {
-        let shuffledText = '';
-        const textLength = originalText.length;
+    if (shuffleElements.length > 0) {
+        const speed = 50;
 
-        for (let i = 0; i < textLength; i++) {
-            const randomIndex = Math.floor(Math.random() * textLength);
-            shuffledText += originalText.charAt(randomIndex);
+        function updateText(element, originalText, iteration) {
+            let shuffledText = '';
+            const textLength = originalText.length;
+
+            for (let i = 0; i < textLength; i++) {
+                const randomIndex = Math.floor(Math.random() * textLength);
+                shuffledText += originalText.charAt(randomIndex);
+            }
+
+            element.textContent = shuffledText;
+
+            if (shuffledText !== originalText && iteration < 20) {
+                setTimeout(() => updateText(element, originalText, iteration + 1), speed);
+            } else {
+                setTimeout(() => {
+                    element.textContent = originalText;
+                }, speed);
+            }
         }
 
-        element.textContent = shuffledText;
+        function handleShowClass(element) {
+            const originalText = element.textContent;
 
-        if (shuffledText !== originalText && iteration < 20) {
-            setTimeout(() => updateText(element, originalText, iteration + 1), speed);
-        } else {
-            setTimeout(() => {
-                element.textContent = originalText;
-            }, speed);
+            if (element.classList.contains('show') && !element.classList.contains('shuffled')) {
+                element.classList.add('shuffled');
+                updateText(element, originalText, 0);
+            }
         }
-    }
 
-    function handleShowClass(element) {
-        const originalText = element.textContent;
-
-        if (element.classList.contains('show')) {
-            updateText(element, originalText, 0);
-        }
-    }
-
-    shuffleElements.forEach(function (shuffleElement) {
-        handleShowClass(shuffleElement);
-
-        const observer = new MutationObserver(() => {
+        shuffleElements.forEach(function (shuffleElement) {
             handleShowClass(shuffleElement);
-        });
 
-        observer.observe(shuffleElement, { attributes: true });
-    });
+            const observer = new MutationObserver(() => {
+                handleShowClass(shuffleElement);
+            });
+
+            observer.observe(shuffleElement, { attributes: true });
+        });
+    }
 });
 
 /* Mouse move effect */
+const mousemoveSection = document.querySelector('.mousemove');
 
-document.addEventListener('mousemove', (e) => {
+if (mousemoveSection) {
+    document.addEventListener('mousemove', (e) => {
+        const sectionRect = mousemoveSection.getBoundingClientRect();
+
+        if (
+            e.clientX >= sectionRect.left &&
+            e.clientX <= sectionRect.right &&
+            e.clientY >= sectionRect.top &&
+            e.clientY <= sectionRect.bottom
+        ) {
+            applyMouseMoveStyles(e);
+        } else {
+            removeMouseMoveStyles();
+        }
+    });
+
+    mousemoveSection.addEventListener('mouseleave', () => {
+        removeMouseMoveStyles();
+    });
+}
+
+function applyMouseMoveStyles(e) {
     Object.assign(document.documentElement, {
         style: `
-		--move-x: ${(e.clientX - window.innerWidth / 2) * -0.003}deg;
-		--move-y: ${(e.clientY - window.innerHeight / 2) * 0.005}deg;
-		`,
+            --move-x: ${(e.clientX - window.innerWidth / 2) * -0.003}deg;
+            --move-y: ${(e.clientY - window.innerHeight / 2) * 0.005}deg;
+        `,
     });
-});
+}
+
+function removeMouseMoveStyles() {
+    Object.assign(document.documentElement, {
+        style: `
+            --move-x: 0deg;
+            --move-y: 0deg;
+        `,
+    });
+}
 
 /* Song Btn */
 document.addEventListener('DOMContentLoaded', function () {
@@ -215,7 +249,7 @@ window.addEventListener('load', function () {
 
 function checkScreenSize() {
     var screenWidth = window.innerWidth;
-    var threshold = 768;
+    var threshold = 1024;
 
     // @ts-ignore
     var mySwiper = new Swiper('.about-slider', {

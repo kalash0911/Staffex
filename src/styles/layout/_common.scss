@@ -7,7 +7,7 @@
     height: calc(100vh - 40px);
     transition: $anim_07;
 
-    @include media('<tablet'){
+    @include media('<desktop'){
         border: none;
         margin: 0;
         overflow: visible;
@@ -26,7 +26,7 @@
     margin: 20px;
     border: 0.5px solid rgba($white, .3);
 
-    @include media('<tablet'){
+    @include media('<desktop'){
         border: none;
         margin: 0;
     }
@@ -378,7 +378,7 @@ $anim-steps: 2;
 	overflow: hidden;
     transform: rotateX(var(--move-y)) rotateY(var(--move-x));
 
-    @include media('<tablet'){
+    @include media('<desktop'){
         height: 100vh;
         transform: none;
     }
@@ -396,7 +396,7 @@ $anim-steps: 2;
         will-change: transform;
         transition: transform var(--transition);
 
-        @include media('<tablet'){
+        @include media('<desktop'){
             min-height: 100vh;
             transform: none;
         }
@@ -513,6 +513,7 @@ $anim-steps: 2;
 
         @include media('<desktop'){
             left: -10%;
+            bottom: -20%;
         }
 
         @include media('<tablet'){
@@ -618,8 +619,16 @@ $anim-steps: 2;
     flex-direction: column;
     min-height: 100%;
 
+    @include media('<laptop'){
+        padding: 80px 0;
+    }
+
+    @include media('<desktop'){
+        padding: 80px 0 0 0;
+    }
+
     @include media('<phone'){
-        padding: 20px 0 60px 0;
+        padding: 20px 0 0 0;
     }
 
     .container {
@@ -630,7 +639,11 @@ $anim-steps: 2;
     }
 
     .text-block {
-        margin-bottom: 40px;
+        margin-bottom: 20px;
+
+        @include media('<desktop'){
+            margin-bottom: 40px;
+        }
     }
 
     .title {
@@ -638,6 +651,16 @@ $anim-steps: 2;
         margin: 0 auto 40px auto;
         opacity: 0;
         transition: $anim_1;
+
+        @include media('<laptop'){
+            font-size: 52px;
+            max-width: 726px;
+            margin: 0 auto 20px auto;
+        }
+
+        @include media('<desktop'){
+            margin: 0 auto 40px auto;
+        }
 
         @include media('<phone'){
             text-align: center;
@@ -760,12 +783,23 @@ $anim-steps: 2;
 
     .about-slider {
         overflow: visible;
+
+        @include media('<desktop'){
+            width: 100%;
+        }
     }
 
     .swiper-wrapper {
 
+        @include media('<desktop'){
+            width: 100%;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
         @include media('<tablet'){
-            max-width: 335px;
             flex-direction: column;
             row-gap: 60px;
             margin: 0 auto;
@@ -779,6 +813,10 @@ $anim-steps: 2;
         opacity: 0;
         transform: translateY(50px);
         transition: all $slide-anim ease 0s;
+
+        @include media('<desktop'){
+            max-width: 335px;
+        }
 
         &.show {
             opacity: 1;
@@ -797,7 +835,7 @@ $anim-steps: 2;
             &.show {
                 transition-delay: .3s;
 
-                @include media('<tablet'){
+                @include media('<desktop'){
                     transition-delay: 0s;
                 }
             }
@@ -808,7 +846,7 @@ $anim-steps: 2;
             &.show {
                 transition-delay: .6s;
 
-                @include media('<tablet'){
+                @include media('<desktop'){
                     transition-delay: 0s;
                 }
             }
@@ -952,6 +990,10 @@ $anim-steps: 2;
     .icon-wrap {
         margin-bottom: 40px;
 
+        @include media('<laptop'){
+            margin-bottom: 20px;
+        }
+
         @include media('<tablet'){
             text-align: center;
         }
@@ -1013,6 +1055,7 @@ $anim-steps: 2;
     .bot {
         position: absolute;
         left: 50%;
+        transform: translate(-50%);
         bottom: 0;
         width: 1500px;
 
@@ -1045,18 +1088,6 @@ $anim-steps: 2;
             font-size: 100px;
         }
     }
-
-    .layer-1 {
-        transform: translateZ(-350px) scale(1.5);
-    }
-
-    .layer-2 {
-        transform: translateZ(100px) scale(1) translate(-50%);
-    }
-
-    .layer-3 {
-        transform: translateZ(-100px);
-    }
 }
 
 /* ------------------------------bot-section----------------------- */
@@ -1068,8 +1099,8 @@ $anim-steps: 2;
     flex-direction: column;
     padding: 120px 0 0 0;
 
-    @include media('<desktop'){
-        padding: 80px 0;
+    @include media('<laptop'){
+        padding: 80px 0 0 0;
     }
 
     @include media('<tablet_s'){
@@ -1093,10 +1124,12 @@ $anim-steps: 2;
     }
 
     .container {
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         flex: 1 0 auto;
+        z-index: 2;
     }
 
     .bg {
@@ -1121,6 +1154,14 @@ $anim-steps: 2;
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;
+
+        @include media('<laptop'){
+            margin-bottom: 0px;
+        }
+
+        @include media('<widescreen_x'){
+            margin-bottom: 20px;
+        }
 
         @include media('<tablet_s'){
             align-items: flex-start;
@@ -1227,9 +1268,12 @@ $anim-steps: 2;
         align-items: flex-end;
         z-index: 1;
 
+        @include media('<laptop'){
+            gap: 25px;
+        }
+
         @include media('<desktop'){
             padding: 0;
-            gap: 25px;
         }
 
         @include media('<tablet_s'){
@@ -1260,7 +1304,8 @@ $anim-steps: 2;
                     .line-wrap {
                         width: 200px;
 
-                        @include media('<widescreen_x'){
+                        @include media('<laptop'){
+                            width: 150px;
                             top: 50%;
                         }
                     }
@@ -1307,7 +1352,7 @@ $anim-steps: 2;
         opacity: 0;
         transition: opacity .7s ease;
 
-        @include media('<widescreen_x'){
+        @include media('<laptop'){
             padding: 10px 15px;
         }
 
@@ -1332,7 +1377,7 @@ $anim-steps: 2;
 
             .line-wrap {
 
-                @include media('<widescreen_x'){
+                @include media('<laptop'){
                     width: 150px;
                 }
             }
@@ -1349,7 +1394,7 @@ $anim-steps: 2;
                 top: 35%;
                 width: 200px;
 
-                @include media('<widescreen_x'){
+                @include media('<laptop'){
                     width: 150px;
                 }
             }
@@ -1458,8 +1503,8 @@ $anim-steps: 2;
         position: relative;
         max-width: 500px;
 
-        @include media('<widescreen_x'){
-            max-width: 400px;
+        @include media('<laptop'){
+            max-width: 350px;
         }
         
         @include media('<desktop'){
@@ -1487,7 +1532,8 @@ $anim-steps: 2;
         }
 
         .bot {
-    
+            transform: translateY(15px);
+
             @include media('<desktop'){
                 display: none;
             }
@@ -1495,6 +1541,13 @@ $anim-steps: 2;
             @include media('<tablet_s'){
                 display: block;
                 margin: 0 auto;
+            }
+
+            &.bot-2 {
+
+                @include media('<laptop'){
+                    width: 300px;
+                }
             }
         }
     }
@@ -1636,7 +1689,7 @@ $anim-steps: 2;
     flex-direction: column;
     padding-top: 120px;
 
-    @include media('<tablet'){
+    @include media('<laptop'){
         padding-top: 80px;
     }
 
@@ -1676,7 +1729,7 @@ $anim-steps: 2;
         flex-direction: column;
         justify-content: space-between;
         flex: 1 0 auto;
-        gap: 40px;
+        gap: 20px;
     }
 
     .text-wrap {
@@ -1695,8 +1748,10 @@ $anim-steps: 2;
         font-size: 48px;
         margin-bottom: 16px;
 
-        @include media('<tablet'){
+        @include media('<laptop'){
             font-size: 36px;
+            max-width: 600px;
+            margin: 0 auto 16px auto;
         }
     }
 
@@ -1705,7 +1760,7 @@ $anim-steps: 2;
         margin: 0 auto;
         font-size: 20px;
 
-        @include media('<tablet'){
+        @include media('<laptop'){
             font-size: 16px;
         }
     }
@@ -1723,6 +1778,14 @@ $anim-steps: 2;
         display: block;
         width: 310px;
         margin: 0 auto;
+
+        @include media('<laptop'){
+            width: 280px;
+        }
+
+        @include media('<desktop'){
+            width: 310px;
+        }
     }
 
     .main-btn {
@@ -1733,6 +1796,14 @@ $anim-steps: 2;
         width: 100%;
         max-width: 380px;
         z-index: 2;
+
+        @include media('<laptop'){
+            bottom: 15px;
+        }
+
+        @include media('<desktop'){
+            bottom: 30px;
+        }
     }
 }
 
@@ -2030,7 +2101,6 @@ $anim-steps: 2;
         transition: $anim_05;
     }
 
-
     .accordion-content {
         position: relative;
         max-height: 0;
@@ -2147,6 +2217,11 @@ $anim-steps: 2;
     .item-img-wrap {
         position: relative;
         margin-bottom: -20px;
+
+        @include media('<phone'){
+            max-width: 220px;
+            margin: 0 auto -20px auto;
+        }
 
         &::before {
             content:'';
