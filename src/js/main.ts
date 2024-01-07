@@ -10,6 +10,7 @@ import { initAudioClicks } from './audio';
 import { initAutoPlayVideoOnScroll } from './autoplay-video';
 import { initTabs } from './tabs';
 import { initAccordions } from './accordions';
+import { initFixedBtnsOnScroll } from './fixed-btns';
 
 document.addEventListener('DOMContentLoaded', () => {
   initBurgerMenu();
@@ -24,4 +25,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initAutoPlayVideoOnScroll();
   initTabs();
   initAccordions();
+  // initFixedBtnsOnScroll();
 });
