@@ -37,6 +37,10 @@
   position: relative;
 }
 
+.section  {
+	overflow: hidden;
+}
+
 .fp-tableCell {
   display: flex;
   flex-direction: column;
