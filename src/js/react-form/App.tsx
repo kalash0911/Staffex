@@ -53,7 +53,11 @@ const App = () => {
                                 return (
                                     question.isViewed && (
                                         <li
-                                            className="list-item"
+                                            className={`list-item ${
+                                                ind === questionIndex
+                                                    ? 'active'
+                                                    : ''
+                                            }`}
                                             onClick={() =>
                                                 setCurrentQuestionIndex(ind)
                                             }
