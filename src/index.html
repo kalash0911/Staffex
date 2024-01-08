@@ -700,6 +700,7 @@
               <h2 class="title anim">SPEAK with YOUR NEW worker Easily</h2>
               <div class="img-wrap">
                 <img src="./images/speak-img.webp" alt="Speak" width="3800" height="3100">
+                <video class="video video-play speak-video" autoplay muted loop playsinline data-keepplaying src="./files/speak1.mov"></video>
               </div>
             </div>
           </section>
@@ -754,6 +755,12 @@
   
     playerBots.forEach((video, ind) => {
       video.src = supportsHEVCAlpha() ? `./files/bot${ind + 1}.mov` : `./files/bot${ind + 1}.webm`;
+    })
+
+    const playerSpeak = document.querySelectorAll('.speak-video');
+  
+    playerSpeak.forEach((video, ind) => {
+      video.src = supportsHEVCAlpha() ? `./files/speak${ind + 1}.mov` : `./files/speak${ind + 1}.webm`;
     })
 
   

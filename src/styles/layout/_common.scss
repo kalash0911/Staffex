@@ -1684,6 +1684,15 @@ $anim-steps: 2;
             right: 60px;
         }
     }
+
+    .video {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        width: 900px;
+        height: auto;
+    }
 }
 
 /* ----------------------------control-section--------------------- */
