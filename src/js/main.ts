@@ -25,5 +25,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initAutoPlayVideoOnScroll();
   initTabs();
   initAccordions();
-  // initFixedBtnsOnScroll();
+  initFixedBtnsOnScroll();
 });
