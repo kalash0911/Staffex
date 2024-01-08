@@ -1520,6 +1520,7 @@ $anim-steps: 2;
         @include media('<tablet_s'){
             order: -1;
             max-width: 100%;
+            overflow: hidden;
         }
 
         &::after {
