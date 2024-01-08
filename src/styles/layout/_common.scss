@@ -17,6 +17,7 @@
 
   .body_lock & {
     overflow: hidden !important;
+    height: 100vh;
   }
 }
 
@@ -401,33 +402,42 @@ $anim-steps: 2;
     transform: rotateX(var(--move-y)) rotateY(var(--move-x));
     will-change: transform;
     transition: transform var(--transition);
+    z-index: 2;
 
     @include media('<desktop') {
       min-height: 100vh;
       transform: none;
     }
+  }
 
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 450px;
-      display: none;
-      z-index: 1;
-      background: $black03;
-      background: linear-gradient(180deg, rgba($black03, 0) 0%, $black03 100%);
+  .grad {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 110vw;
+    z-index: 1;
 
-      @include media('<tablet') {
-        display: block;
-      }
+    &.grad-top {
+        top: -5%;
+        height: 40%;
+        background: linear-gradient(0deg, rgba($black03, 0) 0%, $black03 100%);
 
-      @include media('<phone') {
-        background: linear-gradient(180deg, rgba($black03, 0) 0%, $black03 50%);
-      }
+        @include media('<tablet') {
+            height: 20%;
+        }
+    }
+
+    &.grad-bot {
+        bottom: -5%;
+        height: 25%;
+        background: linear-gradient(180deg, rgba($black03, 0) 0%, $black03 100%);
+
+        @include media('<phone') {
+            bottom: 200px;
+        }
     }
   }
+
 
   .container {
     position: relative;
@@ -437,6 +447,7 @@ $anim-steps: 2;
     flex: 1 0 auto;
     z-index: 1;
     padding: 100px 40px;
+    z-index: 2;
 
     @include media('<tablet') {
       z-index: 2;
@@ -451,6 +462,7 @@ $anim-steps: 2;
   .text {
     max-width: 413px;
     opacity: 0;
+    font-size: 20px;
     transition: $anim_2;
 
     &.show {
@@ -460,6 +472,10 @@ $anim-steps: 2;
     @include media('<tablet') {
       max-width: 100%;
       text-align: center;
+    }
+
+    @include media('<phone') {
+        font-size: 16px;
     }
   }
 
@@ -504,43 +520,15 @@ $anim-steps: 2;
   .bot {
     position: absolute;
     display: block;
-    bottom: 0;
+    bottom: -30px;
   }
 
   .bot1 {
     width: 700px;
-    left: 0;
-    bottom: -20%;
-
-    @include media('<widescreen') {
-      width: 500px;
-      bottom: -15%;
-    }
-
-    @include media('<desktop') {
-      left: -10%;
-      bottom: -20%;
-    }
-
-    @include media('<tablet') {
-      width: 60%;
-      bottom: 0;
-    }
-
-    @include media('<phone') {
-      width: 250px;
-      left: -60px;
-      bottom: 220px;
-    }
-  }
-
-  .bot2 {
-    width: 600px;
     left: 50%;
-    bottom: -15%;
 
     @include media('<widescreen') {
-      width: 400px;
+      width: 420px;
     }
 
     @include media('<tablet') {
@@ -549,34 +537,58 @@ $anim-steps: 2;
     }
 
     @include media('<phone') {
-      width: 200px;
-      bottom: 230px;
+      width: 260px;
+      bottom: 200px;
     }
   }
 
-  .bot3 {
-    width: 550px;
+  .bot2 {
+    width: 870px;
     right: 0;
-    bottom: -30%;
+    bottom: -140px;
 
-    @include media('<widescreen') {
-      width: 450px;
-      bottom: -35%;
+    @include media('<1700px') {
+        right: -10%;
     }
 
-    @include media('<desktop') {
-      right: -10%;
+    @include media('<widescreen') {
+      width: 550px;
     }
 
     @include media('<tablet') {
       width: 55%;
-      bottom: -15%;
+      bottom: 0;
     }
 
     @include media('<phone') {
-      width: 245px;
-      bottom: 100px;
+      width: 270px;
+      bottom: 200px;
       right: -70px;
+    }
+  }
+
+  .bot3 {
+    width:  800px;
+    left: 0;
+    bottom: -140px;
+
+    @include media('<1700px') {
+        left: -10%;
+    }
+
+    @include media('<widescreen') {
+      width: 500px;
+    }
+
+    @include media('<tablet') {
+      width: 50%;
+      bottom: 0;
+    }
+
+    @include media('<phone') {
+      width: 250px;
+      left: -60px;
+      bottom: 200px;
     }
   }
 
@@ -1577,7 +1589,7 @@ $anim-steps: 2;
   flex-direction: column;
   padding-top: 120px;
 
-  @include media('<tablet') {
+  @include media('<laptop') {
     padding-top: 80px;
   }
 
@@ -1626,11 +1638,19 @@ $anim-steps: 2;
     }
   }
 
-  .title {
+  .text-wrap {
     width: 100vw;
     max-width: 65%;
+
+    @include media('<tablet') {
+        max-width: 100%;
+    }
+  }
+
+  .title {
     font-size: 132px;
-    margin: 0;
+    line-height: 80%;
+    margin-bottom: 24px;
     opacity: 0;
     transition: all 0.7s ease 0.3s;
 
@@ -1653,37 +1673,98 @@ $anim-steps: 2;
     }
   }
 
-  .img-wrap {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 900px;
-    z-index: -1;
-
-    @include media('<widescreen_x') {
-      width: 700px;
-    }
-
-    @include media('<desktop') {
-      width: 600px;
-    }
+  .text-box {
+    position: relative;
+    max-width: 8px;
+    overflow: hidden;
+    transition: all 0.7s ease-in 0.5s;
+    z-index: 1;
 
     @include media('<tablet') {
-      position: relative;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: 20px;
+        z-index: 1;
+        text-align: center;
+        width: 100vw;
+        max-width: 90% !important;
+        max-height: 0;
+
     }
 
-    @include media('<phone') {
-      right: 60px;
+    &.show {
+      max-width: 420px;
+
+      @include media('<tablet') {
+        max-height: 200px;
+      }
     }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: url(../images/icons/about-line.svg) 0 0 / auto 100% no-repeat;
+
+      @include media('<tablet') {
+        width: 100%;
+        height: 9px;
+        background: url(../images/icons/about-line-mob.svg) 0 0/100% auto
+          no-repeat;
+      }
+    }
+
+    &::before {
+      left: 0;
+      transform: rotate(180deg);
+    }
+
+    &::after {
+      right: 0;
+
+      @include media('<tablet') {
+        left: 0;
+        right: auto;
+        top: auto;
+        bottom: 0;
+      }
+    }
+  }
+    
+  .text {
+    padding: 24px;
+    margin: 0;
   }
 
   .video {
     position: absolute;
     right: 0;
     bottom: 0;
-    z-index: 1;
+    z-index: -1;
     width: 1400px;
     height: auto;
+
+    @include media('<widescreen_x') {
+        width: 1200px;
+    }
+  
+    @include media('<desktop') {
+        width: 1000px;
+    }
+  
+    @include media('<tablet') {
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+  
+    @include media('<phone') {
+        right: 60px;
+    }
   }
 }
 
