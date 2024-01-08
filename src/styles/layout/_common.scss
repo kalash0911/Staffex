@@ -415,7 +415,12 @@ $anim-steps: 2;
     left: 50%;
     transform: translate(-50%);
     width: 110vw;
+    min-height: 400px;
     z-index: 1;
+
+    @include media('<tablet') {
+        min-height: 0;
+    }
 
     &.grad-top {
         top: -5%;
@@ -1297,6 +1302,7 @@ $anim-steps: 2;
       align-items: flex-start;
 
       .item {
+
         .line-wrap {
           flex-direction: row-reverse;
           top: 15%;
@@ -1313,11 +1319,28 @@ $anim-steps: 2;
 
         &:nth-child(1) {
           .line-wrap {
-            width: 200px;
+            width: 400px;
 
             @include media('<laptop') {
-              width: 150px;
+              width: 200px;
               top: 50%;
+            }
+
+            &::before {
+                right: -2px;
+                bottom: -2px;
+
+                @include media('<laptop') {
+                    bottom: 10px;
+                }
+            }
+
+            .line-block {
+                top: -10px;
+
+                @include media('<laptop') {
+                    top: 0;
+                }
             }
           }
         }
@@ -1334,6 +1357,10 @@ $anim-steps: 2;
 
             &::before {
               bottom: 1px;
+
+                @include media('<laptop') {
+                    bottom: -2px;
+                }
             }
 
             .line-block {
@@ -1343,8 +1370,13 @@ $anim-steps: 2;
         }
 
         &:nth-child(3) {
+            
           .line-wrap {
-            width: 100px;
+            width: 150px;
+
+            &::before {
+                bottom: 4px;
+            }
           }
         }
       }
@@ -1386,7 +1418,7 @@ $anim-steps: 2;
 
       .line-wrap {
         @include media('<laptop') {
-          width: 150px;
+          width: 200px;
         }
       }
     }
@@ -1403,7 +1435,7 @@ $anim-steps: 2;
         width: 200px;
 
         @include media('<laptop') {
-          width: 150px;
+          width: 300px;
         }
       }
 
@@ -1479,6 +1511,10 @@ $anim-steps: 2;
       height: 5px;
       border-radius: 50%;
       background-color: $white;
+
+      @include media('<laptop') {
+        top: -1px;
+      }
     }
   }
 
@@ -1508,10 +1544,10 @@ $anim-steps: 2;
 
   .bot-wrap {
     position: relative;
-    max-width: 500px;
+    max-width: 650px;
 
     @include media('<laptop') {
-      max-width: 350px;
+      max-width: 500px;
     }
 
     @include media('<desktop') {
@@ -1540,7 +1576,6 @@ $anim-steps: 2;
     }
 
     .bot {
-      transform: translateY(15px);
 
       @include media('<desktop') {
         display: none;
@@ -1549,12 +1584,6 @@ $anim-steps: 2;
       @include media('<tablet_s') {
         display: block;
         margin: 0 auto;
-      }
-
-      &.bot-2 {
-        @include media('<laptop') {
-          width: 300px;
-        }
       }
     }
   }
@@ -1693,14 +1722,6 @@ $anim-steps: 2;
 
     }
 
-    &.show {
-      max-width: 420px;
-
-      @include media('<tablet') {
-        max-height: 200px;
-      }
-    }
-
     &::before,
     &::after {
       content: '';
@@ -1734,10 +1755,26 @@ $anim-steps: 2;
       }
     }
   }
+
+  &.show {
+
+    .text-box {
+        max-width: 420px;
+    
+        @include media('<tablet') {
+          max-height: 200px;
+        }
+    }
+  }
     
   .text {
+    min-width: 420px;
     padding: 24px;
     margin: 0;
+
+    @include media('<tablet') {
+        min-width: 0;
+    }
   }
 
   .video {

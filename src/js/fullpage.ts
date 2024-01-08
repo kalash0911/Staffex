@@ -11,7 +11,7 @@ export const initFullpageJs = () => {
       document.documentElement.clientWidth ||
       document.body.clientWidth;
 
-    if (screenSize <= 767) {
+    if (screenSize <= 1024) {
       if (fullpageInstance) {
         fullpageInstance.destroy('all');
         fullpageInstance = null;
