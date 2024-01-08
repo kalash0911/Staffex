@@ -1603,8 +1603,19 @@ $anim-steps: 2;
     }
 
     @include media('<tablet_s') {
-      bottom: 50px;
-      z-index: 2;
+        display: none;
+        position: relative;
+        top: -120px;
+        margin-bottom: -100px;
+        order: -1;
+    }
+
+    &.mob {
+        display: none;
+
+        @include media('<tablet_s') {
+            display: block;
+        }
     }
   }
 }
