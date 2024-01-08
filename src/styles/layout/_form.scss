@@ -1,0 +1,178 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.form-section {
+
+    .title-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px 0;
+        border-bottom: 1px solid rgba($white, .3)
+    }
+
+    .main-title {
+        margin: 0;
+        color: $white;
+        font-family: $DegularText;
+        font-size: 72px;
+        font-weight: 500;
+        line-height: 80%;
+        text-transform: uppercase;
+    }
+
+    .block {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        flex: 1 0 auto;
+    }
+
+    .list-wrap {
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 40px 0;
+        border-right: 1px solid rgba($white, .3)
+    }
+
+    .list-box {
+        padding: 0 40px 16px 0;
+        border-bottom: 1px solid rgba($white, .3)
+    }
+
+    .title {
+        margin-bottom: 16px;
+        color: $white;
+        font-family: $PlexMono;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 140%;
+        letter-spacing: 0.32px;
+        text-transform: uppercase;
+    }
+
+    .list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .list-link {
+        border: none;
+        background: none;
+        padding: 0;
+        color: rgba($white, .5);
+        font-family: $DegularText;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 140%;
+        text-transform: uppercase;
+    }
+    
+    .text-bot {
+        margin: 0;
+        padding-right: 40px;
+        color: rgba($white, .5);
+        font-family: $PlexMono;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 140%;
+    }
+
+    .content-wrap {
+        width: 65%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 40px;
+        padding: 40px 0 40px 0;
+    }
+
+    .conetnt-box {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .text-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .text {
+        margin: 0;
+    }
+
+    .input-wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .label {
+        color: rgba($white, .8);
+        font-family: $DegularText;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 140%;
+        text-transform: capitalize;
+
+        sup {
+            color: $green4F;
+        }
+    }
+
+    .input {
+        padding: 10px 0;
+        border: none;
+        background: none;
+        border-bottom: 1px solid rgba($white, .3);
+        color: $white;
+        font-family: $DegularText;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+        transition: $anim_03;
+        outline:none;
+
+        &::placeholder {
+            color: rgba($white, .6);
+        }
+
+        &:focus,
+        &:focus-visible,
+        &:focus-within {
+            border-bottom: 1px solid $green4F;
+        }
+    }
+
+    .btn-wrap {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+    }
+    
+    .main-btn {
+        min-width: 200px;
+    }
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 40px;
+
+    .input-wrap {
+        width: 45%;
+    }
+}
