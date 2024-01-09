@@ -53,7 +53,7 @@ export const initFixedBtnsOnScroll = () => {
             start: 'bottom bottom-=50px',
             end: 'top bottom',
             endTrigger: '#speak-section', // Next section id
-            markers: true,
+            // markers: true,
             // onToggle: (self) => console.log('toggled, isActive:', self.isActive),
             // onUpdate: (self) => {
             //   console.log(
@@ -83,9 +83,7 @@ export const initFixedBtnsOnScroll = () => {
             }
         };
 
-        console.log('screenSize: ', screenSize);
         if (screenSize >= 600) {
-            console.log(123123);
             secretaryST.disable();
             smmST.disable();
             accountantST.disable();
