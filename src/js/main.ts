@@ -28,27 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
     initFixedBtnsOnScroll();
 });
 
-// Получаем все элементы с классом "element-item" и "bot-element"
 const elementItems = document.querySelectorAll('.element-item');
 const botElements = document.querySelectorAll('.bot-element');
 
-// Проверка на наличие элементов
 if (elementItems.length > 0 && botElements.length > 0) {
     function addActiveClass(event) {
-        // Добавляем класс "active" для элемента, по которому было совершено событие
         event.currentTarget.classList.toggle('active');
 
-        // Находим соответствующий элемент с классом "bot-element"
         const botElementIndex = Array.from(elementItems).indexOf(
             event.currentTarget,
         );
         const correspondingBotElement = botElements[botElementIndex];
 
-        // Добавляем класс "active" для соответствующего "bot-element"
         correspondingBotElement.classList.toggle('active');
     }
 
-    // Добавляем обработчик события для каждого элемента с классом "element-item"
     elementItems.forEach((elementItem) => {
         elementItem.addEventListener('click', addActiveClass);
     });
