@@ -4,15 +4,37 @@ export const initLottiesAnimations = () => {
     const config = [
         {
             path: 'files/about-icons',
-            names: ['1', '2', '3', '4', '5', '6'],
+            names: ['about-icon1', 'about-icon2', 'about-icon3', 'about-icon4', 'about-icon5', 'about-icon6'],
+        },
+        {
+            path: 'files/secretary-icons',
+            names: [
+                'secretary-icons1',
+                'secretary-icons2',
+                'secretary-icons3',
+                'secretary-icons4',
+                'secretary-icons5',
+                'secretary-icons6',
+            ],
+        },
+        {
+            path: 'files/smm-icons',
+            names: ['smm-icons1', 'smm-icons2', 'smm-icons3', 'smm-icons4', 'smm-icons5', 'smm-icons6'],
         },
         {
             path: 'files/accountant-icons',
-            names: ['1', '2', '3', '4', '5', '6'],
+            names: [
+                'accountant-icons1',
+                'accountant-icons2',
+                'accountant-icons3',
+                'accountant-icons4',
+                'accountant-icons5',
+                'accountant-icons6',
+            ],
         },
         {
             path: 'files/other-icons',
-            names: ['battery', 'Enegry', 'Percentage'],
+            names: ['battery', 'enegry', 'percentage'],
         },
     ];
 

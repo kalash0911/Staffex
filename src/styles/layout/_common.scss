@@ -30,6 +30,7 @@ html {
   border-radius: 6px;
   margin: 20px;
   border: 0.5px solid rgba($white, 0.3);
+  height: calc(100vh - 40px);
 
   @include media('<desktop') {
     border: none;
@@ -1579,6 +1580,11 @@ $anim-steps: 2;
 		margin-bottom: 12px;
 	}
 
+	.icon-anim {
+		width: 30px;
+		height: 30px;
+	}
+
 	.title {
 		font-size: 16px;
 		margin-bottom: 6px;
@@ -2294,7 +2300,7 @@ $anim-steps: 2;
 .bot-page-section {
   padding-top: 120px;
 
-  @include media('<desktop') {
+  @include media('<laptop') {
     padding-top: 80px;
   }
 
@@ -2316,6 +2322,7 @@ $anim-steps: 2;
     position: relative;
     display: flex;
     align-items: flex-end;
+	justify-content: center;
     flex: 1;
     z-index: -1;
 
@@ -2366,9 +2373,9 @@ $anim-steps: 2;
       width: 500px;
       z-index: -2;
 
-      @include media('<widescreen') {
-        width: 400px;
-      }
+      @include media('<laptop') {
+		width: 350px;
+	  }
 
       @include media('<desktop') {
         width: 100%;
@@ -2388,8 +2395,8 @@ $anim-steps: 2;
     width: 500px;
     z-index: -1;
 
-    @include media('<widescreen') {
-      width: 400px;
+    @include media('<laptop') {
+      width: 350px;
     }
 
     @include media('<desktop') {
@@ -2413,20 +2420,24 @@ $anim-steps: 2;
     left: 0;
   }
 
-  .tex-wrap {
-    width: 100%;
-    max-width: 650px;
-    padding-bottom: 40px;
+	.tex-wrap {
+		width: 100%;
+		max-width: 650px;
+		padding-bottom: 40px;
 
-    @include media('<desktop') {
-      max-width: 100%;
-    }
+		@include media('<laptop') {
+			padding-bottom: 20px;
+		}
 
-    @include media('<phone') {
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
-  }
+		@include media('<desktop') {
+			max-width: 100%;
+		}
+
+		@include media('<phone') {
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+	}
 
   .tabs {
     display: flex;
@@ -2514,6 +2525,12 @@ $anim-steps: 2;
     margin: 0 5px 30px 5px;
     min-height: 640px;
 
+	@include media('<laptop') {
+		min-height: 0px;
+		padding: 15px 30px;
+		margin: 0 5px 15px 5px;
+	}
+
     @include media('<tablet_s') {
       padding: 24px 0;
       border: none;
@@ -2537,6 +2554,10 @@ $anim-steps: 2;
     counter-reset: my-awesome-counter;
     margin: 0;
     padding: 0;
+
+	@include media('<laptop') {
+		gap: 15px;
+	}
   }
 
   .accordion-item {
@@ -2612,18 +2633,22 @@ $anim-steps: 2;
     }
   }
 
-  .accordion-title {
-    text-align: left;
-    color: rgba($white, 0.7);
-    font-family: $PlexMono;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 140%;
-    letter-spacing: 0.32px;
-    text-transform: uppercase;
-    margin: 0;
-    transition: $anim_05;
-  }
+	.accordion-title {
+		text-align: left;
+		color: rgba($white, 0.7);
+		font-family: $PlexMono;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 140%;
+		letter-spacing: 0.32px;
+		text-transform: uppercase;
+		margin: 0;
+		transition: $anim_05;
+
+		@include media('<laptop') {
+			font-size: 14px;
+		}
+	}
 
   .accordion-content {
     position: relative;
@@ -2656,21 +2681,25 @@ $anim-steps: 2;
     }
   }
 
-  .block {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
+  	.block {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 20px;
 
-    @include media('<phone') {
-      flex-wrap: nowrap;
-      overflow: scroll;
-    }
+		@include media('<laptop') {
+			gap: 15px;
+		}
 
-    &::-webkit-scrollbar {
-      height: 0;
-    }
-  }
+		@include media('<phone') {
+			flex-wrap: nowrap;
+			overflow: scroll;
+		}
+
+		&::-webkit-scrollbar {
+			height: 0;
+		}
+  	}
 
   .item {
     position: relative;
@@ -2679,6 +2708,11 @@ $anim-steps: 2;
     border: 0.5px solid rgba($white, 0.3);
     cursor: pointer;
     transition: $anim_03;
+
+	@include media('<laptop') {
+		max-width: 48%;
+		padding: 14px;
+	}
 
     @include media('<phone') {
       max-width: 100%;
@@ -2724,6 +2758,7 @@ $anim-steps: 2;
     height: 24px;
     border: 0.5px solid $green4F;
     z-index: 2;
+    transition: $anim_03;
 
     &::before,
     &::after {
@@ -2733,7 +2768,7 @@ $anim-steps: 2;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      transition: all 0.7s steps(3, end) 0s;
+      transition: all 0.5s steps(3, end) 0s;
       transition: background-color all 0.3s ease 0s;
     }
 
@@ -2748,74 +2783,86 @@ $anim-steps: 2;
     }
   }
 
-  .item-img-wrap {
-    position: relative;
-    margin-bottom: -20px;
-    max-height: 140px;
+  	.item-img-wrap {
+		position: relative;
+		margin-bottom: -20px;
+		max-height: 140px;
 
-    @include media('<phone') {
-      max-width: 220px;
-      margin: 0 auto -20px auto;
-    }
+		@include media('<phone') {
+			max-width: 220px;
+			margin: 0 auto -20px auto;
+		}
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(
-        50% 50% at 50% 50%,
-        rgba(0, 0, 0, 0) 0%,
-        $black03 100%
-      );
-    }
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(
+				50% 50% at 50% 50%,
+				rgba(0, 0, 0, 0) 0%,
+				$black03 100%
+			);
+		}
 
-    img {
-      max-height: 140px;
-    }
-  }
+		img {
+			max-height: 140px;
 
-  .number {
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: rgba($white, 0.3);
-    font-family: $PlexMono;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 140%;
-    letter-spacing: 0.24px;
-    text-transform: uppercase;
-  }
+			@include media('<laptop') {
+				max-height: 70px;
+			}
+		}
+  	}
 
-  .item-text-wrap {
-    position: relative;
-    z-index: 1;
-  }
+	.number {
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: rgba($white, 0.3);
+		font-family: $PlexMono;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 140%;
+		letter-spacing: 0.24px;
+		text-transform: uppercase;
+	}
 
-  .item-title {
-    margin-bottom: 10px;
-    color: $white;
-    font-family: $PlexMono;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 140%;
-    letter-spacing: 0.32px;
-    text-transform: uppercase;
-  }
+	.item-text-wrap {
+		position: relative;
+		z-index: 1;
+	}
 
-  .item-text {
-    color: rgba($white, 0.7);
-    font-family: $DegularText;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 140%;
-    margin: 0;
+	.item-title {
+		margin-bottom: 10px;
+		color: $white;
+		font-family: $PlexMono;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 140%;
+		letter-spacing: 0.32px;
+		text-transform: uppercase;
 
-    span {
-      color: $white;
-    }
-  }
+		@include media('<laptop') {
+			font-size: 12px;
+		}
+	}
+
+	.item-text {
+		color: rgba($white, 0.7);
+		font-family: $DegularText;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 140%;
+		margin: 0;
+
+		@include media('<laptop') {
+			font-size: 12px;
+		}
+
+		span {
+			color: $white;
+		}
+	}
 }
