@@ -1,12 +1,12 @@
 export const initSongBtn = () => {
     const songBtn: HTMLElement | null = document.querySelector('.song-btn');
-    const audio: HTMLAudioElement | null =
-        document.querySelector('.song-btn audio');
+    const audio: HTMLAudioElement | null = document.querySelector('.song-btn audio');
     audio.volume = 0.1;
 
     if (songBtn && audio) {
         audio.style.display = 'none';
         let hasPlayed = false;
+        songBtn.classList.add('mute');
 
         songBtn.addEventListener('click', function () {
             if (!audio.paused) {
@@ -32,20 +32,18 @@ export const initSongBtn = () => {
         audio.addEventListener('play', handleFirstPlay, false);
 
         // Check if user interact with page and play audio
-        let playAttempt = setInterval(() => {
-            if (!hasPlayed) {
-                audio
-                    .play()
-                    .then(() => {
-                        clearInterval(playAttempt);
-                    })
-                    .catch(() => {
-                        console.log(
-                            'Unable to play the audio, User has not interacted yet.',
-                        );
-                        songBtn.classList.add('mute');
-                    });
-            }
-        }, 1000);
+        // let playAttempt = setInterval(() => {
+        //     if (!hasPlayed) {
+        //         audio
+        //             .play()
+        //             .then(() => {
+        //                 clearInterval(playAttempt);
+        //             })
+        //             .catch(() => {
+        //                 console.log('Unable to play the audio, User has not interacted yet.');
+        //                 songBtn.classList.add('mute');
+        //             });
+        //     }
+        // }, 1000);
     }
 };
