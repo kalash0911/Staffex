@@ -2322,6 +2322,14 @@ $anim-steps: 2;
         rgba(0, 0, 0, 0) 42.71%,
         #020202 100%
       );
+
+      @include media('<phone') {
+        background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(0, 0, 0, 0) 42.71%,
+        #020202d5 100%
+      );
+      }
     }
   }
 
@@ -2330,6 +2338,7 @@ $anim-steps: 2;
   }
 
   .video-block {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -2339,14 +2348,14 @@ $anim-steps: 2;
     }
 
     @include media('<phone') {
-      min-height: 400px;
+      max-height: 400px;
       overflow: hidden;
     }
 
     .bot {
       position: relative;
       width: 500px;
-      z-index: -1;
+      z-index: -2;
 
       @include media('<widescreen') {
         width: 400px;
@@ -2356,6 +2365,11 @@ $anim-steps: 2;
         width: 100%;
         max-width: 500px;
       }
+
+      @include media('<phone') {
+        bottom: -200px;
+        max-width: 100%;
+      }
     }
   }
 
@@ -2363,6 +2377,7 @@ $anim-steps: 2;
     opacity: 0;
     position: absolute;
     width: 500px;
+    z-index: -1;
 
     @include media('<widescreen') {
       width: 400px;
@@ -2371,6 +2386,11 @@ $anim-steps: 2;
     @include media('<desktop') {
       width: 100%;
       max-width: 500px;
+    }
+
+    @include media('<phone') {
+      bottom: -200px;
+      max-width: 100%;
     }
 
     &.active {
