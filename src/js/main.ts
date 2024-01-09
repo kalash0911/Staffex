@@ -11,6 +11,7 @@ import { initAutoPlayVideoOnScroll } from './autoplay-video';
 import { initTabs } from './tabs';
 import { initAccordions } from './accordions';
 import { initFixedBtnsOnScroll } from './fixed-btns';
+import './lottie-icons';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBurgerMenu();

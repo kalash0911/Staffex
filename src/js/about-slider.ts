@@ -10,7 +10,8 @@ export const initAboutSlider = () => {
 
         var mySwiper = new Swiper('.about-slider', {
             grabCursor: true,
-            speed: 2000,
+            freeMode: true,
+            speed: 6000,
 
             autoplay: {
                 delay: 2,
@@ -50,14 +51,14 @@ export const initAboutSlider = () => {
 
             on: {
                 init() {
-                    this.autoplay?.stop();
+                    this.autoplay.stop();
 
                     this.el.addEventListener('mouseenter', () => {
-                        this.autoplay?.start();
+                        this.autoplay.start();
                     });
 
                     this.el.addEventListener('mouseleave', () => {
-                        this.autoplay?.stop();
+                        this.autoplay.stop();
                     });
                 },
             },
