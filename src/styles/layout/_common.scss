@@ -98,7 +98,6 @@
         position: relative;
         display: block;
         padding: 15px 30px;
-        opacity: 0.85;
         background: radial-gradient(
         78.49% 85.82% at 50% 50%,
         #5cff4f 0%,
@@ -1174,515 +1173,756 @@ $anim-steps: 2;
 /* ------------------------------bot-section----------------------- */
 
 .bot-section {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 120px 0 0 0;
-
-  @include media('<laptop') {
-    padding: 80px 0 0 0;
-  }
-
-  @include media('<tablet_s') {
-    padding: 40px 0 180px 0;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-    background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgba(0, 0, 0, 0) 0%,
-      #000 100%
-    );
-    z-index: -1;
-
-    @include media('<phone') {
-      opacity: 0.6;
-    }
-  }
-
-  .container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1 0 auto;
-    z-index: 2;
-  }
-
-  .bg {
-    z-index: -2;
-    opacity: 0;
-    transition: all 0.7s ease 0s;
-
-    @include media('<tablet_s') {
-      height: 700px;
-    }
-
-    @include media('<phone') {
-      height: 600px;
-    }
-
-    &.show {
-      opacity: 1;
-    }
-  }
-
-  .info-block {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-
-    @include media('<laptop') {
-      margin-bottom: 0px;
-    }
-
-    @include media('<widescreen_x') {
-      margin-bottom: 20px;
-    }
-
-    @include media('<tablet_s') {
-      align-items: flex-start;
-    }
-  }
-
-  .icon-wrap {
-    display: flex;
-    gap: 26px;
-    margin-bottom: 15px;
-
-    @include media('<tablet_s') {
-      flex-direction: column;
-      margin: 0;
-    }
-  }
-
-  .icon {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    display: grid;
-    place-items: center;
-
-    @include media('<tablet') {
-      width: 36px;
-      height: 36px;
-    }
-
-    p {
-      margin: 0;
-      color: $green4F;
-      font-family: $DegularText;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 100%;
-      letter-spacing: -0.18px;
-      text-transform: uppercase;
-
-      @include media('<tablet') {
-        font-size: 12px;
-      }
-    }
-
-    svg {
-      @include media('<tablet') {
-        transform: scale(0.8);
-      }
-    }
-  }
-
-  .loop-line {
-    display: flex;
-    width: 100%;
-    max-width: 206px;
-    white-space: nowrap;
-    overflow: hidden;
-
-    @include media('<tablet') {
-      display: none;
-    }
-
-    img {
-      height: 9px;
-      min-width: 206px;
-      animation: scroll 8s infinite linear;
-      overflow: hidden;
-    }
-  }
-
-  @keyframes scroll {
-    0% {
-      transform: translate(0, 0);
-    }
-
-    100% {
-      transform: translate(-100%, 0);
-    }
-  }
-
-  .block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-
-    @include media('<desktop') {
-      align-items: stretch;
-      padding-bottom: 120px;
-    }
-
-    @include media('<tablet_s') {
-      flex-direction: column;
-      padding: 0;
-    }
-  }
-
-  .item-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 56px;
-    padding-bottom: 50px;
-    align-items: flex-end;
-    z-index: 1;
-
-    @include media('<laptop') {
-      gap: 25px;
-    }
-
-    @include media('<desktop') {
-      padding: 0;
-    }
-
-    @include media('<tablet_s') {
-      gap: 12px;
-    }
-
-    &.right {
-      align-items: flex-start;
-
-      .item {
-        .line-wrap {
-          flex-direction: row-reverse;
-          top: 15%;
-          left: auto;
-          right: 100%;
-
-          &::before {
-            right: -2px;
-            left: auto;
-            top: auto;
-            bottom: 10px;
-          }
-        }
-
-        &:nth-child(1) {
-          .line-wrap {
-            width: 400px;
-
-            @include media('<laptop') {
-              width: 200px;
-              top: 50%;
-            }
-
-            &::before {
-              right: -2px;
-              bottom: -2px;
-
-              @include media('<laptop') {
-                bottom: 10px;
-              }
-            }
-
-            .line-block {
-              top: -10px;
-
-              @include media('<laptop') {
-                top: 0;
-              }
-            }
-          }
-        }
-
-        &:nth-child(2) {
-          margin-left: 30px;
-
-          @include media('<widescreen_x') {
-            margin: 0;
-          }
-
-          .line-wrap {
-            top: 0;
-
-            &::before {
-              bottom: 1px;
-
-              @include media('<laptop') {
-                bottom: -2px;
-              }
-            }
-
-            .line-block {
-              transform: translateY(-7px);
-            }
-          }
-        }
-
-        &:nth-child(3) {
-          .line-wrap {
-            width: 150px;
-
-            &::before {
-              bottom: 4px;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .item {
-    position: relative;
-    width: 100%;
-    max-width: 320px;
-    padding: 18px 24px;
-    border: 0.5px solid rgba($white, 0.3);
-    background: rgba($black, 0.3);
-    backdrop-filter: blur(15px);
-    opacity: 0;
-    transition: opacity 0.7s ease;
-
-    @include media('<laptop') {
-      padding: 10px 15px;
-    }
-
-    @include media('<tablet_s') {
-      padding: 18px 24px;
-      max-width: 100%;
-    }
-
-    &.show {
-      opacity: 1;
-    }
-
-    &:nth-child(1) {
-      &.show {
-        transition-delay: 0.3s;
-
-        @include media('<tablet_s') {
-          transition-delay: 0s;
-        }
-      }
-
-      .line-wrap {
-        @include media('<laptop') {
-          width: 200px;
-        }
-      }
-    }
-
-    &:nth-child(2) {
-      margin-right: 30px;
-
-      @include media('<widescreen_x') {
-        margin: 0;
-      }
-
-      .line-wrap {
-        top: 35%;
-        width: 200px;
-
-        @include media('<laptop') {
-          width: 300px;
-        }
-      }
-
-      &.show {
-        transition-delay: 0.6s;
-
-        @include media('<tablet_s') {
-          transition-delay: 0s;
-        }
-      }
-    }
-
-    &:nth-child(3) {
-      .line-wrap {
-        top: 0;
-        width: 150px;
-
-        @include media('<widescreen_x') {
-          width: 100px;
-        }
-
-        &::before {
-          top: 22px;
-        }
-      }
-
-      &.show {
-        transition-delay: 0.9s;
-
-        @include media('<tablet_s') {
-          transition-delay: 0s;
-        }
-      }
-    }
-  }
-
-  .item-icon-wrap {
-    margin-bottom: 12px;
-  }
-
-  .title {
-    font-size: 16px;
-    margin-bottom: 6px;
-  }
-
-  .text {
-    font-size: 14px;
-    color: rgba($white, 0.7);
-    margin: 0;
-
-    span {
-      font-weight: 500;
-      color: $white;
-    }
-  }
-
-  .line-wrap {
-    position: absolute;
-    top: 65%;
-    left: 100%;
-    display: flex;
-
-    @include media('<desktop') {
-      display: none;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: -1px;
-      left: -2px;
-      min-width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: $white;
-
-      @include media('<laptop') {
-        top: -1px;
-      }
-    }
-  }
-
-  .line-block {
-    position: relative;
-    min-width: 24px;
-    height: 24px;
-    background-color: rgba($white, 0.3);
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background-color: rgba($white, 0.5);
-    }
-
-    .icon-line {
-      width: 7px;
-      height: 7px;
-    }
-  }
-
-  .bot-wrap {
-    position: relative;
-    max-width: 650px;
-
-    @include media('<laptop') {
-      max-width: 500px;
-    }
-
-    @include media('<desktop') {
-      min-height: 100%;
-    }
-
-    @include media('<tablet_s') {
-      order: -1;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 180px;
-      display: none;
-      background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
-
-      @include media('<tablet_s') {
-        display: block;
-      }
-    }
-
-    .bot {
-      @include media('<desktop') {
-        display: none;
-      }
-
-      @include media('<tablet_s') {
-        display: block;
-        margin: 0 auto;
-      }
-    }
-  }
-
-  .main-btn {
-    position: absolute;
-    width: 100%;
-    max-width: 380px;
-    left: 50%;
-    transform: translate(-50%);
-    top: 75%;
-
-    @include media('<desktop') {
-      top: auto;
-      bottom: -100px;
-      min-width: 300px;
-    }
-
-    @include media('<tablet_s') {
-      display: none;
-      position: relative;
-      top: -120px;
-      margin-bottom: -100px;
-      order: -1;
-    }
-
-    &.mob {
-      display: none;
-
-      @include media('<tablet_s') {
-        display: block;
-        z-index: 15;
-      }
-    }
-  }
+	position: relative;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding: 120px 0 0 0;
+
+	@include media('<laptop') {
+		padding: 80px 0 0 0;
+	}
+
+	@include media('<tablet_s') {
+		padding: 40px 0 180px 0;
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.8;
+		background: radial-gradient(
+		50% 50% at 50% 50%,
+		rgba(0, 0, 0, 0) 0%,
+		#000 100%
+		);
+		z-index: -1;
+
+		@include media('<phone') {
+			opacity: 0.6;
+		}
+	}
+
+	.container {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		flex: 1 0 auto;
+		z-index: 2;
+	}
+
+	.bg {
+		z-index: -2;
+		opacity: 0;
+		transition: all 0.7s ease 0s;
+
+		@include media('<tablet_s') {
+			height: 700px;
+		}
+
+		@include media('<phone') {
+			height: 600px;
+		}
+
+		&.show {
+			opacity: 1;
+		}
+	}
+
+	.info-block {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: -50px;
+
+		@include media('<laptop') {
+			margin-bottom: -30px;
+		}
+
+		@include media('<widescreen_x') {
+			margin-bottom: 20px;
+		}
+
+		@include media('<tablet_s') {
+			align-items: flex-start;
+		}
+	}
+
+	.icon-wrap {
+		display: flex;
+		gap: 26px;
+		margin-bottom: 15px;
+
+		@include media('<tablet_s') {
+			flex-direction: column;
+			margin: 0;
+		}
+	}
+
+	.icon {
+		position: relative;
+		width: 50px;
+		height: 50px;
+		display: grid;
+		place-items: center;
+
+		@include media('<tablet') {
+			width: 36px;
+			height: 36px;
+		}
+
+		p {
+			margin: 0;
+			color: $green4F;
+			font-family: $DegularText;
+			font-size: 18px;
+			font-weight: 700;
+			line-height: 100%;
+			letter-spacing: -0.18px;
+			text-transform: uppercase;
+
+			@include media('<tablet') {
+				font-size: 12px;
+			}
+		}
+
+		svg {
+			@include media('<tablet') {
+				transform: scale(0.8);
+			}
+		}
+	}
+
+	.loop-line {
+		display: flex;
+		width: 100%;
+		max-width: 206px;
+		white-space: nowrap;
+		overflow: hidden;
+
+		@include media('<tablet') {
+			display: none;
+		}
+
+		img {
+			height: 9px;
+			min-width: 206px;
+			animation: scroll 8s infinite linear;
+			overflow: hidden;
+		}
+	}
+
+	@keyframes scroll {
+		0% {
+			transform: translate(0, 0);
+		}
+
+		100% {
+			transform: translate(-100%, 0);
+		}
+	}
+
+	.block {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+
+		@include media('<desktop') {
+			align-items: stretch;
+			padding-bottom: 120px;
+		}
+
+		@include media('<tablet_s') {
+			flex-direction: column;
+			padding: 0;
+		}
+	}
+
+	.item-wrap {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 56px;
+		padding-bottom: 50px;
+		align-items: flex-end;
+		z-index: 1;
+
+		@include media('<laptop') {
+			gap: 25px;
+		}
+
+		@include media('<desktop') {
+			padding: 0;
+		}
+
+		@include media('<tablet_s') {
+			gap: 12px;
+		}
+  	}
+
+	.item {
+		position: relative;
+		width: 100%;
+		max-width: 320px;
+		padding: 18px 24px;
+		border: 0.5px solid rgba($white, 0.3);
+		background: rgba($black, 0.3);
+		backdrop-filter: blur(15px);
+		opacity: 0;
+		transition: opacity 0.7s ease;
+
+		@include media('<laptop') {
+			padding: 10px 15px;
+		}
+
+		@include media('<tablet_s') {
+			padding: 18px 24px;
+			max-width: 100%;
+		}
+
+		&.show {
+			opacity: 1;
+		}
+
+		&:nth-child(1) {
+
+			&.show {
+				transition-delay: 0.3s;
+
+				@include media('<tablet_s') {
+					transition-delay: 0s;
+				}
+			}
+
+			.line-wrap {
+
+				@include media('<laptop') {
+					width: 200px;
+				}
+			}
+		}
+
+		&:nth-child(2) {
+			margin-right: 30px;
+
+			@include media('<widescreen_x') {
+				margin: 0;
+			}
+
+			.line-wrap {
+				top: 65%;
+				width: 300px;
+
+				@include media('<laptop') {
+					width: 170px;
+				}
+			}
+
+			&.show {
+				transition-delay: 0.6s;
+
+				@include media('<tablet_s') {
+					transition-delay: 0s;
+				}
+			}
+		}
+
+		&:nth-child(3) {
+
+			.line-wrap {
+				top: 0;
+				width: 150px;
+
+				@include media('<laptop') {
+					width: 130px;
+				}
+
+				&::before {
+					top: 22px;
+				}
+			}
+
+			&.show {
+				transition-delay: 0.9s;
+
+				@include media('<tablet_s') {
+					transition-delay: 0s;
+				}
+			}
+		}
+	}
+
+	.right {
+		align-items: flex-start;
+
+		.item {
+
+			.line-wrap {
+				flex-direction: row-reverse;
+				top: 15%;
+				left: auto;
+				right: 100%;
+
+				&::before {
+					right: -2px;
+					left: auto;
+					top: auto;
+					bottom: 10px;
+				}
+			}
+
+			&:nth-child(1) {
+
+				.line-wrap {
+					width: 400px;
+
+					@include media('<laptop') {
+						width: 200px;
+						top: 50%;
+					}
+
+					&::before {
+						right: -2px;
+						bottom: -2px;
+
+						@include media('<laptop') {
+							bottom: 10px;
+						}
+					}
+
+					.line-block {
+						top: -10px;
+
+						@include media('<laptop') {
+							top: 0;
+						}
+					}
+				}
+			}
+
+			&:nth-child(2) {
+				margin-left: 30px;
+
+				@include media('<widescreen_x') {
+					margin: 0;
+				}
+
+				.line-wrap {
+					top: 70%;
+
+					@include media('<laptop') {
+						top: 75%;
+					}
+
+					&::before {
+						bottom: -2px;
+
+						@include media('<laptop') {
+							bottom: 3px;
+						}
+					}
+
+					.line-block {
+						transform: translateY(-11px);
+
+						@include media('<laptop') {
+							transform: translateY(-7px);
+						}
+					}
+				}
+			}
+
+			&:nth-child(3) {
+
+				.line-wrap {
+					width: 150px;
+
+					@include media('<laptop') {
+						width: 130px;
+					}
+
+					&::before {
+						bottom: 4px;
+
+						@include media('<laptop') {
+							bottom: 6px;
+						}
+					}
+
+					.line-block {
+						transform: translateY(-11px);
+
+						@include media('<laptop') {
+							transform: translateY(-4px);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.item-icon-wrap {
+		margin-bottom: 12px;
+	}
+
+	.title {
+		font-size: 16px;
+		margin-bottom: 6px;
+	}
+
+	.text {
+		font-size: 14px;
+		color: rgba($white, 0.7);
+		margin: 0;
+
+		span {
+		font-weight: 500;
+		color: $white;
+		}
+	}
+
+	.line-wrap {
+		position: absolute;
+		top: 65%;
+		left: 100%;
+		display: flex;
+
+		@include media('<desktop') {
+			display: none;
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: -1px;
+			left: -2px;
+			min-width: 5px;
+			height: 5px;
+			border-radius: 50%;
+			background-color: $white;
+
+			@include media('<laptop') {
+				top: -1px;
+			}
+		}
+	}
+
+	.line-block {
+		position: relative;
+		min-width: 24px;
+		height: 24px;
+		background-color: rgba($white, 0.3);
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background-color: rgba($white, 0.5);
+		}
+
+		.icon-line {
+			width: 7px;
+			height: 7px;
+		}
+	}
+
+	.bot-wrap {
+		position: relative;
+		max-width: 650px;
+
+		@include media('<laptop') {
+			max-width: 500px;
+		}
+
+		@include media('<desktop') {
+			min-height: 100%;
+		}
+
+		@include media('<tablet_s') {
+			order: -1;
+			max-width: 100%;
+			overflow: hidden;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 180px;
+			display: none;
+			background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+
+			@include media('<tablet_s') {
+				display: block;
+			}
+		}
+
+		.bot {
+			@include media('<desktop') {
+				display: none;
+			}
+
+			@include media('<tablet_s') {
+				display: block;
+				margin: 0 auto;
+			}
+		}
+	}
+
+	.main-btn {
+		position: absolute;
+		width: 100%;
+		max-width: 380px;
+		left: 50%;
+		transform: translate(-50%);
+		top: 75%;
+
+		@include media('<desktop') {
+			top: auto;
+			bottom: -100px;
+			min-width: 300px;
+		}
+
+		@include media('<tablet_s') {
+			display: none;
+			position: relative;
+			top: -120px;
+			margin-bottom: -100px;
+			order: -1;
+		}
+
+		&.mob {
+			display: none;
+
+			@include media('<tablet_s') {
+				display: block;
+				z-index: 15;
+			}
+		}
+	}
+
+	&.bot2 {
+
+		.bot-wrap {
+
+			.bot {
+				transform: translate(25px);
+			}
+		}
+
+		.item {
+	
+			&:nth-child(1) {
+	
+				.line-wrap {
+					width: 250px;
+
+					@include media('<laptop') {
+						width: 210px;
+					}
+					
+					&::before {
+						top: 4px;
+
+						@include media('<laptop') {
+							top: 9px;
+						}
+					}
+				}
+
+				.line-block {
+					bottom: -55px;
+
+					@include media('<laptop') {
+						bottom: -51px;
+					}
+				}
+			}
+	
+			&:nth-child(2) {
+				
+				.line-wrap {
+					top: 75%;
+					width: 230px;
+				}
+			}
+	
+			&:nth-child(3) {
+	
+				.line-wrap {
+					width: 170px;
+	
+					@include media('<laptop') {
+						width: 150px;
+					}
+				}
+			}
+		}
+	
+		.right {
+	
+			.item {
+		
+				&:nth-child(1) {
+	
+					.line-wrap {
+						width: 500px;
+	
+						@include media('<laptop') {
+							width: 200px;
+							top: 50%;
+						}
+
+						&::before {
+							top: auto;
+						}
+					}
+				}
+	
+				&:nth-child(2) {
+	
+					.line-wrap {
+
+						@include media('<laptop') {
+							top: 65%;
+							width: 200px;
+						}
+
+						&::before {
+
+							@include media('<laptop') {
+								bottom: 1px;
+							}
+						}
+					}
+				}
+	
+				&:nth-child(3) {
+
+					.line-wrap {
+						width: 190px;
+
+						@include media('<laptop') {
+							width: 150px;
+						}
+	
+						&::before {
+							bottom: 1px;
+
+							@include media('<laptop') {
+								bottom: 3px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.bot3 {
+
+		.info-block {
+			
+			@include media('<laptop') {
+				margin-bottom: -50px;
+			}
+
+			@include media('<widescreen_x') {
+				margin-bottom: 20px;
+			}
+		}
+
+		.bot-wrap {
+
+			.bot {
+				transform: translate(-20px);
+			}
+		}
+
+		.item {
+	
+			&:nth-child(1) {
+	
+				.line-wrap {
+					width: 280px;
+
+					@include media('<laptop') {
+						top: 20%;
+						width: 200px;
+					}					
+				}
+			}
+	
+			&:nth-child(3) {
+	
+				.line-wrap {
+					width: 90px;
+	
+					@include media('<laptop') {
+						width: 70px;
+					}
+				}
+			}
+		}
+	
+		.right {
+	
+			.item {
+
+				&:nth-child(1) {
+	
+					.line-wrap {
+	
+						@include media('<laptop') {
+							width: 230px;
+						}				
+
+						&::before {
+
+							@include media('<laptop') {
+								bottom: 5px;
+							}
+						}	
+					}
+				}
+			
+				&:nth-child(3) {
+
+					.line-wrap {
+						width: 80px;
+
+						&::before {
+							bottom: 11px;
+
+							@include media('<laptop') {
+								bottom: 10px;
+							}
+						}
+					}
+
+					.line-block {
+						bottom: -10px;
+	
+						@include media('<laptop') {
+							bottom: -5px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 /* -----------------------------speak-section---------------------- */
@@ -2128,7 +2368,7 @@ $anim-steps: 2;
 
   .tex-wrap {
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
     padding-bottom: 40px;
 
     @include media('<desktop') {
@@ -2225,7 +2465,7 @@ $anim-steps: 2;
     border: 1px solid rgba($white, 0.3);
     border-top: none;
     margin: 0 5px 30px 5px;
-    min-height: 615px;
+    min-height: 640px;
 
     @include media('<tablet_s') {
       padding: 24px 0;

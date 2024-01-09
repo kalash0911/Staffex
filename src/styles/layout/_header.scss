@@ -24,22 +24,19 @@
     left: 50%;
     transform: translate(-50%);
     width: calc(100% - 40px);
-    padding: 20px 0;
+    padding: 20px;
     z-index: 5;
     border-bottom: 0.5px solid rgba($white, .3);
     transition: $anim_07;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
 
     @include media('<desktop'){
         position: absolute;
         width: 100%;
         top: 0;
-    }
-
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px;
     }
 
     .logo {
@@ -262,6 +259,7 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 background:  rgba($white, .8);
+                opacity: 0;
             }
         }
        
@@ -288,7 +286,7 @@
         position: absolute;
         width: 2px;
         background: $white;
-        transition: $anim_03;
+        transition: $anim_07;
     }
 
     .line1 {
