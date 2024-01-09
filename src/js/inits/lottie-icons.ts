@@ -1,27 +1,32 @@
 import lottie from 'lottie-web';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const numberOfAnimations = 4;
-
-    const animationsData = Array.from(
-        { length: numberOfAnimations },
-        (_, index) => {
-            const animationNumber = index + 1;
-            return {
-                animationName: `${animationNumber}`,
-                jsonPath: new URL(
-                    `../../public/files/about-icons/${animationNumber}.json`,
-                    import.meta.url,
-                ),
-                elementId: `${animationNumber}`,
-            };
+export const initLottiesAnimations = () => {
+    const config = [
+        {
+            path: 'files/smm-icons',
+            names: ['smm1', 'smm2'],
         },
-    );
+        {
+            path: 'files/secretary-icons',
+            names: ['secretary1', 'secretary2'],
+        },
+    ];
+
+    const animationsData = [];
+
+    config.forEach(({ path, names }) => {
+        names.forEach((name) => {
+            animationsData.push({
+                animationName: name,
+                jsonPath: new URL(`../../public/${path}/${name}.json`, import.meta.url),
+                // path: `../../public/${path}/${name}.json`,
+                elementId: `${name}`,
+            });
+        });
+    });
 
     const animations = animationsData.map((animationData) => {
-        const iconContainer = document.getElementById(
-            animationData.elementId,
-        ) as HTMLDivElement;
+        const iconContainer = document.getElementById(animationData.elementId) as HTMLDivElement;
 
         if (iconContainer) {
             const anim = lottie.loadAnimation({
@@ -54,4 +59,4 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     });
-});
+};

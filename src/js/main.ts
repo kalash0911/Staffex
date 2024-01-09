@@ -12,7 +12,7 @@ import { initTabs } from './inits/tabs';
 import { initAccordions } from './inits/accordions';
 import { initFixedBtnsOnScroll } from './inits/fixed-btns';
 import { initVideoChanges } from './inits/videos-changer';
-import './inits/lottie-icons';
+import { initLottiesAnimations } from './inits/lottie-icons';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBurgerMenu();
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initFixedBtnsOnScroll();
     initVideoChanges();
+    initLottiesAnimations();
 });
 
 const elementItems = document.querySelectorAll('.element-item');
