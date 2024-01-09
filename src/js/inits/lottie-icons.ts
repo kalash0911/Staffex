@@ -3,12 +3,16 @@ import lottie from 'lottie-web';
 export const initLottiesAnimations = () => {
     const config = [
         {
-            path: 'files/smm-icons',
-            names: ['smm1', 'smm2'],
+            path: 'files/about-icons',
+            names: ['1', '2', '3', '4', '5', '6'],
         },
         {
-            path: 'files/secretary-icons',
-            names: ['secretary1', 'secretary2'],
+            path: 'files/accountant-icons',
+            names: ['1', '2', '3', '4', '5', '6'],
+        },
+        {
+            path: 'files/other-icons',
+            names: ['battery', 'Enegry', 'Percentage'],
         },
     ];
 
@@ -18,7 +22,7 @@ export const initLottiesAnimations = () => {
         names.forEach((name) => {
             animationsData.push({
                 animationName: name,
-                jsonPath: new URL(`../../public/${path}/${name}.json`, import.meta.url),
+                jsonPath: new URL(`../../../public/${path}/${name}.json`, import.meta.url),
                 // path: `../../public/${path}/${name}.json`,
                 elementId: `${name}`,
             });
