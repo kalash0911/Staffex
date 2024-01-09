@@ -2378,7 +2378,7 @@ $anim-steps: 2;
       width: 500px;
       z-index: -2;
 
-      @include media('<laptop_x') {
+      @include media('<laptop') {
 		width: 350px;
 	  }
 
@@ -2400,7 +2400,7 @@ $anim-steps: 2;
     width: 500px;
     z-index: -1;
 
-    @include media('<laptop_x') {
+    @include media('<laptop') {
       width: 350px;
     }
 
@@ -2430,7 +2430,7 @@ $anim-steps: 2;
 		max-width: 650px;
 		padding-bottom: 40px;
 
-		@include media('<laptop_x') {
+		@include media('<laptop') {
 			padding-bottom: 20px;
 		}
 
@@ -2530,16 +2530,20 @@ $anim-steps: 2;
     margin: 0 5px 30px 5px;
     min-height: 640px;
 
-	@include media('<laptop_x') {
-		min-height: 0px;
+	@include media('<laptop_m') {
+		min-height: 580px;
 		padding: 15px 30px;
 		margin: 0 5px 15px 5px;
 	}
 
+	@include media('<laptop') {
+		min-height: 0px;
+	}
+
     @include media('<tablet_s') {
-      padding: 24px 0;
-      border: none;
-      margin: 0;
+		padding: 24px 0;
+		border: none;
+		margin: 0;
     }
 
     @include media('<phone') {
@@ -2560,7 +2564,7 @@ $anim-steps: 2;
     margin: 0;
     padding: 0;
 
-	@include media('<laptop_x') {
+	@include media('<laptop') {
 		gap: 15px;
 	}
   }
@@ -2650,7 +2654,7 @@ $anim-steps: 2;
 		margin: 0;
 		transition: $anim_05;
 
-		@include media('<laptop_x') {
+		@include media('<laptop') {
 			font-size: 14px;
 		}
 	}
@@ -2692,7 +2696,7 @@ $anim-steps: 2;
 		flex-wrap: wrap;
 		gap: 20px;
 
-		@include media('<laptop_x') {
+		@include media('<laptop_m') {
 			gap: 15px;
 		}
 
@@ -2714,7 +2718,7 @@ $anim-steps: 2;
     cursor: pointer;
     transition: $anim_03;
 
-	@include media('<laptop_x') {
+	@include media('<laptop') {
 		max-width: 48%;
 		padding: 14px;
 	}
@@ -2813,9 +2817,9 @@ $anim-steps: 2;
 		}
 
 		img {
-			max-height: 140px;
+			max-height: 120px;
 
-			@include media('<laptop_x') {
+			@include media('<laptop') {
 				max-height: 70px;
 			}
 		}
@@ -2849,7 +2853,7 @@ $anim-steps: 2;
 		letter-spacing: 0.32px;
 		text-transform: uppercase;
 
-		@include media('<laptop_x') {
+		@include media('<laptop') {
 			font-size: 12px;
 		}
 	}
@@ -2862,7 +2866,7 @@ $anim-steps: 2;
 		line-height: 140%;
 		margin: 0;
 
-		@include media('<laptop_x') {
+		@include media('<laptop') {
 			font-size: 12px;
 		} 
 
