@@ -34,7 +34,7 @@ export const initLottiesAnimations = () => {
         },
         {
             path: 'files/other-icons',
-            names: ['battery', 'enegry', 'percentage'],
+            names: ['other-icons1', 'other-icons2', 'other-icons3'],
         },
     ];
 

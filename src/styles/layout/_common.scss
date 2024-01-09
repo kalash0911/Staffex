@@ -601,26 +601,26 @@ $anim-steps: 2;
   }
 
   .bot1 {
-    width: 700px;
+    width: 1500px;
     left: 50%;
 
     @include media('<widescreen') {
-      width: 420px;
+      width: 1300px;
     }
 
     @include media('<tablet') {
-      width: 50%;
-      bottom: 0;
+		width: 800px;
+      	bottom: 0;
     }
 
     @include media('<phone') {
-      width: 260px;
+      width: 630px;
       bottom: 200px;
     }
   }
 
   .bot2 {
-    width: 870px;
+    width: 1800px;
     right: 0;
     bottom: -140px;
 
@@ -629,23 +629,25 @@ $anim-steps: 2;
     }
 
     @include media('<widescreen') {
-      width: 550px;
+      width: 1500px;
+	  right: -30%;
     }
 
     @include media('<tablet') {
-      width: 55%;
-      bottom: 0;
+		width: 850px;
+      	bottom: 0;
+		right: -70px;
     }
 
     @include media('<phone') {
-      width: 270px;
+      width: 650px;
       bottom: 200px;
-      right: -70px;
+	  right: -100px;
     }
   }
 
   .bot3 {
-    width: 800px;
+    width: 1800px;
     left: 0;
     bottom: -140px;
 
@@ -654,18 +656,20 @@ $anim-steps: 2;
     }
 
     @include media('<widescreen') {
-      width: 500px;
+      width: 1500px;
+	  left: -30%;
     }
 
     @include media('<tablet') {
-      width: 50%;
-      bottom: 0;
+		width: 850px;
+      	bottom: 0;
+		left: -60px;
     }
 
     @include media('<phone') {
-      width: 250px;
-      left: -60px;
+      width: 650px;
       bottom: 200px;
+	  left: -80px;
     }
   }
 
@@ -2374,7 +2378,7 @@ $anim-steps: 2;
       width: 500px;
       z-index: -2;
 
-      @include media('<laptop') {
+      @include media('<laptop_x') {
 		width: 350px;
 	  }
 
@@ -2396,7 +2400,7 @@ $anim-steps: 2;
     width: 500px;
     z-index: -1;
 
-    @include media('<laptop') {
+    @include media('<laptop_x') {
       width: 350px;
     }
 
@@ -2426,7 +2430,7 @@ $anim-steps: 2;
 		max-width: 650px;
 		padding-bottom: 40px;
 
-		@include media('<laptop') {
+		@include media('<laptop_x') {
 			padding-bottom: 20px;
 		}
 
@@ -2526,7 +2530,7 @@ $anim-steps: 2;
     margin: 0 5px 30px 5px;
     min-height: 640px;
 
-	@include media('<laptop') {
+	@include media('<laptop_x') {
 		min-height: 0px;
 		padding: 15px 30px;
 		margin: 0 5px 15px 5px;
@@ -2556,7 +2560,7 @@ $anim-steps: 2;
     margin: 0;
     padding: 0;
 
-	@include media('<laptop') {
+	@include media('<laptop_x') {
 		gap: 15px;
 	}
   }
@@ -2646,7 +2650,7 @@ $anim-steps: 2;
 		margin: 0;
 		transition: $anim_05;
 
-		@include media('<laptop') {
+		@include media('<laptop_x') {
 			font-size: 14px;
 		}
 	}
@@ -2688,7 +2692,7 @@ $anim-steps: 2;
 		flex-wrap: wrap;
 		gap: 20px;
 
-		@include media('<laptop') {
+		@include media('<laptop_x') {
 			gap: 15px;
 		}
 
@@ -2710,7 +2714,7 @@ $anim-steps: 2;
     cursor: pointer;
     transition: $anim_03;
 
-	@include media('<laptop') {
+	@include media('<laptop_x') {
 		max-width: 48%;
 		padding: 14px;
 	}
@@ -2811,7 +2815,7 @@ $anim-steps: 2;
 		img {
 			max-height: 140px;
 
-			@include media('<laptop') {
+			@include media('<laptop_x') {
 				max-height: 70px;
 			}
 		}
@@ -2845,7 +2849,7 @@ $anim-steps: 2;
 		letter-spacing: 0.32px;
 		text-transform: uppercase;
 
-		@include media('<laptop') {
+		@include media('<laptop_x') {
 			font-size: 12px;
 		}
 	}
@@ -2858,7 +2862,7 @@ $anim-steps: 2;
 		line-height: 140%;
 		margin: 0;
 
-		@include media('<laptop') {
+		@include media('<laptop_x') {
 			font-size: 12px;
 		}
 
