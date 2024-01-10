@@ -75,7 +75,6 @@ export const initLottiesAnimations = () => {
 
     const itemCards = document.querySelectorAll('.lotti-anim');
 
-    console.log('animations: ', animations);
     itemCards.forEach((itemCard, index) => {
         itemCard.addEventListener('mouseenter', () => {
             if (animations[index]) {
