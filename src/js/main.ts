@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initVideoChanges();
     initLottiesAnimations();
     initFeatureChoose();
+    console.log('END OF INITS');
 });
 
 document.addEventListener('readystatechange', (event) => {
