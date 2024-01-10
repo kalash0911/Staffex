@@ -1,6 +1,8 @@
 export const initAboutSlider = () => {
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener('load', function () {
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+    });
 
     function checkScreenSize() {
         var screenWidth = window.innerWidth;
