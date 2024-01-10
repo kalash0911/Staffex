@@ -16,7 +16,6 @@ export const initFeatureChoose = () => {
 
         elementItems.forEach((elementItem) => {
             elementItem.addEventListener('click', addActiveClass);
-            console.log('elementItem: ', elementItem);
         });
     }
 };
