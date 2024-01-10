@@ -17,6 +17,7 @@ export const initFullpageJs = () => {
             if (!fullpageInstance) {
                 fullpageInstance = new fullpage('#fullpage', {
                     scrollingSpeed: 1500,
+                    licenseKey: 'gplv3-license',
                 });
             }
         }
