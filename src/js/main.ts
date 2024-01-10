@@ -13,6 +13,7 @@ import { initAccordions } from './inits/accordions';
 import { initFixedBtnsOnScroll } from './inits/fixed-btns';
 import { initVideoChanges } from './inits/videos-changer';
 import { initLottiesAnimations } from './inits/lottie-icons';
+import { initFeatureChoose } from './inits/features-choose';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBurgerMenu();
@@ -30,22 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initFixedBtnsOnScroll();
     initVideoChanges();
     initLottiesAnimations();
+    initFeatureChoose();
 });
-
-const elementItems = document.querySelectorAll('.element-item');
-const botElements = document.querySelectorAll('.bot-element');
-
-if (elementItems.length > 0 && botElements.length > 0) {
-    function addActiveClass(event) {
-        event.currentTarget.classList.toggle('active');
-
-        const botElementIndex = Array.from(elementItems).indexOf(event.currentTarget);
-        const correspondingBotElement = botElements[botElementIndex];
-
-        correspondingBotElement.classList.toggle('active');
-    }
-
-    elementItems.forEach((elementItem) => {
-        elementItem.addEventListener('click', addActiveClass);
-    });
-}
