@@ -68,11 +68,11 @@ export const initLottiesAnimations = () => {
                 });
 
                 // @ts-ignore
-                (anim.wrapper as HTMLDivElement).addEventListener('mouseenter', () => {
+                (anim.wrapper.closest('.lotti-anim') as HTMLDivElement).addEventListener('mouseenter', () => {
                     anim.play();
                 });
                 // @ts-ignore
-                (anim.wrapper as HTMLDivElement).addEventListener('mouseleave', () => {
+                (anim.wrapper.closest('.lotti-anim') as HTMLDivElement).addEventListener('mouseleave', () => {
                     anim.stop();
                 });
 
