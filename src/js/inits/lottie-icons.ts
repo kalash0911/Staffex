@@ -46,32 +46,36 @@ export const initLottiesAnimations = () => {
                 animationName: name,
                 jsonPath: new URL(`../../../public/${path}/${name}.json`, import.meta.url),
                 // path: `../../public/${path}/${name}.json`,
-                elementId: `${name}`,
+                elementSelector: `${name}`,
             });
         });
     });
 
-    const animations = animationsData.map((animationData) => {
-        const iconContainer = document.getElementById(animationData.elementId) as HTMLDivElement;
+    let animations = [];
 
-        if (iconContainer) {
-            const anim = lottie.loadAnimation({
-                container: iconContainer,
-                renderer: 'svg',
-                loop: true,
-                autoplay: false,
-                path: animationData.jsonPath.pathname,
-                name: animationData.animationName,
+    animationsData.forEach((animationData) => {
+        const iconContainers = document.querySelectorAll(`.${animationData.elementSelector}`) as NodeListOf<HTMLDivElement>;
+
+        if (iconContainers.length) {
+            return [...iconContainers].forEach((iconContainer) => {
+                const anim = lottie.loadAnimation({
+                    container: iconContainer,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: false,
+                    path: animationData.jsonPath.pathname,
+                    name: animationData.animationName,
+                });
+
+                animations.push(anim);
             });
-
-            return anim;
         }
-
         return null;
     });
 
     const itemCards = document.querySelectorAll('.lotti-anim');
 
+    console.log('animations: ', animations);
     itemCards.forEach((itemCard, index) => {
         itemCard.addEventListener('mouseenter', () => {
             if (animations[index]) {
