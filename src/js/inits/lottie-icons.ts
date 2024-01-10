@@ -67,25 +67,18 @@ export const initLottiesAnimations = () => {
                     name: animationData.animationName,
                 });
 
+                // @ts-ignore
+                (anim.wrapper as HTMLDivElement).addEventListener('mouseenter', () => {
+                    anim.play();
+                });
+                // @ts-ignore
+                (anim.wrapper as HTMLDivElement).addEventListener('mouseleave', () => {
+                    anim.stop();
+                });
+
                 animations.push(anim);
             });
         }
         return null;
-    });
-
-    const itemCards = document.querySelectorAll('.lotti-anim');
-
-    itemCards.forEach((itemCard, index) => {
-        itemCard.addEventListener('mouseenter', () => {
-            if (animations[index]) {
-                animations?.[index]?.play();
-            }
-        });
-
-        itemCard.addEventListener('mouseleave', () => {
-            if (animations[index]) {
-                animations?.[index]?.stop();
-            }
-        });
     });
 };
