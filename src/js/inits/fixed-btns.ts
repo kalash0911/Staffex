@@ -12,7 +12,7 @@ export const initFixedBtnsOnScroll = () => {
             pin: true,
             start: 'bottom bottom-=50px',
             end: 'top bottom',
-            endTrigger: '#smm-manager', // Next section id
+            endTrigger: '.smm-manager', // Next section
             // markers: true,
             // onToggle: (self) => console.log('toggled, isActive:', self.isActive),
             // onUpdate: (self) => {
@@ -32,7 +32,7 @@ export const initFixedBtnsOnScroll = () => {
             pin: true,
             start: 'bottom bottom-=50px',
             end: 'top bottom',
-            endTrigger: '#accountant', // Next section id
+            endTrigger: '.accountant', // Next section
             // markers: true,
             // onToggle: (self) => console.log('toggled, isActive:', self.isActive),
             // onUpdate: (self) => {
@@ -52,7 +52,7 @@ export const initFixedBtnsOnScroll = () => {
             pin: true,
             start: 'bottom bottom-=50px',
             end: 'top bottom',
-            endTrigger: '#speak-section', // Next section id
+            endTrigger: '.speak-section', // Next section
             // markers: true,
             // onToggle: (self) => console.log('toggled, isActive:', self.isActive),
             // onUpdate: (self) => {
@@ -69,9 +69,9 @@ export const initFixedBtnsOnScroll = () => {
 
         const updateValues = () => {
             // Recalculate positions. Initial properties broken by site animation
-            const secretarySection = document.querySelector('#secretary');
-            const smmSection = document.querySelector('#smm-manager');
-            const accountant = document.querySelector('#accountant');
+            const secretarySection = document.querySelector('.secretary');
+            const smmSection = document.querySelector('.smm-manager');
+            const accountant = document.querySelector('.accountantaccountant');
             if (secretarySection && ScrollTrigger.isInViewport(secretarySection)) {
                 secretaryST.refresh();
             }
