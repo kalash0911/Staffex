@@ -11,8 +11,12 @@ export const initFeatureChoose = () => {
             const correspondingBotElement = botElements[botElementIndex];
 
             correspondingBotElement.classList.toggle('active');
-            correspondingBotElement.currentTime = mainVideo.currentTime;
+            // correspondingBotElement.currentTime = mainVideo.currentTime;
         }
+
+        botElements.forEach((video) => {
+            video.currentTime = mainVideo.currentTime;
+        });
 
         elementItems.forEach((elementItem) => {
             elementItem.addEventListener('click', addActiveClass);

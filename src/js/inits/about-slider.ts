@@ -1,4 +1,6 @@
 export const initAboutSlider = () => {
+    if (!document.querySelector('.about-slider')) return;
+
     window.addEventListener('load', function () {
         checkScreenSize();
         window.addEventListener('resize', checkScreenSize);

@@ -5,6 +5,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const initFixedBtnsOnScroll = () => {
     const togglePinBtns = () => {
+        if (
+            !document.querySelector('#secretaryPinBtn') &&
+            !document.querySelector('#smmPinBtn') &&
+            !document.querySelector('#accountantPinBtn')
+        ) {
+            return;
+        }
+
         let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
         let secretaryST = ScrollTrigger.create({
