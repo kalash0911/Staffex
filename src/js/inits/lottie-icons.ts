@@ -45,7 +45,7 @@ export const initLottiesAnimations = () => {
             animationsData.push({
                 animationName: name,
                 jsonPath: new URL(`../../../public/${path}/${name}.json`, import.meta.url),
-                // path: `../../public/${path}/${name}.json`,
+                path: `../../public/${path}/${name}.json`,
                 elementSelector: `${name}`,
             });
         });
