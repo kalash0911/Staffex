@@ -42,10 +42,14 @@ export const initLottiesAnimations = () => {
 
     config.forEach(({ path, names }) => {
         names.forEach((name) => {
+            if (name === 'other-icons1') {
+                console.log('url path:', new URL(`../../../public/${path}/${name}.json`, import.meta.url));
+                console.log('path: ', `../../public/${path}/${name}.json`);
+            }
             animationsData.push({
                 animationName: name,
                 jsonPath: new URL(`../../../public/${path}/${name}.json`, import.meta.url),
-                path: `../../public/${path}/${name}.json`,
+                path: `../../${path}/${name}.json`,
                 elementSelector: `${name}`,
             });
         });
@@ -63,7 +67,7 @@ export const initLottiesAnimations = () => {
                     renderer: 'svg',
                     loop: true,
                     autoplay: false,
-                    path: animationData.jsonPath.pathname,
+                    path: animationData.path,
                     name: animationData.animationName,
                 });
 
