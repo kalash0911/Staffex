@@ -3,6 +3,41 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+export const animationElementsOnScroll = () => {
+    const mm = gsap.matchMedia();
+    const tablet = 768;
+
+    mm.add(
+        {
+            isDesktop: `(min-width: ${tablet}px)`,
+            isMobile: `(max-width: ${tablet - 1}px)`,
+        },
+        (context) => {
+            let { isDesktop, isMobile, reduceMotion } = context.conditions;
+
+            gsap.to('.main-section .text', {
+                scrollTrigger: {
+                    trigger: '.main-section .text',
+                    start: 'center center',
+                },
+                duration: 2,
+                opacity: 1,
+            });
+
+            gsap.to('.about-section .about-text', {
+                scrollTrigger: {
+                    trigger: '.about-section .about-text',
+                    start: 'center bottom',
+                    markers: true,
+                },
+                duration: 0.5,
+                maxWidth: isDesktop ? 520 : '100%',
+                maxHeight: isDesktop ? '100%' : 500,
+            });
+        },
+    );
+};
+
 export const initFixedBtnsOnScroll = () => {
     const togglePinBtns = () => {
         if (
@@ -21,7 +56,7 @@ export const initFixedBtnsOnScroll = () => {
             start: 'bottom bottom-=50px',
             end: 'top bottom',
             endTrigger: '.smm-manager', // Next section
-            // markers: true,
+            markers: true,
             // onToggle: (self) => console.log('toggled, isActive:', self.isActive),
             // onUpdate: (self) => {
             //   console.log(
@@ -41,7 +76,7 @@ export const initFixedBtnsOnScroll = () => {
             start: 'bottom bottom-=50px',
             end: 'top bottom',
             endTrigger: '.accountant', // Next section
-            // markers: true,
+            markers: true,
             // onToggle: (self) => console.log('toggled, isActive:', self.isActive),
             // onUpdate: (self) => {
             //   console.log(
@@ -61,7 +96,7 @@ export const initFixedBtnsOnScroll = () => {
             start: 'bottom bottom-=50px',
             end: 'top bottom',
             endTrigger: '.speak-section', // Next section
-            // markers: true,
+            markers: true,
             // onToggle: (self) => console.log('toggled, isActive:', self.isActive),
             // onUpdate: (self) => {
             //   console.log(
@@ -75,19 +110,27 @@ export const initFixedBtnsOnScroll = () => {
             // },
         });
 
+        let isSSrefresh = false;
+        let smmRefresh = false;
+        let isAccRefresh = false;
+
         const updateValues = () => {
             // Recalculate positions. Initial properties broken by site animation
             const secretarySection = document.querySelector('.secretary');
             const smmSection = document.querySelector('.smm-manager');
             const accountant = document.querySelector('.accountantaccountant');
-            if (secretarySection && ScrollTrigger.isInViewport(secretarySection)) {
+
+            if (!isSSrefresh && secretarySection && ScrollTrigger.isInViewport(secretarySection)) {
                 secretaryST.refresh();
+                isSSrefresh = true;
             }
-            if (smmSection && ScrollTrigger.isInViewport(smmSection)) {
+            if (!smmRefresh && smmSection && ScrollTrigger.isInViewport(smmSection)) {
                 smmST.refresh();
+                smmRefresh = true;
             }
-            if (accountant && ScrollTrigger.isInViewport(accountant)) {
+            if (!isAccRefresh && accountant && ScrollTrigger.isInViewport(accountant)) {
                 accountantST.refresh();
+                isAccRefresh = true;
             }
         };
 

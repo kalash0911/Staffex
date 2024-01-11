@@ -1767,6 +1767,11 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		}
 	}
 
+  .pinBtnEnd {
+    position: absolute;
+    bottom: -125px;
+  }
+
 	.main-btn {
 		position: absolute;
 		width: 100%;
@@ -1795,6 +1800,29 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 			@include media('<tablet_s') {
 				display: block;
 				z-index: 15;
+        order: 1;
+        top: auto;
+        bottom: 0;
+      
+        &.d-none {
+          display: none;
+        }
+      
+        &.fixed {
+          position: fixed;
+        }
+      
+        &.transition {
+          transition: transform .3s ease-out;
+        }
+      
+        &.slideUp {
+          transform: translate(-50%, -125px);
+        }
+      
+        &.slideDown {
+          transform: translate(-50%, 125px);
+        }
 			}
 		}
 	}

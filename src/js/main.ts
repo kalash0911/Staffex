@@ -13,6 +13,7 @@ import { initFixedBtnsOnScroll } from './inits/fixed-btns';
 import { initVideoChanges } from './inits/videos-changer';
 import { initLottiesAnimations } from './inits/lottie-icons';
 import { initFeatureChoose } from './inits/features-choose';
+import { pinButtonsOnScroll } from './inits/pin-btns';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBurgerMenu();
@@ -23,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounterAnimate();
     initTabs();
     initAccordions();
-    initFixedBtnsOnScroll();
+    // initFixedBtnsOnScroll();
+    // animationElementsOnScroll();
+    pinButtonsOnScroll();
 });
 
 window.addEventListener('load', () => {
