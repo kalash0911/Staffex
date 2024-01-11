@@ -83,7 +83,7 @@ export const initLottiesAnimations = () => {
     });
 
     const testIconn = lottie.loadAnimation({
-        container: document.querySelector('.test-icon'),
+        container: document.querySelector('.energy'),
         renderer: 'svg',
         loop: true,
         autoplay: false,
