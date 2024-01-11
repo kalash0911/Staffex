@@ -55,16 +55,17 @@ export const initLottiesAnimations = () => {
 
     animationsData.forEach((animationData) => {
         const iconContainers = document.querySelectorAll(`.${animationData.elementSelector}`) as NodeListOf<HTMLDivElement>;
+        console.log('iconContainers: ', iconContainers);
 
         if (iconContainers.length) {
-            return [...iconContainers].forEach((iconContainer) => {
+            return [...iconContainers].forEach((iconContainer, ind) => {
                 const anim = lottie.loadAnimation({
                     container: iconContainer,
                     renderer: 'svg',
                     loop: true,
                     autoplay: false,
                     path: animationData.jsonPath.pathname,
-                    name: animationData.animationName,
+                    name: `${animationData.animationName}-${ind}`,
                 });
 
                 // @ts-ignore
@@ -82,13 +83,13 @@ export const initLottiesAnimations = () => {
         return null;
     });
 
-    const testIconn = lottie.loadAnimation({
-        container: document.querySelector('.energy'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: false,
-        path: new URL(`../../../public/files/other-icons/energy.json`, import.meta.url).pathname,
-        // name: animationData.animationName,
-    });
-    console.log('testAnimation: ', testIconn);
+    // HOTFIX
+    // lottie.loadAnimation({
+    //     container: document.querySelector('.energy'),
+    //     renderer: 'svg',
+    //     loop: true,
+    //     autoplay: false,
+    //     path: new URL(`../../../public/files/other-icons/energy.json`, import.meta.url).pathname,
+    //     // name: animationData.animationName,
+    // });
 };
