@@ -34,7 +34,8 @@ export const initLottiesAnimations = () => {
         },
         {
             path: 'files/other-icons',
-            names: ['battery', 'energy', 'percentage'],
+            // names: ['battery', 'energy', 'percentage'],
+            names: ['percentage'],
         },
     ];
 
@@ -55,7 +56,6 @@ export const initLottiesAnimations = () => {
 
     animationsData.forEach((animationData) => {
         const iconContainers = document.querySelectorAll(`.${animationData.elementSelector}`) as NodeListOf<HTMLDivElement>;
-        console.log('iconContainers: ', iconContainers);
 
         if (iconContainers.length) {
             return [...iconContainers].forEach((iconContainer, ind) => {
@@ -83,13 +83,44 @@ export const initLottiesAnimations = () => {
         return null;
     });
 
-    // HOTFIX
-    // lottie.loadAnimation({
-    //     container: document.querySelector('.energy'),
-    //     renderer: 'svg',
-    //     loop: true,
-    //     autoplay: false,
-    //     path: new URL(`../../../public/files/other-icons/energy.json`, import.meta.url).pathname,
-    //     // name: animationData.animationName,
-    // });
+    // HOTFIX for 2 icons
+    const energyContainers = document.querySelectorAll(`.energy`);
+    energyContainers.forEach((container) => {
+        const energyIcon = lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: false,
+            path: new URL(`../../../public/files/other-icons/energy.json`, import.meta.url).pathname,
+            // name: animationData.animationName,
+        });
+        // @ts-ignore
+        (energyIcon.wrapper.closest('.lotti-anim') as HTMLDivElement).addEventListener('mouseenter', () => {
+            energyIcon.play();
+        });
+        // @ts-ignore
+        (energyIcon.wrapper.closest('.lotti-anim') as HTMLDivElement).addEventListener('mouseleave', () => {
+            energyIcon.stop();
+        });
+    });
+
+    const batteryContainers = document.querySelectorAll(`.battery`);
+    batteryContainers.forEach((container) => {
+        const batteryIcon = lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: false,
+            path: new URL(`../../../public/files/other-icons/battery.json`, import.meta.url).pathname,
+            // name: animationData.animationName,
+        });
+        // @ts-ignore
+        (batteryIcon.wrapper.closest('.lotti-anim') as HTMLDivElement).addEventListener('mouseenter', () => {
+            batteryIcon.play();
+        });
+        // @ts-ignore
+        (batteryIcon.wrapper.closest('.lotti-anim') as HTMLDivElement).addEventListener('mouseleave', () => {
+            batteryIcon.stop();
+        });
+    });
 };
