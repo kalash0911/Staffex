@@ -1,3 +1,5 @@
+import { Keyboard, Mousewheel } from 'swiper/modules';
+
 export const initAboutSlider = () => {
     if (!document.querySelector('.about-slider')) return;
 
@@ -8,15 +10,20 @@ export const initAboutSlider = () => {
 
     function checkScreenSize() {
         var screenWidth = window.innerWidth;
-        var threshold = 1024;
+        var threshold = 1025;
 
         var mySwiper = new Swiper('.about-slider', {
             grabCursor: true,
-            freeMode: true,
-            speed: 6000,
+            speed: 1000,
 
-            autoplay: {
-                delay: 2,
+            navigation: {
+                nextEl: '.next',
+                prevEl: '.prev',
+            },
+
+            mousewheel: {
+                invert: false,
+                touchReleaseOnEdges: true,
             },
 
             breakpoints: {
@@ -47,21 +54,12 @@ export const initAboutSlider = () => {
 
                 1400: {
                     slidesPerView: 3,
-                    spaceBetween: 140,
+                    spaceBetween: 200,
                 },
-            },
 
-            on: {
-                init() {
-                    this.autoplay.stop();
-
-                    this.el.addEventListener('mouseenter', () => {
-                        this.autoplay.start();
-                    });
-
-                    this.el.addEventListener('mouseleave', () => {
-                        this.autoplay.stop();
-                    });
+                1441: {
+                    slidesPerView: 3,
+                    spaceBetween: 140,
                 },
             },
         } as Record<string, any>);

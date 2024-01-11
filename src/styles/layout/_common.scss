@@ -870,129 +870,203 @@ $anim-steps: 2;
     }
   }
 
+	.arrow-wrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+		margin-bottom: 20px;
+
+		@include media('<laptop') {
+			margin: 0;
+		}
+
+		@include media('<desktop') {
+			display: none;
+		}
+	}
+
+  	.arrow {
+		display: grid;
+		place-items: center;
+		cursor: pointer;
+
+		@include media('<laptop') {
+			position: absolute;
+			top: 35%;
+			z-index: 2;
+		}
+
+		svg {
+			stroke: $green4F;
+			fill: $green4F;
+			transition: $anim_03;
+		}
+
+		&.prev {
+			@include media('<laptop') {
+				left: -20px;
+			}
+		}
+
+		&.next {
+			transform: rotate(180deg);
+
+			@include media('<laptop') {
+				right: -20px;
+			}
+		}
+
+		&.swiper-button-disabled {
+
+			svg {
+				stroke: $white;
+				fill: transparent;
+				opacity: .3;
+			}
+		}
+  	}
+  
+
   $slide-anim: 0.7s;
 
-  .swiper-slide {
-    position: relative;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all $slide-anim ease 0s;
+  	.swiper-slide {
+		position: relative;
+		opacity: 0;
+		transform: translateY(50px);
+		transition: all $slide-anim ease 0s;
 
-    @include media('<desktop') {
-      max-width: 335px;
-    }
+		@include media('<desktop') {
+			max-width: 335px;
+		}
 
-    &.show {
-      opacity: 1;
-      transform: translateY(0px);
-    }
+		&.show {
+			opacity: 1;
+			transform: translateY(0px);
+		}
 
-    &:nth-child(1) {
-      &.show {
-        transition-delay: 0s;
-      }
-    }
+		&:nth-child(1) {
+			&.show {
+				transition-delay: 0s;
+			}
+		}
 
-    &:nth-child(2) {
-      &.show {
-        transition-delay: 0.3s;
+		&:nth-child(2) {
+			&.show {
+				transition-delay: 0.3s;
 
-        @include media('<desktop') {
-          transition-delay: 0s;
-        }
-      }
-    }
+				@include media('<desktop') {
+					transition-delay: 0s;
+				}
+			}
+		}
 
-    &:nth-child(3) {
-      &.show {
-        transition-delay: 0.6s;
+		&:nth-child(3) {
+			&.show {
+				transition-delay: 0.6s;
 
-        @include media('<desktop') {
-          transition-delay: 0s;
-        }
-      }
-    }
+				@include media('<desktop') {
+					transition-delay: 0s;
+				}
+			}
+		}
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 45%;
-      right: -51%;
-      width: 206px;
-      height: 1px;
-      background: rgba($white, 0.1);
-      transform: rotate(-45deg);
+		&::after {
+			content: '';
+			position: absolute;
+			top: 45%;
+			right: -51%;
+			width: 206px;
+			height: 1px;
+			background: rgba($white, 0.1);
+			transform: rotate(-45deg);
 
-      @include media('<1400px') {
-        display: none;
-      }
+			@include media('<laptop') {
+				top: 39%;
+				right: -80%;
+				width: 290px;
+			}	
 
-      @include media('<tablet') {
-        display: block;
-        top: auto;
-        bottom: -5px;
-        right: auto;
-        left: 50%;
-        width: 156px;
-        transform: translate(-50%) rotate(45deg);
-      }
-    }
+			@include media('<1400px') {
+				display: none;
+			}
 
-    &:first-child {
-      .slide-content {
-        &::before {
-          display: none;
-        }
-      }
-    }
+			@include media('<tablet') {
+				display: block;
+				top: auto;
+				bottom: -5px;
+				right: auto;
+				left: 50%;
+				width: 156px;
+				transform: translate(-50%) rotate(45deg);
+			}
+		}
 
-    &:last-child {
-      &::after {
-        display: none;
-      }
+		&:first-child {
+			.slide-content {
+				&::before {
+					display: none;
+				}
+			}
+		}
 
-      .slide-content {
-        &::after {
-          display: none;
-        }
-      }
-    }
+		&:last-child {
+			&::after {
+				display: none;
+			}
 
-    &:nth-child(even) {
-      &::after {
-        transform: rotate(45deg);
+			.slide-content {
+				&::after {
+					display: none;
+				}
+			}
+		}
 
-        @include media('<tablet') {
-          transform: translate(-50%) rotate(-45deg);
-        }
-      }
+		&:nth-child(even) {
 
-      .slide-content {
-        &::after {
-          top: 88px;
+			&::after {
+					transform: rotate(45deg);
 
-          @include media('<tablet') {
-            top: auto;
-            bottom: 48px;
-            left: 220px;
-          }
-        }
-      }
-    }
+				@include media('<tablet') {
+					transform: translate(-50%) rotate(-45deg);
+				}
+			}
 
-    &:nth-child(odd) {
-      .slide-content {
-        &::before {
-          top: 236px;
+			.slide-content {
 
-          @include media('<tablet') {
-            top: -3px;
-            left: 108px;
-          }
-        }
-      }
-    }
-  }
+				&::after {
+					top: 88px;
+
+					@include media('<laptop') {
+						top: 40px;
+					}
+
+					@include media('<tablet') {
+						top: auto;
+						bottom: 48px;
+						left: 220px;
+					}
+				}
+			}
+		}
+
+		&:nth-child(odd) {
+			.slide-content {
+				&::before {
+					top: 236px;
+
+					@include media('<laptop') {
+						top: 247px;
+					}
+
+					@include media('<tablet') {
+						top: -3px;
+						left: 108px;
+					}
+				}
+			}
+		}
+  	}
 
   .slide-content {
     position: relative;
@@ -1019,25 +1093,33 @@ $anim-steps: 2;
     }
 
     &::before {
-      top: 95px;
-      left: 0;
+		top: 95px;
+		left: 0;
 
-      @include media('<tablet') {
-        top: -3px;
-        left: 220px;
-      }
+		@include media('<laptop') {
+			top: 36px;
+		}
+
+		@include media('<tablet') {
+			top: -3px;
+			left: 220px;
+		}
     }
 
-    &::after {
-      top: 242px;
-      right: 0;
+		&::after {
+			top: 242px;
+			right: 0;
 
-      @include media('<tablet') {
-        top: auto;
-        bottom: 48px;
-        left: 108px;
-      }
-    }
+			@include media('<laptop') {
+				top: 247px;
+			}
+
+			@include media('<tablet') {
+				top: auto;
+				bottom: 48px;
+				left: 108px;
+			}
+		}
   }
 
   .icon-wrap {
