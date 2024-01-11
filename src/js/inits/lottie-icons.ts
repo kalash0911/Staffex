@@ -81,4 +81,14 @@ export const initLottiesAnimations = () => {
         }
         return null;
     });
+
+    const testIconn = lottie.loadAnimation({
+        container: document.querySelector('.test-icon'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: false,
+        path: new URL(`../../../public/files/other-icons/energy.json`, import.meta.url).pathname,
+        // name: animationData.animationName,
+    });
+    console.log('testAnimation: ', testIconn);
 };
