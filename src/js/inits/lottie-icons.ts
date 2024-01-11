@@ -34,7 +34,7 @@ export const initLottiesAnimations = () => {
         },
         {
             path: 'files/other-icons',
-            names: ['other-icons1', 'other-icons2', 'other-icons3'],
+            names: ['battery', 'energy', 'percentage'],
         },
     ];
 
@@ -42,10 +42,6 @@ export const initLottiesAnimations = () => {
 
     config.forEach(({ path, names }) => {
         names.forEach((name) => {
-            if (name === 'other-icons1') {
-                console.log('url path:', new URL(`../../../public/${path}/${name}.json`, import.meta.url));
-                console.log('path: ', `../../public/${path}/${name}.json`);
-            }
             animationsData.push({
                 animationName: name,
                 jsonPath: new URL(`../../../public/${path}/${name}.json`, import.meta.url),
