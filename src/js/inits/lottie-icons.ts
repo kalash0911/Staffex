@@ -49,7 +49,7 @@ export const initLottiesAnimations = () => {
             animationsData.push({
                 animationName: name,
                 jsonPath: new URL(`../../../public/${path}/${name}.json`, import.meta.url),
-                path: `../../${path}/${name}.json`,
+                path: `../../public/${path}/${name}.json`,
                 elementSelector: `${name}`,
             });
         });
@@ -67,7 +67,7 @@ export const initLottiesAnimations = () => {
                     renderer: 'svg',
                     loop: true,
                     autoplay: false,
-                    path: animationData.path,
+                    path: animationData.jsonPath.pathname,
                     name: animationData.animationName,
                 });
 
