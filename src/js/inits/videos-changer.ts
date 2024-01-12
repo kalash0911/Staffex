@@ -34,4 +34,12 @@ export const initVideoChanges = () => {
             video.src = supportsHEVCAlpha() ? `./files/hero-bot${ind + 1}.mov` : `./files/hero-bot${ind + 1}.webm`;
         });
     }
+
+    const playerPreBotBg = document.querySelectorAll('.pre-bot-bg') as NodeListOf<HTMLVideoElement>;
+
+    if (playerPreBotBg.length) {
+        playerPreBotBg.forEach((video, ind) => {
+            video.src = supportsHEVCAlpha() ? `./files/pre-bot-bg${ind + 1}.mov` : `./files/pre-bot-bg${ind + 1}.webm`;
+        });
+    }
 };
