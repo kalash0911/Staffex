@@ -3,10 +3,13 @@ export const pinButtonsOnScroll = () => {
     let isUpDirection = false;
 
     const secretarySection = document.querySelector('.secretary');
+    if (!secretarySection) return;
     const botBlock = secretarySection.querySelector('.bot-wrap');
     const secretaryPinBtn = secretarySection.querySelector('#secretaryPinBtn');
     const endBtnPlaceholder = document.querySelector('.pinBtnEnd') as HTMLDivElement;
     endBtnPlaceholder.style.height = `${secretaryPinBtn.getBoundingClientRect().height}px`;
+
+    if (!secretaryPinBtn) return;
 
     const onEntry: IntersectionObserverCallback = (entry) => {
         entry.forEach((change) => {
