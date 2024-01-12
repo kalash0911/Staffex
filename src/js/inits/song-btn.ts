@@ -13,6 +13,8 @@ export const initSongBtn = () => {
                 audio.pause();
             } else {
                 audio.play();
+                audio.setAttribute('muted', 'false');
+                audio.muted = false;
             }
 
             songBtn.classList.toggle('mute');
@@ -29,7 +31,7 @@ export const initSongBtn = () => {
             }
         };
 
-        audio.addEventListener('play', handleFirstPlay, false);
+        // audio.addEventListener('play', handleFirstPlay, false);
 
         // Check if user interact with page and play audio
         // let playAttempt = setInterval(() => {
