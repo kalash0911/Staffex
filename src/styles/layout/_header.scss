@@ -32,11 +32,17 @@
     align-items: center;
     justify-content: space-between;
     gap: 15px;
+    transition: $anim_07;
 
     @include media('<desktop'){
         position: absolute;
         width: 100%;
         top: 0;
+    }
+
+    .footer-active &{
+		opacity: 0;
+        pointer-events: none;
     }
 
     .logo {
