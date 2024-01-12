@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // animationElementsOnScroll();
     pinButtonsOnScroll();
     initNavigation();
+    initFooterInViewport();
 });
 
 window.addEventListener('load', () => {
@@ -39,3 +40,17 @@ window.addEventListener('load', () => {
     initAudioClicks();
     initAutoPlayVideoOnScroll();
 });
+
+const initFooterInViewport = () => {
+    let options = { threshold: [0.5] };
+    let observer = new IntersectionObserver((entry) => {
+        entry.forEach((el) => {
+            if (el.isIntersecting) {
+                el.target.classList.add('footer-active');
+            } else {
+                el.target.classList.remove('footer-active');
+            }
+        });
+    }, options);
+    observer.observe(document.querySelector('#footer'));
+};
