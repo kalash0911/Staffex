@@ -46,9 +46,9 @@ const initFooterInViewport = () => {
     let observer = new IntersectionObserver((entry) => {
         entry.forEach((el) => {
             if (el.isIntersecting) {
-                el.target.classList.add('footer-active');
+                document.body.classList.add('footer-active');
             } else {
-                el.target.classList.remove('footer-active');
+                document.body.classList.remove('footer-active');
             }
         });
     }, options);
