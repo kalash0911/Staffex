@@ -8,6 +8,7 @@ interface IAppFormProviderProps {
 }
 
 interface IAppFormProviderValues {
+    isB2B: boolean;
     answers: TCommonFormValues | null;
     formType: FormType;
     questions: TTopic[];
@@ -35,6 +36,8 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     const isLastTopic = questions.length === configInd + 1;
     const isLastQuestionInTopic = questions[configInd].list.length === questionInd + 1;
     const isLastQuestion = isLastTopic && isLastQuestionInTopic;
+
+    const isB2B = !!answers?.isB2B;
 
     const handleNextQuestion = (formData?: TCommonFormValues) => {
         if (formData) {
@@ -65,6 +68,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     return (
         <AppFormContext.Provider
             value={{
+                isB2B,
                 answers,
                 formType,
                 questions,

@@ -12,29 +12,28 @@ type TTextFieldBasicProps = {
     value?: string;
 } & Record<string, any>;
 
-export const TextField = forwardRef<HTMLInputElement, TTextFieldBasicProps>(function TextField(
-    { label, type, placeholder, errorMsg, className, required, id, value, ...restProps }: TTextFieldBasicProps,
-    ref,
-) {
-    const inputId = id || useId();
+export const TextField = forwardRef<HTMLInputElement, TTextFieldBasicProps>(
+    ({ label, type, placeholder, errorMsg, className, required, id, value, ...restProps }: TTextFieldBasicProps, ref) => {
+        const inputId = id || useId();
 
-    return (
-        <div className={`input-wrap ${className ? className : ''}`}>
-            {label && (
-                <label className="label" htmlFor={inputId}>
-                    {label} {required && <sup>*</sup>}
-                </label>
-            )}
-            <input
-                className="input click-song"
-                type={type}
-                placeholder={placeholder}
-                id={inputId}
-                {...restProps}
-                ref={ref}
-                value={value}
-            />
-            {errorMsg && <p className="error">{errorMsg}</p>}
-        </div>
-    );
-});
+        return (
+            <div className={`input-wrap ${className ? className : ''}`}>
+                {label && (
+                    <label className="label" htmlFor={inputId}>
+                        {label} {required && <sup>*</sup>}
+                    </label>
+                )}
+                <input
+                    className="input click-song"
+                    type={type}
+                    placeholder={placeholder}
+                    id={inputId}
+                    {...restProps}
+                    ref={ref}
+                    value={value}
+                />
+                {errorMsg && <p className="error">{errorMsg}</p>}
+            </div>
+        );
+    },
+);

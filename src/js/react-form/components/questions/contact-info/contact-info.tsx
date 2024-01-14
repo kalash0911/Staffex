@@ -6,21 +6,29 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from './validation';
 import { useAppFormState } from '../../../context/app-form-context';
 import { Button } from '../../shared/button/button';
-import { TContactFormValues } from '../../../models/form';
+import { TCommonFormValues } from '../../../models/form';
 import { maskPhoneNumber } from '../../../utils/form';
+import { Radio } from '../../shared/radio/radio';
 
 export const ContactInfo = () => {
     const { answers, handleNextQuestion } = useAppFormState();
 
     const {
         control,
+        watch,
+        setValue,
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<TContactFormValues>({
+    } = useForm({
         mode: 'onBlur',
         resolver: yupResolver(schema),
         defaultValues: {
+            isB2B: !!answers?.isB2B,
+            companyName: answers?.companyName || '',
+            contactFirstName: answers?.contactFirstName || '',
+            contactLastName: answers?.contactFirstTitle || '',
+            contactFirstTitle: answers?.contactFirstTitle || '',
             firstName: answers?.firstName || '',
             lastName: answers?.lastName || '',
             phone: answers?.phone || '',
@@ -30,8 +38,23 @@ export const ContactInfo = () => {
     });
 
     const isOptional = schema.spec.optional;
+    const isB2B = watch('isB2B');
 
-    const onSubmit = (data: TContactFormValues) => {
+    const onChangeToB2B = () => {
+        setValue('isB2B', false);
+        setValue('companyName', '');
+        setValue('contactFirstName', '');
+        setValue('contactLastName', '');
+        setValue('contactFirstTitle', '');
+    };
+
+    const onChangeToB2C = () => {
+        setValue('isB2B', true);
+        setValue('firstName', '');
+        setValue('lastName', '');
+    };
+
+    const onSubmit = (data: TCommonFormValues) => {
         handleNextQuestion(data);
     };
 
@@ -41,22 +64,78 @@ export const ContactInfo = () => {
                 <Typography> Please provide us with your contact information. We will use it only for contacting you.</Typography>
             </div>
             <form className="contact-info" onSubmit={handleSubmit(onSubmit)}>
-                <TextField
-                    {...register('firstName')}
-                    label="First name"
-                    placeholder="Enter your name"
-                    type="text"
-                    required
-                    errorMsg={errors.firstName?.message}
-                />
-                <TextField
-                    {...register('lastName')}
-                    label="Last name"
-                    placeholder="Enter your Last name"
-                    type="text"
-                    required
-                    errorMsg={errors.lastName?.message}
-                />
+                <div>
+                    <Controller
+                        control={control}
+                        name="isB2B"
+                        render={({ field: { onChange, value, ...rest } }) => (
+                            <Radio text="Individual" {...rest} checked={!value} onChange={onChangeToB2B} />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="isB2B"
+                        render={({ field: { onChange, value, ...rest } }) => (
+                            <Radio text="Business" {...rest} checked={value} onChange={onChangeToB2C} />
+                        )}
+                    />
+                </div>
+                {isB2B ? (
+                    <>
+                        <TextField
+                            {...register('companyName')}
+                            label="Company Name"
+                            placeholder="Enter company name"
+                            type="text"
+                            required
+                            errorMsg={errors.companyName?.message}
+                        />
+                        <TextField
+                            {...register('contactFirstName')}
+                            label="Contact First Name"
+                            placeholder="Enter contact first name"
+                            type="text"
+                            required
+                            errorMsg={errors.contactFirstName?.message}
+                        />
+                        <TextField
+                            {...register('contactLastName')}
+                            label="Contact Last Name"
+                            placeholder="Enter contact last name"
+                            type="text"
+                            required
+                            errorMsg={errors.contactLastName?.message}
+                        />
+                        <TextField
+                            {...register('contactFirstTitle')}
+                            label="Contact First Title"
+                            placeholder="Enter contact title (CEO, CFO, etc.)"
+                            type="text"
+                            required
+                            errorMsg={errors.contactFirstTitle?.message}
+                        />
+                    </>
+                ) : (
+                    <>
+                        {' '}
+                        <TextField
+                            {...register('firstName')}
+                            label="First name"
+                            placeholder="Enter your name"
+                            type="text"
+                            required
+                            errorMsg={errors.firstName?.message}
+                        />
+                        <TextField
+                            {...register('lastName')}
+                            label="Last name"
+                            placeholder="Enter your Last name"
+                            type="text"
+                            required
+                            errorMsg={errors.lastName?.message}
+                        />
+                    </>
+                )}
                 <Controller
                     control={control}
                     name="phone"
