@@ -10,7 +10,7 @@ import { TContactFormValues } from '../../../models/form';
 import { maskPhoneNumber } from '../../../utils/form';
 
 export const ContactInfo = () => {
-    const { handleNextQuestion } = useAppFormState();
+    const { answers, handleNextQuestion } = useAppFormState();
 
     const {
         control,
@@ -20,6 +20,13 @@ export const ContactInfo = () => {
     } = useForm<TContactFormValues>({
         mode: 'onBlur',
         resolver: yupResolver(schema),
+        defaultValues: {
+            firstName: answers?.firstName || '',
+            lastName: answers?.lastName || '',
+            phone: answers?.phone || '',
+            altPhone: answers?.altPhone || '',
+            email: answers?.email || '',
+        },
     });
 
     const isOptional = schema.spec.optional;
@@ -53,8 +60,9 @@ export const ContactInfo = () => {
                 <Controller
                     control={control}
                     name="phone"
-                    render={({ field: { onChange, onBlur } }) => (
+                    render={({ field: { onChange, onBlur, value } }) => (
                         <TextField
+                            value={value}
                             label="Phone"
                             placeholder="Enter your phone number"
                             type="phone"
@@ -72,11 +80,11 @@ export const ContactInfo = () => {
                 <Controller
                     control={control}
                     name="altPhone"
-                    render={({ field: { onChange, onBlur } }) => (
+                    render={({ field: { onChange, onBlur, value } }) => (
                         <TextField
-                            {...register('altPhone')}
+                            value={value}
                             label="Alt. Phone"
-                            placeholder="Enter your phone number"
+                            placeholder="Enter your alternate number"
                             type="phone"
                             errorMsg={errors.altPhone?.message}
                             maxLength={14}

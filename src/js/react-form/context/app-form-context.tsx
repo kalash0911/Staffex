@@ -8,6 +8,7 @@ interface IAppFormProviderProps {
 }
 
 interface IAppFormProviderValues {
+    answers: TCommonFormValues | null;
     formType: FormType;
     questions: TTopic[];
     activeQuestion: TActiveQuestion;
@@ -26,7 +27,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     });
     // TODO: set list of question here related to form type
     // store fields from all separate forms:
-    const [answers, setAnswers] = useState<TCommonFormValues | null>();
+    const [answers, setAnswers] = useState<IAppFormProviderValues['answers']>(null);
     // console.log('answers: ', answers);
 
     const { configInd, questionInd } = activeQuestion;
@@ -64,6 +65,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     return (
         <AppFormContext.Provider
             value={{
+                answers,
                 formType,
                 questions,
                 activeQuestion,

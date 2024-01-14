@@ -9,10 +9,11 @@ type TTextFieldBasicProps = {
     className?: string;
     required?: boolean;
     id?: string;
+    value?: string;
 } & Record<string, any>;
 
 export const TextField = forwardRef<HTMLInputElement, TTextFieldBasicProps>(function TextField(
-    { label, type, placeholder, errorMsg, className, required, id, ...restProps }: TTextFieldBasicProps,
+    { label, type, placeholder, errorMsg, className, required, id, value, ...restProps }: TTextFieldBasicProps,
     ref,
 ) {
     const inputId = id || useId();
@@ -24,7 +25,15 @@ export const TextField = forwardRef<HTMLInputElement, TTextFieldBasicProps>(func
                     {label} {required && <sup>*</sup>}
                 </label>
             )}
-            <input className="input click-song" type={type} placeholder={placeholder} id={inputId} {...restProps} ref={ref} />
+            <input
+                className="input click-song"
+                type={type}
+                placeholder={placeholder}
+                id={inputId}
+                {...restProps}
+                ref={ref}
+                value={value}
+            />
             {errorMsg && <p className="error">{errorMsg}</p>}
         </div>
     );
