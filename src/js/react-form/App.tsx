@@ -21,7 +21,7 @@ const App = () => {
                             const currentTopicList = questions.find((conf) => conf.title === title)?.list;
 
                             return (
-                                <React.Fragment key={title}>
+                                <div key={title}>
                                     <h2 className="title">{title}</h2>
                                     <ul className="list">
                                         {currentTopicList?.map((question, questionInd) => {
@@ -39,7 +39,7 @@ const App = () => {
                                             );
                                         })}
                                     </ul>
-                                </React.Fragment>
+                                </div>
                             );
                         })}
                     </div>
