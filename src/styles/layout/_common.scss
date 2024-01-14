@@ -25,10 +25,12 @@ html {
     }
 
     .footer-active &{
-		height: 100vh;
+      @include media('>desktop') {
+        height: 100vh;
         margin: 0;
-		border: none;
-		border-radius: 0;
+        border: none;
+        border-radius: 0;
+      }
     }
 }
 
