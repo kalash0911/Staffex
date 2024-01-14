@@ -8,6 +8,7 @@ import { EmailAccess } from './components/questions/email-access/email-access';
 import { PhoneReminders } from './components/questions/phone-reminders/phone-reminders';
 import { BankAccess } from './components/questions/bank-access/bank-access';
 import { AdditionalNotes } from './components/questions/additional-notes/additional-notes';
+import { Button } from './components/shared/button/button';
 
 // TODO: move question logic to form-context.
 const QUESTIONS = [
@@ -89,19 +90,11 @@ const App = () => {
                                 return (
                                     question.isViewed && (
                                         <li
-                                            className={`list-item ${
-                                                ind === questionIndex
-                                                    ? 'active'
-                                                    : ''
-                                            }`}
-                                            onClick={() =>
-                                                setCurrentQuestionIndex(ind)
-                                            }
+                                            className={`list-item ${ind === questionIndex ? 'active' : ''}`}
+                                            onClick={() => setCurrentQuestionIndex(ind)}
                                             key={question.label}
                                         >
-                                            <button className="list-link click-song">
-                                                {question.label}
-                                            </button>
+                                            <button className="list-link click-song">{question.label}</button>
                                         </li>
                                     )
                                 );
@@ -110,10 +103,8 @@ const App = () => {
                     </div>
 
                     <p className="text-bot">
-                        &#60;!--&nbsp;Elevate your business with Staffex's
-                        custom AI solutions, optimizing workforce efficiency
-                        through seamless integration of advanced digital
-                        workers.&nbsp;--&#62;
+                        &#60;!--&nbsp;Elevate your business with Staffex's custom AI solutions, optimizing workforce efficiency
+                        through seamless integration of advanced digital workers.&nbsp;--&#62;
                     </p>
                 </div>
 
@@ -121,29 +112,8 @@ const App = () => {
                     {currentForm}
 
                     <div className="btn-wrap">
-                        <button
-                            className="main-btn transp click-song"
-                            disabled={QUESTIONS.length === questionIndex + 1}
-                            onClick={handleNextQuestion}
-                        >
-                            <span className="btn-text">skip</span>
-                            <span className="icon-line top-left-line"></span>
-                            <span className="icon-line top-right-line"></span>
-                            <span className="icon-line bot-left-line"></span>
-                            <span className="icon-line bot-right-line"></span>
-                        </button>
-
-                        <button
-                            className="main-btn click-song"
-                            disabled={QUESTIONS.length === questionIndex + 1}
-                            onClick={handleNextQuestion}
-                        >
-                            <span className="btn-text">next</span>
-                            <span className="icon-line top-left-line"></span>
-                            <span className="icon-line top-right-line"></span>
-                            <span className="icon-line bot-left-line"></span>
-                            <span className="icon-line bot-right-line"></span>
-                        </button>
+                        <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
+                        <Button label="Next" />
                     </div>
                 </div>
             </div>
