@@ -64,12 +64,67 @@ export const SECRETARY_QUESTIONS: TTopic[] = [
     },
 ];
 
+// TODO: Change for true questions and forms:
+const SMM_QUESTIONS: TTopic[] = [
+    {
+        title: 'SMM TEST Basic features',
+        list: [
+            {
+                label: 'Calendar access',
+                content: <CalendarAccess />,
+            },
+            {
+                label: 'Contact Info',
+                content: <ContactInfo />,
+            },
+            {
+                label: 'Meeting applications access',
+                content: <MeetingAppAccess />,
+            },
+            {
+                label: 'Cloud Data Access',
+                content: <CloudDataAccess />,
+            },
+            {
+                label: 'Database Access',
+                content: <DatabaseAccess />,
+            },
+            {
+                label: 'Email access',
+                content: <EmailAccess />,
+            },
+            {
+                label: "Phone's reminders and to-do lists",
+                content: <PhoneReminders />,
+            },
+        ],
+    },
+    {
+        title: 'Additional features',
+        list: [
+            {
+                label: 'Bank access',
+                content: <BankAccess />,
+            },
+        ],
+    },
+    {
+        title: 'Additional inforamtion',
+        list: [
+            {
+                label: 'Additional Notes',
+                content: <AdditionalNotes />,
+            },
+        ],
+    },
+];
+
 export const QUESTION_LIST = SECRETARY_QUESTIONS.reduce((prev: TQuestion[], cur) => {
     return [...prev, ...cur.list];
 }, []);
 
 export const QUESTIONS_CONFIG = {
     [FormType.SECRETARY]: SECRETARY_QUESTIONS,
-    [FormType.SMM]: SECRETARY_QUESTIONS,
+    [FormType.SMM]: SMM_QUESTIONS,
     [FormType.ACOUNTANT]: SECRETARY_QUESTIONS,
 };

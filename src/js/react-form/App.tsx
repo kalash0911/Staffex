@@ -1,5 +1,4 @@
 import React from 'react';
-import { SECRETARY_QUESTIONS } from './constants/questions';
 import { useAppFormState } from './context/app-form-context';
 import { Typography } from './components/shared/typography/typography';
 
@@ -18,8 +17,8 @@ const App = () => {
             <div className="block">
                 <div className="list-wrap">
                     <div className="list-box">
-                        {SECRETARY_QUESTIONS.map(({ title }, configInd) => {
-                            const currentTopicList = SECRETARY_QUESTIONS.find((conf) => conf.title === title)?.list;
+                        {questions.map(({ title }, configInd) => {
+                            const currentTopicList = questions.find((conf) => conf.title === title)?.list;
 
                             return (
                                 <React.Fragment key={title}>
