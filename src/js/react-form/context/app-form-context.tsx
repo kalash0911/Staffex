@@ -1,6 +1,7 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react';
 import { FormType, TActiveQuestion, TTopic } from '../models/question';
 import { QUESTIONS_CONFIG } from '../constants/questions';
+import { TCommonFormValues } from '../models/form';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -10,7 +11,7 @@ interface IAppFormProviderValues {
     formType: FormType;
     questions: TTopic[];
     activeQuestion: TActiveQuestion;
-    handleNextQuestion: () => void;
+    handleNextQuestion: (formData?: TCommonFormValues) => void;
     handleActiveQuestion: (question: IAppFormProviderValues['activeQuestion']) => void;
 }
 
@@ -25,7 +26,8 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     });
     // TODO: set list of question here related to form type
     // store fields from all separate forms:
-    const [answers, setAnswers] = useState([]);
+    const [answers, setAnswers] = useState<TCommonFormValues | null>();
+    // console.log('answers: ', answers);
 
     const { configInd, questionInd } = activeQuestion;
 
@@ -33,7 +35,14 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     const isLastQuestionInTopic = questions[configInd].list.length === questionInd + 1;
     const isLastQuestion = isLastTopic && isLastQuestionInTopic;
 
-    const handleNextQuestion = () => {
+    const handleNextQuestion = (formData?: TCommonFormValues) => {
+        if (formData) {
+            setAnswers((prevState) => ({
+                ...prevState,
+                ...formData,
+            }));
+        }
+        // TODO: Show skip modal
         setActiveQuestion((prevState) => {
             if (isLastQuestion) return prevState;
             if (isLastQuestionInTopic)

@@ -2,8 +2,12 @@ import React from 'react';
 import { TextField } from '../../shared/text-field/text-field';
 import { Checkbox } from '../../shared/checkbox/checkbox';
 import { Typography } from '../../shared/typography/typography';
+import { useAppFormState } from '../../../context/app-form-context';
+import { Button } from '../../shared/button/button';
 
 export const CalendarAccess = () => {
+    const { handleNextQuestion } = useAppFormState();
+
     return (
         <div className="conetnt-box">
             <div className="text-wrap">
@@ -23,6 +27,10 @@ export const CalendarAccess = () => {
                 <Checkbox text="Other" />
                 <TextField placeholder="Enter other option" type="text" />
             </form>
+            <div className="btn-wrap">
+                <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
+                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+            </div>
         </div>
     );
 };

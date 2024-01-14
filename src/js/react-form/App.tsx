@@ -1,11 +1,10 @@
 import React from 'react';
-import { Button } from './components/shared/button/button';
 import { SECRETARY_QUESTIONS } from './constants/questions';
 import { useAppFormState } from './context/app-form-context';
 import { Typography } from './components/shared/typography/typography';
 
 const App = () => {
-    const { questions, activeQuestion, handleActiveQuestion, handleNextQuestion } = useAppFormState();
+    const { questions, activeQuestion, handleActiveQuestion } = useAppFormState();
 
     const { configInd, questionInd } = activeQuestion;
     const currentForm = questions[configInd].list[questionInd].content;
@@ -23,7 +22,7 @@ const App = () => {
                             const currentTopicList = SECRETARY_QUESTIONS.find((conf) => conf.title === title)?.list;
 
                             return (
-                                <>
+                                <React.Fragment key={title}>
                                     <h2 className="title">{title}</h2>
                                     <ul className="list">
                                         {currentTopicList?.map((question, questionInd) => {
@@ -41,7 +40,7 @@ const App = () => {
                                             );
                                         })}
                                     </ul>
-                                </>
+                                </React.Fragment>
                             );
                         })}
                     </div>
@@ -52,14 +51,7 @@ const App = () => {
                     </p>
                 </div>
 
-                <div className="content-wrap">
-                    {currentForm}
-
-                    <div className="btn-wrap">
-                        <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
-                        <Button label="Next" onClick={handleNextQuestion} />
-                    </div>
-                </div>
+                <div className="content-wrap">{currentForm}</div>
             </div>
         </>
     );

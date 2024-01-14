@@ -2,8 +2,12 @@ import React from 'react';
 import { TextField } from '../../shared/text-field/text-field';
 import { IconPlus } from '../../../icons/plus.tsx';
 import { Typography } from '../../shared/typography/typography.tsx';
+import { Button } from '../../shared/button/button.tsx';
+import { useAppFormState } from '../../../context/app-form-context.tsx';
 
 export const CloudDataAccess = () => {
+    const { handleNextQuestion } = useAppFormState();
+
     return (
         <div className="conetnt-box">
             <div className="text-wrap">
@@ -25,6 +29,10 @@ export const CloudDataAccess = () => {
                     </button>
                 </div>
             </form>
+            <div className="btn-wrap">
+                <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
+                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+            </div>
         </div>
     );
 };

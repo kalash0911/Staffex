@@ -1,8 +1,12 @@
 import React from 'react';
 import { Radio } from '../../shared/radio/radio';
 import { Typography } from '../../shared/typography/typography';
+import { Button } from '../../shared/button/button';
+import { useAppFormState } from '../../../context/app-form-context';
 
 export const PhoneReminders = () => {
+    const { handleNextQuestion } = useAppFormState();
+
     return (
         <div className="conetnt-box">
             <div className="text-wrap">
@@ -23,6 +27,10 @@ export const PhoneReminders = () => {
                 <Radio text="Accept" checked />
                 <Radio text="Decline" />
             </form>
+            <div className="btn-wrap">
+                <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
+                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+            </div>
         </div>
     );
 };
