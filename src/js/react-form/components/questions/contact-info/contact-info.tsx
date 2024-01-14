@@ -117,7 +117,6 @@ export const ContactInfo = () => {
                     </>
                 ) : (
                     <>
-                        {' '}
                         <TextField
                             {...register('firstName')}
                             label="First name"
