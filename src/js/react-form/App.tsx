@@ -1,78 +1,13 @@
-import React, { useState } from 'react';
-import { ContactInfo } from './components/questions/contact-info/contact-info';
-import { MeetingAppAccess } from './components/questions/meeting-app-access/meeting-app-access';
-import { CalendarAccess } from './components/questions/calendar-access/calendar-access';
-import { CloudDataAccess } from './components/questions/cloud-data-access/cloud-data-access';
-import { DatabaseAccess } from './components/questions/database-access/database-access';
-import { EmailAccess } from './components/questions/email-access/email-access';
-import { PhoneReminders } from './components/questions/phone-reminders/phone-reminders';
-import { BankAccess } from './components/questions/bank-access/bank-access';
-import { AdditionalNotes } from './components/questions/additional-notes/additional-notes';
+import React from 'react';
 import { Button } from './components/shared/button/button';
-
-// TODO: move question logic to form-context.
-const QUESTIONS = [
-    {
-        label: 'Contact Info',
-        content: <ContactInfo />,
-        isViewed: true,
-    },
-    {
-        label: 'Calendar access',
-        content: <CalendarAccess />,
-        isViewed: false,
-    },
-    {
-        label: 'Meeting applications access',
-        content: <MeetingAppAccess />,
-        isViewed: false,
-    },
-    {
-        label: 'Cloud Data Access',
-        content: <CloudDataAccess />,
-        isViewed: false,
-    },
-    {
-        label: 'Database Access',
-        content: <DatabaseAccess />,
-        isViewed: false,
-    },
-    {
-        label: 'Email access',
-        content: <EmailAccess />,
-        isViewed: false,
-    },
-    {
-        label: "phone's reminders and to-do lists",
-        content: <PhoneReminders />,
-        isViewed: false,
-    },
-    {
-        label: 'Bank access',
-        content: <BankAccess />,
-        isViewed: false,
-    },
-    {
-        label: 'Additional Notes',
-        content: <AdditionalNotes />,
-        isViewed: false,
-    },
-];
+import { SECRETARY_QUESTIONS } from './constants/questions';
+import { useAppFormState } from './context/app-form-context';
 
 const App = () => {
-    const [questionIndex, setCurrentQuestionIndex] = useState<number>(0);
+    const { questions, activeQuestion, handleActiveQuestion, handleNextQuestion } = useAppFormState();
 
-    const currentForm = QUESTIONS[questionIndex].content;
-
-    const handleNextQuestion = () => {
-        setCurrentQuestionIndex((prevState) => {
-            if (QUESTIONS.length === questionIndex + 1) {
-                return prevState;
-            }
-            QUESTIONS[prevState + 1].isViewed = true;
-            return prevState + 1;
-        });
-    };
+    const { configInd, questionInd } = activeQuestion;
+    const currentForm = questions[configInd].list[questionInd].content;
 
     return (
         <>
@@ -83,23 +18,31 @@ const App = () => {
             <div className="block">
                 <div className="list-wrap">
                     <div className="list-box">
-                        <h2 className="title">basic features</h2>
+                        {SECRETARY_QUESTIONS.map(({ title }, configInd) => {
+                            const currentTopicList = SECRETARY_QUESTIONS.find((conf) => conf.title === title)?.list;
 
-                        <ul className="list">
-                            {QUESTIONS.map((question, ind) => {
-                                return (
-                                    question.isViewed && (
-                                        <li
-                                            className={`list-item ${ind === questionIndex ? 'active' : ''}`}
-                                            onClick={() => setCurrentQuestionIndex(ind)}
-                                            key={question.label}
-                                        >
-                                            <button className="list-link click-song">{question.label}</button>
-                                        </li>
-                                    )
-                                );
-                            })}
-                        </ul>
+                            return (
+                                <>
+                                    <h2 className="title">{title}</h2>
+                                    <ul className="list">
+                                        {currentTopicList?.map((question, questionInd) => {
+                                            const isActive =
+                                                activeQuestion.configInd === configInd &&
+                                                activeQuestion.questionInd === questionInd;
+                                            return (
+                                                <li
+                                                    className={`list-item ${isActive ? 'active' : ''}`}
+                                                    onClick={() => handleActiveQuestion({ configInd, questionInd })}
+                                                    key={question.label}
+                                                >
+                                                    <button className="list-link click-song">{question.label}</button>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </>
+                            );
+                        })}
                     </div>
 
                     <p className="text-bot">
@@ -113,7 +56,7 @@ const App = () => {
 
                     <div className="btn-wrap">
                         <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
-                        <Button label="Next" />
+                        <Button label="Next" onClick={handleNextQuestion} />
                     </div>
                 </div>
             </div>
