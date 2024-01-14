@@ -1,34 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/styles/main.scss" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="wrapper-form">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Staffex</title>
+        <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="/styles/main.scss" />
+    </head>
+    <body>
+        <div id="wrapper-form">
+            <main id="main">
+                <section class="form-section">
+                    <div class="container">
+                        <div id="root"></div>
+                    </div>
+                </section>
+            </main>
+        </div>
 
-      <main id="main">
-
-        <section class="form-section">
-          <div class="container">
-            <div id="root"></div>
-          </div>
-        </section>
-
-      </main>
-
-    </div>
-
-    <script type="module" src="/js/react-form/main.tsx"></script>
-    
-  </body>
+        <script type="module" src="/js/react-form/main.tsx"></script>
+    </body>
 </html>
