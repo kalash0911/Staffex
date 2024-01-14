@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from './components/shared/button/button';
 import { SECRETARY_QUESTIONS } from './constants/questions';
 import { useAppFormState } from './context/app-form-context';
+import { Typography } from './components/shared/typography/typography';
 
 const App = () => {
     const { questions, activeQuestion, handleActiveQuestion, handleNextQuestion } = useAppFormState();
@@ -12,7 +13,7 @@ const App = () => {
     return (
         <>
             <div className="title-wrap">
-                <h1 className="main-title">Share Your Details with Us!</h1>
+                <Typography variant="h1">Share Your Details with Us!</Typography>
             </div>
 
             <div className="block">
