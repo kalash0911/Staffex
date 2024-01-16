@@ -1,0 +1,573 @@
+.bot-page-section {
+    padding-top: 120px;
+  
+    @include media('<laptop') {
+        padding-top: 80px;
+    }
+  
+    .content {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    
+        @include media('<desktop') {
+            flex-direction: column;
+        }
+    
+        @include media('<phone') {
+            height: calc(100vh - 80px);
+        }
+    }
+  
+    .video-wrap {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        flex: 1;
+        z-index: -1;
+    
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+            50% 50% at 50% 50%,
+            rgba(0, 0, 0, 0) 42.71%,
+            #020202 100%
+            );
+    
+            @include media('<phone') {
+                background: radial-gradient(
+                50% 50% at 50% 50%,
+                rgba(0, 0, 0, 0) 42.71%,
+                #020202d5 100%
+                );
+            }
+        }
+    }
+  
+    .bg {
+        z-index: -2;
+    }
+  
+    .video-block {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    
+        @include media('<desktop') {
+            margin: 0 auto;
+        }
+    
+        @include media('<phone') {
+            max-height: 400px;
+            overflow: hidden;
+        }
+  
+      .bot {
+        position: relative;
+        width: 500px;
+        z-index: -2;
+  
+        @include media('<laptop') {
+          width: 350px;
+        }
+  
+        @include media('<desktop') {
+          width: 100%;
+          max-width: 500px;
+        }
+  
+        @include media('<phone') {
+          bottom: -160px;
+          max-width: 100%;
+        }
+      }
+    }
+  
+    .bot-element {
+        opacity: 0;
+        position: absolute;
+        width: 500px;
+        z-index: -1;
+    
+        @include media('<laptop') {
+            width: 350px;
+        }
+    
+        @include media('<desktop') {
+            width: 100%;
+            max-width: 500px;
+        }
+    
+        @include media('<phone') {
+            bottom: -160px;
+            max-width: 100%;
+        }
+    
+        &.active {
+            opacity: 1;
+        }
+    }
+  
+    .name-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+  
+    .tex-wrap {
+        width: 100%;
+        max-width: 650px;
+        padding-bottom: 40px;
+
+        @include media('<laptop') {
+            padding-bottom: 20px;
+        }
+
+        @include media('<desktop') {
+            max-width: 100%;
+        }
+
+        @include media('<phone') {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+    }
+  
+    .tabs {
+        display: flex;
+    }
+  
+    .tab-button {
+        position: relative;
+        width: 100%;
+        padding: 12px 30px;
+        background: transparent;
+        border: 1px solid rgba($white, 0.3);
+        color: $white;
+        text-align: center;
+        font-family: $PlexMono;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: 0.7px;
+        text-transform: uppercase;
+        transition: $anim_03;
+    
+        @include media('<tablet_s') {
+            font-size: 12px;
+            padding: 10px 7px;
+        }
+  
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            width: 15px;
+            height: 15px;
+            background-color: $black03;
+            border-bottom: 1px solid rgba($white, 0.3);
+            transition: $anim_03;
+        }
+    
+        &::before {
+            left: -8px;
+            transform: rotate(-45deg);
+        }
+    
+        &::after {
+            right: -8px;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+    
+        &:first-child {
+            border-bottom-left-radius: 5px;
+        }
+    
+        &:last-child {
+            border-bottom-right-radius: 5px;
+        }
+    
+        &:hover {
+            border-color: $green4F;
+    
+            &::before,
+            &::after {
+            border-bottom: 1px solid $green4F;
+            }
+        }
+  
+        &.active {
+            color: $black03;
+            background: $green4F;
+            border-color: $green4F;
+            font-weight: 600;
+    
+            &::before,
+            &::after {
+            border-bottom: 1px solid $green4F;
+            }
+        }
+    }
+  
+    .tab-content {
+        display: none;
+        padding: 20px 30px;
+        border: 1px solid rgba($white, 0.3);
+        border-top: none;
+        margin: 0 5px 30px 5px;
+        min-height: 640px;
+    
+        @include media('<laptop_m') {
+            min-height: 580px;
+            padding: 15px 30px;
+            margin: 0 5px 15px 5px;
+        }
+    
+        @include media('<laptop') {
+            min-height: 0px;
+        }
+    
+        @include media('<tablet_s') {
+            padding: 24px 0;
+            border: none;
+            margin: 0;
+        }
+    
+        @include media('<phone') {
+            min-height: 0;
+        }
+    
+        &.active {
+            display: block;
+        }
+    }
+  
+    .accordion {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        list-style: none;
+        counter-reset: my-awesome-counter;
+        margin: 0;
+        padding: 0;
+    
+        @include media('<laptop') {
+            gap: 15px;
+        }
+    }
+  
+    .accordion-item {
+        counter-increment: my-awesome-counter;
+        position: relative;
+        padding-left: 35px;
+    
+        @include media('<tablet_s') {
+            padding-left: 25px;
+        }
+    
+        &::before {
+            content: counter(my-awesome-counter);
+            position: absolute;
+            top: 2px;
+            left: 10px;
+            color: rgba($white, 0.3);
+            font-family: $PlexMono;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 140%;
+            letter-spacing: 0.24px;
+            text-transform: uppercase;
+    
+            @include media('<tablet_s') {
+            left: 0;
+            }
+        }
+    
+        &.active {
+            .accordion-title {
+            color: $green4F;
+            }
+    
+            .arrow {
+            svg {
+                transform: rotate(90deg);
+                fill: $green4F;
+            }
+            }
+        }
+    }
+  
+    .accordion-header {
+        display: flex;
+        align-items: center;
+        align-items: baseline;
+        gap: 16px;
+        background: none;
+        border: none;
+        padding: 0;
+    
+        &:hover {
+            .accordion-title {
+            color: $green4F;
+            }
+    
+            .arrow {
+            svg {
+                fill: $green4F;
+            }
+            }
+        }
+    }
+  
+    .arrow {
+        display: grid;
+        place-items: center;
+    
+        svg {
+            fill: rgba($white, 0.7);
+            transition: $anim_05;
+        }
+    }
+  
+    .accordion-title {
+        text-align: left;
+        color: rgba($white, 0.7);
+        font-family: $PlexMono;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 140%;
+        letter-spacing: 0.32px;
+        text-transform: uppercase;
+        margin: 0;
+        transition: $anim_05;
+
+        @include media('<laptop') {
+            font-size: 14px;
+        }
+    }
+  
+    .accordion-content {
+        position: relative;
+        max-height: 0;
+        overflow: hidden;
+        transition: $anim_05;
+    
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 7px;
+            width: 1px;
+            height: 100%;
+            background: rgba($white, 0.3);
+        }
+    }
+  
+    .accordion-text {
+        margin: 0;
+        padding: 10px 0 0 32px;
+        color: rgba($white, 0.7);
+        font-family: $DegularText;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+    
+        span {
+            color: $white;
+        }
+    }
+  
+    .block {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        @include media('<laptop_m') {
+            gap: 15px;
+        }
+
+        @include media('<phone') {
+            flex-wrap: nowrap;
+            overflow: scroll;
+        }
+
+        &::-webkit-scrollbar {
+            height: 0;
+        }
+    }
+  
+    .item {
+        position: relative;
+        max-width: 47.5%;
+        padding: 16px;
+        border: 0.5px solid rgba($white, 0.3);
+        cursor: pointer;
+        transition: $anim_03;
+    
+        @include media('<laptop') {
+            max-width: 48%;
+            padding: 14px;
+        }
+  
+        @include media('<phone') {
+            max-width: 100%;
+            min-width: 220px;
+        }
+    
+        &:hover {
+            border: 0.5px solid $green4F;
+        }
+    
+        &.active {
+            border: 0.5px solid $green4F;
+    
+            .plus-check {
+            background: $green4F;
+    
+            &::before,
+            &::after {
+                background-color: $black03;
+            }
+    
+            &::before {
+                left: 60%;
+                height: 12px;
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+    
+            &::after {
+                width: 6px;
+                top: 60%;
+                left: 35%;
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            }
+        }
+    }
+  
+    .plus-check {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 24px;
+        height: 24px;
+        border: 0.5px solid $green4F;
+        z-index: 2;
+        transition: $anim_03;
+    
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            background-color: $green4F;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s steps(3, end) 0s;
+            transition: background-color all 0.3s ease 0s;
+        }
+    
+        &::before {
+            width: 1px;
+            height: 14px;
+        }
+    
+        &::after {
+            width: 14px;
+            height: 1px;
+        }
+    }
+  
+    .item-img-wrap {
+        position: relative;
+        margin-bottom: -20px;
+        max-height: 140px;
+
+        @include media('<phone') {
+            max-width: 220px;
+            margin: 0 auto -20px auto;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                50% 50% at 50% 50%,
+                rgba(0, 0, 0, 0) 0%,
+                $black03 100%
+            );
+        }
+
+        img {
+            max-height: 120px;
+
+            @include media('<laptop') {
+                max-height: 70px;
+            }
+        }
+    }
+  
+    .number {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: rgba($white, 0.3);
+        font-family: $PlexMono;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: 0.24px;
+        text-transform: uppercase;
+    }
+
+    .item-text-wrap {
+        position: relative;
+        z-index: 1;
+    }
+
+    .item-title {
+        margin-bottom: 10px;
+        color: $white;
+        font-family: $PlexMono;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 140%;
+        letter-spacing: 0.32px;
+        text-transform: uppercase;
+
+        @include media('<laptop') {
+            font-size: 12px;
+        }
+    }
+
+    .item-text {
+        color: rgba($white, 0.7);
+        font-family: $DegularText;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        margin: 0;
+
+        @include media('<laptop') {
+            font-size: 12px;
+        } 
+
+        span {
+            color: $white;
+        }
+    }
+}
