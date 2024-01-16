@@ -39,6 +39,7 @@ window.addEventListener('load', () => {
     initSongBtn();
     initAudioClicks();
     initAutoPlayVideoOnScroll();
+    initVideoCreate();
 });
 
 const initFooterInViewport = () => {
@@ -53,4 +54,21 @@ const initFooterInViewport = () => {
         });
     }, options);
     observer.observe(document.querySelector('#footer'));
+};
+
+const initVideoCreate = () => {
+    const videoWraps = document.querySelectorAll('.pre-bot-wrap');
+
+    videoWraps.forEach((el) => {
+        const video = document.createElement('video');
+        video.classList.add('bg', 'bg-video', 'pre-bot-bg', 'anim');
+        video.setAttribute('autoplay', 'true');
+        video.setAttribute('muted', 'true');
+        video.setAttribute('loop', 'true');
+        video.setAttribute('playsinline', 'true');
+        video.setAttribute('data-keepplaying', 'true');
+        video.setAttribute('src', './files/pre-bot-bg1.webm');
+        console.log('video: ', video);
+        el.appendChild(video);
+    });
 };
