@@ -446,6 +446,7 @@
     
     .main-btn {
         min-width: 200px;
+        position: relative;
 
         .text-skip {
             display: none;
@@ -455,9 +456,18 @@
             font-style: normal;
             font-weight: 400;
             line-height: 140%;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
         }
 
         &.transp {
+
+            &:hover {
+                .text-skip {
+                    display: block;
+                }
+            }
 
             @include media('<phone') {
                 padding: 0;
@@ -473,6 +483,7 @@
 
                     .text-skip {
                         display: block;
+                        position: static;
                     }
                 }
             }
