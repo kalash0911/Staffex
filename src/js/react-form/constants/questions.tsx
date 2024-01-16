@@ -19,6 +19,10 @@ export const SECRETARY_QUESTIONS: TTopic[] = [
                 content: <ContactInfo />,
             },
             {
+                label: 'Email access',
+                content: <EmailAccess />,
+            },
+            {
                 label: 'Calendar access',
                 content: <CalendarAccess />,
             },
@@ -34,10 +38,7 @@ export const SECRETARY_QUESTIONS: TTopic[] = [
                 label: 'Database Access',
                 content: <DatabaseAccess />,
             },
-            {
-                label: 'Email access',
-                content: <EmailAccess />,
-            },
+
             {
                 label: "Phone's reminders and to-do lists",
                 content: <PhoneReminders />,

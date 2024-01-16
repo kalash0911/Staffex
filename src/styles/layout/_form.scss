@@ -2,16 +2,48 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    @include media('<tablet_x') {
+        margin: 0 -40px;
+    }
+
+    @include media('<phone') {
+        margin: 0 -20px;
+    }
 }
 
 .form-section {
 
     .title-wrap {
         display: flex;
-        align-items: center;
         justify-content: space-between;
         padding: 40px 0;
-        border-bottom: 1px solid rgba($white, .3)
+        gap: 30px;
+        border-bottom: 1px solid rgba($white, .3);
+
+        @include media('<tablet_x') {
+            padding: 16px 20px;
+        }
+    }
+
+    .back-btn {
+        top: 4px;
+
+        @include media('<tablet_x') {
+            width: 24px;
+            min-width: 24px;
+            height: 24px;
+            border: none;
+            padding: 0;
+            top: -2px;
+        }
+
+        svg {
+
+            @include media('<tablet_x') {
+                fill: $white;
+            }
+        }
     }
 
     .main-title {
@@ -22,13 +54,28 @@
         font-weight: 500;
         line-height: 80%;
         text-transform: uppercase;
+
+        @include media('<tablet_x') {
+            font-size: 28px;
+            line-height: 100%;
+        }
+
+        span {
+            color: $grayCD;
+        }
     }
 
     .block {
         display: flex;
         justify-content: space-between;
-        gap: 40px;
+        column-gap: 40px;
         flex: 1 0 auto;
+
+        @include media('<tablet_x') {
+            flex: auto;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
     }
 
     .list-wrap {
@@ -36,12 +83,54 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 40px 0;
-        border-right: 1px solid rgba($white, .3)
+        padding: 24px 0 40px 0;
+        border-right: 1px solid rgba($white, .3);
+
+        @include media('<tablet_x') {
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-bottom: 1px solid rgba($white, .3);
+            overflow: auto;
+        }
+
+        &::-webkit-scrollbar {
+            height: 0;
+        }
+    }
+
+    .list-block {
+
+        @include media('<tablet_x') {
+            display: flex;
+            gap: 20px;
+        }
+
+        &:last-child {
+
+            @include media('<tablet_x') {
+                padding-right: 20px;
+            }  
+        }
     }
 
     .list-box {
-        padding: 0 40px 16px 0;
+        padding: 16px 10px 16px 0;
+        border-bottom: 1px solid rgba($white, .3);
+
+        @include media('<tablet_x') {
+            display: flex;
+            padding: 0;
+            border: none;
+        }
+
+        &:last-child {
+            border: none;
+
+            @include media('<tablet_x') {
+                padding-right: 20px;
+            }
+        }
     }
 
     .title {
@@ -53,6 +142,10 @@
         line-height: 140%;
         letter-spacing: 0.32px;
         text-transform: uppercase;
+
+        @include media('<tablet_x') {
+            display: none;
+        }
     }
 
     .list {
@@ -62,6 +155,11 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+
+        @include media('<tablet_x') {
+            flex-direction: row;
+            gap: 20px;
+        }
     }
 
     .list-item {
@@ -78,6 +176,7 @@
         border: none;
         background: none;
         padding: 0;
+        text-align: left;
         color: rgba($white, .5);
         font-family: $DegularText;
         font-size: 14px;
@@ -85,6 +184,14 @@
         line-height: 140%;
         text-transform: uppercase;
         transition: $anim_03;
+
+        @include media('<tablet_x') {
+            white-space: nowrap;
+        }
+
+        @include media('<phone') {
+            font-size: 12px;
+        }
 
         &:hover {
             color: $green4F
@@ -99,6 +206,10 @@
         font-size: 12px;
         font-weight: 400;
         line-height: 140%;
+
+        @include media('<tablet_x') {
+            display: none;
+        }
     }
 
     .content-wrap {
@@ -108,12 +219,30 @@
         justify-content: space-between;
         gap: 40px;
         padding: 40px 0 40px 0;
+
+        @include media('<tablet_x') {
+            width: 100%;
+            padding: 24px 20px;
+            flex: 1;
+        }
+    }
+
+    .conetnt-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 50px;
+        flex: 1 0 auto;
     }
 
     .conetnt-box {
         display: flex;
         flex-direction: column;
         gap: 40px;
+
+        @include media('<tablet_s') {
+            row-gap: 32px;
+        }
     }
 
     .text-wrap {
@@ -135,9 +264,24 @@
         }
     }
 
+    .controls {
+        width: 100%;
+        display: flex;
+        gap: 40px;
+    }
+
     .input-wrap {
+        position: relative;
         display: flex;
         flex-direction: column;
+
+        &.half {
+            width: 47.5%;
+        }
+
+        &.max {
+            width: 100%;
+        }
     }
 
     .label {
@@ -186,6 +330,18 @@
         padding: 16px;
         border: 1px solid rgba($white, .3);
         height: 150px;
+    }
+
+    .error {
+        position: absolute;
+        bottom: -20px;
+        color: $red4F;
+        font-family: $DegularText;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        margin: 0;
     }
 
     .checkbox-box {
@@ -278,10 +434,64 @@
         display: flex;
         justify-content: flex-end;
         gap: 20px;
+
+        @include media('<tablet_x') {
+            justify-content: center;
+        }
+
+        @include media('<phone') {
+            flex-direction: column-reverse;
+        }
     }
     
     .main-btn {
         min-width: 200px;
+
+        .text-skip {
+            display: none;
+            color: rgba($white, .7);
+            font-family: $PlexMono;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+        }
+
+        &.transp {
+
+            @include media('<phone') {
+                padding: 0;
+            }
+
+            &:disabled {
+
+                @include media('<phone') {
+
+                    .btn-text {
+                        display: none;
+                    }
+
+                    .text-skip {
+                        display: block;
+                    }
+                }
+            }
+
+            .btn-text {
+
+                @include media('<phone') {
+                    color: $white;
+                    padding: 0;
+                }
+            }
+
+            .icon-line {
+
+                @include media('<phone') {
+                    display: none;
+                }
+            }
+        }
     }
 }
 
@@ -291,8 +501,16 @@
     justify-content: space-between;
     row-gap: 40px;
 
+    @include media('<tablet_s') {
+        row-gap: 32px;
+    }
+
     .input-wrap {
         width: 45%;
+
+        @include media('<tablet_s') {
+            width: 100%;
+        }
     }
 }
 
@@ -307,6 +525,10 @@
 
 .cloud-data-access {
     gap: 40px;
+
+    @include media('<tablet_s') {
+        row-gap: 32px;
+    }
 }
 
 .database-access {
@@ -315,14 +537,14 @@
     justify-content: space-between;
     row-gap: 40px;
 
+    @include media('<tablet_s') {
+        row-gap: 32px;
+    }
+
     .input-wrap {
         width: 30%;
 
-        &.half {
-            width: 47.5%;
-        }
-
-        &.max {
+        @include media('<tablet_s') {
             width: 100%;
         }
     }

@@ -59,130 +59,136 @@ export const ContactInfo = () => {
     };
 
     return (
-        <div className="conetnt-box">
-            <div className="text-wrap">
-                <Typography> Please provide us with your contact information. We will use it only for contacting you.</Typography>
-            </div>
-            <form className="contact-info" onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <Controller
-                        control={control}
-                        name="isB2B"
-                        render={({ field: { onChange, value, ...rest } }) => (
-                            <Radio text="Individual" {...rest} checked={!value} onChange={onChangeToB2B} />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="isB2B"
-                        render={({ field: { onChange, value, ...rest } }) => (
-                            <Radio text="Business" {...rest} checked={value} onChange={onChangeToB2C} />
-                        )}
-                    />
+        <div className="conetnt-block">
+            <div className="conetnt-box">
+                <div className="text-wrap">
+                    <Typography>
+                        Kindly share your contact details with us. Rest assured, we will solely use this information exclusively
+                        for communication purposes.
+                    </Typography>
                 </div>
-                {isB2B ? (
-                    <>
-                        <TextField
-                            {...register('companyName')}
-                            label="Company Name"
-                            placeholder="Enter company name"
-                            type="text"
-                            required
-                            errorMsg={errors.companyName?.message}
+                <form className="contact-info" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="controls">
+                        <Controller
+                            control={control}
+                            name="isB2B"
+                            render={({ field: { onChange, value, ...rest } }) => (
+                                <Radio text="Individual" {...rest} checked={!value} onChange={onChangeToB2B} />
+                            )}
                         />
-                        <TextField
-                            {...register('contactFirstName')}
-                            label="Contact First Name"
-                            placeholder="Enter contact first name"
-                            type="text"
-                            required
-                            errorMsg={errors.contactFirstName?.message}
+                        <Controller
+                            control={control}
+                            name="isB2B"
+                            render={({ field: { onChange, value, ...rest } }) => (
+                                <Radio text="Business" {...rest} checked={value} onChange={onChangeToB2C} />
+                            )}
                         />
-                        <TextField
-                            {...register('contactLastName')}
-                            label="Contact Last Name"
-                            placeholder="Enter contact last name"
-                            type="text"
-                            required
-                            errorMsg={errors.contactLastName?.message}
-                        />
-                        <TextField
-                            {...register('contactFirstTitle')}
-                            label="Contact First Title"
-                            placeholder="Enter contact title (CEO, CFO, etc.)"
-                            type="text"
-                            required
-                            errorMsg={errors.contactFirstTitle?.message}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <TextField
-                            {...register('firstName')}
-                            label="First name"
-                            placeholder="Enter your name"
-                            type="text"
-                            required
-                            errorMsg={errors.firstName?.message}
-                        />
-                        <TextField
-                            {...register('lastName')}
-                            label="Last name"
-                            placeholder="Enter your Last name"
-                            type="text"
-                            required
-                            errorMsg={errors.lastName?.message}
-                        />
-                    </>
-                )}
-                <Controller
-                    control={control}
-                    name="phone"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextField
-                            value={value}
-                            label="Phone"
-                            placeholder="Enter your phone number"
-                            type="phone"
-                            required
-                            errorMsg={errors.phone?.message}
-                            maxLength={14}
-                            onBlur={onBlur}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                event.target.value = maskPhoneNumber(event.target.value.replace(/[\)\( -]/gm, ''));
-                                onChange(event);
-                            }}
-                        />
+                    </div>
+                    {isB2B ? (
+                        <>
+                            <TextField
+                                {...register('companyName')}
+                                label="Company Name"
+                                placeholder="Enter company name"
+                                type="text"
+                                required
+                                errorMsg={errors.companyName?.message}
+                            />
+                            <TextField
+                                {...register('contactFirstName')}
+                                label="Contact First Name"
+                                placeholder="Enter contact first name"
+                                type="text"
+                                required
+                                errorMsg={errors.contactFirstName?.message}
+                            />
+                            <TextField
+                                {...register('contactLastName')}
+                                label="Contact Last Name"
+                                placeholder="Enter contact last name"
+                                type="text"
+                                required
+                                errorMsg={errors.contactLastName?.message}
+                            />
+                            <TextField
+                                {...register('contactFirstTitle')}
+                                label="Contact First Title"
+                                placeholder="Enter contact title (CEO, CFO, etc.)"
+                                type="text"
+                                required
+                                errorMsg={errors.contactFirstTitle?.message}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <TextField
+                                {...register('firstName')}
+                                label="First name"
+                                placeholder="Enter your name"
+                                type="text"
+                                required
+                                errorMsg={errors.firstName?.message}
+                            />
+                            <TextField
+                                {...register('lastName')}
+                                label="Last name"
+                                placeholder="Enter your Last name"
+                                type="text"
+                                required
+                                errorMsg={errors.lastName?.message}
+                            />
+                        </>
                     )}
-                />
-                <Controller
-                    control={control}
-                    name="altPhone"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextField
-                            value={value}
-                            label="Alt. Phone"
-                            placeholder="Enter your alternate number"
-                            type="phone"
-                            errorMsg={errors.altPhone?.message}
-                            maxLength={14}
-                            onBlur={onBlur}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                event.target.value = maskPhoneNumber(event.target.value.replace(/[\)\( -]/gm, ''));
-                                onChange(event);
-                            }}
-                        />
-                    )}
-                />
-                <TextField
-                    {...register('email')}
-                    label="Email"
-                    placeholder="Enter your email"
-                    type="email"
-                    required
-                    errorMsg={errors.email?.message}
-                />
-            </form>
+                    <Controller
+                        control={control}
+                        name="phone"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <TextField
+                                value={value}
+                                label="Phone"
+                                placeholder="Enter your phone number"
+                                type="phone"
+                                required
+                                errorMsg={errors.phone?.message}
+                                maxLength={14}
+                                onBlur={onBlur}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    event.target.value = maskPhoneNumber(event.target.value.replace(/[\)\( -]/gm, ''));
+                                    onChange(event);
+                                }}
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="altPhone"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <TextField
+                                value={value}
+                                label="Alt. Phone"
+                                placeholder="Enter your alternate number"
+                                type="phone"
+                                errorMsg={errors.altPhone?.message}
+                                maxLength={14}
+                                onBlur={onBlur}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    event.target.value = maskPhoneNumber(event.target.value.replace(/[\)\( -]/gm, ''));
+                                    onChange(event);
+                                }}
+                            />
+                        )}
+                    />
+                    <TextField
+                        {...register('email')}
+                        className="max"
+                        label="Email"
+                        placeholder="Enter your email"
+                        type="email"
+                        required
+                        errorMsg={errors.email?.message}
+                    />
+                </form>
+            </div>
             <div className="btn-wrap">
                 <Button label="Skip" variant="secondary" onClick={handleNextQuestion} disabled={!isOptional} />
                 <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />

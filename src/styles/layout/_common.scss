@@ -103,11 +103,11 @@ html {
 }
 
 .main-btn {
-  position: relative;
-  display: block;
-  padding: 6px;
-  background: none;
-  border: none;
+	position: relative;
+	display: block;
+	padding: 6px;
+	background: none;
+	border: none;
 
     .btn-text {
         position: relative;
@@ -188,8 +188,21 @@ html {
                     background-color: $white;
                 }
             }
-
         }
+
+		&:disabled{
+			cursor: url("../images/icons/arrow-cursor1.svg"), auto;
+
+			.btn-text {
+				background: none;
+				color: rgba($white, .3);
+                box-shadow: none;
+
+				&::before {
+                    background-color: transparent;
+                }
+			}
+		}
     }
 }
 
@@ -216,7 +229,35 @@ html {
 	}
 
 	svg {
-		transition: all .7s steps(3) 0s;
+		transition: all .3s steps(3) 0s;
+	}
+}
+
+.back-btn {
+	position: relative;
+	width: 48px;
+	min-width: 48px;
+	height: 48px;
+	padding: 15px;
+	border: 0.5px solid $green4F;
+	transition: border .3s ease 0s;
+
+	&:hover {
+		border: 1px solid $white;
+
+		svg {
+			transform: translate(-50%, -50%) rotate(180deg);
+			fill: $white;
+		}
+	}
+
+	svg {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		fill: $green4F;
+		transition: transform .3s steps(3) 0s, fill .3s ease 0s;
 	}
 }
 

@@ -26,6 +26,7 @@ export const Button = ({ disabled, label, variant = 'primary', type = 'button', 
             <span className="icon-line top-right-line"></span>
             <span className="icon-line bot-left-line"></span>
             <span className="icon-line bot-right-line"></span>
+            <span className="text-skip">YOU CAN’T SKIP THIS STEP</span>
         </button>
     );
 };
