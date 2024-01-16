@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 
 export interface IModalBasicProps {
-  open?: boolean;
-  children?: ReactNode;
-  onClose: () => void;
+    open?: boolean;
+    size?: 'sm' | 'md' | 'lg';
+    children?: ReactNode;
+    onClose: () => void;
 }
