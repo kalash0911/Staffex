@@ -5,10 +5,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from './validation';
 import { useAppFormState } from '../../../context/app-form-context';
-import { Button } from '../../shared/button/button';
+import { Button, ButtonWithModal } from '../../shared/button/button';
 import { TCommonFormValues } from '../../../models/form';
 import { maskPhoneNumber } from '../../../utils/form';
 import { Radio } from '../../shared/radio/radio';
+import { SkipModal } from '../../modals/skip/skip-modal';
+import { SkipButton } from '../../skip-btn/skip-btn';
 
 export const ContactInfo = () => {
     const { answers, handleNextQuestion } = useAppFormState();
@@ -190,7 +192,7 @@ export const ContactInfo = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <Button label="Skip" variant="secondary" onClick={handleNextQuestion} disabled={!isOptional} />
+                <SkipButton disabled={!isOptional} />
                 <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />
             </div>
         </div>

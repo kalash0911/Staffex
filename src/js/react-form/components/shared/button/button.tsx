@@ -1,8 +1,9 @@
-import React, { ReactNode, useState } from 'react';
+import React, { FC, ReactNode } from 'react';
+import { useModal } from '../../../context/modal-context';
 
 export type TButtonProps = {
     label: string | ReactNode;
-    type?: 'button' | 'submit' | 'reset' | undefined;
+    type?: 'button' | 'submit' | 'reset';
     variant?: 'primary' | 'secondary';
     disabled?: boolean;
     onClick?: () => void;
@@ -17,12 +18,11 @@ export const Button = ({
     requiredText = "YOU CAN'T SKIP THIS STEP",
     onClick,
 }: TButtonProps) => {
-    const [showRequiredText, setShowRequiredText] = useState(false);
-
     const btnVarianrsClasses = {
         primary: '',
         secondary: 'transp',
     };
+
     return (
         <button
             className={`main-btn click-song ${btnVarianrsClasses[variant]}`}
@@ -39,3 +39,26 @@ export const Button = ({
         </button>
     );
 };
+
+// Future improves? :)
+export type TButtonWithModal = {
+    modal: FC<any>;
+    modalProps: any;
+} & TButtonProps;
+
+const withModal =
+    <T,>(WrappedComponent: React.ComponentType<T>) =>
+    ({ modal, modalProps, ...rest }: TButtonWithModal) => {
+        const { openModal, hideModal } = useModal();
+
+        const handleOnClick = () => {
+            openModal(modal, {
+                onClose: hideModal,
+                ...modalProps,
+            });
+        };
+
+        return <WrappedComponent {...(rest as T)} onClick={handleOnClick} />;
+    };
+
+export const ButtonWithModal = withModal(Button);

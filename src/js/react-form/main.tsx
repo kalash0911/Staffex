@@ -7,13 +7,13 @@ import { AppFormProvider } from './context/app-form-context.tsx';
 const root = document.getElementById('root');
 
 if (root) {
-  ReactDOM.createRoot(root).render(
-    <React.StrictMode>
-      <ModalProvider>
-        <AppFormProvider>
-          <App />
-        </AppFormProvider>
-      </ModalProvider>
-    </React.StrictMode>,
-  );
+    ReactDOM.createRoot(root).render(
+        <React.StrictMode>
+            <AppFormProvider>
+                <ModalProvider>
+                    <App />
+                </ModalProvider>
+            </AppFormProvider>
+        </React.StrictMode>,
+    );
 }

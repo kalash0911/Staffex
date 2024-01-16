@@ -2,9 +2,6 @@ import React, { ReactNode, createContext, useContext, useState } from 'react';
 import { FormType, TActiveQuestion, TTopic } from '../models/question';
 import { QUESTIONS_CONFIG } from '../constants/questions';
 import { TCommonFormValues } from '../models/form';
-import { useModal } from './modal-context';
-import { ISkipModalProps, SkipModal } from '../components/modals/skip/skip-modal';
-
 interface IAppFormProviderProps {
     children: ReactNode;
 }
@@ -22,7 +19,6 @@ interface IAppFormProviderValues {
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
 
 const AppFormProvider = ({ children }: IAppFormProviderProps) => {
-    const { openModal, hideModal } = useModal();
     const [formType, setFormType] = useState<IAppFormProviderValues['formType']>(FormType.SECRETARY);
     const [questions, setQuestions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
     const [activeQuestion, setActiveQuestion] = useState<IAppFormProviderValues['activeQuestion']>({
@@ -49,23 +45,17 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 ...formData,
             }));
         }
-        openModal<ISkipModalProps>(SkipModal, {
-            onClose: hideModal,
-            onSkip: () => {
-                setActiveQuestion((prevState) => {
-                    if (isLastQuestion) return prevState;
-                    if (isLastQuestionInTopic)
-                        return {
-                            configInd: prevState.configInd + 1,
-                            questionInd: 0,
-                        };
-                    return {
-                        configInd: prevState.configInd,
-                        questionInd: prevState.questionInd + 1,
-                    };
-                });
-                hideModal();
-            },
+        setActiveQuestion((prevState) => {
+            if (isLastQuestion) return prevState;
+            if (isLastQuestionInTopic)
+                return {
+                    configInd: prevState.configInd + 1,
+                    questionInd: 0,
+                };
+            return {
+                configInd: prevState.configInd,
+                questionInd: prevState.questionInd + 1,
+            };
         });
     };
 
