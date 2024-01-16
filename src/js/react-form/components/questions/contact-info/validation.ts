@@ -6,7 +6,7 @@ export const schema = yup
     .object({
         isB2B: yup.boolean(),
         phone: yup.string().required(REQUIRED_FIELD).matches(PHONE_REGEX, { message: PHONE_INVALID }),
-        altPhone: yup.string(),
+        altPhone: yup.string().matches(PHONE_REGEX, { message: PHONE_INVALID }),
         email: yup.string().required(REQUIRED_FIELD).matches(EMAIL_REGEX, { message: EMAIL_INVALID }),
         companyName: yup.string().when('isB2B', {
             is: true,
