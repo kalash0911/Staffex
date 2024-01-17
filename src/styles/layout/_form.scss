@@ -282,6 +282,13 @@
         &.max {
             width: 100%;
         }
+
+        &.error-input {
+
+            .input {
+                border-bottom: 1px solid $red4F;
+            }
+        }
     }
 
     .label {
@@ -502,6 +509,92 @@
                     display: none;
                 }
             }
+        }
+    }
+
+    .modal-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 100vh;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        padding: 110px 20px 150px 20px;
+
+        @include media('<phone') {
+            padding: 110px 20px 200px 20px;
+        }
+
+        &.lg {
+
+            .modal-content {
+                max-width: 460px;
+                text-align: center;
+            }
+
+            .modal-title {
+                font-size: 30px;
+                font-weight: 700;
+
+                @include media('<phone') {
+                    font-size: 28px;
+                }
+            }
+        }
+    }
+
+    .backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(3, 3, 3, 0.80);
+        backdrop-filter: blur(17px);
+        z-index: -1;
+    }
+
+    .modal-title {
+        color: $white;
+        font-family: $DegularText;
+        line-height: 100%;
+        text-transform: uppercase;
+    }
+
+    .modal-btn-wrap {
+        position: absolute;
+        left: 50%;
+        bottom: 60px;
+        transform: translate(-50%);
+        display: flex;
+        gap: 25px;
+
+        @include media('<phone') {
+            flex-direction: column-reverse;
+        }
+    }
+
+    .modal-text {
+        color: rgba($white, .7);
+        font-family: $DegularText;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; 
+    }
+
+    .btn-close {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+
+        @include media('<phone') {
+            right: 16px;
+            width: 36px;
+            min-width: 36px;
+            height: 36px;
         }
     }
 }

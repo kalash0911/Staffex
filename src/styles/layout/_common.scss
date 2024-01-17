@@ -233,7 +233,8 @@ html {
 	}
 }
 
-.back-btn {
+.back-btn,
+.btn-close {
 	position: relative;
 	width: 48px;
 	min-width: 48px;
@@ -241,6 +242,7 @@ html {
 	padding: 15px;
 	border: 0.5px solid $green4F;
 	transition: border .3s ease 0s;
+	background: none;
 
 	&:hover {
 		border: 1px solid $white;
