@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button } from '../../shared/button/button';
+import { IModalBasicProps } from '../../../models/common/modal';
 
-export interface ISkipModalProps {
+export interface ISkipModalProps extends IModalBasicProps {
     onSkip: () => void;
     onClose: () => void;
 }

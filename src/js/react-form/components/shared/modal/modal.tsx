@@ -7,7 +7,7 @@ export const Modal = ({ open, onClose, children, size = 'md' }: IModalBasicProps
             <div className={`modal-wrap ${size}`}>
                 <button onClick={onClose}>X</button>
                 {children}
-                <div className="backdrop"></div>
+                <div className="backdrop" onClick={onClose}></div>
             </div>
         )
     );
