@@ -17,7 +17,7 @@ export const TextField = forwardRef<HTMLInputElement, TTextFieldBasicProps>(
         const inputId = id || useId();
 
         return (
-            <div className={`input-wrap ${className ? className : ''}`}>
+            <div className={`input-wrap ${className ? className : ''} ${errorMsg ? 'error-input' : ''}`}>
                 {label && (
                     <label className="label" htmlFor={inputId}>
                         {label} {required && <sup>*</sup>}

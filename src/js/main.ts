@@ -9,7 +9,6 @@ import { initAudioClicks } from './inits/audio';
 import { initAutoPlayVideoOnScroll } from './inits/autoplay-video';
 import { initTabs } from './inits/tabs';
 import { initAccordions } from './inits/accordions';
-import { initFixedBtnsOnScroll } from './inits/fixed-btns';
 import { initVideoChanges } from './inits/videos-changer';
 import { initLottiesAnimations } from './inits/lottie-icons';
 import { initFeatureChoose } from './inits/features-choose';
@@ -25,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounterAnimate();
     initTabs();
     initAccordions();
-    // initFixedBtnsOnScroll();
-    // animationElementsOnScroll();
     pinButtonsOnScroll();
     initNavigation();
     initFooterInViewport();
@@ -43,6 +40,10 @@ window.addEventListener('load', () => {
 });
 
 const initFooterInViewport = () => {
+    const footer = document.querySelector('#footer');
+
+    if (!footer) return;
+
     let options = { threshold: [0.5] };
     let observer = new IntersectionObserver((entry) => {
         entry.forEach((el) => {
@@ -53,7 +54,7 @@ const initFooterInViewport = () => {
             }
         });
     }, options);
-    observer.observe(document.querySelector('#footer'));
+    observer.observe(footer);
 };
 
 const initVideoCreate = () => {
