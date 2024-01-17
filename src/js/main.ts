@@ -68,7 +68,7 @@ const initVideoCreate = () => {
         video.setAttribute('playsinline', 'true');
         video.setAttribute('data-keepplaying', 'true');
         video.setAttribute('src', './files/pre-bot-bg1.webm');
-        console.log('video: ', video);
         el.appendChild(video);
+        video.play();
     });
 };
