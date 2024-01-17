@@ -1277,7 +1277,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 			opacity: 0;
 		}
 
-		&.bg-video {
+		&.bg-gif {
 			top: auto;
 			bottom: 0;
 			opacity: 1;
@@ -1286,10 +1286,14 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		&.show {
 			opacity: 1;
 
-			&.bg-video {
+			&.bg-gif {
 				opacity: 0;
 			}
 		}
+	}
+
+	.bg-gif {
+		background: url('../files/pre-bot-bg.gif');
 	}
 
 	.bot-v1 {

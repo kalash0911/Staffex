@@ -35,11 +35,11 @@ export const initVideoChanges = () => {
         });
     }
 
-    const playerPreBotBg = document.querySelectorAll('.pre-bot-bg') as NodeListOf<HTMLVideoElement>;
+    /* const playerPreBotBg = document.querySelectorAll('.pre-bot-bg') as NodeListOf<HTMLVideoElement>;
 
     if (playerPreBotBg.length) {
         playerPreBotBg.forEach((video, ind) => {
             video.src = supportsHEVCAlpha() ? `./files/pre-bot-bg${ind + 1}.mov` : `./files/pre-bot-bg${ind + 1}.webm`;
         });
-    }
+    } */
 };
