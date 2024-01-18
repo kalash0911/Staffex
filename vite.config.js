@@ -3,24 +3,26 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
 import { htmlFiles } from './getHTMLFileNames';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 const input = { main: resolve(__dirname, 'src/index.html') };
 htmlFiles.forEach((file) => {
-  input[file.replace('.html', '')] = resolve(__dirname, 'src', file);
+    input[file.replace('.html', '')] = resolve(__dirname, 'src', file);
 });
 
 export default defineConfig({
-  base: '/Staffex',
-  root: 'src',
-  publicDir: '../public',
-  plugins: [
-    handlebars({ partialDirectory: resolve(__dirname, 'src/templates') }),
-  ],
-  build: {
-    rollupOptions: {
-      input,
+    base: '/Staffex',
+    root: 'src',
+    publicDir: '../public',
+    server: {
+        https: true,
     },
-    outDir: '../dist/',
-    emptyOutDir: true,
-  },
+    plugins: [basicSsl(), handlebars({ partialDirectory: resolve(__dirname, 'src/templates') })],
+    build: {
+        rollupOptions: {
+            input,
+        },
+        outDir: '../dist/',
+        emptyOutDir: true,
+    },
 });
