@@ -1,3 +1,8 @@
+export type TEmailAccess = {
+    email: string;
+    refreshToken: string;
+};
+
 export type ContactFormValues = {
     isB2B: boolean;
     phone: string;
@@ -17,4 +22,8 @@ export type TB2BContactFormValues = {
     contactFirstTitle: string;
 } & ContactFormValues;
 
-export type TCommonFormValues = Partial<TB2CContactFormValues> & Partial<TB2BContactFormValues>;
+export type TEmailAccessValues = {
+    accessEmails: Array<TEmailAccess>;
+};
+
+export type TCommonFormValues = Partial<TB2CContactFormValues> & Partial<TB2BContactFormValues> & Partial<TEmailAccessValues>;

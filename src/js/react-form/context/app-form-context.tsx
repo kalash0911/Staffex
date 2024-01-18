@@ -12,6 +12,7 @@ interface IAppFormProviderValues {
     formType: FormType;
     questions: TTopic[];
     activeQuestion: TActiveQuestion;
+    setAnswers: React.Dispatch<React.SetStateAction<TCommonFormValues | null>>;
     handleNextQuestion: (formData?: TCommonFormValues) => void;
     handleActiveQuestion: (question: IAppFormProviderValues['activeQuestion']) => void;
 }
@@ -71,6 +72,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 formType,
                 questions,
                 activeQuestion,
+                setAnswers,
                 handleNextQuestion,
                 handleActiveQuestion,
             }}

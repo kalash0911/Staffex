@@ -110,7 +110,7 @@
 
             @include media('<tablet_x') {
                 padding-right: 20px;
-            }  
+            }
         }
     }
 
@@ -197,7 +197,7 @@
             color: $green4F
         }
     }
-    
+
     .text-bot {
         margin: 0;
         padding-right: 40px;
@@ -316,7 +316,7 @@
         font-weight: 400;
         line-height: 140%;
         transition: $anim_03;
-        outline:none;
+        outline: none;
 
         &::placeholder {
             color: rgba($white, .6);
@@ -369,9 +369,9 @@
     .hidden-checkbox {
         display: none;
 
-        &:checked ~ .checkbox {             
+        &:checked~.checkbox {
             background-color: $green4F;
-            border: 1px solid $green4F;         
+            border: 1px solid $green4F;
         }
     }
 
@@ -406,9 +406,9 @@
     .radio-input {
         display: none;
 
-        &:checked ~ .radio {
+        &:checked~.radio {
             border: 1px solid $green4F;
-    
+
             &::before {
                 background-color: $green4F;
             }
@@ -424,7 +424,7 @@
         transition: $anim_03;
 
         &::before {
-            content:'';
+            content: '';
             position: absolute;
             top: 50%;
             left: 50%;
@@ -450,7 +450,7 @@
             flex-direction: column-reverse;
         }
     }
-    
+
     .main-btn {
         min-width: 200px;
         position: relative;
@@ -582,7 +582,7 @@
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
-        line-height: 140%; 
+        line-height: 140%;
     }
 
     .btn-close {
@@ -651,5 +651,24 @@
         @include media('<tablet_s') {
             width: 100%;
         }
+    }
+}
+
+.service-button {
+    background: transparent;
+    border: 1px solid #4F4F4F;
+    transition: border-color .3s ease-out;
+
+    &:hover {
+        border-color: #5CFF4F;
+
+        .icon-wrap {
+            opacity: 1;
+        }
+    }
+
+    .icon-wrap {
+        opacity: 0;
+        transition: opacity .3s ease-out;
     }
 }
