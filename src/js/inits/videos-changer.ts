@@ -9,6 +9,14 @@ export const initVideoChanges = () => {
         });
     }
 
+    const playerBotsLoop = document.querySelectorAll('.bot-loop-video') as NodeListOf<HTMLVideoElement>;
+
+    if (playerBotsLoop.length) {
+        playerBotsLoop.forEach((video, ind) => {
+            video.src = supportsHEVCAlpha() ? `./files/bot-loop${ind + 1}.mov` : `./files/bot-loop${ind + 1}.webm`;
+        });
+    }
+
     const playerSpeak = document.querySelectorAll('.speak-video') as NodeListOf<HTMLVideoElement>;
 
     if (playerSpeak.length) {
@@ -34,12 +42,4 @@ export const initVideoChanges = () => {
             video.src = supportsHEVCAlpha() ? `./files/hero-bot${ind + 1}.mov` : `./files/hero-bot${ind + 1}.webm`;
         });
     }
-
-    /* const playerPreBotBg = document.querySelectorAll('.pre-bot-bg') as NodeListOf<HTMLVideoElement>;
-
-    if (playerPreBotBg.length) {
-        playerPreBotBg.forEach((video, ind) => {
-            video.src = supportsHEVCAlpha() ? `./files/pre-bot-bg${ind + 1}.mov` : `./files/pre-bot-bg${ind + 1}.webm`;
-        });
-    } */
 };

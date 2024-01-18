@@ -13,6 +13,30 @@
     transition: opacity .3s ease-out;
     padding: 25px;
 
+    .line {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 90vh;
+
+        &.left {
+            left: 60px;
+
+            @media screen and (max-width: 860px) {
+                left: 20px;
+            }
+        }
+
+        &.right {
+            right: 60px;
+            transform: translateY(-50%) rotate(180deg);
+
+            @media screen and (max-width: 860px) {
+                right: 20px;
+            }
+        }
+    }
+
     .loading-text-wrap {
         width: 100%;
         display: flex;
@@ -36,6 +60,10 @@
     .loading-content {
         max-width: 620px;
         width: 100%;
+
+        @media screen and (max-width: 860px) {
+            width: 80%;
+        }
     }
 
     &.d-none {

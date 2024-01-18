@@ -1231,6 +1231,10 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		padding: 80px 0 0 0;
 	}
 
+	@include media('<desktop') {
+		min-height: 0;
+	}
+
 	@include media('<tablet_s') {
 		padding: 40px 0 180px 0;
 	}
@@ -1268,21 +1272,33 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		transition: $anim-opacity-bg;
 
 		@include media('<tablet_s') {
-			height: 700px;
-		}
-
-		@include media('<phone') {
-			height: 600px;
+			height: 540px;
 		}
 
 		&.bg-img {
 			opacity: 0;
+
+			@include media('<desktop') {
+				opacity: 1;
+			}
+
+			@include media('<tablet_s') {
+				opacity: 0;
+			}
 		}
 
 		&.bg-gif {
 			top: auto;
 			bottom: 0;
 			opacity: 1;
+
+			@include media('<desktop') {
+				opacity: 0;
+			}
+
+			@include media('<tablet_s') {
+				opacity: 1;
+			}
 		}
 
 		&.show {
@@ -1296,25 +1312,6 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 
 	.bg-gif {
 		background: url('../files/pre-bot-bg.gif');
-	}
-
-	.bot-v1 {
-		position: absolute;
-		left: 50%;
-		transform: translate(-50%);
-		bottom: 0;
-		width: 1500px;
-		z-index: 3;
-		opacity: 1;
-		transition: all 0s ease $anim-delay;
-	
-		@include media('<widescreen') {
-		  	width: 1300px;
-		}
-
-		&.show {
-			opacity: 0;
-		}
 	}
 
   	.prev-title {
@@ -1363,6 +1360,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 
 		@include media('<tablet_s') {
 			align-items: flex-start;
+			margin-bottom: -50px;
 		}
 
 		&.show {
@@ -1470,6 +1468,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		@include media('<tablet_s') {
 			flex-direction: column;
 			padding: 0;
+			margin: 0 -20px;
 		}
 	}
 
@@ -1492,6 +1491,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 
 		@include media('<tablet_s') {
 			gap: 12px;
+			padding: 0 20px;
 		}
   	}
 
@@ -1803,30 +1803,35 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 				display: block;
 			}
 		}
+	}
 
-		.bot {
-			opacity: 0;
-			transition: all 0s ease $anim-delay;
+	.bot-v1,
+	.bot-v2 {
+		position: relative;
+		left: 50%;
+		transform: translate(-50%);
+		width: 1700px;
+		transition: all 0s ease $anim-delay;
 
-			@include media('<desktop') {
-				display: none;
-			}
+		@include media('<desktop') {
+			display: none;
+		}
 
-			@include media('<tablet_s') {
-				display: block;
-				margin: 0 auto;
-			}
-
-			&.show {
-				opacity: 1;
-			}
+		@include media('<tablet_s') {
+			display: block;
+			width: 700px;
 		}
 	}
 
-  .pinBtnEnd {
-    position: absolute;
-    bottom: -125px;
-  }
+	.bot-v2 {
+		position: absolute;
+		bottom: 0;
+	}
+
+	.pinBtnEnd {
+		position: absolute;
+		bottom: -125px;
+	}
 
 	.main-btn {
 		position: absolute;
