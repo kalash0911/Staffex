@@ -13,6 +13,29 @@ export const EmailAccess = () => {
 
     const emails = answers?.accessEmails;
 
+    const mocksEmail: TEmailAccess[] = [
+        {
+            serviceType: 'gmail',
+            email: 'test@gmail.com',
+            refreshToken: '123',
+        },
+        {
+            serviceType: 'gmail',
+            email: 'test2@gmail.com',
+            refreshToken: '1233',
+        },
+        {
+            serviceType: 'outlook',
+            email: 'test2@outlool.com',
+            refreshToken: '12233',
+        },
+        {
+            serviceType: 'icloud',
+            email: 'test2@icloud.com',
+            refreshToken: '12323',
+        },
+    ];
+
     const onGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
@@ -30,7 +53,11 @@ export const EmailAccess = () => {
                 const accessEmails = prevStrate?.accessEmails;
                 // TODO: check email from Vetals API:
                 if (!accessEmails?.find((email) => email.email === codeResponse.code)) {
-                    const emailData: TEmailAccess = { email: codeResponse.code, refreshToken: codeResponse.code };
+                    const emailData: TEmailAccess = {
+                        email: codeResponse.code,
+                        refreshToken: codeResponse.code,
+                        serviceType: 'gmail',
+                    };
                     return {
                         ...prevStrate,
                         accessEmails: accessEmails?.length ? [...accessEmails, emailData] : [emailData],
@@ -76,6 +103,13 @@ export const EmailAccess = () => {
 
                 <Typography>List of added emails</Typography>
                 {emailsList}
+                {mocksEmail.map(({ email, serviceType }) => {
+                    return (
+                        <div key={email} className="service-item">
+                            {serviceType} {email}
+                        </div>
+                    );
+                })}
             </div>
             <div className="btn-wrap">
                 <SkipButton />

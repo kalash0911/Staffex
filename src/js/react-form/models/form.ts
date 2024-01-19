@@ -1,5 +1,8 @@
+export type TEmailService = 'gmail' | 'outlook' | 'icloud';
+
 export type TEmailAccess = {
     email: string;
+    serviceType: TEmailService;
     refreshToken: string;
 };
 
