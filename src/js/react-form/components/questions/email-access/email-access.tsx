@@ -85,9 +85,9 @@ export const EmailAccess = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        To enable email managment, we require access to your email accounts. This is completely optional – if you
-                        prefer not to grant access, simply skip this step. Please note, without email access, you will not get
-                        this feature:
+                        Do you have an overloaded inbox? Grant us email access, and we’ll help you summarize correspondence with
+                        specific individuals, ensuring nothing important is overlooked. Please note, the following function
+                        depends on access to operate correctly:
                     </Typography>
                     <Typography variant="sm">
                         <span>Email Management:</span> Filtering, sorting, and prioritising emails, responding to routine
@@ -95,21 +95,23 @@ export const EmailAccess = () => {
                     </Typography>
                 </div>
 
-                <div>
+                <div className="choose-wrap">
                     <ServiceButton onClick={onGoogleLogin}>Google Gmail</ServiceButton>
                     <ServiceButton onClick={() => alert('In progress...')}>Microsoft Outlook</ServiceButton>
                     <ServiceButton onClick={() => alert('In progress...')}>iCloud Email</ServiceButton>
                 </div>
 
-                <Typography>List of added emails</Typography>
-                {emailsList}
-                {mocksEmail.map(({ email, serviceType }) => {
-                    return (
-                        <div key={email} className="service-item">
-                            {serviceType} {email}
-                        </div>
-                    );
-                })}
+                <div className="list-add-wrap">
+                    <Typography variant="ft">List of added emails</Typography>
+                    {emailsList}
+                    {mocksEmail.map(({ email, serviceType }) => {
+                        return (
+                            <div key={email} className="service-item">
+                                {serviceType} {email}
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
             <div className="btn-wrap">
                 <SkipButton />

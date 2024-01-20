@@ -12,7 +12,10 @@ export const ServiceButton = ({ children, onClick }: TServiceButtonProps) => {
             <div className="icon-wrap">
                 <IconPlus />
             </div>
-            {children}
+            <div className="logo-wrap">
+                <img src="../images/icons/Gmail.svg" alt="Logo Email" />
+            </div>
+            <p className="service-name">{children}</p>
         </button>
     );
 };

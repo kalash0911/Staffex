@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-export type Variant = 'body' | 'sm' | 'h1' | 'h2' | string;
+export type Variant = 'body' | 'sm' | 'ft' | 'h1' | 'h2' | string;
 
 export type TTypographyProps = {
     children?: ReactNode;
@@ -12,6 +12,7 @@ export const Typography = ({ children, classNames, variant = 'body' }: TTypograp
     const classes = {
         body: 'text',
         sm: 'text sm',
+        ft: 'ft',
         h1: 'main-title',
     } as Record<string, string>;
 
@@ -22,6 +23,10 @@ export const Typography = ({ children, classNames, variant = 'body' }: TTypograp
     }
 
     if (variant === 'sm') {
+        return <p className={`${cn} ${classNames}`}>{children}</p>;
+    }
+
+    if (variant === 'ft') {
         return <p className={`${cn} ${classNames}`}>{children}</p>;
     }
 

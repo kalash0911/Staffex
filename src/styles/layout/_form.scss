@@ -262,6 +262,18 @@
             color: rgba($white, .7);
             font-size: 14px;
         }
+
+    }
+
+    .ft {
+        margin-bottom: 8px;
+        color: $white;
+        font-family: $PlexMono;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 140%;
+        letter-spacing: 0.32px;
+        text-transform: uppercase;
     }
 
     .controls {
@@ -654,21 +666,54 @@
     }
 }
 
-.service-button {
-    background: transparent;
-    border: 1px solid #4F4F4F;
-    transition: border-color .3s ease-out;
+.choose-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 
-    &:hover {
-        border-color: #5CFF4F;
-
-        .icon-wrap {
-            opacity: 1;
+    .service-button {
+        position: relative;
+        min-width: 212px;
+        display: flex;
+        flex-direction: column;
+        padding: 35px 20px;
+        background: transparent;
+        border: 1px solid $gray4F;
+        transition: border-color .3s ease-out;
+    
+        &:hover {
+            border-color: $green4F;
+    
+            .icon-wrap {
+                opacity: 1;
+            }
         }
     }
 
     .icon-wrap {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        background: rgba(79, 79, 79, 0.30);
         opacity: 0;
         transition: opacity .3s ease-out;
+    }
+
+    .logo-wrap {
+        margin-bottom: 7px;
+    }
+
+    .service-name {
+        margin: 0;
+        color: $white;
+        font-family: $DegularText;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
     }
 }
