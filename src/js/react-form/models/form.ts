@@ -29,4 +29,20 @@ export type TEmailAccessValues = {
     accessEmails: Array<TEmailAccess>;
 };
 
-export type TCommonFormValues = Partial<TB2CContactFormValues> & Partial<TB2BContactFormValues> & Partial<TEmailAccessValues>;
+export type TDataBase = {
+    host?: string;
+    port?: string;
+    database?: string;
+    user?: string;
+    password?: string;
+    url?: string;
+};
+
+export type TDataBaseFormValues = {
+    databaseList?: Array<TDataBase>;
+};
+
+export type TCommonFormValues = Partial<TB2CContactFormValues> &
+    Partial<TB2BContactFormValues> &
+    Partial<TEmailAccessValues> &
+    Partial<TDataBaseFormValues>;
