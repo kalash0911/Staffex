@@ -1239,79 +1239,39 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		padding: 40px 0 180px 0;
 	}
 
-	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		opacity: 0.8;
-		background: radial-gradient(
-		50% 50% at 50% 50%,
-		rgba(0, 0, 0, 0) 0%,
-		#000 100%
-		);
-		z-index: -1;
-
-		@include media('<phone') {
-			opacity: 0.6;
-		}
-	}
-
 	.container {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
 		flex: 1 0 auto;
-		z-index: 3;
+	}
+
+	.bg-wrap {
+
+		&::before {
+			content:'';
+			position: absolute;
+			top: 400px;
+			left: 0;
+			min-height: 300px;
+			width: 100%;
+			background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);
+			z-index: 1;
+			display: none;
+
+			@include media('<tablet_s') {
+				display: block;
+			}
+		}
 	}
 
 	.bg {
-		transition: $anim-opacity-bg;
+		min-height: 100vh;
+		height: auto;
 
 		@include media('<tablet_s') {
-			height: 540px;
+			min-height: 700px;
 		}
-
-		&.bg-img {
-			opacity: 0;
-
-			@include media('<desktop') {
-				opacity: 1;
-			}
-
-			@include media('<tablet_s') {
-				opacity: 0;
-			}
-		}
-
-		&.bg-gif {
-			top: auto;
-			bottom: 0;
-			opacity: 1;
-
-			@include media('<desktop') {
-				opacity: 0;
-			}
-
-			@include media('<tablet_s') {
-				opacity: 1;
-			}
-		}
-
-		&.show {
-			opacity: 1;
-
-			&.bg-gif {
-				opacity: 0;
-			}
-		}
-	}
-
-	.bg-gif {
-		background: url('../files/pre-bot-bg.gif');
 	}
 
   	.prev-title {
@@ -1346,21 +1306,12 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 	.info-block {
 		display: flex;
 		justify-content: space-between;
-		margin-bottom: -50px;
+		margin-bottom: 20px;
 		opacity: 0;
 		transition: $anim-opacity;
 
-		@include media('<laptop') {
-			margin-bottom: -30px;
-		}
-
-		@include media('<widescreen_x') {
-			margin-bottom: 20px;
-		}
-
 		@include media('<tablet_s') {
 			align-items: flex-start;
-			margin-bottom: -50px;
 		}
 
 		&.show {
@@ -1459,6 +1410,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		align-items: center;
 		justify-content: center;
 		gap: 20px;
+		margin: auto 0;
 
 		@include media('<desktop') {
 			align-items: stretch;
@@ -1477,7 +1429,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		flex-direction: column;
 		justify-content: space-between;
 		gap: 56px;
-		padding-bottom: 50px;
+		padding-bottom: 75px;
 		align-items: flex-end;
 		z-index: 1;
 
@@ -1773,59 +1725,20 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 
 	.bot-wrap {
 		position: relative;
-		max-width: 650px;
+		min-width: 650px;
 
 		@include media('<laptop') {
-			max-width: 500px;
+			min-width: 30%;
 		}
 
-		@include media('<desktop') {
-			min-height: 100%;
+		@include media('<tablet') {
+			min-width: 0;
 		}
 
 		@include media('<tablet_s') {
 			order: -1;
-			max-width: 100%;
-			overflow: hidden;
+			min-height: 400px;
 		}
-
-		&::after {
-			content: '';
-			position: absolute;
-			left: 0;
-			bottom: 0;
-			width: 100%;
-			height: 180px;
-			display: none;
-			background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
-
-			@include media('<tablet_s') {
-				display: block;
-			}
-		}
-	}
-
-	.bot-v1,
-	.bot-v2 {
-		position: relative;
-		left: 50%;
-		transform: translate(-50%);
-		width: 1700px;
-		transition: all 0s ease $anim-delay;
-
-		@include media('<desktop') {
-			display: none;
-		}
-
-		@include media('<tablet_s') {
-			display: block;
-			width: 700px;
-		}
-	}
-
-	.bot-v2 {
-		position: absolute;
-		bottom: 0;
 	}
 
 	.pinBtnEnd {
@@ -1839,7 +1752,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		max-width: 380px;
 		left: 50%;
 		transform: translate(-50%);
-		top: 75%;
+		top: 150px;
 
 		@include media('<desktop') {
 			top: auto;
