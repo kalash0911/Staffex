@@ -11,6 +11,7 @@ import { Gmail as GmailIcon } from '../../../icons/Gmail';
 import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
 import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
+import axios from 'axios';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion } = useAppFormState();
@@ -45,10 +46,10 @@ export const EmailAccess = () => {
         onSuccess: async (codeResponse) => {
             console.log(codeResponse);
             // TODO: Change to super API:
-            // const tokens = await axios.post('http://localhost:3001/auth/google', {
-            //     //super backend url
-            //     code: codeResponse.code,
-            // });
+            const googleAuthResponse = await axios.post('https://localhost:32770/auth/google', {
+                 //super backend url
+                 code: codeResponse.code,
+             });
 
             // console.log(tokens);
 
@@ -56,10 +57,10 @@ export const EmailAccess = () => {
             setAnswers((prevStrate) => {
                 const accessEmails = prevStrate?.accessEmails;
                 // TODO: check email from Vetals API:
-                if (!accessEmails?.find((email) => email.email === codeResponse.code)) {
+                if (!accessEmails?.find((email) => email.email === googleAuthResponse.data.email)) {
                     const emailData: TServiceItemInfo = {
-                        email: codeResponse.code,
-                        refreshToken: codeResponse.code,
+                        email: googleAuthResponse.data.email,
+                        refreshToken: googleAuthResponse.data.refreshToken,
                         serviceType: 'gmail',
                     };
                     return {
@@ -73,7 +74,6 @@ export const EmailAccess = () => {
             });
         },
         onError: (errorResponse) => console.log(errorResponse),
-        scope: GMAIL_SCOPE,
     });
 
     const emailsList = emails?.length ? (
