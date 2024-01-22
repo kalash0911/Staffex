@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TDataBaseFormValues } from '../../../models/form';
 import { SkipButton } from '../../skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
+import { ConnectButton } from '../../connect-btn/connect-btn';
 
 const defaultValues = {
     host: '',
@@ -125,6 +126,8 @@ export const DatabaseAccess = () => {
                                 className="max"
                                 errorMsg={errors.databaseList?.[index]?.url?.message}
                             />
+                            <ConnectButton status="hold" onClick={() => alert('In progress')} />
+                            {fields.length > 1 && <button onClick={() => onDeleteDatabase(index)}>Remove</button>}
                         </OpenClose>
                     ))}
                     <button onClick={onAddDatabase}>+ Add one more database</button>
