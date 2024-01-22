@@ -1,12 +1,14 @@
 import React from 'react';
-import { TextField } from '../../shared/text-field/text-field';
-import { Checkbox } from '../../shared/checkbox/checkbox';
 import { Typography } from '../../shared/typography/typography';
 import { useAppFormState } from '../../../context/app-form-context';
 import { Button } from '../../shared/button/button';
 import { SkipButton } from '../../skip-btn/skip-btn';
 import { TServiceItemInfo } from '../../../models/form';
 import { ServiceItem } from '../../shared/service-item/service-item';
+import { ServiceButton } from '../../shared/service-button/service-button';
+import { GoogleCalendar as GCalendarIcon } from '../../../icons/GoogleCalendar';
+import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
+import { AppleCalendar as AppleCalendarIcon } from '../../../icons/AppleCalendar';
 
 export const CalendarAccess = () => {
     const { handleNextQuestion } = useAppFormState();
@@ -43,13 +45,17 @@ export const CalendarAccess = () => {
                         appointments, meetings, and reminders, and sending notifications for upcoming events.
                     </Typography>
                 </div>
-                <form className="calendar-access">
-                    <Checkbox text="Google Calendar" />
-                    <Checkbox text="Microsoft Outlook" />
-                    <Checkbox text="Apple Calendar" />
-                    <Checkbox text="Other" />
-                    <TextField placeholder="Enter other option" type="text" />
-                </form>
+                <div className="choose-wrap">
+                    <ServiceButton icon={<GCalendarIcon />} onClick={() => alert('In progress...')}>
+                        Google Calendar
+                    </ServiceButton>
+                    <ServiceButton icon={<OutlookIcon />} onClick={() => alert('In progress...')}>
+                        Microsoft Outlook
+                    </ServiceButton>
+                    <ServiceButton icon={<AppleCalendarIcon />} onClick={() => alert('In progress...')}>
+                        iCloud Email
+                    </ServiceButton>
+                </div>
                 <div className="list-add-wrap">
                     <Typography variant="ft">List of added calendars</Typography>
                     {/* TODO: remove mocks */}

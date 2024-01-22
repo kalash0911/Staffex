@@ -1,12 +1,13 @@
 import React from 'react';
-import { TextField } from '../../shared/text-field/text-field';
-import { IconPlus } from '../../../icons/plus.tsx';
 import { Typography } from '../../shared/typography/typography.tsx';
 import { Button } from '../../shared/button/button.tsx';
 import { useAppFormState } from '../../../context/app-form-context.tsx';
 import { SkipButton } from '../../skip-btn/skip-btn.tsx';
 import { TServiceItemInfo } from '../../../models/form.ts';
 import { ServiceItem } from '../../shared/service-item/service-item.tsx';
+import { ServiceButton } from '../../shared/service-button/service-button.tsx';
+import { GoogleDrive as GDriveIcon } from '../../../icons/GoogleDrive.tsx';
+import { FilePlus as FilePlusIcon } from '../../../icons/FilePlus.tsx';
 
 export const CloudDataAccess = () => {
     const { handleNextQuestion } = useAppFormState();
@@ -38,15 +39,14 @@ export const CloudDataAccess = () => {
                         appointments, meetings, and reminders, and sending notifications for upcoming events.
                     </Typography>
                 </div>
-                <form className="cloud-data-access">
-                    <TextField label="Link 1" placeholder="http:/example.com" type="url" />
-                    <div className="btn-wrap">
-                        <button className="btn-add click-song">
-                            <IconPlus />
-                            Add one more link
-                        </button>
-                    </div>
-                </form>
+                <div className="choose-wrap">
+                    <ServiceButton icon={<GDriveIcon />} onClick={() => alert('In progress...')}>
+                        Google Drive
+                    </ServiceButton>
+                    <ServiceButton icon={<FilePlusIcon />} onClick={() => alert('In progress...')}>
+                        Add link to your file(s)
+                    </ServiceButton>
+                </div>
                 {/* TODO: remove mocks */}
                 {mocksApps.map(({ email, serviceType }, index) => {
                     return (
