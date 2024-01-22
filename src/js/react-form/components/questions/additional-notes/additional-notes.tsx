@@ -10,7 +10,7 @@ import { schema } from './validation';
 import { TAdditionalNotesFormValues } from '../../../models/form';
 
 export const AdditionalNotes = () => {
-    const { answers, handleNextQuestion } = useAppFormState();
+    const { handleNextQuestion } = useAppFormState();
 
     const { register, handleSubmit } = useForm<TAdditionalNotesFormValues>({ resolver: yupResolver(schema) });
 
