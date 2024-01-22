@@ -4,16 +4,20 @@ import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
 import { SkipButton } from '../../skip-btn/skip-btn';
 import { useGoogleLogin } from '@react-oauth/google';
-import { TEmailAccess } from '../../../models/form';
+import { TServiceItemInfo } from '../../../models/form';
 import { ServiceButton } from '../../shared/service-button/service-button';
 import { GMAIL_SCOPE } from '../../../constants/google';
+import { Gmail as GmailIcon } from '../../../icons/Gmail';
+import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
+import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
+import { ServiceItem } from '../../shared/service-item/service-item';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion } = useAppFormState();
 
     const emails = answers?.accessEmails;
 
-    const mocksEmail: TEmailAccess[] = [
+    const mocksEmail: TServiceItemInfo[] = [
         {
             serviceType: 'gmail',
             email: 'test@gmail.com',
@@ -53,7 +57,7 @@ export const EmailAccess = () => {
                 const accessEmails = prevStrate?.accessEmails;
                 // TODO: check email from Vetals API:
                 if (!accessEmails?.find((email) => email.email === codeResponse.code)) {
-                    const emailData: TEmailAccess = {
+                    const emailData: TServiceItemInfo = {
                         email: codeResponse.code,
                         refreshToken: codeResponse.code,
                         serviceType: 'gmail',
@@ -96,20 +100,23 @@ export const EmailAccess = () => {
                 </div>
 
                 <div className="choose-wrap">
-                    <ServiceButton onClick={onGoogleLogin}>Google Gmail</ServiceButton>
-                    <ServiceButton onClick={() => alert('In progress...')}>Microsoft Outlook</ServiceButton>
-                    <ServiceButton onClick={() => alert('In progress...')}>iCloud Email</ServiceButton>
+                    <ServiceButton icon={<GmailIcon />} onClick={onGoogleLogin}>
+                        Google Gmail
+                    </ServiceButton>
+                    <ServiceButton icon={<OutlookIcon />} onClick={() => alert('In progress...')}>
+                        Microsoft Outlook
+                    </ServiceButton>
+                    <ServiceButton icon={<ICloudIcon />} onClick={() => alert('In progress...')}>
+                        iCloud Email
+                    </ServiceButton>
                 </div>
 
                 <div className="list-add-wrap">
                     <Typography variant="ft">List of added emails</Typography>
                     {emailsList}
+                    {/* TODO: remove mocks */}
                     {mocksEmail.map(({ email, serviceType }) => {
-                        return (
-                            <div key={email} className="service-item">
-                                {serviceType} {email}
-                            </div>
-                        );
+                        return <ServiceItem key={email} variant={serviceType} textContent={email} />;
                     })}
                 </div>
             </div>

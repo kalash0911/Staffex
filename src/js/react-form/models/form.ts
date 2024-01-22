@@ -1,10 +1,8 @@
-import { boolean } from 'yup';
+import { TServiceItemVariants } from '../components/shared/service-item/service-item';
 
-export type TEmailService = 'gmail' | 'outlook' | 'icloud';
-
-export type TEmailAccess = {
+export type TServiceItemInfo = {
     email: string;
-    serviceType: TEmailService;
+    serviceType: TServiceItemVariants;
     refreshToken: string;
 };
 
@@ -28,7 +26,7 @@ export type TB2BContactFormValues = {
 } & ContactFormValues;
 
 export type TEmailAccessValues = {
-    accessEmails: Array<TEmailAccess>;
+    accessEmails: Array<TServiceItemInfo>;
 };
 
 export type TDataBase = {

@@ -5,9 +5,25 @@ import { Typography } from '../../shared/typography/typography.tsx';
 import { Button } from '../../shared/button/button.tsx';
 import { useAppFormState } from '../../../context/app-form-context.tsx';
 import { SkipButton } from '../../skip-btn/skip-btn.tsx';
+import { TServiceItemInfo } from '../../../models/form.ts';
+import { ServiceItem } from '../../shared/service-item/service-item.tsx';
 
 export const CloudDataAccess = () => {
     const { handleNextQuestion } = useAppFormState();
+
+    // TODO: Remove mocks
+    const mocksApps: TServiceItemInfo[] = [
+        {
+            serviceType: 'gdrive',
+            email: 'test@gmail.com',
+            refreshToken: '123',
+        },
+        {
+            serviceType: 'anotherCloud',
+            email: 'test2@gmail.com',
+            refreshToken: '1233',
+        },
+    ];
 
     return (
         <div className="conetnt-block">
@@ -31,6 +47,17 @@ export const CloudDataAccess = () => {
                         </button>
                     </div>
                 </form>
+                {/* TODO: remove mocks */}
+                {mocksApps.map(({ email, serviceType }, index) => {
+                    return (
+                        <ServiceItem
+                            key={email}
+                            variant={serviceType}
+                            textContent={email}
+                            serviceTitle={serviceType === 'anotherCloud' ? `Link ${index}` : ''}
+                        />
+                    );
+                })}
             </div>
             <div className="btn-wrap">
                 <SkipButton />

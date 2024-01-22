@@ -4,9 +4,35 @@ import { Typography } from '../../shared/typography/typography';
 import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
 import { SkipButton } from '../../skip-btn/skip-btn';
+import { TServiceItemInfo } from '../../../models/form';
+import { ServiceItem } from '../../shared/service-item/service-item';
 
 export const MeetingAppAccess = () => {
     const { handleNextQuestion } = useAppFormState();
+
+    // TODO: Remove mocks
+    const mocksApps: TServiceItemInfo[] = [
+        {
+            serviceType: 'gmeet',
+            email: 'test@gmail.com',
+            refreshToken: '123',
+        },
+        {
+            serviceType: 'zoom',
+            email: 'test2@gmail.com',
+            refreshToken: '1233',
+        },
+        {
+            serviceType: 'skype',
+            email: 'test2@outlool.com',
+            refreshToken: '12233',
+        },
+        {
+            serviceType: 'teams',
+            email: 'test2@outlool.com',
+            refreshToken: '12233',
+        },
+    ];
 
     return (
         <div className="conetnt-block">
@@ -27,6 +53,13 @@ export const MeetingAppAccess = () => {
                     <Checkbox text="Skype" />
                     <Checkbox text="Other" />
                 </form>
+                <div className="list-add-wrap">
+                    <Typography variant="ft">List of added applications</Typography>
+                    {/* TODO: remove mocks */}
+                    {mocksApps.map(({ email, serviceType }) => {
+                        return <ServiceItem key={email} variant={serviceType} textContent={email} />;
+                    })}
+                </div>
             </div>
             <div className="btn-wrap">
                 <SkipButton />

@@ -5,9 +5,30 @@ import { Typography } from '../../shared/typography/typography';
 import { useAppFormState } from '../../../context/app-form-context';
 import { Button } from '../../shared/button/button';
 import { SkipButton } from '../../skip-btn/skip-btn';
+import { TServiceItemInfo } from '../../../models/form';
+import { ServiceItem } from '../../shared/service-item/service-item';
 
 export const CalendarAccess = () => {
     const { handleNextQuestion } = useAppFormState();
+
+    // TODO: Remove mocks
+    const mocksCalendars: TServiceItemInfo[] = [
+        {
+            serviceType: 'gcalendar',
+            email: 'test@gmail.com',
+            refreshToken: '123',
+        },
+        {
+            serviceType: 'outlook',
+            email: 'test2@gmail.com',
+            refreshToken: '1233',
+        },
+        {
+            serviceType: 'appleCalendar',
+            email: 'test2@outlool.com',
+            refreshToken: '12233',
+        },
+    ];
 
     return (
         <div className="conetnt-block">
@@ -29,6 +50,13 @@ export const CalendarAccess = () => {
                     <Checkbox text="Other" />
                     <TextField placeholder="Enter other option" type="text" />
                 </form>
+                <div className="list-add-wrap">
+                    <Typography variant="ft">List of added calendars</Typography>
+                    {/* TODO: remove mocks */}
+                    {mocksCalendars.map(({ email, serviceType }) => {
+                        return <ServiceItem key={email} variant={serviceType} textContent={email} />;
+                    })}
+                </div>
             </div>
             <div className="btn-wrap">
                 <SkipButton />
