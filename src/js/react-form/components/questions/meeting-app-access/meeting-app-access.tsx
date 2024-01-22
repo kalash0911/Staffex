@@ -33,7 +33,7 @@ export const MeetingAppAccess = () => {
         },
         {
             serviceType: 'teams',
-            email: 'test2@outlool.com',
+            email: 'test3@outlool.com',
             refreshToken: '12233',
         },
     ];
