@@ -3,6 +3,7 @@ import { Checkbox } from '../../shared/checkbox/checkbox';
 import { Typography } from '../../shared/typography/typography';
 import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
+import { SkipButton } from '../../skip-btn/skip-btn';
 
 export const MeetingAppAccess = () => {
     const { handleNextQuestion } = useAppFormState();
@@ -28,7 +29,7 @@ export const MeetingAppAccess = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
+                <SkipButton />
                 <Button label="Next" type="submit" onClick={handleNextQuestion} />
             </div>
         </div>

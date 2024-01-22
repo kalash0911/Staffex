@@ -4,6 +4,7 @@ import { IconPlus } from '../../../icons/plus.tsx';
 import { Typography } from '../../shared/typography/typography.tsx';
 import { Button } from '../../shared/button/button.tsx';
 import { useAppFormState } from '../../../context/app-form-context.tsx';
+import { SkipButton } from '../../skip-btn/skip-btn.tsx';
 
 export const CloudDataAccess = () => {
     const { handleNextQuestion } = useAppFormState();
@@ -32,7 +33,7 @@ export const CloudDataAccess = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <Button label="Skip" variant="secondary" onClick={handleNextQuestion} />
+                <SkipButton />
                 <Button label="Next" type="submit" onClick={handleNextQuestion} />
             </div>
         </div>
