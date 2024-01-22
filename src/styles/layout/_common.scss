@@ -263,6 +263,28 @@ html {
 	}
 }
 
+.delete-btn {
+	width: 32px;
+	height: 32px;
+	display: grid;
+	place-items: center;
+	border: 1px solid transparent;
+	background: rgba(79, 79, 79, 0.30);
+	transition: $anim_03;
+
+	&:hover {
+		border: 1px solid $red4F;
+
+		svg {
+			transform: rotate(90deg);
+		}
+	}
+
+	svg{
+		transition: transform .3s steps(3) 0s;
+	}
+}
+
 $width-num: -3px;
 $anim-speed: 2s;
 $anim-steps: 2;

@@ -76,13 +76,29 @@ export const ServiceItem = ({ variant, icon, serviceTitle, textContent, onDelete
     iconEl = icon || iconEl;
 
     return (
-        <div className="service-item">
-            <div className="service-icon">
-                {iconEl}
-                <p className="service-title">{title}</p>
+        <div className="list-add-item">
+            <div className="list-add-icon-wrap">
+                <div className="list-add-icon-box">
+                    {iconEl}
+                    <p className="list-add-title">{title}</p>
+                </div>
+                <p className="list-add-content">{textContent}</p>
             </div>
-            <div className="service-content">{textContent}</div>
-            <button onClick={onDelete}>X</button>
+            <button className="delete-btn" onClick={onDelete}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <g clip-path="url(#clip0_1330_12134)">
+                        <path
+                            d="M1.09995 -4.80803e-08L-5.63879e-07 1.09995L5.90028 7L-4.80802e-08 12.9001L1.09995 14L7 8.09995L12.9001 14L14 12.9001L8.09995 7L14 1.09995L12.9001 -5.63879e-07L7 5.90005L1.09995 -4.80803e-08Z"
+                            fill="#FF4F4F"
+                        />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_1330_12134">
+                            <rect width="14" height="14" fill="white" transform="translate(0 14) rotate(-90)" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </button>
         </div>
     );
 };
