@@ -6,7 +6,7 @@ import { Button } from '../../shared/button/button';
 import { schema } from './validation';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TDataBase, TDataBaseFormValues } from '../../../models/form';
+import { TDataBaseFormValues } from '../../../models/form';
 import { SkipButton } from '../../skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
 

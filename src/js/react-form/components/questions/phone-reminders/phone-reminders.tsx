@@ -4,9 +4,21 @@ import { Typography } from '../../shared/typography/typography';
 import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
 import { SkipButton } from '../../skip-btn/skip-btn';
+import { useForm } from 'react-hook-form';
+import { shape } from './validation';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { TPhoneReminderFormValues } from '../../../models/form';
 
 export const PhoneReminders = () => {
-    const { handleNextQuestion } = useAppFormState();
+    const { answers, handleNextQuestion } = useAppFormState();
+    const { setValue, handleSubmit } = useForm<TPhoneReminderFormValues>({
+        resolver: yupResolver(shape),
+        defaultValues: { isPhoneRemindersAccept: answers?.isPhoneRemindersAccept || true },
+    });
+
+    const onSubmit = (data: TPhoneReminderFormValues) => {
+        handleNextQuestion(data);
+    };
 
     return (
         <div className="conetnt-block">
@@ -25,14 +37,14 @@ export const PhoneReminders = () => {
                         significant dates.
                     </Typography>
                 </div>
-                <form className="email-access">
-                    <Radio text="Accept" checked />
-                    <Radio text="Decline" />
+                <form className="email-access" onSubmit={handleSubmit(onSubmit)}>
+                    <Radio text="Accept" checked onChange={() => setValue('isPhoneRemindersAccept', true)} />
+                    <Radio text="Decline" onChange={() => setValue('isPhoneRemindersAccept', true)} />
                 </form>
             </div>
             <div className="btn-wrap">
                 <SkipButton />
-                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+                <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />
             </div>
         </div>
     );

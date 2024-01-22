@@ -1,3 +1,5 @@
+import { boolean } from 'yup';
+
 export type TEmailService = 'gmail' | 'outlook' | 'icloud';
 
 export type TEmailAccess = {
@@ -42,7 +44,12 @@ export type TDataBaseFormValues = {
     databaseList?: Array<TDataBase>;
 };
 
+export type TPhoneReminderFormValues = {
+    isPhoneRemindersAccept?: boolean;
+};
+
 export type TCommonFormValues = Partial<TB2CContactFormValues> &
     Partial<TB2BContactFormValues> &
     Partial<TEmailAccessValues> &
-    Partial<TDataBaseFormValues>;
+    Partial<TDataBaseFormValues> &
+    Partial<TPhoneReminderFormValues>;
