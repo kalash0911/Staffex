@@ -14,6 +14,8 @@ import { initLottiesAnimations } from './inits/lottie-icons';
 import { initFeatureChoose } from './inits/features-choose';
 import { pinButtonsOnScroll } from './inits/pin-btns';
 import { initNavigation } from './inits/navigation';
+import { initFooterInViewport } from './inits/footer-viewport';
+import { initBotsVideoloops } from './inits/bots-video-loops';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBurgerMenu();
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pinButtonsOnScroll();
     initNavigation();
     initFooterInViewport();
+    initBotsVideoloops();
 });
 
 window.addEventListener('load', () => {
@@ -36,40 +39,4 @@ window.addEventListener('load', () => {
     initSongBtn();
     initAudioClicks();
     initAutoPlayVideoOnScroll();
-    initVideoCreate();
 });
-
-const initFooterInViewport = () => {
-    const footer = document.querySelector('#footer');
-
-    if (!footer) return;
-
-    let options = { threshold: [0.5] };
-    let observer = new IntersectionObserver((entry) => {
-        entry.forEach((el) => {
-            if (el.isIntersecting) {
-                document.body.classList.add('footer-active');
-            } else {
-                document.body.classList.remove('footer-active');
-            }
-        });
-    }, options);
-    observer.observe(footer);
-};
-
-const initVideoCreate = () => {
-    const videoWraps = document.querySelectorAll('.pre-bot-wrap');
-
-    videoWraps.forEach((el) => {
-        const video = document.createElement('video');
-        video.classList.add('bg', 'bg-video', 'pre-bot-bg', 'anim');
-        video.setAttribute('autoplay', 'true');
-        video.setAttribute('muted', 'true');
-        video.setAttribute('loop', 'true');
-        video.setAttribute('playsinline', 'true');
-        video.setAttribute('data-keepplaying', 'true');
-        video.setAttribute('src', './files/pre-bot-bg1.webm');
-        el.appendChild(video);
-        video.play();
-    });
-};
