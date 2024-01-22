@@ -15,8 +15,8 @@ export const initBotsVideoloops = () => {
                 firstVideo.style.opacity = '1';
 
                 firstVideo.addEventListener('ended', () => {
-                    secondVideo.style.display = 'block';
                     secondVideo.currentTime = 0;
+                    secondVideo.style.display = 'block';
                     secondVideo.style.opacity = '1';
                 });
                 el.target.classList.add('viewed');
