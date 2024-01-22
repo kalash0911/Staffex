@@ -48,8 +48,13 @@ export type TPhoneReminderFormValues = {
     isPhoneRemindersAccept?: boolean;
 };
 
+export type TAdditionalNotesFormValues = {
+    additionalNotes?: string;
+};
+
 export type TCommonFormValues = Partial<TB2CContactFormValues> &
     Partial<TB2BContactFormValues> &
     Partial<TEmailAccessValues> &
     Partial<TDataBaseFormValues> &
-    Partial<TPhoneReminderFormValues>;
+    Partial<TPhoneReminderFormValues> &
+    Partial<TAdditionalNotesFormValues>;
