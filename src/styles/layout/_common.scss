@@ -680,6 +680,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		display: flex;
 		flex-direction: column;
 		flex: 1 0 auto;
+		max-width: 1700px;
 	}
 
 	.bg-wrap {
