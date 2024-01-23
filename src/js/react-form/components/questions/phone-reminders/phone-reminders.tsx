@@ -11,7 +11,6 @@ import { TPhoneReminderFormValues } from '../../../models/form';
 
 export const PhoneReminders = () => {
     const { answers, handleNextQuestion } = useAppFormState();
-    console.log('answers: ', answers);
     const { control, setValue, handleSubmit } = useForm<TPhoneReminderFormValues>({
         resolver: yupResolver(shape),
         defaultValues: {
