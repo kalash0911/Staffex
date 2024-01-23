@@ -69,13 +69,16 @@ export const EmailAccess = () => {
 
     const updateEmailList = (emailData: TServiceItemInfo) => {
         setAnswers((prevState) => {
-            if (
-                prevState?.accessEmails &&
-                prevState.accessEmails.find((el) => el.serviceType !== emailData.serviceType && el.email !== emailData.email)
-            ) {
+            if (!prevState?.accessEmails?.length) {
                 return {
                     ...prevState,
-                    accessEmails: prevState?.accessEmails ? [...prevState?.accessEmails, emailData] : [emailData],
+                    accessEmails: [emailData],
+                };
+            }
+            if (!prevState.accessEmails?.find((el) => el.serviceType === emailData.serviceType && el.email === emailData.email)) {
+                return {
+                    ...prevState,
+                    accessEmails: [...prevState.accessEmails, emailData],
                 };
             }
             return prevState;

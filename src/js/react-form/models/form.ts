@@ -5,6 +5,7 @@ export type TServiceItemInfo = {
     serviceType: TServiceItemVariants;
     refreshToken: string;
     appName?: string;
+    cloudLink?: string;
 };
 
 export type ContactFormValues = {
@@ -34,7 +35,11 @@ export type TMeetAppsAccessValues = {
     accessMeetApps: Array<TServiceItemInfo>;
 };
 
-export type TAccessCommonType = TEmailAccessValues & TMeetAppsAccessValues;
+export type TCloudDataAccessValues = {
+    accessCloudData: Array<TServiceItemInfo>;
+};
+
+export type TAccessCommonType = TEmailAccessValues & TMeetAppsAccessValues & TCloudDataAccessValues;
 
 export type TServiceListKeys = keyof TAccessCommonType;
 
@@ -65,4 +70,5 @@ export type TCommonFormValues = Partial<TB2CContactFormValues> &
     Partial<TDataBaseFormValues> &
     Partial<TPhoneReminderFormValues> &
     Partial<TAdditionalNotesFormValues> &
-    Partial<TMeetAppsAccessValues>;
+    Partial<TMeetAppsAccessValues> &
+    Partial<TCloudDataAccessValues>;

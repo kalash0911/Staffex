@@ -3,28 +3,70 @@ import { Typography } from '../../shared/typography/typography.tsx';
 import { Button } from '../../shared/button/button.tsx';
 import { useAppFormState } from '../../../context/app-form-context.tsx';
 import { SkipButton } from '../../skip-btn/skip-btn.tsx';
-import { TServiceItemInfo } from '../../../models/form.ts';
 import { ServiceItem } from '../../shared/service-item/service-item.tsx';
 import { ServiceButton } from '../../shared/service-button/service-button.tsx';
 import { GoogleDrive as GDriveIcon } from '../../../icons/GoogleDrive.tsx';
 import { FilePlus as FilePlusIcon } from '../../../icons/FilePlus.tsx';
+import { useModal } from '../../../context/modal-context.tsx';
+import { CloudDataLink, ICloudDataLinkProps } from '../../modals/cloud-data-link/cloud-data-link.tsx';
+import { TServiceItemInfo } from '../../../models/form.ts';
 
 export const CloudDataAccess = () => {
-    const { handleNextQuestion } = useAppFormState();
+    const { answers, setAnswers, handleDeleteServiceItem, handleNextQuestion } = useAppFormState();
+    const { openModal, hideModal } = useModal();
 
-    // TODO: Remove mocks
-    const mocksApps: TServiceItemInfo[] = [
-        {
-            serviceType: 'gdrive',
-            email: 'test@gmail.com',
-            refreshToken: '123',
-        },
-        {
-            serviceType: 'anotherCloud',
-            email: 'test2@gmail.com',
-            refreshToken: '1233',
-        },
+    const cloudData = answers?.accessCloudData;
+
+    const handleAnotherCloudLink = () => [
+        openModal<ICloudDataLinkProps>(CloudDataLink, {
+            onAdd: (value) => {
+                const cloudData: TServiceItemInfo = {
+                    email: '',
+                    serviceType: 'anotherCloud',
+                    refreshToken: '',
+                    cloudLink: value,
+                };
+                updateCloudDataList(cloudData);
+                hideModal();
+            },
+        }),
     ];
+
+    const updateCloudDataList = (cloudData: TServiceItemInfo) => {
+        setAnswers((prevState) => {
+            if (!prevState?.accessCloudData?.length) {
+                return {
+                    ...prevState,
+                    accessCloudData: [cloudData],
+                };
+            }
+            if (!prevState.accessCloudData.find((el) => el.cloudLink === cloudData.cloudLink)) {
+                return {
+                    ...prevState,
+                    accessCloudData: [...prevState?.accessCloudData, cloudData],
+                };
+            }
+            return prevState;
+        });
+    };
+
+    const cloudDataList = cloudData?.length ? (
+        cloudData.map(({ email, serviceType, cloudLink }, index) => {
+            return (
+                <ServiceItem
+                    key={email || cloudLink}
+                    variant={serviceType}
+                    textContent={cloudLink}
+                    serviceTitle={serviceType === 'anotherCloud' ? `Link ${index + 1}` : ''}
+                    onDelete={() => {
+                        handleDeleteServiceItem('accessCloudData', index);
+                    }}
+                />
+            );
+        })
+    ) : (
+        <Typography>The list of emails you added is empty.</Typography>
+    );
 
     return (
         <div className="conetnt-block">
@@ -43,21 +85,14 @@ export const CloudDataAccess = () => {
                     <ServiceButton icon={<GDriveIcon />} onClick={() => alert('In progress...')}>
                         Google Drive
                     </ServiceButton>
-                    <ServiceButton icon={<FilePlusIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<FilePlusIcon />} onClick={handleAnotherCloudLink}>
                         Add link to your file(s)
                     </ServiceButton>
                 </div>
-                {/* TODO: remove mocks */}
-                {mocksApps.map(({ email, serviceType }, index) => {
-                    return (
-                        <ServiceItem
-                            key={email}
-                            variant={serviceType}
-                            textContent={email}
-                            serviceTitle={serviceType === 'anotherCloud' ? `Link ${index}` : ''}
-                        />
-                    );
-                })}
+                <div className="list-add-wrap">
+                    <Typography variant="ft">List of added emails</Typography>
+                    {cloudDataList}
+                </div>
             </div>
             <div className="btn-wrap">
                 <SkipButton />

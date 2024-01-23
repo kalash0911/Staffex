@@ -61,17 +61,19 @@ export const MeetingAppAccess = () => {
 
     const updateMeetAppsList = (meetAppData: TServiceItemInfo) => {
         setAnswers((prevState) => {
-            if (prevState && prevState.accessMeetApps) {
-                if (prevState.accessMeetApps.find((el) => el.appName && el.appName !== meetAppData.appName)) {
-                    return {
-                        ...prevState,
-                        accessMeetApps: prevState?.accessMeetApps ? [...prevState?.accessMeetApps, meetAppData] : [meetAppData],
-                    };
-                }
+            if (!prevState?.accessMeetApps?.length) {
+                return {
+                    ...prevState,
+                    accessMeetApps: [meetAppData],
+                };
             }
-            return {
-                accessMeetApps: [meetAppData],
-            };
+            if (!prevState.accessMeetApps.find((el) => el.appName && el.appName === meetAppData.appName)) {
+                return {
+                    ...prevState,
+                    accessMeetApps: [...prevState?.accessMeetApps, meetAppData],
+                };
+            }
+            return prevState;
         });
     };
 
