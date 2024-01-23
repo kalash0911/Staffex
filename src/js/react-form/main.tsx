@@ -15,11 +15,13 @@ if (root) {
     // <MsalInstanceSnippet>
     const msalInstance = new PublicClientApplication({
         auth: {
+            authority: 'https://login.microsoftonline.com/consumers',
             clientId: MICROSOFT_CLIENT_ID,
+            redirectUri: 'https://localhost:5173/Staffex/form.html',
         },
         cache: {
             cacheLocation: 'sessionStorage',
-            storeAuthStateInCookie: true,
+            storeAuthStateInCookie: false,
         },
     });
 

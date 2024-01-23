@@ -17,38 +17,30 @@ import axios from 'axios';
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion } = useAppFormState();
 
-    const { instance } = useMsal();
+    const { instance, accounts } = useMsal();
+    console.log('accounts: ', accounts);
 
     const emails = answers?.accessEmails;
 
-    const mocksEmail: TServiceItemInfo[] = [
-        {
-            serviceType: 'gmail',
-            email: 'test@gmail.com',
-            refreshToken: '123',
-        },
-        {
-            serviceType: 'gmail',
-            email: 'test2@gmail.com',
-            refreshToken: '1233',
-        },
-        {
-            serviceType: 'outlook',
-            email: 'test2@outlool.com',
-            refreshToken: '12233',
-        },
-        {
-            serviceType: 'icloud',
-            email: 'test2@icloud.com',
-            refreshToken: '12323',
-        },
-    ];
-
     const onOutlookLogin = async () => {
-        const authResult = await instance.loginPopup({
-            scopes: ['user.read', 'mail.read'],
-        });
-        console.log('authResult: ', authResult);
+        await instance
+            .loginPopup({
+                scopes: ['user.read', 'mail.read'],
+                account: accounts[0],
+            })
+            .then((res) => {
+                console.log('res: ', res);
+                const emailData: TServiceItemInfo = {
+                    email: res.account.username,
+                    // TODO: Change to refreshToken:
+                    refreshToken: res.accessToken,
+                    serviceType: 'outlook',
+                };
+                updateEmailList(emailData);
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            });
     };
 
     const onGoogleLogin = useGoogleLogin({
@@ -63,32 +55,33 @@ export const EmailAccess = () => {
 
             // console.log(tokens);
 
-            // TODO: set real emails and needed data
-            setAnswers((prevStrate) => {
-                const accessEmails = prevStrate?.accessEmails;
-                // TODO: check email from Vetals API:
-                if (!accessEmails?.find((email) => email.email === googleAuthResponse.data.email)) {
-                    const emailData: TServiceItemInfo = {
-                        email: googleAuthResponse.data.email,
-                        refreshToken: googleAuthResponse.data.refreshToken,
-                        serviceType: 'gmail',
-                    };
-                    return {
-                        ...prevStrate,
-                        accessEmails: accessEmails?.length ? [...accessEmails, emailData] : [emailData],
-                    };
-                }
-                return {
-                    ...prevStrate,
+            if (!emails?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
+                const emailData: TServiceItemInfo = {
+                    email: googleAuthResponse.data.email,
+                    refreshToken: googleAuthResponse.data.refreshToken,
+                    serviceType: 'gmail',
                 };
-            });
+                updateEmailList(emailData);
+            }
         },
         onError: (errorResponse) => console.log(errorResponse),
     });
 
+    const updateEmailList = (emailData: TServiceItemInfo) => {
+        setAnswers((prevState) => {
+            if (prevState) {
+                return {
+                    ...prevState,
+                    accessEmails: prevState?.accessEmails ? [...prevState?.accessEmails, emailData] : [emailData],
+                };
+            }
+            return prevState;
+        });
+    };
+
     const emailsList = emails?.length ? (
-        emails.map(({ email }) => {
-            return <div key={email}>mocktestuser@gmail.com</div>;
+        emails.map(({ email, serviceType }) => {
+            return <ServiceItem key={email} variant={serviceType} textContent={email} />;
         })
     ) : (
         <Typography>The list of emails you added is empty.</Typography>
@@ -124,10 +117,6 @@ export const EmailAccess = () => {
                 <div className="list-add-wrap">
                     <Typography variant="ft">List of added emails</Typography>
                     {emailsList}
-                    {/* TODO: remove mocks */}
-                    {mocksEmail.map(({ email, serviceType }) => {
-                        return <ServiceItem key={email} variant={serviceType} textContent={email} />;
-                    })}
                 </div>
             </div>
             <div className="btn-wrap">
