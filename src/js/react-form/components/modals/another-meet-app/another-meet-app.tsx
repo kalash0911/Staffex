@@ -23,6 +23,7 @@ export const AnotherMeetApp = ({ onAdd }: IAnotherMeetAppProps) => {
         handleSubmit,
     } = useForm<TAnotherMeetAppValues>({
         defaultValues: { anotherAppName: '' },
+        // @ts-ignore
         resolver: yupResolver<TAnotherMeetAppValues>(shema),
     });
 

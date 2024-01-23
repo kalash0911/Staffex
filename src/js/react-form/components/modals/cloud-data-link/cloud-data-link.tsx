@@ -21,6 +21,7 @@ export const CloudDataLink = ({ onAdd }: ICloudDataLinkProps) => {
         handleSubmit,
     } = useForm<TCloudDataLinkValues>({
         defaultValues: { cloudDataLink: '' },
+        // @ts-ignore
         resolver: yupResolver<TCloudDataLinkValues>(shema),
     });
 
