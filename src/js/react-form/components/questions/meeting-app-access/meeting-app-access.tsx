@@ -20,30 +20,6 @@ export const MeetingAppAccess = () => {
 
     const meetApps = answers?.accessMeetApps;
 
-    // TODO: Remove mocks
-    const mocksApps: TServiceItemInfo[] = [
-        {
-            serviceType: 'gmeet',
-            email: 'test@gmail.com',
-            refreshToken: '123',
-        },
-        {
-            serviceType: 'zoom',
-            email: 'test2@gmail.com',
-            refreshToken: '1233',
-        },
-        {
-            serviceType: 'skype',
-            email: 'test2@outlool.com',
-            refreshToken: '12233',
-        },
-        {
-            serviceType: 'teams',
-            email: 'test3@outlool.com',
-            refreshToken: '12233',
-        },
-    ];
-
     const onAnotherApp = () => {
         openModal<IAnotherMeetAppProps>(AnotherMeetApp, {
             onAdd: (value) => {
