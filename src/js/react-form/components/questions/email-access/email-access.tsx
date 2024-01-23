@@ -11,10 +11,13 @@ import { Gmail as GmailIcon } from '../../../icons/Gmail';
 import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
 import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
+import { useMsal } from '@azure/msal-react';
 import axios from 'axios';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion } = useAppFormState();
+
+    const { instance } = useMsal();
 
     const emails = answers?.accessEmails;
 
@@ -41,15 +44,22 @@ export const EmailAccess = () => {
         },
     ];
 
+    const onOutlookLogin = async () => {
+        const authResult = await instance.loginPopup({
+            scopes: ['user.read', 'mail.read'],
+        });
+        console.log('authResult: ', authResult);
+    };
+
     const onGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
             console.log(codeResponse);
             // TODO: Change to super API:
             const googleAuthResponse = await axios.post('https://localhost:32770/auth/google', {
-                 //super backend url
-                 code: codeResponse.code,
-             });
+                //super backend url
+                code: codeResponse.code,
+            });
 
             // console.log(tokens);
 
@@ -103,7 +113,7 @@ export const EmailAccess = () => {
                     <ServiceButton icon={<GmailIcon />} onClick={onGoogleLogin}>
                         Google Gmail
                     </ServiceButton>
-                    <ServiceButton icon={<OutlookIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<OutlookIcon />} onClick={onOutlookLogin}>
                         Microsoft Outlook
                     </ServiceButton>
                     <ServiceButton icon={<ICloudIcon />} onClick={() => alert('In progress...')}>
