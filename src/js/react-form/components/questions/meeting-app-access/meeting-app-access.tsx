@@ -27,7 +27,7 @@ export const MeetingAppAccess = () => {
                     email: '',
                     serviceType: 'anotherMeetApp',
                     refreshToken: '',
-                    appName: value,
+                    meetAppName: value,
                 };
                 updateMeetAppsList(anotherApp);
                 hideModal();
@@ -43,7 +43,7 @@ export const MeetingAppAccess = () => {
                     accessMeetApps: [meetAppData],
                 };
             }
-            if (!prevState.accessMeetApps.find((el) => el.appName && el.appName === meetAppData.appName)) {
+            if (!prevState.accessMeetApps.find((el) => el.meetAppName && el.meetAppName === meetAppData.meetAppName)) {
                 return {
                     ...prevState,
                     accessMeetApps: [...prevState?.accessMeetApps, meetAppData],
@@ -54,13 +54,13 @@ export const MeetingAppAccess = () => {
     };
 
     const meetAppsList = meetApps?.length ? (
-        meetApps.map(({ email, serviceType, appName }, index) => {
+        meetApps.map(({ email, serviceType, meetAppName }, index) => {
             return (
                 <ServiceItem
-                    key={email || appName}
+                    key={email || meetAppName}
                     variant={serviceType}
                     textContent={email}
-                    serviceTitle={appName}
+                    serviceTitle={meetAppName}
                     onDelete={() => {
                         handleDeleteServiceItem('accessMeetApps', index);
                     }}

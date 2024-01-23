@@ -11,30 +11,71 @@ import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook
 import { AppleCalendar as AppleCalendarIcon } from '../../../icons/AppleCalendar';
 import { useModal } from '../../../context/modal-context';
 import { IAppleCalendarProps, AppleCalendar as AppleCalendarModal } from '../../modals/apple-calendar/apple-calendar';
+import { AnotherCalendar, IAnotherCalendarProps } from '../../modals/another-calendar/another-calendar';
+import { Calendar as CalendarIcon } from '../../../icons/Calendar';
 
 export const CalendarAccess = () => {
-    const { handleNextQuestion } = useAppFormState();
+    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
     const { openModal, hideModal } = useModal();
 
-    // TODO: Remove mocks
-    const mocksCalendars: TServiceItemInfo[] = [
-        {
-            serviceType: 'gcalendar',
-            email: 'test@gmail.com',
-            refreshToken: '123',
-        },
-        {
-            serviceType: 'outlook',
-            email: 'test2@gmail.com',
-            refreshToken: '1233',
-        },
-    ];
+    const calendars = answers?.accessCalendars;
 
     const onAppleCalendar = () => {
         openModal<IAppleCalendarProps>(AppleCalendarModal, {
             onContinue: hideModal,
         });
     };
+
+    const onAnotherCalendar = () => {
+        openModal<IAnotherCalendarProps>(AnotherCalendar, {
+            onAdd: (value) => {
+                const calendarData: TServiceItemInfo = {
+                    email: '',
+                    serviceType: 'anotherCalendar',
+                    calendarName: value,
+                    refreshToken: '',
+                };
+                updateCalendarsList(calendarData);
+                hideModal();
+            },
+        });
+    };
+
+    const updateCalendarsList = (calendarData: TServiceItemInfo) => {
+        setAnswers((prevState) => {
+            if (!prevState?.accessCalendars?.length) {
+                return {
+                    ...prevState,
+                    accessCalendars: [calendarData],
+                };
+            }
+            if (!prevState.accessCalendars.find((el) => el.calendarName && el.calendarName === calendarData.calendarName)) {
+                return {
+                    ...prevState,
+                    accessCalendars: [...prevState?.accessCalendars, calendarData],
+                };
+            }
+            return prevState;
+        });
+    };
+
+    const calendarsList = calendars?.length ? (
+        calendars.map(({ email, serviceType, calendarName }, index) => {
+            return (
+                <ServiceItem
+                    key={email || calendarName}
+                    variant={serviceType}
+                    textContent={email}
+                    serviceTitle={calendarName}
+                    onDelete={() => {
+                        handleDeleteServiceItem('accessCalendars', index);
+                    }}
+                />
+            );
+        })
+    ) : (
+        <Typography>The list of emails you added is empty.</Typography>
+    );
 
     return (
         <div className="conetnt-block">
@@ -59,13 +100,13 @@ export const CalendarAccess = () => {
                     <ServiceButton icon={<AppleCalendarIcon />} onClick={onAppleCalendar}>
                         Apple Calendar
                     </ServiceButton>
+                    <ServiceButton icon={<CalendarIcon />} onClick={onAnotherCalendar}>
+                        Another calendar
+                    </ServiceButton>
                 </div>
                 <div className="list-add-wrap">
                     <Typography variant="ft">List of added calendars</Typography>
-                    {/* TODO: remove mocks */}
-                    {mocksCalendars.map(({ email, serviceType }) => {
-                        return <ServiceItem key={email} variant={serviceType} textContent={email} />;
-                    })}
+                    {calendarsList}
                 </div>
             </div>
             <div className="btn-wrap">

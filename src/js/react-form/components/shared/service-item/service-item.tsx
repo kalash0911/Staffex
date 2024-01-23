@@ -11,6 +11,8 @@ import { MicrosoftTeams } from '../../../icons/MicrosoftTeams';
 import { GoogleDrive } from '../../../icons/GoogleDrive';
 import { FilePlus } from '../../../icons/FilePlus';
 import { MeetingApp } from '../../../icons/MeetingApp';
+import { AnotherCalendar } from '../../modals/another-calendar/another-calendar';
+import { Calendar } from '../../../icons/Calendar';
 
 export const SERVICE_ITEMS_VARIANTS = {
     gmail: {
@@ -60,6 +62,10 @@ export const SERVICE_ITEMS_VARIANTS = {
     anotherMeetApp: {
         title: '',
         icon: <MeetingApp />,
+    },
+    anotherCalendar: {
+        title: '',
+        icon: <Calendar />,
     },
 };
 
