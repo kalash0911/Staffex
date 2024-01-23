@@ -18,12 +18,4 @@ export const initVideoChanges = () => {
                 : `./files/secretary/secretary${ind + 1}.webm`;
         });
     }
-
-    const playerHeroBots = document.querySelectorAll('.hero-bot') as NodeListOf<HTMLVideoElement>;
-
-    if (playerHeroBots.length) {
-        playerHeroBots.forEach((video, ind) => {
-            video.src = supportsHEVCAlpha() ? `./files/hero-bot${ind + 1}.mov` : `./files/hero-bot${ind + 1}.webm`;
-        });
-    }
 };

@@ -5,24 +5,16 @@
 	display: flex;
 	flex-direction: column;
 	flex: 1 0 auto;
+	padding: 100px 0 60px 0;
+	min-height: 100vh;
 
-	@include media('<desktop') {
-		height: 100vh;
-		transform: none;
-	}
+	.bg {
+		z-index: -1;
 
-	@include media('<phone') {
-		min-height: 700px;
-	}
-
-	.content {
-		display: flex;
-		flex-direction: column;
-		flex: 1 0 auto;
-		z-index: 2;
-
-		@include media('<desktop') {
-			min-height: 100vh;
+		@include media('<tablet') {
+			top: 50%;
+			transform: translateY(-50%);
+			height: 80%;
 		}
 	}
 
@@ -30,7 +22,7 @@
 		position: absolute;
 		left: 50%;
 		transform: translate(-50%);
-		width: 110vw;
+		width: 100%;
 		min-height: 400px;
 		z-index: 1;
 
@@ -44,38 +36,35 @@
 			background: linear-gradient(0deg, rgba($black03, 0) 0%, $black03 100%);
 
 			@include media('<tablet') {
-				height: 20%;
+				top: 0;
+				height: 300px;
 			}
 		}
 
 		&.grad-bot {
 			bottom: -5%;
 			height: 25%;
-			background: linear-gradient(180deg, rgba($black03, 0) 0%, $black03 100%);
+			background: linear-gradient(180deg, rgba($black03, 0) 0%, $black03 80%);
 
-			@include media('<phone') {
-				bottom: 200px;
-				z-index: 2;
+			@include media('<tablet') {
+				bottom: 0;
+				height: 400px;
 			}
 		}
 	}
 
 	.container {
-		position: relative;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
 		flex: 1 0 auto;
-		padding: 100px 40px 60px 40px;
-		z-index: 2;
+		z-index: 1;
+	}
 
-		@include media('<tablet') {
-			padding: 100px 40px 60px 40px;
-		}
-
-		@include media('<phone') {
-			padding: 100px 20px 90px 20px;
-		}
+	.content {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+		flex: 1 0 auto;
 	}
 
   	.text {
@@ -107,12 +96,6 @@
 		margin: 0;
 		@include adaptive-value("font-size", 118, 52, 1);
 
-		@include media('<phone') {
-			background: $black03;
-			margin: 0 -20px;
-			padding: 20px;
-		}
-
 		span {
 			display: block;
 			text-align: right;
@@ -127,72 +110,6 @@
 			}
 		}
 	}
-
-	.bot {
-		position: absolute;
-		display: block;
-		bottom: 0;
-		z-index: -2;
-		@include adaptive-value("width", 1000, 630, 0);
-	}
-
-	.bot1 {
-		left: 50%;
-		transform: translate(-50%);
-		z-index: -1;
-
-		@include media('<phone') {
-			bottom: 200px;
-		}
-	}
-
-	.bot2 {
-		right: 0;
-
-		@include media('<laptop_m') {
-			right: 6%;
-		}
-		
-		@include media('<laptop') {
-			right: 12%;
-		}
-
-		@include media('<desktop') {
-			right: 0;
-		}
-
-		@include media('<tablet_s') {
-			right: -100px;
-		}
-
-		@include media('<phone') {
-			bottom: 200px;
-		}
-	}
-
-	.bot3 {
-		left: 0;
-
-		@include media('<laptop_m') {
-			left: 6%;
-		}
-		
-		@include media('<laptop') {
-			left: 12%;
-		}
-
-		@include media('<desktop') {
-			left: 0;
-		}
-
-		@include media('<tablet_s') {
-			left: -100px;
-		}
-
-		@include media('<phone') {
-			bottom: 200px;
-		}
-	}
 }
 
 /* -----------------------------about-section---------------------- */
@@ -204,7 +121,7 @@
 	min-height: 100%;
 
 	@include media('<phone') {
-		padding: 20px 0;
+		padding: 60px 0;
 	}
 
 	.container {
