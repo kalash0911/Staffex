@@ -1,7 +1,6 @@
 import { initBurgerMenu } from './inits/burder-menu';
 import { initFullpageJs } from './inits/fullpage';
 import { initAnimationOnScroll } from './inits/animation-scroll';
-import { initTextAnimation } from './inits/text-animation';
 import { initSongBtn } from './inits/song-btn';
 import { initAboutSlider } from './inits/about-slider';
 import { initCounterAnimate } from './inits/counter-animate';
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initBurgerMenu();
     initFullpageJs();
     initAnimationOnScroll();
-    initTextAnimation();
     initAboutSlider();
     initCounterAnimate();
     initTabs();
