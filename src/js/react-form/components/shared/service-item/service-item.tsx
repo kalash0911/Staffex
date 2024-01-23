@@ -10,6 +10,7 @@ import { Skype } from '../../../icons/Skype';
 import { MicrosoftTeams } from '../../../icons/MicrosoftTeams';
 import { GoogleDrive } from '../../../icons/GoogleDrive';
 import { FilePlus } from '../../../icons/FilePlus';
+import { MeetingApp } from '../../../icons/MeetingApp';
 
 export const SERVICE_ITEMS_VARIANTS = {
     gmail: {
@@ -56,6 +57,10 @@ export const SERVICE_ITEMS_VARIANTS = {
         title: '',
         icon: <FilePlus />,
     },
+    anotherMeetApp: {
+        title: '',
+        icon: <MeetingApp />,
+    },
 };
 
 export type TServiceItemVariants = keyof typeof SERVICE_ITEMS_VARIANTS;
@@ -65,7 +70,7 @@ export type TServiceItemProps = {
     serviceTitle?: string;
     textContent?: string;
     icon?: ReactNode;
-    onDelete?: () => {};
+    onDelete?: () => void;
 };
 
 export const ServiceItem = ({ variant, icon, serviceTitle, textContent, onDelete }: TServiceItemProps) => {

@@ -10,9 +10,15 @@ import { GoogleMeet as GMeetIcon } from '../../../icons/GoogleMeet';
 import { Zoom as ZoomIcon } from '../../../icons/Zoom';
 import { Skype as SkypeIcon } from '../../../icons/Skype';
 import { MicrosoftTeams as TeamsIcon } from '../../../icons/MicrosoftTeams';
+import { MeetingApp as AnotherAppIcon } from '../../../icons/MeetingApp';
+import { useModal } from '../../../context/modal-context';
+import { AnotherMeetApp, IAnotherMeetAppProps } from '../../modals/another-meet-app/another-meet-app';
 
 export const MeetingAppAccess = () => {
-    const { handleNextQuestion } = useAppFormState();
+    const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion } = useAppFormState();
+    const { openModal, hideModal } = useModal();
+
+    const meetApps = answers?.accessMeetApps;
 
     // TODO: Remove mocks
     const mocksApps: TServiceItemInfo[] = [
@@ -37,6 +43,55 @@ export const MeetingAppAccess = () => {
             refreshToken: '12233',
         },
     ];
+
+    const onAnotherApp = () => {
+        openModal<IAnotherMeetAppProps>(AnotherMeetApp, {
+            onAdd: (value) => {
+                const anotherApp: TServiceItemInfo = {
+                    email: '',
+                    serviceType: 'anotherMeetApp',
+                    refreshToken: '',
+                    appName: value,
+                };
+                updateMeetAppsList(anotherApp);
+                hideModal();
+            },
+        });
+    };
+
+    const updateMeetAppsList = (meetAppData: TServiceItemInfo) => {
+        setAnswers((prevState) => {
+            if (prevState && prevState.accessMeetApps) {
+                if (prevState.accessMeetApps.find((el) => el.appName && el.appName !== meetAppData.appName)) {
+                    return {
+                        ...prevState,
+                        accessMeetApps: prevState?.accessMeetApps ? [...prevState?.accessMeetApps, meetAppData] : [meetAppData],
+                    };
+                }
+            }
+            return {
+                accessMeetApps: [meetAppData],
+            };
+        });
+    };
+
+    const meetAppsList = meetApps?.length ? (
+        meetApps.map(({ email, serviceType, appName }, index) => {
+            return (
+                <ServiceItem
+                    key={email || appName}
+                    variant={serviceType}
+                    textContent={email}
+                    serviceTitle={appName}
+                    onDelete={() => {
+                        handleDeleteServiceItem('accessMeetApps', index);
+                    }}
+                />
+            );
+        })
+    ) : (
+        <Typography>The list of emails you added is empty.</Typography>
+    );
 
     return (
         <div className="conetnt-block">
@@ -64,13 +119,13 @@ export const MeetingAppAccess = () => {
                     <ServiceButton icon={<TeamsIcon />} onClick={() => alert('In progress...')}>
                         Teams
                     </ServiceButton>
+                    <ServiceButton icon={<AnotherAppIcon />} onClick={onAnotherApp}>
+                        Another app
+                    </ServiceButton>
                 </div>
                 <div className="list-add-wrap">
                     <Typography variant="ft">List of added applications</Typography>
-                    {/* TODO: remove mocks */}
-                    {mocksApps.map(({ email, serviceType }) => {
-                        return <ServiceItem key={email} variant={serviceType} textContent={email} />;
-                    })}
+                    {meetAppsList}
                 </div>
             </div>
             <div className="btn-wrap">

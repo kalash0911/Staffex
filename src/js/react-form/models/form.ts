@@ -4,6 +4,7 @@ export type TServiceItemInfo = {
     email: string;
     serviceType: TServiceItemVariants;
     refreshToken: string;
+    appName?: string;
 };
 
 export type ContactFormValues = {
@@ -28,6 +29,14 @@ export type TB2BContactFormValues = {
 export type TEmailAccessValues = {
     accessEmails: Array<TServiceItemInfo>;
 };
+
+export type TMeetAppsAccessValues = {
+    accessMeetApps: Array<TServiceItemInfo>;
+};
+
+export type TAccessCommonType = TEmailAccessValues & TMeetAppsAccessValues;
+
+export type TServiceListKeys = keyof TAccessCommonType;
 
 export type TDataBase = {
     host?: string;
@@ -55,4 +64,5 @@ export type TCommonFormValues = Partial<TB2CContactFormValues> &
     Partial<TEmailAccessValues> &
     Partial<TDataBaseFormValues> &
     Partial<TPhoneReminderFormValues> &
-    Partial<TAdditionalNotesFormValues>;
+    Partial<TAdditionalNotesFormValues> &
+    Partial<TMeetAppsAccessValues>;

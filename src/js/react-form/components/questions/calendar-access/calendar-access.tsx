@@ -9,9 +9,12 @@ import { ServiceButton } from '../../shared/service-button/service-button';
 import { GoogleCalendar as GCalendarIcon } from '../../../icons/GoogleCalendar';
 import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
 import { AppleCalendar as AppleCalendarIcon } from '../../../icons/AppleCalendar';
+import { useModal } from '../../../context/modal-context';
+import { IAppleCalendarProps, AppleCalendar as AppleCalendarModal } from '../../modals/apple-calendar/apple-calendar';
 
 export const CalendarAccess = () => {
     const { handleNextQuestion } = useAppFormState();
+    const { openModal, hideModal } = useModal();
 
     // TODO: Remove mocks
     const mocksCalendars: TServiceItemInfo[] = [
@@ -25,12 +28,13 @@ export const CalendarAccess = () => {
             email: 'test2@gmail.com',
             refreshToken: '1233',
         },
-        {
-            serviceType: 'appleCalendar',
-            email: 'test2@outlool.com',
-            refreshToken: '12233',
-        },
     ];
+
+    const onAppleCalendar = () => {
+        openModal<IAppleCalendarProps>(AppleCalendarModal, {
+            onContinue: hideModal,
+        });
+    };
 
     return (
         <div className="conetnt-block">
@@ -52,8 +56,8 @@ export const CalendarAccess = () => {
                     <ServiceButton icon={<OutlookIcon />} onClick={() => alert('In progress...')}>
                         Microsoft Outlook
                     </ServiceButton>
-                    <ServiceButton icon={<AppleCalendarIcon />} onClick={() => alert('In progress...')}>
-                        iCloud Email
+                    <ServiceButton icon={<AppleCalendarIcon />} onClick={onAppleCalendar}>
+                        Apple Calendar
                     </ServiceButton>
                 </div>
                 <div className="list-add-wrap">

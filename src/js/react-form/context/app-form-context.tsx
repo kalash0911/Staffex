@@ -1,7 +1,8 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react';
 import { FormType, TActiveQuestion, TTopic } from '../models/question';
 import { QUESTIONS_CONFIG } from '../constants/questions';
-import { TCommonFormValues } from '../models/form';
+import { TCommonFormValues, TServiceItemInfo, TServiceListKeys } from '../models/form';
+
 interface IAppFormProviderProps {
     children: ReactNode;
 }
@@ -15,6 +16,7 @@ interface IAppFormProviderValues {
     setAnswers: React.Dispatch<React.SetStateAction<TCommonFormValues | null>>;
     handleNextQuestion: (formData?: TCommonFormValues) => void;
     handleActiveQuestion: (question: IAppFormProviderValues['activeQuestion']) => void;
+    handleDeleteServiceItem: (serviceType: TServiceListKeys, index: number) => void;
 }
 
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
@@ -60,6 +62,22 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         });
     };
 
+    const handleDeleteServiceItem = (serviceType: TServiceListKeys, index: number) => {
+        setAnswers((prevState) => {
+            if (prevState) {
+                const serviceList = prevState[serviceType];
+                if (serviceList) {
+                    const newServiceList = [...serviceList.slice(0, index), ...serviceList.slice(index + 1)];
+                    return {
+                        ...prevState,
+                        [serviceType]: newServiceList,
+                    };
+                }
+            }
+            return prevState;
+        });
+    };
+
     const handleActiveQuestion = (question: IAppFormProviderValues['activeQuestion']) => {
         setActiveQuestion(question);
     };
@@ -75,6 +93,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 setAnswers,
                 handleNextQuestion,
                 handleActiveQuestion,
+                handleDeleteServiceItem,
             }}
         >
             {children}
