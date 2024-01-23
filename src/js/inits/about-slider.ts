@@ -28,38 +28,23 @@ export const initAboutSlider = () => {
 
             breakpoints: {
                 320: {
-                    slidesPerView: 2,
+                    slidesPerView: 1,
                     spaceBetween: 40,
                 },
 
-                850: {
-                    slidesPerView: 2,
-                    spaceBetween: 80,
-                },
-
-                900: {
-                    slidesPerView: 2,
-                    spaceBetween: 130,
-                },
-
-                1050: {
-                    slidesPerView: 2,
-                    spaceBetween: 300,
-                },
-
-                1200: {
+                1023: {
                     slidesPerView: 3,
                     spaceBetween: 80,
                 },
 
-                1400: {
+                1300: {
                     slidesPerView: 3,
-                    spaceBetween: 200,
+                    spaceBetween: 114,
                 },
 
                 1441: {
-                    slidesPerView: 3,
-                    spaceBetween: 140,
+                    slidesPerView: 4,
+                    spaceBetween: 54,
                 },
             },
         } as Record<string, any>);
