@@ -21,7 +21,10 @@ export const AnotherMeetApp = ({ onAdd }: IAnotherMeetAppProps) => {
         formState: { errors },
         register,
         handleSubmit,
-    } = useForm<TAnotherMeetAppValues>({ defaultValues: { anotherAppName: '' }, resolver: yupResolver(shema) });
+    } = useForm<TAnotherMeetAppValues>({
+        defaultValues: { anotherAppName: '' },
+        resolver: yupResolver<TAnotherMeetAppValues>(shema),
+    });
 
     const onSubmit = (data: TAnotherMeetAppValues) => {
         onAdd(data.anotherAppName);
