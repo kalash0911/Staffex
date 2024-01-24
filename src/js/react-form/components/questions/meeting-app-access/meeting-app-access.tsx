@@ -13,12 +13,34 @@ import { MicrosoftTeams as TeamsIcon } from '../../../icons/MicrosoftTeams';
 import { MeetingApp as AnotherAppIcon } from '../../../icons/MeetingApp';
 import { useModal } from '../../../context/modal-context';
 import { AnotherMeetApp, IAnotherMeetAppProps } from '../../modals/another-meet-app/another-meet-app';
+import { useGoogleLogin } from '@react-oauth/google';
+import { GMEET_SCOPE } from '../../../constants/google';
+import { staffexApi } from '../../../api/staffex';
 
 export const MeetingAppAccess = () => {
     const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion } = useAppFormState();
     const { openModal, hideModal } = useModal();
 
     const meetApps = answers?.accessMeetApps;
+
+    const onGoogleMeet = useGoogleLogin({
+        flow: 'auth-code',
+        scope: GMEET_SCOPE,
+        onSuccess: async (codeResponse) => {
+            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
+
+            if (!meetApps?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmeet')) {
+                const meetAppData: TServiceItemInfo = {
+                    email: googleAuthResponse.data.email,
+                    accessToken: googleAuthResponse.data.accessToken,
+                    refreshToken: googleAuthResponse.data.refreshToken,
+                    serviceType: 'gmeet',
+                };
+                updateMeetAppsList(meetAppData);
+            }
+        },
+        onError: (errorResponse) => console.log(errorResponse),
+    })
 
     const onAnotherApp = () => {
         openModal<IAnotherMeetAppProps>(AnotherMeetApp, {
@@ -86,7 +108,7 @@ export const MeetingAppAccess = () => {
                     </Typography>
                 </div>
                 <div className="choose-wrap">
-                    <ServiceButton icon={<GMeetIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<GMeetIcon />} onClick={onGoogleMeet}>
                         Google Meet
                     </ServiceButton>
                     <ServiceButton icon={<ZoomIcon />} onClick={() => alert('In progress...')}>
