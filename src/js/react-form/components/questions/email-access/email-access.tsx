@@ -12,12 +12,12 @@ import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
 import { useMsal } from '@azure/msal-react';
 import { appleAuthHelpers } from 'react-apple-signin-auth';
-import { staffexApi } from '../../../api/staffex';
+import { TStaffexAuthResponse, staffexApi } from '../../../api/staffex';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
 
-    const { instance, accounts } = useMsal();
+    const { instance } = useMsal();
 
     const emails = answers?.accessEmails;
 
@@ -28,12 +28,11 @@ export const EmailAccess = () => {
                 prompt: 'select_account',
             })
             .then((res) => {
-                const realResponse = JSON.parse(res.code);
+                const realResponse: TStaffexAuthResponse = JSON.parse(res.code || '');
                 const emailData: TServiceItemInfo = {
-                    email: realResponse.email,
-                    // TODO: Change to refreshToken:
-                    refreshToken: realResponse.refreshToken,
-                    accessToken: realResponse.accessToken,
+                    email: realResponse?.email,
+                    refreshToken: realResponse?.refreshToken,
+                    accessToken: realResponse?.accessToken,
                     serviceType: 'outlook',
                 };
                 updateEmailList(emailData);

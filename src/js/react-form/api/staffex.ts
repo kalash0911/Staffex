@@ -1,7 +1,7 @@
 import axios from "axios";
 import { STAFFEX_GOOGLE_AUTH } from "../constants/urls";
 
-export type TStaffexGoogleAuthResponse = {
+export type TStaffexAuthResponse = {
     email: string,
     accessToken: string,
     refreshToken: string,
@@ -12,5 +12,5 @@ export type TStaffexGoogleAuthPayload = {
 }
 
 export const staffexApi = {
-    postGoogleAuth: (payload: TStaffexGoogleAuthPayload) => axios.post<TStaffexGoogleAuthResponse>(STAFFEX_GOOGLE_AUTH, payload),
+    postGoogleAuth: (payload: TStaffexGoogleAuthPayload) => axios.post<TStaffexAuthResponse>(STAFFEX_GOOGLE_AUTH, payload),
 }
