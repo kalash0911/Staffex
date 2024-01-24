@@ -28,11 +28,12 @@ export const EmailAccess = () => {
                 prompt: 'select_account',
             })
             .then((res) => {
+                const realResponse = JSON.parse(res.code);
                 const emailData: TServiceItemInfo = {
-                    email: res.account.username,
+                    email: realResponse.email,
                     // TODO: Change to refreshToken:
-                    refreshToken: res.accessToken,
-                    accessToken: res.accessToken,
+                    refreshToken: realResponse.refreshToken,
+                    accessToken: realResponse.accessToken,
                     serviceType: 'outlook',
                 };
                 updateEmailList(emailData);
