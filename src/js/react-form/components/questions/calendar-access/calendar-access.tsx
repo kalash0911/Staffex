@@ -13,12 +13,34 @@ import { useModal } from '../../../context/modal-context';
 import { IAppleCalendarProps, AppleCalendar as AppleCalendarModal } from '../../modals/apple-calendar/apple-calendar';
 import { AnotherCalendar, IAnotherCalendarProps } from '../../modals/another-calendar/another-calendar';
 import { Calendar as CalendarIcon } from '../../../icons/Calendar';
+import { useGoogleLogin } from '@react-oauth/google';
+import { GCALENDAR_SCOPE } from '../../../constants/google';
+import { staffexApi } from '../../../api/staffex';
 
 export const CalendarAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
     const { openModal, hideModal } = useModal();
 
     const calendars = answers?.accessCalendars;
+
+    const onGoogleCalendar = useGoogleLogin({
+        flow: 'auth-code',
+        scope: GCALENDAR_SCOPE,
+        onSuccess: async (codeResponse) => {
+            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
+
+            if (!calendars?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
+                const calendarData: TServiceItemInfo = {
+                    email: googleAuthResponse.data.email,
+                    accessToken: googleAuthResponse.data.accessToken,
+                    refreshToken: googleAuthResponse.data.refreshToken,
+                    serviceType: 'gcalendar',
+                };
+                updateCalendarsList(calendarData);
+            }
+        },
+        onError: (errorResponse) => console.log(errorResponse),
+    })
 
     const onAppleCalendar = () => {
         openModal<IAppleCalendarProps>(AppleCalendarModal, {
@@ -92,7 +114,7 @@ export const CalendarAccess = () => {
                     </Typography>
                 </div>
                 <div className="choose-wrap">
-                    <ServiceButton icon={<GCalendarIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<GCalendarIcon />} onClick={onGoogleCalendar}>
                         Google Calendar
                     </ServiceButton>
                     <ServiceButton icon={<OutlookIcon />} onClick={() => alert('In progress...')}>
