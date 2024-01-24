@@ -1,2 +1,4 @@
 // API:
-export const STAFFEX_API = 'https://coming.soon';
+// TODO: change to deployed url:
+export const STAFFEX_API = 'https://localhost:32770';
+export const STAFFEX_GOOGLE_AUTH = `${STAFFEX_API}/auth/google`;

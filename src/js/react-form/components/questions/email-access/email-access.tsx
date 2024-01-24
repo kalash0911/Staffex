@@ -13,6 +13,7 @@ import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
 import { useMsal } from '@azure/msal-react';
 import axios from 'axios';
+import { staffexApi } from '../../../api/staffex';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
@@ -28,7 +29,6 @@ export const EmailAccess = () => {
                 account: accounts[0],
             })
             .then((res) => {
-                console.log('res: ', res);
                 const emailData: TServiceItemInfo = {
                     email: res.account.username,
                     // TODO: Change to refreshToken:
@@ -46,13 +46,7 @@ export const EmailAccess = () => {
     const onGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
-            console.log(codeResponse);
-            // TODO: Change to super API:
-            const googleAuthResponse = await axios.post('https://localhost:32770/auth/google', {
-                code: codeResponse.code,
-            });
-
-            // console.log(tokens);
+            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
 
             if (!emails?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
                 const emailData: TServiceItemInfo = {
