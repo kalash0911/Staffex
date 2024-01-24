@@ -46,6 +46,10 @@ const intervalID = setInterval(updateLoaderText, 250);
 
 const hidePreloader = () => {
     setTimeout(() => {
+        clearInterval(intervalID);
+        progressBar.style.width = `100%`;
+        percentageEl.innerHTML = '100%';
+
         document.querySelector('body').classList.add('loaded');
         setTimeout(() => {
             loadWrap.classList.add('d-none');
