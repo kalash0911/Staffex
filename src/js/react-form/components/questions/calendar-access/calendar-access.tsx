@@ -29,7 +29,7 @@ export const CalendarAccess = () => {
         onSuccess: async (codeResponse) => {
             const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
 
-            if (!calendars?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
+            if (!calendars?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gcalendar')) {
                 const calendarData: TServiceItemInfo = {
                     email: googleAuthResponse.data.email,
                     accessToken: googleAuthResponse.data.accessToken,
