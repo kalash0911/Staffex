@@ -10,12 +10,34 @@ import { FilePlus as FilePlusIcon } from '../../../icons/FilePlus.tsx';
 import { useModal } from '../../../context/modal-context.tsx';
 import { CloudDataLink, ICloudDataLinkProps } from '../../modals/cloud-data-link/cloud-data-link.tsx';
 import { TServiceItemInfo } from '../../../models/form.ts';
+import { GDRIVE_SCOPE } from '../../../constants/google.ts';
+import { staffexApi } from '../../../api/staffex.ts';
+import { useGoogleLogin } from '@react-oauth/google';
 
 export const CloudDataAccess = () => {
     const { answers, setAnswers, handleDeleteServiceItem, handleNextQuestion } = useAppFormState();
     const { openModal, hideModal } = useModal();
 
     const cloudData = answers?.accessCloudData;
+
+    const onGoogleMeet = useGoogleLogin({
+        flow: 'auth-code',
+        scope: GDRIVE_SCOPE,
+        onSuccess: async (codeResponse) => {
+            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
+
+            if (!cloudData?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gdrive')) {
+                const meetAppData: TServiceItemInfo = {
+                    email: googleAuthResponse.data.email,
+                    accessToken: googleAuthResponse.data.accessToken,
+                    refreshToken: googleAuthResponse.data.refreshToken,
+                    serviceType: 'gdrive',
+                };
+                updateCloudDataList(meetAppData);
+            }
+        },
+        onError: (errorResponse) => console.log(errorResponse),
+    })
 
     const handleAnotherCloudLink = () => [
         openModal<ICloudDataLinkProps>(CloudDataLink, {
@@ -57,7 +79,7 @@ export const CloudDataAccess = () => {
                 <ServiceItem
                     key={email || cloudLink}
                     variant={serviceType}
-                    textContent={cloudLink}
+                    textContent={email || cloudLink}
                     serviceTitle={serviceType === 'anotherCloud' ? `Link ${index + 1}` : ''}
                     onDelete={() => {
                         handleDeleteServiceItem('accessCloudData', index);
@@ -83,7 +105,7 @@ export const CloudDataAccess = () => {
                     </Typography>
                 </div>
                 <div className="choose-wrap">
-                    <ServiceButton icon={<GDriveIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<GDriveIcon />} onClick={onGoogleMeet}>
                         Google Drive
                     </ServiceButton>
                     <ServiceButton icon={<FilePlusIcon />} onClick={handleAnotherCloudLink}>
@@ -91,7 +113,7 @@ export const CloudDataAccess = () => {
                     </ServiceButton>
                 </div>
                 <div className="list-add-wrap">
-                    <Typography variant="ft">List of added emails</Typography>
+                    <Typography variant="ft">List of added files</Typography>
                     {cloudDataList}
                 </div>
             </div>
