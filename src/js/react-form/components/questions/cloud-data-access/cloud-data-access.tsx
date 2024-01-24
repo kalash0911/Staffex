@@ -24,6 +24,7 @@ export const CloudDataAccess = () => {
                     email: '',
                     serviceType: 'anotherCloud',
                     refreshToken: '',
+                    accessToken: '',
                     cloudLink: value,
                 };
                 updateCloudDataList(cloudData);

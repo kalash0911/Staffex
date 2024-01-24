@@ -3,6 +3,7 @@ import { TServiceItemVariants } from '../components/shared/service-item/service-
 export type TServiceItemInfo = {
     email: string;
     serviceType: TServiceItemVariants;
+    accessToken: string;
     refreshToken: string;
     meetAppName?: string;
     cloudLink?: string;

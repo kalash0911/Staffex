@@ -34,6 +34,7 @@ export const CalendarAccess = () => {
                     serviceType: 'anotherCalendar',
                     calendarName: value,
                     refreshToken: '',
+                    accessToken: '',
                 };
                 updateCalendarsList(calendarData);
                 hideModal();

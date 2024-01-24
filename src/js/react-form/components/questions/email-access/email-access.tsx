@@ -15,10 +15,9 @@ import { useMsal } from '@azure/msal-react';
 import axios from 'axios';
 
 export const EmailAccess = () => {
-    const { answers, setAnswers, handleNextQuestion } = useAppFormState();
+    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
 
     const { instance, accounts } = useMsal();
-    console.log('accounts: ', accounts);
 
     const emails = answers?.accessEmails;
 
@@ -34,6 +33,7 @@ export const EmailAccess = () => {
                     email: res.account.username,
                     // TODO: Change to refreshToken:
                     refreshToken: res.accessToken,
+                    accessToken: res.accessToken,
                     serviceType: 'outlook',
                 };
                 updateEmailList(emailData);
@@ -49,7 +49,6 @@ export const EmailAccess = () => {
             console.log(codeResponse);
             // TODO: Change to super API:
             const googleAuthResponse = await axios.post('https://localhost:32770/auth/google', {
-                //super backend url
                 code: codeResponse.code,
             });
 
@@ -58,6 +57,7 @@ export const EmailAccess = () => {
             if (!emails?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
                 const emailData: TServiceItemInfo = {
                     email: googleAuthResponse.data.email,
+                    accessToken: googleAuthResponse.data.accessToken,
                     refreshToken: googleAuthResponse.data.refreshToken,
                     serviceType: 'gmail',
                 };
@@ -86,8 +86,8 @@ export const EmailAccess = () => {
     };
 
     const emailsList = emails?.length ? (
-        emails.map(({ email, serviceType }) => {
-            return <ServiceItem key={email} variant={serviceType} textContent={email} />;
+        emails.map(({ email, serviceType }, index) => {
+            return <ServiceItem key={email} variant={serviceType} textContent={email} onDelete={() => handleDeleteServiceItem('accessEmails', index )}/>;
         })
     ) : (
         <Typography>The list of emails you added is empty.</Typography>

@@ -27,6 +27,7 @@ export const MeetingAppAccess = () => {
                     email: '',
                     serviceType: 'anotherMeetApp',
                     refreshToken: '',
+                    accessToken: '',
                     meetAppName: value,
                 };
                 updateMeetAppsList(anotherApp);
