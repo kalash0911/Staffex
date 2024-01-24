@@ -3,36 +3,36 @@ html {
 }
 
 #wrapper {
-	position: relative;
-	overflow: hidden;
-	margin: 20px;
-	border-radius: 6px;
-	border: 0.5px solid rgba($white, 0.3);
-	height: calc(100vh - 40px);
-	transition: $anim_07;
+    position: relative;
+    overflow: hidden;
+    margin: 20px;
+    border-radius: 6px;
+    border: 0.5px solid rgba($white, 0.3);
+    height: calc(100vh - 40px);
+    transition: $anim_07;
 
-	@include media('<desktop') {
+    @include media('<desktop') {
 		border: none;
 		margin: 0;
 		overflow: auto;
 		overflow-x: hidden;
 		height: auto;
-	}
+    }
 
-	.body_lock & {
+    .body_lock & {
 		overflow: hidden !important;
 		height: 100vh;
-	}
+    }
 
-	.footer-active &{
-		
+    .footer-active &{
+
 		@include media('>desktop') {
 			height: 100vh;
 			margin: 0;
-			border: none;
+			border: 0.5px solid transparent;
 			border-radius: 0;
 		}
-	}
+    }
 }
 
 #wrapper-page {

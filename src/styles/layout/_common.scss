@@ -672,7 +672,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 	}
 
 	@include media('<tablet') {
-		padding: 40px 0 120px 0;
+		padding: 40px 0 130px 0;
 	}
 
 	.container {
@@ -1011,7 +1011,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 				z-index: 15;
 				order: 1;
 				top: auto;
-				bottom: -75px;
+				bottom: -100px;
       
 				&.d-none {
 					display: none;
@@ -1373,21 +1373,21 @@ $anim-opacity-bg: all 3s ease $anim-delay;
     }
   }
 
-  .main-btn {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    bottom: 30px;
-    width: 100%;
-    max-width: 380px;
-    z-index: 2;
+	.main-btn {
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%);
+		bottom: 65px;
+		width: 100%;
+		max-width: 380px;
+		z-index: 2;
 
-    @include media('<laptop') {
-      bottom: 15px;
-    }
+		@include media('<desktop') {
+			bottom: 25px;
+		}
 
-    @include media('<desktop') {
-      bottom: 30px;
-    }
-  }
+		@include media('<phone') {
+			max-width: 335px;
+		}
+	}
 }
