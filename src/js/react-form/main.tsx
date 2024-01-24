@@ -17,7 +17,13 @@ if (root) {
         auth: {
             authority: 'https://login.microsoftonline.com/consumers',
             clientId: MICROSOFT_CLIENT_ID,
-            redirectUri: 'https://localhost:5173/Staffex/form.html',
+            redirectUri: '',
+            authorityMetadata: JSON.stringify({
+                authorization_endpoint: 'https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize',
+                token_endpoint: 'https://localhost:32770/auth/microsoft',
+                issuer: 'https://login.microsoftonline.com/{tenantid}/v2.0',
+                //userinfo_endpoint: 'http://localhost:8180/realms/example-realm/protocol/openid-connect/userinfo'
+            }),
         },
         cache: {
             cacheLocation: 'sessionStorage',

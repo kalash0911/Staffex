@@ -25,7 +25,7 @@ export const EmailAccess = () => {
         await instance
             .loginPopup({
                 scopes: ['user.read', 'mail.read'],
-                account: accounts[0],
+                prompt: 'select_account',
             })
             .then((res) => {
                 const emailData: TServiceItemInfo = {
