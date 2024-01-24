@@ -11,7 +11,7 @@ import { initAccordions } from './inits/accordions';
 import { initVideoChanges } from './inits/videos-changer';
 import { initLottiesAnimations } from './inits/lottie-icons';
 import { initFeatureChoose } from './inits/features-choose';
-/* import { pinButtonsOnScroll } from './inits/pin-btns'; */
+import { pinButtonsOnScroll } from './inits/pin-btns';
 import { initNavigation } from './inits/navigation';
 import { initFooterInViewport } from './inits/footer-viewport';
 import { initBotsVideoloops } from './inits/bots-video-loops';
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounterAnimate();
     initTabs();
     initAccordions();
-    /*     pinButtonsOnScroll(); */
+    pinButtonsOnScroll();
     initNavigation();
     initFooterInViewport();
     initBotsVideoloops();

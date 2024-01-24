@@ -1011,7 +1011,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 				z-index: 15;
 				order: 1;
 				top: auto;
-				bottom: 0;
+				bottom: -75px;
       
 				&.d-none {
 					display: none;

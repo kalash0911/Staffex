@@ -10,7 +10,7 @@ export const pinButtonsOnScroll = () => {
             let isUpDirection = false;
             const section = document.querySelector(selector);
             if (!section) return;
-            const botBlock = section.querySelector('.bot-wrap');
+            const botBlock = section.querySelector('.info-block');
             const sectionPinBtn = section.querySelector('.pinBtn');
             const endBtnPlaceholder = section.querySelector('.pinBtnEnd') as HTMLDivElement;
             endBtnPlaceholder.style.height = `${sectionPinBtn.getBoundingClientRect().height}px`;
@@ -48,10 +48,11 @@ export const pinButtonsOnScroll = () => {
             const pinBtnEndObs = new IntersectionObserver(
                 (entry) => {
                     entry.forEach((btn) => {
+                        console.log('btn: ', btn);
                         if (btn.isIntersecting) {
                             sectionPinBtn.classList.remove('fixed');
                             sectionPinBtn.classList.remove('slideUp');
-                            (btn.target as HTMLDivElement).style.height = `0px`;
+                            // (btn.target as HTMLDivElement).style.height = `0px`;
                         } else {
                             endBtnPlaceholder.style.height = `${sectionPinBtn.getBoundingClientRect().height}px`;
                         }
