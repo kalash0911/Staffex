@@ -11,6 +11,7 @@ import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook
 import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
 import { useMsal } from '@azure/msal-react';
+import { appleAuthHelpers } from 'react-apple-signin-auth';
 import { staffexApi } from '../../../api/staffex';
 
 export const EmailAccess = () => {
@@ -58,6 +59,25 @@ export const EmailAccess = () => {
         },
         onError: (errorResponse) => console.log(errorResponse),
     });
+
+    const oniCloudLogin = () => {
+        return appleAuthHelpers.signIn({
+            // TODO: set authOptions
+            authOptions: {
+                /** Client ID - eg: 'com.example.com' */
+                clientId: 'com.example.web',
+                /** Requested scopes, seperated by spaces - eg: 'email name' */
+                scope: 'email name',
+                /** Apple's redirectURI - must be one of the URIs you added to the serviceID - the undocumented trick in apple docs is that you should call auth from a page that is listed as a redirectURI, localhost fails */
+                redirectURI: 'https://example.com',
+                usePopup: true,
+            },
+        }).then((res) => {
+            console.log('res: ', res);
+        }).catch((err) => {
+            console.log('err: ', err);
+        })
+    }
 
     const updateEmailList = (emailData: TServiceItemInfo) => {
         setAnswers((prevState) => {
@@ -107,7 +127,7 @@ export const EmailAccess = () => {
                     <ServiceButton icon={<OutlookIcon />} onClick={onOutlookLogin}>
                         Microsoft Outlook
                     </ServiceButton>
-                    <ServiceButton icon={<ICloudIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<ICloudIcon />} onClick={oniCloudLogin}>
                         iCloud Email
                     </ServiceButton>
                 </div>
