@@ -53,6 +53,6 @@ const hidePreloader = () => {
     }, 1300);
 };
 
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
     hidePreloader();
 });
