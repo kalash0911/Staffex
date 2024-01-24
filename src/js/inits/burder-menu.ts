@@ -6,7 +6,7 @@ export const initBurgerMenu = () => {
 
   if (!burger && !menuBody && !linkClose.length && !overflow) return;
 
-  burger?.addEventListener('click', function (e) {
+  burger?.addEventListener('click', function () {
     document.body.classList.toggle('body_lock');
     document.body.classList.toggle('active');
     if (burger.classList.contains('burger_active')) {
@@ -20,7 +20,7 @@ export const initBurgerMenu = () => {
     }
   });
 
-  overflow?.addEventListener('click', function (e) {
+  overflow?.addEventListener('click', function () {
     document.body.classList.toggle('body_lock');
     document.body.classList.toggle('active');
     if (burger?.classList.contains('burger_active')) {
@@ -35,7 +35,7 @@ export const initBurgerMenu = () => {
   });
 
   for (var i = 0; i < linkClose.length; ++i) {
-    linkClose[i].addEventListener('click', function (e) {
+    linkClose[i].addEventListener('click', function () {
       document.body.classList.remove('body_lock');
       document.body.classList.remove('active');
       burger?.classList.remove('burger_active');

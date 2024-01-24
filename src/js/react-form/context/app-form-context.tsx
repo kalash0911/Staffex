@@ -1,7 +1,7 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react';
 import { FormType, TActiveQuestion, TTopic } from '../models/question';
 import { QUESTIONS_CONFIG } from '../constants/questions';
-import { TCommonFormValues, TServiceItemInfo, TServiceListKeys } from '../models/form';
+import { TCommonFormValues, TServiceListKeys } from '../models/form';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -22,8 +22,8 @@ interface IAppFormProviderValues {
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
 
 const AppFormProvider = ({ children }: IAppFormProviderProps) => {
-    const [formType, setFormType] = useState<IAppFormProviderValues['formType']>(FormType.SECRETARY);
-    const [questions, setQuestions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
+    const [formType] = useState<IAppFormProviderValues['formType']>(FormType.SECRETARY);
+    const [questions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
     const [activeQuestion, setActiveQuestion] = useState<IAppFormProviderValues['activeQuestion']>({
         configInd: 0,
         questionInd: 0,

@@ -1,6 +1,6 @@
-const loadWrap = document.querySelector('.load-wrapper');
-const percentageEl = loadWrap.querySelector('#loading-percentage');
-const progressBar = loadWrap.querySelector('.load-wrapper .progress-value') as HTMLDivElement;
+const loadWrap = document.querySelector('.load-wrapper') as HTMLDivElement;
+const percentageEl = loadWrap?.querySelector('#loading-percentage') as HTMLDivElement;
+const progressBar = loadWrap?.querySelector('.load-wrapper .progress-value') as HTMLDivElement;
 progressBar.style.width = `${0}%`;
 percentageEl.innerHTML = 0 + '%';
 let percantageCounter = 35;
@@ -48,11 +48,11 @@ const hidePreloader = () => {
     setTimeout(() => {
         clearInterval(intervalID);
         progressBar.style.width = `100%`;
-        percentageEl.innerHTML = '100%';
+        percentageEl!.innerHTML = '100%';
 
-        document.querySelector('body').classList.add('loaded');
+        document.querySelector('body')?.classList.add('loaded');
         setTimeout(() => {
-            loadWrap.classList.add('d-none');
+            loadWrap?.classList.add('d-none');
         }, 350);
     }, 1300);
 };

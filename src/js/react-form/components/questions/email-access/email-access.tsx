@@ -6,13 +6,11 @@ import { SkipButton } from '../../skip-btn/skip-btn';
 import { useGoogleLogin } from '@react-oauth/google';
 import { TServiceItemInfo } from '../../../models/form';
 import { ServiceButton } from '../../shared/service-button/service-button';
-import { GMAIL_SCOPE } from '../../../constants/google';
 import { Gmail as GmailIcon } from '../../../icons/Gmail';
 import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
 import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
 import { useMsal } from '@azure/msal-react';
-import axios from 'axios';
 import { staffexApi } from '../../../api/staffex';
 
 export const EmailAccess = () => {

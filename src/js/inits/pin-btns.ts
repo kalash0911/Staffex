@@ -10,9 +10,10 @@ export const pinButtonsOnScroll = () => {
             let isUpDirection = false;
             const section = document.querySelector(selector);
             if (!section) return;
-            const botBlock = section.querySelector('.info-block');
-            const sectionPinBtn = section.querySelector('.pinBtn');
+            const botBlock = section.querySelector('.info-block') as HTMLDivElement;
+            const sectionPinBtn = section.querySelector('.pinBtn') as HTMLDivElement;
             const endBtnPlaceholder = section.querySelector('.pinBtnEnd') as HTMLDivElement;
+
             endBtnPlaceholder.style.height = `${sectionPinBtn.getBoundingClientRect().height}px`;
 
             if (!sectionPinBtn) return;
@@ -62,7 +63,7 @@ export const pinButtonsOnScroll = () => {
             );
             pinBtnEndObs.observe(endBtnPlaceholder);
 
-            window.addEventListener('scroll', (event) => {
+            window.addEventListener('scroll', () => {
                 isUpDirection = oldScroll > scrollY;
                 oldScroll = scrollY;
                 const windowHeight = window.innerHeight;

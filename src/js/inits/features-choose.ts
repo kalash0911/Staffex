@@ -19,7 +19,7 @@ export const initFeatureChoose = () => {
     localStorage.setItem(FEATURES_KEY, JSON.stringify(features));
 
     if (elementItems.length > 0 && botElements.length > 0) {
-        function chooseFeature(event) {
+        function chooseFeature(event: any) {
             event.currentTarget.classList.toggle('active');
             const featureName = event.currentTarget.dataset.feature;
             features[featureName] = !features[featureName];

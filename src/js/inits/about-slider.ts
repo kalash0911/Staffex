@@ -1,4 +1,3 @@
-import { Keyboard, Mousewheel } from 'swiper/modules';
 
 export const initAboutSlider = () => {
     if (!document.querySelector('.about-slider')) return;

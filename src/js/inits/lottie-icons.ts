@@ -1,5 +1,12 @@
 import lottie from 'lottie-web';
 
+type AnimationData = {
+    animationName: string;
+    jsonPath: URL;
+    path: string;
+    elementSelector: string;
+}
+
 export const initLottiesAnimations = () => {
     const config = [
         {
@@ -39,7 +46,7 @@ export const initLottiesAnimations = () => {
         },
     ];
 
-    const animationsData = [];
+    const animationsData: AnimationData[] = [];
 
     config.forEach(({ path, names }) => {
         names.forEach((name) => {

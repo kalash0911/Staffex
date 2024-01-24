@@ -1,6 +1,9 @@
 export const initSongBtn = () => {
     const songBtn: HTMLElement | null = document.querySelector('.song-btn');
     const audio: HTMLAudioElement | null = document.querySelector('.song-btn audio');
+
+    if(!audio) return;
+    
     audio.volume = 0.1;
 
     if (songBtn && audio) {
