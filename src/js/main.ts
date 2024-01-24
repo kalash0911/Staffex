@@ -28,9 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initFooterInViewport();
     initBotsVideoloops();
-});
-
-window.addEventListener('load', () => {
+    //
     initFeatureChoose();
     initLottiesAnimations();
     initVideoChanges();
