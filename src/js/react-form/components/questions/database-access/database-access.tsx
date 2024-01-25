@@ -129,10 +129,16 @@ export const DatabaseAccess = () => {
                                 errorMsg={errors.databaseList?.[index]?.url?.message}
                             />
                             <ConnectButton status="hold" onClick={() => alert('In progress')} />
-                            {fields.length > 1 && <button onClick={() => onDeleteDatabase(index)}>Remove</button>}
+                            {fields.length > 1 && (
+                                <button type="button" onClick={() => onDeleteDatabase(index)}>
+                                    Remove
+                                </button>
+                            )}
                         </OpenClose>
                     ))}
-                    <button onClick={onAddDatabase}>+ Add one more database</button>
+                    <button type="button" onClick={onAddDatabase}>
+                        + Add one more database
+                    </button>
                 </form>
             </div>
             <div className="btn-wrap">

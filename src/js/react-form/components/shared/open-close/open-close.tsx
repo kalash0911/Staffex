@@ -20,8 +20,14 @@ export const OpenClose = ({ title, children, onDelete }: TOpenCloseField) => {
             <div className="oc-title-wrap">
                 <h5>{title}</h5>
                 <div className="oc-action-btns-wrap">
-                    {onDelete && !isOpen && <button onClick={onDelete}>Delete</button>}
-                    <button onClick={() => setIsOpen((prevState) => !prevState)}>^</button>
+                    {onDelete && !isOpen && (
+                        <button type="button" onClick={onDelete}>
+                            Delete
+                        </button>
+                    )}
+                    <button type="button" onClick={() => setIsOpen((prevState) => !prevState)}>
+                        ^
+                    </button>
                 </div>
             </div>
             <div ref={ocContentRef} style={{ overflow: 'hidden', height: isOpen ? `${height}px` : 0 }} className={`oc-content `}>
