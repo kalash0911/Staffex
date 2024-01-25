@@ -543,6 +543,12 @@
             padding: 110px 20px 200px 20px;
         }
 
+        .error {
+            position: relative;
+            padding-top: 5px;
+            bottom: auto;
+        }
+
         &.lg {
 
             .modal-content {
@@ -565,7 +571,7 @@
             .modal-content {
                 position: relative;
                 max-width: 560px;
-                padding: 40px 40px 40px 80px;
+                padding: 55px 40px 40px 80px;
                 border: 1px solid $green4F;
                 background: $black03;
                 overflow: hidden;
@@ -579,9 +585,9 @@
                     position: absolute;
                     top: 40px;
                     left: 40px;
-                    width: 14px;
-                    min-height: 500px;
-                    background: url(../images/icons/form-pop-up-line.svg) no-repeat;
+                    width: 20px;
+                    min-height: 700px;
+                    background: url(../images/icons/form-pop-up-line.svg) 0 0/100% auto no-repeat;
 
                     @include media('<phone') {
                         display: none;
@@ -612,6 +618,20 @@
 
     .modal-content {
         width: 100%;
+
+        a {
+            color: $green4F;
+            font-family: $DegularText;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 140%;
+            text-decoration: underline;
+            transition: $anim_03;
+
+            &:hover {
+                text-decoration-color: transparent;
+            }
+        }
     }
 
     .backdrop {
@@ -654,14 +674,44 @@
         line-height: 140%;
     }
 
+    .link-wrap {
+        margin-bottom: 40px;
+    }
+
     .hint {
         display: flex;
         align-items: center;
         gap: 10px;
         margin-bottom: 40px;
 
+        &.mb20 {
+            margin-bottom: 20px;
+        }
+
+        svg {
+            min-width: 18px;
+        }
+
         .text {
             font-size: 12px;
+        }
+    }
+
+    .how-to-box {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 15px;
+        border: 1px solid $gray4F;
+        margin-bottom: 40px;
+
+        svg {
+            min-width: 20px;
+        }
+
+        .text,
+        a {
+            font-size: 16px;
         }
     }
 
