@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppFormState } from './context/app-form-context';
 import { Typography } from './components/shared/typography/typography';
 import { CrossIcon } from './icons/cross';
+import { BotInfo } from './components/bot-info/bot-info';
 
 const App = () => {
     const { questions, activeQuestion, handleActiveQuestion } = useAppFormState();
@@ -22,6 +23,7 @@ const App = () => {
 
             <div className="block">
                 <div className="list-wrap">
+                    <BotInfo />
                     <div className="list-block">
                         {questions.map(({ title }, configInd) => {
                             const currentTopicList = questions.find((conf) => conf.title === title)?.list;
