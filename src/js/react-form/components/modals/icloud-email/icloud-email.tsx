@@ -51,15 +51,20 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
                     placeholder="Enter an app-specific password"
                     errorMsg={errors.appPassword?.message}
                 ></TextField>
-                <div className="hint">
+                <div className="hint mb20">
                     <WarningSign />
                     <Typography>
                         iCloud requires you to create a password specifically for Staffex to access your email account.
                     </Typography>
                 </div>
-                <Link href="#">Generate an app-specific password</Link>
-                <div>
-                    <PlayIcon /> Watch video <Link href="#">how to create app-specific password</Link>
+                <div className="link-wrap">
+                    <Link href="#">Generate an app-specific password</Link>
+                </div>
+                <div className="how-to-box">
+                    <PlayIcon />{' '}
+                    <p className="text">
+                        Watch video <Link href="#">how to create app-specific password</Link>
+                    </p>
                 </div>
                 <Button variant="primary" label="Add email" onClick={handleSubmit(onSubmit)} />
             </form>
