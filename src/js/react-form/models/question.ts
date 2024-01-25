@@ -20,3 +20,10 @@ export type TTopic = {
     title: string;
     list: TQuestion[];
 };
+
+export type TAdditionalFeatures = {
+    communicationCoordination: boolean;
+    crm: boolean;
+    documentPreparation: boolean;
+    voiceRecognation: boolean;
+};
