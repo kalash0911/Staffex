@@ -1,8 +1,22 @@
 .bot-page-section {
-    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    padding: 120px 0 80px 0;
+    min-height: 100vh;
   
     @include media('<laptop') {
-        padding-top: 80px;
+        padding: 80px 0;
+    }
+
+    @include media('<phone') {
+        padding: 80px 0 0 0;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 0 auto;
     }
   
     .content {
@@ -124,10 +138,9 @@
     .tex-wrap {
         width: 100%;
         max-width: 650px;
-        padding-bottom: 40px;
 
         @include media('<laptop') {
-            padding-bottom: 20px;
+            max-width: 690px;
         }
 
         @include media('<desktop') {
@@ -147,7 +160,7 @@
     .tab-button {
         position: relative;
         width: 100%;
-        padding: 12px 30px;
+        padding: 11px 30px;
         background: transparent;
         border: 1px solid rgba($white, 0.3);
         color: $white;
@@ -169,21 +182,21 @@
         &::after {
             content: '';
             position: absolute;
-            top: -8px;
-            width: 15px;
-            height: 15px;
+            top: -15px;
+            width: 30px;
+            height: 30px;
             background-color: $black03;
             border-bottom: 1px solid rgba($white, 0.3);
             transition: $anim_03;
         }
     
         &::before {
-            left: -8px;
+            left: -15px;
             transform: rotate(-45deg);
         }
     
         &::after {
-            right: -8px;
+            right: -15px;
             transform: rotate(45deg);
             z-index: 1;
         }
@@ -234,6 +247,7 @@
     
         @include media('<laptop') {
             min-height: 0px;
+            padding: 12px;
         }
     
         @include media('<tablet_s') {
@@ -493,6 +507,10 @@
         margin-bottom: -20px;
         max-height: 140px;
 
+        @include media('<laptop') {
+           margin: 0;
+        }
+
         @include media('<phone') {
             max-width: 220px;
             margin: 0 auto -20px auto;
@@ -510,13 +528,17 @@
                 rgba(0, 0, 0, 0) 0%,
                 $black03 100%
             );
+
+            @include media('<laptop') {
+                opacity: .8;
+            }
         }
 
         img {
             max-height: 120px;
 
             @include media('<laptop') {
-                max-height: 70px;
+                max-height: 80px;
             }
         }
     }
@@ -550,7 +572,8 @@
         text-transform: uppercase;
 
         @include media('<laptop') {
-            font-size: 12px;
+            font-size: 14px;
+            margin-bottom: 4px;
         }
     }
 
