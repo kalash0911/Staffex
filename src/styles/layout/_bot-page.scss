@@ -62,6 +62,17 @@
                 );
             }
         }
+
+        &::after {
+            content:'';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 2;
+        }
     }
   
     .bg {
@@ -175,7 +186,7 @@
     
         @include media('<tablet_s') {
             font-size: 12px;
-            padding: 10px 7px;
+            padding: 10px 3px;
         }
   
         &::before,
@@ -188,17 +199,31 @@
             background-color: $black03;
             border-bottom: 1px solid rgba($white, 0.3);
             transition: $anim_03;
+
+            @include media('<phone') {
+                top: -8px;
+                width: 15px;
+                height: 15px;
+            }
         }
     
         &::before {
             left: -15px;
             transform: rotate(-45deg);
+
+            @include media('<phone') {
+                left: -8px;
+            }
         }
     
         &::after {
             right: -15px;
             transform: rotate(45deg);
             z-index: 1;
+
+            @include media('<phone') {
+                right: -8px;
+            }
         }
     
         &:first-child {
@@ -214,7 +239,7 @@
     
             &::before,
             &::after {
-            border-bottom: 1px solid $green4F;
+                border-bottom: 1px solid $green4F;
             }
         }
   
@@ -222,11 +247,11 @@
             color: $black03;
             background: $green4F;
             border-color: $green4F;
-            font-weight: 600;
+            text-shadow: 1px 0 $black03;
     
             &::before,
             &::after {
-            border-bottom: 1px solid $green4F;
+                border-bottom: 1px solid $green4F;
             }
         }
     }
