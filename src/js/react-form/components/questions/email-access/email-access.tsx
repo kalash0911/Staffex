@@ -11,7 +11,6 @@ import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook
 import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
 import { useMsal } from '@azure/msal-react';
-import { appleAuthHelpers } from 'react-apple-signin-auth';
 import { TStaffexAuthResponse, staffexApi } from '../../../api/staffex';
 
 export const EmailAccess = () => {
@@ -61,25 +60,7 @@ export const EmailAccess = () => {
     });
 
     const oniCloudLogin = () => {
-        return appleAuthHelpers
-            .signIn({
-                // TODO: set authOptions
-                authOptions: {
-                    /** Client ID - eg: 'com.example.com' */
-                    clientId: 'com.example.web',
-                    /** Requested scopes, seperated by spaces - eg: 'email name' */
-                    scope: 'email name',
-                    /** Apple's redirectURI - must be one of the URIs you added to the serviceID - the undocumented trick in apple docs is that you should call auth from a page that is listed as a redirectURI, localhost fails */
-                    redirectURI: 'https://example.com',
-                    usePopup: true,
-                },
-            })
-            .then((res) => {
-                console.log('res: ', res);
-            })
-            .catch((err) => {
-                console.log('err: ', err);
-            });
+        return null;
     };
 
     const updateEmailList = (emailData: TServiceItemInfo) => {
