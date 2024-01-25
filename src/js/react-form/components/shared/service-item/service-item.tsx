@@ -30,6 +30,10 @@ export const SERVICE_ITEMS_VARIANTS = {
         title: 'Google Calendar',
         icon: <GoogleCalendar />,
     },
+    outlookCalendar: {
+        title: 'Microsoft Outlook',
+        icon: <MicrosoftOutlook />,
+    },
     appleCalendar: {
         title: 'Apple Calendar',
         icon: <AppleCalendar />,

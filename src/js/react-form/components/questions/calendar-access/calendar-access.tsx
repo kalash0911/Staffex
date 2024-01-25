@@ -15,13 +15,37 @@ import { AnotherCalendar, IAnotherCalendarProps } from '../../modals/another-cal
 import { Calendar as CalendarIcon } from '../../../icons/Calendar';
 import { useGoogleLogin } from '@react-oauth/google';
 import { GCALENDAR_SCOPE } from '../../../constants/google';
-import { staffexApi } from '../../../api/staffex';
+import { TStaffexAuthResponse, staffexApi } from '../../../api/staffex';
+import { useMsal } from '@azure/msal-react';
+import { CALENDAR_SCOPES as OUTLOOK_CALENDAR_SCOPES } from '../../../constants/microsoft';
 
 export const CalendarAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
     const { openModal, hideModal } = useModal();
+    const { instance } = useMsal();
 
     const calendars = answers?.accessCalendars;
+
+    const onOutlookCalendar = async () => {
+        await instance
+            .loginPopup({
+                scopes: OUTLOOK_CALENDAR_SCOPES,
+                prompt: 'select_account',
+            })
+            .then((res) => {
+                const realResponse: TStaffexAuthResponse = JSON.parse(res.code || '');
+                const calendarData: TServiceItemInfo = {
+                    email: realResponse?.email,
+                    refreshToken: realResponse?.refreshToken,
+                    accessToken: realResponse?.accessToken,
+                    serviceType: 'outlookCalendar',
+                };
+                updateCalendarsList(calendarData);
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            });
+    };
 
     const onGoogleCalendar = useGoogleLogin({
         flow: 'auth-code',
@@ -110,7 +134,7 @@ export const CalendarAccess = () => {
                 <div className="text-wrap">
                     <Typography>
                         Got a busy schedule? Let us access your calendar, and we can help sort out your priorities and important
-                        meetings. We’ll optimize your work schedule and give you timely reminders for a more organized and
+                        meetings. We&apos;ll optimize your work schedule and give you timely reminders for a more organized and
                         productive routine. Please note, the following function depends on access to operate correctly:
                     </Typography>
                     <Typography variant="sm">
@@ -122,7 +146,7 @@ export const CalendarAccess = () => {
                     <ServiceButton icon={<GCalendarIcon />} onClick={onGoogleCalendar}>
                         Google Calendar
                     </ServiceButton>
-                    <ServiceButton icon={<OutlookIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<OutlookIcon />} onClick={onOutlookCalendar}>
                         Microsoft Outlook
                     </ServiceButton>
                     <ServiceButton icon={<AppleCalendarIcon />} onClick={onAppleCalendar}>
