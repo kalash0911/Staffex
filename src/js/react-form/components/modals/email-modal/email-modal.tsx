@@ -8,8 +8,8 @@ export interface IEmailModalProps {
 
 export const EmailModal = ({ handleAddEmail }: IEmailModalProps) => {
     return (
-        <div>
-            <h2>Add another email</h2>
+        <div className="modal-content">
+            <h2 className="modal-title">Add another email</h2>
             <form>
                 <TextField label="Email" />
                 <TextField label="Password" type="password" />
