@@ -26,6 +26,7 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
         handleSubmit,
     } = useForm<TICloudEmailValues>({
         defaultValues: { appPassword: '', email: '' },
+        // @ts-ignore
         resolver: yupResolver(shema),
     });
 
