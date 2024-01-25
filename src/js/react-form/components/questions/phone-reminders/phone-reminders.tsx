@@ -27,8 +27,9 @@ export const PhoneReminders = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        Are you ready to provide access to your phone's reminders and to-do lists? If you refuse, the following
-                        basic features will not be available:
+                        Struggling with task management? Grant us access to your phone’s reminders and to-do lists. This enables
+                        efficient creation and organization of tasks through a few simple messages. Please note, the following
+                        functions depend on access to operate correctly:
                     </Typography>
                     <Typography variant="sm">
                         <span>Task Management and To-Do Lists:</span> Keeping track of tasks and to-do lists, setting reminders

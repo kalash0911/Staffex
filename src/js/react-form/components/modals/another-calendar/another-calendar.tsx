@@ -32,8 +32,8 @@ export const AnotherCalendar = ({ onAdd }: IAnotherCalendarProps) => {
     };
 
     return (
-        <div>
-            <h2>Add another calendar</h2>
+        <div className="modal-content">
+            <h2 className="modal-title">Add another calendar</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                     {...register('anotherCalendar')}
@@ -42,7 +42,7 @@ export const AnotherCalendar = ({ onAdd }: IAnotherCalendarProps) => {
                     placeholder="Enter the name of the calendar you use"
                     errorMsg={errors.anotherCalendar?.message}
                 ></TextField>
-                <div>
+                <div className="hint">
                     <WarningSign />
                     <Typography>Enter the calendar you use and we&apos;ll contact you to integrate it.</Typography>
                 </div>

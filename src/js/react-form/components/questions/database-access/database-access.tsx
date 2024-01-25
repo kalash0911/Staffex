@@ -56,15 +56,17 @@ export const DatabaseAccess = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        If you want us to help you work with existing files, please provide access to them. Access is required for
-                        the following functions to function correctly:
+                        Need to keep employee information or expenses up-to-date in your databases? Imagine urgently needing to
+                        wrap up the expenses for a significant marketing campaign. Assigning the task to an employee might take
+                        the entire workday. Grant access, and spendings for the past period will integrate into your database with
+                        just one click. Please note, the following functions depend on access to operate correctly.
                     </Typography>
                     <Typography variant="sm">
                         <span>Data Entry and Management:</span> Entering data into databases or spreadsheets, updating records,
                         and maintaining databases with current information.
                     </Typography>
                     <Typography variant="sm">
-                        <span>File Organisation:</span> Organising digital files, managing cloud storage, and ensuring easy
+                        <span>File Organisation:</span> Organizing digital files, managing cloud storage, and ensuring easy
                         retrieval of documents and information.
                     </Typography>
                 </div>

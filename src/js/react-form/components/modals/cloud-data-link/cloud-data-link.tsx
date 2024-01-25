@@ -30,8 +30,8 @@ export const CloudDataLink = ({ onAdd }: ICloudDataLinkProps) => {
     };
 
     return (
-        <div>
-            <h2>Add link to your file(s)</h2>
+        <div className="modal-content">
+            <h2 className="modal-title">Add link to your file(s)</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                     {...register('cloudDataLink')}

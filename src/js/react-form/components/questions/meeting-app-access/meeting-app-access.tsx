@@ -27,7 +27,7 @@ export const MeetingAppAccess = () => {
         flow: 'auth-code',
         scope: GMEET_SCOPE,
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
+            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
 
             if (!meetApps?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmeet')) {
                 const meetAppData: TServiceItemInfo = {
@@ -40,7 +40,7 @@ export const MeetingAppAccess = () => {
             }
         },
         onError: (errorResponse) => console.log(errorResponse),
-    })
+    });
 
     const onAnotherApp = () => {
         openModal<IAnotherMeetAppProps>(AnotherMeetApp, {
@@ -99,8 +99,10 @@ export const MeetingAppAccess = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        Select the applications in which the call will be held: google meet, zoom, teams, skype for business. If
-                        you do not agree, the following basic functions will not be available:
+                        Need help managing your meetings? Let us into your meeting apps, and we’ll sort it out. We create
+                        meetings, shoot out invites automatically, making coordination smooth for everyone. You will also receive
+                        all the necessary information regarding the topic of discussion before the meeting. Please note, the
+                        following function depends on access to operate correctly:
                     </Typography>
                     <Typography variant="sm">
                         <span>Meeting Preparation:</span> Assisting in preparing for meetings, including gathering necessary

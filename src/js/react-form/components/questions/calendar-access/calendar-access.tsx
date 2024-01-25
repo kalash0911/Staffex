@@ -27,9 +27,13 @@ export const CalendarAccess = () => {
         flow: 'auth-code',
         scope: GCALENDAR_SCOPE,
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
+            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
 
-            if (!calendars?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gcalendar')) {
+            if (
+                !calendars?.find(
+                    ({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gcalendar',
+                )
+            ) {
                 const calendarData: TServiceItemInfo = {
                     email: googleAuthResponse.data.email,
                     accessToken: googleAuthResponse.data.accessToken,
@@ -40,7 +44,7 @@ export const CalendarAccess = () => {
             }
         },
         onError: (errorResponse) => console.log(errorResponse),
-    })
+    });
 
     const onAppleCalendar = () => {
         openModal<IAppleCalendarProps>(AppleCalendarModal, {
@@ -105,12 +109,13 @@ export const CalendarAccess = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        In order for us to manage your calendar, do you agree to provide access to your Google and/and Microsoft
-                        accounts? If you do not agree, the following basic functions will not be available:
+                        Got a busy schedule? Let us access your calendar, and we can help sort out your priorities and important
+                        meetings. We’ll optimize your work schedule and give you timely reminders for a more organized and
+                        productive routine. Please note, the following function depends on access to operate correctly:
                     </Typography>
                     <Typography variant="sm">
-                        <span>Appointment Scheduling and Calendar Management:</span> Managing the user's calendar, scheduling
-                        appointments, meetings, and reminders, and sending notifications for upcoming events.
+                        <span>Appointment Scheduling and Calendar Management:</span> This includes managing the user's calendar,
+                        scheduling appointments and meetings, setting reminders, and sending notifications for upcoming events.
                     </Typography>
                 </div>
                 <div className="choose-wrap">

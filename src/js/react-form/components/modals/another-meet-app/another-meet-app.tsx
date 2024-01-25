@@ -32,8 +32,8 @@ export const AnotherMeetApp = ({ onAdd }: IAnotherMeetAppProps) => {
     };
 
     return (
-        <div>
-            <h2>Add another application</h2>
+        <div className="modal-content">
+            <h2 className="modal-title">Add another application</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                     {...register('anotherAppName')}
@@ -42,7 +42,7 @@ export const AnotherMeetApp = ({ onAdd }: IAnotherMeetAppProps) => {
                     placeholder="Enter the name of the application you use"
                     errorMsg={errors.anotherAppName?.message}
                 ></TextField>
-                <div>
+                <div className="hint">
                     <WarningSign />
                     <Typography>Enter the app you use and we&apos;ll contact you to integrate it.</Typography>
                 </div>

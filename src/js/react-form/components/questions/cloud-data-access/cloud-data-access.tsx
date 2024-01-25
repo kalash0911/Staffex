@@ -24,9 +24,11 @@ export const CloudDataAccess = () => {
         flow: 'auth-code',
         scope: GDRIVE_SCOPE,
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
+            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
 
-            if (!cloudData?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gdrive')) {
+            if (
+                !cloudData?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gdrive')
+            ) {
                 const meetAppData: TServiceItemInfo = {
                     email: googleAuthResponse.data.email,
                     accessToken: googleAuthResponse.data.accessToken,
@@ -37,7 +39,7 @@ export const CloudDataAccess = () => {
             }
         },
         onError: (errorResponse) => console.log(errorResponse),
-    })
+    });
 
     const handleAnotherCloudLink = () => [
         openModal<ICloudDataLinkProps>(CloudDataLink, {
@@ -96,12 +98,18 @@ export const CloudDataAccess = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        In order for us to manage your calendar, do you agree to provide access to your Google and/and Microsoft
-                        accounts? If you do not agree, the following basic functions will not be available:
+                        Want to organize your files? Let us access your cloud data, and you will stay informed and work
+                        efficiently. Imagine your crucial work files, named randomly, are stored in various cloud storages and you
+                        need them right now. With a single click, you'll have all your files organized and ready for use
+                        immediately. Please note, the following functions depend on access to operate correctly.
                     </Typography>
                     <Typography variant="sm">
-                        <span>Appointment Scheduling and Calendar Management:</span> Managing the user's calendar, scheduling
-                        appointments, meetings, and reminders, and sending notifications for upcoming events.
+                        <span>Data Entry and Management:</span> Entering data into databases or spreadsheets, updating records,
+                        and maintaining databases with current information.
+                    </Typography>
+                    <Typography variant="sm">
+                        <span>File Organisation:</span> Organizing digital files, managing cloud storage, and ensuring easy
+                        retrieval of documents and information.
                     </Typography>
                 </div>
                 <div className="choose-wrap">

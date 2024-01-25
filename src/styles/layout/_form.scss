@@ -79,7 +79,7 @@
     }
 
     .list-wrap {
-        width: 35%;
+        width: 31%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -213,7 +213,7 @@
     }
 
     .content-wrap {
-        width: 65%;
+        width: 69%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -261,6 +261,10 @@
         &.sm {
             color: rgba($white, .7);
             font-size: 14px;
+        }
+
+        &.mb40 {
+            margin-bottom: 40px;
         }
 
     }
@@ -555,6 +559,59 @@
                 }
             }
         }
+
+        &.md {
+
+            .modal-content {
+                position: relative;
+                max-width: 560px;
+                padding: 40px 40px 40px 80px;
+                border: 1px solid $green4F;
+                background: $black03;
+                overflow: hidden;
+
+                @include media('<phone') {
+                    padding: 35px 16px;
+                }
+
+                &::before {
+                    content:'';
+                    position: absolute;
+                    top: 40px;
+                    left: 40px;
+                    width: 14px;
+                    min-height: 500px;
+                    background: url(../images/icons/form-pop-up-line.svg) no-repeat;
+
+                    @include media('<phone') {
+                        display: none;
+                    }
+                }
+            }
+
+            .modal-title {
+                font-size: 28px;
+                font-weight: 500;
+                margin-bottom: 40px;
+
+                @include media('<phone') {
+                    font-size: 22px;
+                    margin-bottom: 32px;
+                }
+            }
+
+            .input-wrap {
+                margin-bottom: 12px;
+            }
+
+            .main-btn {
+                width: 100%;
+            }
+        }
+    }
+
+    .modal-content {
+        width: 100%;
     }
 
     .backdrop {
@@ -597,6 +654,17 @@
         line-height: 140%;
     }
 
+    .hint {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 40px;
+
+        .text {
+            font-size: 12px;
+        }
+    }
+
     .btn-close {
         position: absolute;
         top: 40px;
@@ -612,7 +680,7 @@
 
     .choose-wrap {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(166px, 1fr));
         gap: 15px;
 
         @include media('<phone') {
@@ -656,6 +724,13 @@
     
             .icon-wrap {
                 opacity: 1;
+            }
+        }
+
+        &:last-child:nth-child(odd) {
+
+            @include media('<phone') {
+                grid-column: span 2;
             }
         }
     }

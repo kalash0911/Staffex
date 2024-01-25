@@ -45,7 +45,7 @@ export const EmailAccess = () => {
     const onGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({code: codeResponse.code});
+            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
 
             if (!emails?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
                 const emailData: TServiceItemInfo = {
@@ -61,23 +61,26 @@ export const EmailAccess = () => {
     });
 
     const oniCloudLogin = () => {
-        return appleAuthHelpers.signIn({
-            // TODO: set authOptions
-            authOptions: {
-                /** Client ID - eg: 'com.example.com' */
-                clientId: 'com.example.web',
-                /** Requested scopes, seperated by spaces - eg: 'email name' */
-                scope: 'email name',
-                /** Apple's redirectURI - must be one of the URIs you added to the serviceID - the undocumented trick in apple docs is that you should call auth from a page that is listed as a redirectURI, localhost fails */
-                redirectURI: 'https://example.com',
-                usePopup: true,
-            },
-        }).then((res) => {
-            console.log('res: ', res);
-        }).catch((err) => {
-            console.log('err: ', err);
-        })
-    }
+        return appleAuthHelpers
+            .signIn({
+                // TODO: set authOptions
+                authOptions: {
+                    /** Client ID - eg: 'com.example.com' */
+                    clientId: 'com.example.web',
+                    /** Requested scopes, seperated by spaces - eg: 'email name' */
+                    scope: 'email name',
+                    /** Apple's redirectURI - must be one of the URIs you added to the serviceID - the undocumented trick in apple docs is that you should call auth from a page that is listed as a redirectURI, localhost fails */
+                    redirectURI: 'https://example.com',
+                    usePopup: true,
+                },
+            })
+            .then((res) => {
+                console.log('res: ', res);
+            })
+            .catch((err) => {
+                console.log('err: ', err);
+            });
+    };
 
     const updateEmailList = (emailData: TServiceItemInfo) => {
         setAnswers((prevState) => {
@@ -99,7 +102,14 @@ export const EmailAccess = () => {
 
     const emailsList = emails?.length ? (
         emails.map(({ email, serviceType }, index) => {
-            return <ServiceItem key={email} variant={serviceType} textContent={email} onDelete={() => handleDeleteServiceItem('accessEmails', index )}/>;
+            return (
+                <ServiceItem
+                    key={email}
+                    variant={serviceType}
+                    textContent={email}
+                    onDelete={() => handleDeleteServiceItem('accessEmails', index)}
+                />
+            );
         })
     ) : (
         <Typography>The list of emails you added is empty.</Typography>
@@ -111,12 +121,13 @@ export const EmailAccess = () => {
                 <div className="text-wrap">
                     <Typography>
                         Do you have an overloaded inbox? Grant us email access, and we’ll help you summarize correspondence with
-                        specific individuals, ensuring nothing important is overlooked. Please note, the following function
-                        depends on access to operate correctly:
+                        specific individuals, ensuring nothing important is overlooked. Our services go beyond summarizing – we
+                        can also respond to and send emails on your behalf. Please note, the following function depends on access
+                        to operate correctly:
                     </Typography>
                     <Typography variant="sm">
-                        <span>Email Management:</span> Filtering, sorting, and prioritising emails, responding to routine
-                        inquiries, and flagging important messages for personal attention.
+                        <span>Email Management:</span> Filtering, sorting, and prioritizing emails, responding to routine
+                        inquiries, sending emails on your behalf and flagging important messages for personal attention.
                     </Typography>
                 </div>
 
