@@ -70,7 +70,7 @@ export const DatabaseAccess = () => {
                         retrieval of documents and information.
                     </Typography>
                 </div>
-                <form className="" onSubmit={handleSubmit(onSubmit)}>
+                <form className="database-access" onSubmit={handleSubmit(onSubmit)}>
                     {fields.map((field, index) => (
                         <OpenClose
                             key={field.id}
@@ -83,6 +83,7 @@ export const DatabaseAccess = () => {
                                 label="Host"
                                 placeholder="5.161.178.89"
                                 type="text"
+                                className="min"
                                 errorMsg={errors.databaseList?.[index]?.host?.message}
                             />
                             <TextField
@@ -91,6 +92,7 @@ export const DatabaseAccess = () => {
                                 label="Port"
                                 placeholder="33060"
                                 type="text"
+                                className="min"
                                 errorMsg={errors.databaseList?.[index]?.port?.message}
                             />
                             <TextField
@@ -99,6 +101,7 @@ export const DatabaseAccess = () => {
                                 label="Database"
                                 placeholder="Enter Database"
                                 type="text"
+                                className="min"
                                 errorMsg={errors.databaseList?.[index]?.database?.message}
                             />
                             <TextField

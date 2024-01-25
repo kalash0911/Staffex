@@ -291,6 +291,10 @@
         display: flex;
         flex-direction: column;
 
+        &.min {
+            width: 30%;
+        }
+
         &.half {
             width: 47.5%;
         }
@@ -451,6 +455,13 @@
             background-color: transparent;
             transition: $anim_03;
         }
+    }
+
+    .oc-title-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
     }
 
     .btn-wrap {
@@ -890,6 +901,14 @@
             @include adaptive-value("width", 1100, 230, 1);
         }
     }
+
+    .arrow {
+        width: 20px;
+        height: 20px;
+        background: none;
+        border: none;
+        padding: 0;
+    }
 }
 
 .contact-info {
@@ -929,20 +948,26 @@
 }
 
 .database-access {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    row-gap: 40px;
 
-    @include media('<tablet_s') {
-        row-gap: 32px;
+    .oc-wrap  {
+
+
+        &.open {
+
+            .arrow {
+                transform: rotate(180deg);
+            }
+        }
     }
 
-    .input-wrap {
-        width: 30%;
+    .arrow {
+        transition: $anim_03;
+    }
 
-        @include media('<tablet_s') {
-            width: 100%;
-        }
+    .oc-content  {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        row-gap: 40px;
     }
 }
