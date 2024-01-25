@@ -15,13 +15,58 @@ import { useModal } from '../../../context/modal-context';
 import { AnotherMeetApp, IAnotherMeetAppProps } from '../../modals/another-meet-app/another-meet-app';
 import { useGoogleLogin } from '@react-oauth/google';
 import { GMEET_SCOPE } from '../../../constants/google';
-import { staffexApi } from '../../../api/staffex';
+import { TStaffexAuthResponse, staffexApi } from '../../../api/staffex';
+import { useMsal } from '@azure/msal-react';
+import { SKYPE_SCOPES, TEAMS_SCOPES } from '../../../constants/microsoft';
 
 export const MeetingAppAccess = () => {
     const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion } = useAppFormState();
     const { openModal, hideModal } = useModal();
+    const { instance } = useMsal();
 
     const meetApps = answers?.accessMeetApps;
+
+    const onSkype = async () => {
+        await instance
+            .loginPopup({
+                scopes: SKYPE_SCOPES,
+                prompt: 'select_account',
+            })
+            .then((res) => {
+                const realResponse: TStaffexAuthResponse = JSON.parse(res.code || '');
+                const meetAppData: TServiceItemInfo = {
+                    email: realResponse?.email,
+                    refreshToken: realResponse?.refreshToken,
+                    accessToken: realResponse?.accessToken,
+                    serviceType: 'skype',
+                };
+                updateMeetAppsList(meetAppData);
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            });
+    };
+
+    const onMicrosoftTeams = async () => {
+        await instance
+            .loginPopup({
+                scopes: TEAMS_SCOPES,
+                prompt: 'select_account',
+            })
+            .then((res) => {
+                const realResponse: TStaffexAuthResponse = JSON.parse(res.code || '');
+                const meetAppData: TServiceItemInfo = {
+                    email: realResponse?.email,
+                    refreshToken: realResponse?.refreshToken,
+                    accessToken: realResponse?.accessToken,
+                    serviceType: 'teams',
+                };
+                updateMeetAppsList(meetAppData);
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            });
+    };
 
     const onGoogleMeet = useGoogleLogin({
         flow: 'auth-code',
@@ -116,10 +161,10 @@ export const MeetingAppAccess = () => {
                     <ServiceButton icon={<ZoomIcon />} onClick={() => alert('In progress...')}>
                         Zoom
                     </ServiceButton>
-                    <ServiceButton icon={<SkypeIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<SkypeIcon />} onClick={onSkype}>
                         Skype
                     </ServiceButton>
-                    <ServiceButton icon={<TeamsIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<TeamsIcon />} onClick={onMicrosoftTeams}>
                         Teams
                     </ServiceButton>
                     <ServiceButton icon={<AnotherAppIcon />} onClick={onAnotherApp}>
