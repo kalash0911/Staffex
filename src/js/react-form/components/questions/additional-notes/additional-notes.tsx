@@ -22,9 +22,7 @@ export const AdditionalNotes = () => {
         <div className="conetnt-block">
             <div className="conetnt-box">
                 <div className="text-wrap">
-                    <Typography>
-                        Fill in the field if you would like to leave <span>additional information or have questions.</span>
-                    </Typography>
+                    <Typography>Use this space to add extra information or pose any questions you may have.</Typography>
                 </div>
                 <form className="email-access" onSubmit={handleSubmit(onSubmit)}>
                     <Textarea {...register('additionalNotes')} label="Additional Notes" placeholder="Enter Additional Notes" />
