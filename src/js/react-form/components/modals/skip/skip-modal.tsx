@@ -9,7 +9,7 @@ export interface ISkipModalProps extends IModalBasicProps {
 
 export const SkipModal = ({ onClose, onSkip }: ISkipModalProps) => {
     return (
-        <div className="modal-content">
+        <div>
             <h2 className="modal-title">Are you sure you want to skip this step?</h2>
             <p className="modal-text">If you skip this step, mentioned features will not be available.</p>
             <div className="modal-btn-wrap">

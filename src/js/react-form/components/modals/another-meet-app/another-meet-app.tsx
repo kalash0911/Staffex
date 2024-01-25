@@ -32,7 +32,7 @@ export const AnotherMeetApp = ({ onAdd }: IAnotherMeetAppProps) => {
     };
 
     return (
-        <div className="modal-content">
+        <div>
             <h2 className="modal-title">Add another application</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField

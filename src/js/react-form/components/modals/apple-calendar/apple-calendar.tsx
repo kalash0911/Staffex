@@ -9,7 +9,7 @@ export interface IAppleCalendarProps extends IModalBasicProps {
 
 export const AppleCalendar = ({ onContinue }: IAppleCalendarProps) => {
     return (
-        <div className="modal-content">
+        <div>
             <h2 className="modal-title">Add Apple Calendar</h2>
             <Typography classNames="mb40">We&apos;ll ask you for Apple Calendar access later in the mobile app.</Typography>
             <Button variant="primary" label="Continue" onClick={onContinue} />

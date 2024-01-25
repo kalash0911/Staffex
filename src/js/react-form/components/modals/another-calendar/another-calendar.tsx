@@ -32,7 +32,7 @@ export const AnotherCalendar = ({ onAdd }: IAnotherCalendarProps) => {
     };
 
     return (
-        <div className="modal-content">
+        <div>
             <h2 className="modal-title">Add another calendar</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
