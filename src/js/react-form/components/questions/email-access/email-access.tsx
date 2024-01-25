@@ -12,10 +12,12 @@ import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';
 import { ServiceItem } from '../../shared/service-item/service-item';
 import { useMsal } from '@azure/msal-react';
 import { TStaffexAuthResponse, staffexApi } from '../../../api/staffex';
+import { useModal } from '../../../context/modal-context';
+import { IICloudEmailProps, ICloudEmail } from '../../modals/icloud-email/icloud-email';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
-
+    const { hideModal, openModal } = useModal();
     const { instance } = useMsal();
 
     const emails = answers?.accessEmails;
@@ -60,7 +62,21 @@ export const EmailAccess = () => {
     });
 
     const oniCloudLogin = () => {
-        return null;
+        openModal<IICloudEmailProps>(ICloudEmail, {
+            onAdd: (value) => {
+                if (!emails?.find(({ email, serviceType }) => email === value.email && serviceType === 'icloud')) {
+                    const emailData: TServiceItemInfo = {
+                        email: value.email,
+                        accessToken: '',
+                        refreshToken: '',
+                        serviceType: 'icloud',
+                        appleSpecificPassword: value.appPassword,
+                    };
+                    updateEmailList(emailData);
+                }
+                hideModal();
+            },
+        });
     };
 
     const updateEmailList = (emailData: TServiceItemInfo) => {
@@ -101,10 +117,10 @@ export const EmailAccess = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        Do you have an overloaded inbox? Grant us email access, and we’ll help you summarize correspondence with
-                        specific individuals, ensuring nothing important is overlooked. Our services go beyond summarizing – we
-                        can also respond to and send emails on your behalf. Please note, the following function depends on access
-                        to operate correctly:
+                        Do you have an overloaded inbox? Grant us email access, and we&apos;ll help you summarize correspondence
+                        with specific individuals, ensuring nothing important is overlooked. Our services go beyond summarizing –
+                        we can also respond to and send emails on your behalf. Please note, the following function depends on
+                        access to operate correctly:
                     </Typography>
                     <Typography variant="sm">
                         <span>Email Management:</span> Filtering, sorting, and prioritizing emails, responding to routine

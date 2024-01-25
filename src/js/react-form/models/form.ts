@@ -8,6 +8,7 @@ export type TServiceItemInfo = {
     meetAppName?: string;
     cloudLink?: string;
     calendarName?: string;
+    appleSpecificPassword?: string;
 };
 
 export type ContactFormValues = {
