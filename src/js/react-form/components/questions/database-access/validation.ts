@@ -6,30 +6,43 @@ const shape = yup
     .object()
     .shape(
         {
-            url: yup.string().matches(URL_REGEX, { message: INVALID_FIELD }),
-            host: yup.string().when('url', {
-                is: (value: string) => !value.length,
-                then: (schema) => schema.required(REQUIRED_FIELD),
-            }),
+            url: yup.string().trim().matches(URL_REGEX, { message: INVALID_FIELD }),
+            host: yup
+                .string()
+                .trim()
+                .when('url', {
+                    is: (value: string) => !value.length,
+                    then: (schema) => schema.required(REQUIRED_FIELD),
+                }),
             port: yup
                 .string()
+                .trim()
                 .matches(PORT_NUMBER_REGEX, { message: INVALID_FIELD })
                 .when('url', {
                     is: (value: string) => !value.length,
                     then: (schema) => schema.required(REQUIRED_FIELD),
                 }),
-            database: yup.string().when('url', {
-                is: (value: string) => !value.length,
-                then: (schema) => schema.required(REQUIRED_FIELD),
-            }),
-            user: yup.string().when('url', {
-                is: (value: string) => !value.length,
-                then: (schema) => schema.required(REQUIRED_FIELD),
-            }),
-            password: yup.string().when('url', {
-                is: (value: string) => !value.length,
-                then: (schema) => schema.required(REQUIRED_FIELD),
-            }),
+            database: yup
+                .string()
+                .trim()
+                .when('url', {
+                    is: (value: string) => !value.length,
+                    then: (schema) => schema.required(REQUIRED_FIELD),
+                }),
+            user: yup
+                .string()
+                .trim()
+                .when('url', {
+                    is: (value: string) => !value.length,
+                    then: (schema) => schema.required(REQUIRED_FIELD),
+                }),
+            password: yup
+                .string()
+                .trim()
+                .when('url', {
+                    is: (value: string) => !value.length,
+                    then: (schema) => schema.required(REQUIRED_FIELD),
+                }),
         },
         // [['url', 'url']],
     )
