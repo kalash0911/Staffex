@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { Arrow } from '../../../icons/arrow';
 
 export type TOpenCloseField = {
     title: string | ReactNode;
@@ -18,15 +19,15 @@ export const OpenClose = ({ title, children, onDelete }: TOpenCloseField) => {
     return (
         <div className={`oc-wrap ${isOpen ? 'open' : ''}`}>
             <div className="oc-title-wrap">
-                <h5>{title}</h5>
+                <h2 className="ft">{title}</h2>
                 <div className="oc-action-btns-wrap">
                     {onDelete && !isOpen && (
-                        <button type="button" onClick={onDelete}>
+                        <button className="del" type="button" onClick={onDelete}>
                             Delete
                         </button>
                     )}
-                    <button type="button" onClick={() => setIsOpen((prevState) => !prevState)}>
-                        ^
+                    <button className="arrow" type="button" onClick={() => setIsOpen((prevState) => !prevState)}>
+                        <Arrow />
                     </button>
                 </div>
             </div>
