@@ -3,6 +3,7 @@ import { useAppFormState } from './context/app-form-context';
 import { Typography } from './components/shared/typography/typography';
 import { CrossIcon } from './icons/cross';
 import { BotInfo } from './components/bot-info/bot-info';
+import { FetureChoosenButton } from './components/buttons/feature-choosen-btn/feature-choosen-btn';
 
 const App = () => {
     const { questions, activeQuestion, handleActiveQuestion } = useAppFormState();
@@ -16,14 +17,21 @@ const App = () => {
                 <Typography variant="h1">
                     Let <span>Monica</span> take your case
                 </Typography>
-                <a className="back-btn" href="/">
-                    <CrossIcon />
-                </a>
+                <div>
+                    <div className="bot-info-mobile">
+                        <FetureChoosenButton />
+                    </div>
+                    <a className="back-btn" href="/">
+                        <CrossIcon />
+                    </a>
+                </div>
             </div>
 
             <div className="block">
                 <div className="list-wrap">
-                    <BotInfo />
+                    <div className="bot-info">
+                        <BotInfo />
+                    </div>
                     <div className="list-block">
                         {questions.map(({ title }, configInd) => {
                             const currentTopicList = questions.find((conf) => conf.title === title)?.list;

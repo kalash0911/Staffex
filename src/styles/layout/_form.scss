@@ -581,7 +581,7 @@
                 }
 
                 &::before {
-                    content:'';
+                    content: '';
                     position: absolute;
                     top: 40px;
                     left: 40px;
@@ -618,20 +618,6 @@
 
     .modal-content {
         width: 100%;
-
-        a {
-            color: $green4F;
-            font-family: $DegularText;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 140%;
-            text-decoration: underline;
-            transition: $anim_03;
-
-            &:hover {
-                text-decoration-color: transparent;
-            }
-        }
     }
 
     .backdrop {
@@ -709,8 +695,7 @@
             min-width: 20px;
         }
 
-        .text,
-        a {
+        .text {
             font-size: 16px;
         }
     }
@@ -737,7 +722,7 @@
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 10px;
         }
-    
+
         .icon-wrap {
             position: absolute;
             top: 12px;
@@ -750,7 +735,7 @@
             opacity: 0;
             transition: opacity .3s ease-out;
         }
-    
+
         .logo-wrap {
             margin-bottom: 7px;
         }
@@ -768,10 +753,10 @@
         @include media('<phone') {
             padding: 20px 14px;
         }
-    
+
         &:hover {
             border-color: $green4F;
-    
+
             .icon-wrap {
                 opacity: 1;
             }
@@ -799,7 +784,7 @@
             font-size: 16px;
         }
     }
-    
+
     .list-add-wrap {
         display: flex;
         flex-direction: column;
@@ -829,8 +814,8 @@
         column-gap: 12px;
 
         @include media('<tablet_s') {
-           flex-direction: column;
-           align-items: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
         }
     }
 
@@ -872,8 +857,8 @@
     .list-add-content {
         margin: 0;
         overflow: hidden;
-	    white-space: nowrap;
-	    text-overflow: ellipsis;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         color: $white;
         font-family: $DegularText;
         font-size: 16px;
@@ -888,6 +873,48 @@
 
         @include media('<tablet_s') {
             @include adaptive-value("width", 1100, 230, 1);
+        }
+    }
+
+    .link {
+        color: $green4F;
+        font-family: $DegularText;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 140%;
+        text-decoration: underline;
+        transition: $anim_03;
+
+        &.button-link {
+            background: none;
+            border: 0;
+            display: inline;
+            padding: 0;
+        }
+
+        &:hover {
+            text-decoration-color: transparent;
+        }
+
+        &.md {
+            font-size: 16px;
+        }
+    }
+
+
+    .bot-info {
+        display: block;
+
+        @include media('<tablet_s') {
+            display: none;
+        }
+    }
+
+    .bot-info-mobile {
+        display: none;
+
+        @include media('<tablet_s') {
+            display: block;
         }
     }
 }

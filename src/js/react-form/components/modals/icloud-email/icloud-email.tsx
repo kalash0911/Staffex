@@ -64,7 +64,10 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
                 <div className="how-to-box">
                     <PlayIcon />{' '}
                     <p className="text">
-                        Watch video <Link href="#">how to create app-specific password</Link>
+                        Watch video{' '}
+                        <Link href="#" size="md">
+                            how to create app-specific password
+                        </Link>
                     </p>
                 </div>
                 <Button variant="primary" label="Add email" onClick={handleSubmit(onSubmit)} />
