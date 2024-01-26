@@ -5,7 +5,7 @@ import { useAppFormState } from '../../../context/app-form-context';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { TServiceItemInfo } from '../../../models/form';
 import { ServiceItem } from '../../shared/service-item/service-item';
-import { ServiceButton } from '../../shared/service-button/service-button';
+import { ServiceButton } from '../../buttons/service-button/service-button';
 import { GoogleMeet as GMeetIcon } from '../../../icons/GoogleMeet';
 import { Zoom as ZoomIcon } from '../../../icons/Zoom';
 import { Skype as SkypeIcon } from '../../../icons/Skype';

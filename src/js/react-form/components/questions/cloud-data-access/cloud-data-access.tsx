@@ -4,7 +4,7 @@ import { Button } from '../../shared/button/button.tsx';
 import { useAppFormState } from '../../../context/app-form-context.tsx';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn.tsx';
 import { ServiceItem } from '../../shared/service-item/service-item.tsx';
-import { ServiceButton } from '../../shared/service-button/service-button.tsx';
+import { ServiceButton } from '../../buttons/service-button/service-button.tsx';
 import { GoogleDrive as GDriveIcon } from '../../../icons/GoogleDrive.tsx';
 import { FilePlus as FilePlusIcon } from '../../../icons/FilePlus.tsx';
 import { useModal } from '../../../context/modal-context.tsx';

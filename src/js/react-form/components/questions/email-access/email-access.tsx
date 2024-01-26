@@ -5,7 +5,7 @@ import { useAppFormState } from '../../../context/app-form-context';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { useGoogleLogin } from '@react-oauth/google';
 import { TServiceItemInfo } from '../../../models/form';
-import { ServiceButton } from '../../shared/service-button/service-button';
+import { ServiceButton } from '../../buttons/service-button/service-button';
 import { Gmail as GmailIcon } from '../../../icons/Gmail';
 import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
 import { ICloudEmail as ICloudIcon } from '../../../icons/iCloudEmail';

@@ -5,7 +5,7 @@ import { Button } from '../../shared/button/button';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { TServiceItemInfo } from '../../../models/form';
 import { ServiceItem } from '../../shared/service-item/service-item';
-import { ServiceButton } from '../../shared/service-button/service-button';
+import { ServiceButton } from '../../buttons/service-button/service-button';
 import { GoogleCalendar as GCalendarIcon } from '../../../icons/GoogleCalendar';
 import { MicrosoftOutlook as OutlookIcon } from '../../../icons/MicrosoftOutlook';
 import { AppleCalendar as AppleCalendarIcon } from '../../../icons/AppleCalendar';
