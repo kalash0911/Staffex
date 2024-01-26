@@ -3,7 +3,7 @@ import { Checkbox } from '../../shared/checkbox/checkbox';
 import { Typography } from '../../shared/typography/typography';
 import { useAppFormState } from '../../../context/app-form-context';
 import { Button } from '../../shared/button/button';
-import { SkipButton } from '../../skip-btn/skip-btn';
+import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 
 export const BankAccess = () => {
     const { handleNextQuestion } = useAppFormState();

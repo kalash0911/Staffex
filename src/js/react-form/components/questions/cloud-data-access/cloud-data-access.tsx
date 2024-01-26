@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '../../shared/typography/typography.tsx';
 import { Button } from '../../shared/button/button.tsx';
 import { useAppFormState } from '../../../context/app-form-context.tsx';
-import { SkipButton } from '../../skip-btn/skip-btn.tsx';
+import { SkipButton } from '../../buttons/skip-btn/skip-btn.tsx';
 import { ServiceItem } from '../../shared/service-item/service-item.tsx';
 import { ServiceButton } from '../../shared/service-button/service-button.tsx';
 import { GoogleDrive as GDriveIcon } from '../../../icons/GoogleDrive.tsx';

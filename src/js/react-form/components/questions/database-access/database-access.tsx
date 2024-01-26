@@ -7,9 +7,9 @@ import { schema } from './validation';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TDataBaseFormValues } from '../../../models/form';
-import { SkipButton } from '../../skip-btn/skip-btn';
+import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
-import { ConnectButton } from '../../connect-btn/connect-btn';
+import { ConnectButton } from '../../buttons/connect-btn/connect-btn';
 
 const defaultValues = {
     host: '',

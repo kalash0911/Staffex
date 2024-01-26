@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '../../shared/typography/typography';
 import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
-import { SkipButton } from '../../skip-btn/skip-btn';
+import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { useGoogleLogin } from '@react-oauth/google';
 import { TServiceItemInfo } from '../../../models/form';
 import { ServiceButton } from '../../shared/service-button/service-button';

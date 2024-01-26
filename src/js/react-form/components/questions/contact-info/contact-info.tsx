@@ -9,7 +9,7 @@ import { Button } from '../../shared/button/button';
 import { TCommonFormValues } from '../../../models/form';
 import { maskPhoneNumber } from '../../../utils/form';
 import { Radio } from '../../shared/radio/radio';
-import { SkipButton } from '../../skip-btn/skip-btn';
+import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 
 export const ContactInfo = () => {
     const { answers, handleNextQuestion } = useAppFormState();

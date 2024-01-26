@@ -1,7 +1,7 @@
 import React from 'react';
-import { Internet } from '../../icons/internet';
-import { Success } from '../../icons/success';
-import { Warning } from '../../icons/warning';
+import { Internet } from '../../../icons/internet';
+import { Success } from '../../../icons/success';
+import { Warning } from '../../../icons/warning';
 
 const BTN_STATUSES = {
     hold: {

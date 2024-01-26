@@ -3,7 +3,7 @@ import { Textarea } from '../../shared/textarea/textarea';
 import { Typography } from '../../shared/typography/typography';
 import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
-import { SkipButton } from '../../skip-btn/skip-btn';
+import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from './validation';

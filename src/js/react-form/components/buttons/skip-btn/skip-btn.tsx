@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, TButtonProps } from '../shared/button/button';
-import { useModal } from '../../context/modal-context';
-import { ISkipModalProps, SkipModal } from '../modals/skip/skip-modal';
-import { useAppFormState } from '../../context/app-form-context';
+import { Button, TButtonProps } from '../../shared/button/button';
+import { useModal } from '../../../context/modal-context';
+import { ISkipModalProps, SkipModal } from '../../modals/skip/skip-modal';
+import { useAppFormState } from '../../../context/app-form-context';
 
 export type TSkipButtonProps = Partial<ISkipModalProps> & Partial<TButtonProps>;
 
