@@ -5,14 +5,17 @@ export type TServiceButtonProps = {
     icon?: ReactNode;
     onClick?: () => void;
     children?: ReactNode;
+    showPlusIcon?: boolean;
 };
 
-export const ServiceButton = ({ children, onClick, icon }: TServiceButtonProps) => {
+export const ServiceButton = ({ children, onClick, icon, showPlusIcon = true }: TServiceButtonProps) => {
     return (
         <button className="service-button" onClick={onClick}>
-            <div className="icon-wrap">
-                <IconPlus />
-            </div>
+            {showPlusIcon && (
+                <div className="icon-wrap">
+                    <IconPlus />
+                </div>
+            )}
             <div className="logo-wrap">{icon}</div>
             <p className="service-name">{children}</p>
         </button>

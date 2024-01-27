@@ -46,7 +46,15 @@ export type TCloudDataAccessValues = {
     accessCloudData: Array<TServiceItemInfo>;
 };
 
-export type TAccessCommonType = TEmailAccessValues & TMeetAppsAccessValues & TCloudDataAccessValues & TCalendarsAccessValues;
+export type TBankAccountsAccessValues = {
+    accessBankAccounts: Array<TServiceItemInfo>;
+};
+
+export type TAccessCommonType = TEmailAccessValues &
+    TMeetAppsAccessValues &
+    TCloudDataAccessValues &
+    TCalendarsAccessValues &
+    TBankAccountsAccessValues;
 
 export type TServiceListKeys = keyof TAccessCommonType;
 
@@ -79,4 +87,5 @@ export type TCommonFormValues = Partial<TB2CContactFormValues> &
     Partial<TAdditionalNotesFormValues> &
     Partial<TMeetAppsAccessValues> &
     Partial<TCloudDataAccessValues> &
-    Partial<TCalendarsAccessValues>;
+    Partial<TCalendarsAccessValues> &
+    Partial<TBankAccountsAccessValues>;

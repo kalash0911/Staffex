@@ -12,6 +12,7 @@ import { GoogleDrive } from '../../../icons/GoogleDrive';
 import { FilePlus } from '../../../icons/FilePlus';
 import { MeetingApp } from '../../../icons/MeetingApp';
 import { Calendar } from '../../../icons/Calendar';
+import { Bank } from '../../../icons/Bank';
 
 export const SERVICE_ITEMS_VARIANTS = {
     gmail: {
@@ -69,6 +70,10 @@ export const SERVICE_ITEMS_VARIANTS = {
     anotherCalendar: {
         title: '',
         icon: <Calendar />,
+    },
+    bank: {
+        title: '',
+        icon: <Bank />,
     },
 };
 
