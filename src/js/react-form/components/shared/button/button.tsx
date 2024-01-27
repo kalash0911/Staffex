@@ -7,17 +7,10 @@ export type TButtonProps = {
     variant?: 'primary' | 'secondary';
     disabled?: boolean;
     onClick?: () => void;
-    requiredText?: string | ReactNode;
+    requiredText?: string | ReactNode | null;
 };
 
-export const Button = ({
-    disabled,
-    label,
-    variant = 'primary',
-    type = 'button',
-    requiredText = "YOU CAN'T SKIP THIS STEP",
-    onClick,
-}: TButtonProps) => {
+export const Button = ({ disabled, label, variant = 'primary', type = 'button', requiredText, onClick }: TButtonProps) => {
     const btnVarianrsClasses = {
         primary: '',
         secondary: 'transp',
@@ -35,7 +28,7 @@ export const Button = ({
             <span className="icon-line top-right-line"></span>
             <span className="icon-line bot-left-line"></span>
             <span className="icon-line bot-right-line"></span>
-            {disabled && <span className="text-skip">{requiredText}</span>}
+            {disabled && requiredText && <span className="text-required">{requiredText}</span>}
         </button>
     );
 };
