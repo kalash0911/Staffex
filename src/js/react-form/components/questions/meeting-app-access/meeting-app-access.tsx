@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Typography } from '../../shared/typography/typography';
 import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
@@ -24,8 +24,9 @@ export const MeetingAppAccess = () => {
     const { openModal, hideModal } = useModal();
     const { instance } = useMsal();
 
-    const ZOOM_API_KEY = 'YOUR_ZOOM_API_KEY';
-    const ZOOM_REDIRECT_URL = 'YOUR_ZOOM_REDIRECT_URL';
+    const ZOOM_API_KEY = 'QHNS55nOTmqZ4H9LNhXjg';
+    // TODO: change localhost
+    const ZOOM_REDIRECT_URL = 'https://localhost:5173/Staffex/form.html';
     const getZoomAuthUrl = () => {
         return `https://zoom.us/oauth/authorize?response_type=code&client_id=${ZOOM_API_KEY}&redirect_uri=${ZOOM_REDIRECT_URL}`;
     };
