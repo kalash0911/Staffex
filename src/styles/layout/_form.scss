@@ -484,24 +484,12 @@
 
         .text-skip {
             display: none;
-            color: rgba($white, .7);
-            font-family: $PlexMono;
-            font-size: 10px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 140%;
             position: absolute;
             top: calc(100% + 5px);
             left: 0;
         }
 
         &.transp {
-
-            &:hover {
-                .text-skip {
-                    display: block;
-                }
-            }
 
             @include media('<phone') {
                 padding: 0;
@@ -510,14 +498,17 @@
             &:disabled {
 
                 @include media('<phone') {
+                    width: 100%;
 
                     .btn-text {
                         display: none;
                     }
 
+
                     .text-skip {
                         display: block;
                         position: static;
+                        text-align: center;
                     }
                 }
             }
@@ -997,4 +988,13 @@
         justify-content: space-between;
         row-gap: 40px;
     }
+}
+
+.text-skip {
+    color: rgba($white, .7);
+    font-family: $PlexMono;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
 }

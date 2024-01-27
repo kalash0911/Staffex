@@ -10,6 +10,8 @@ import { TCommonFormValues } from '../../../models/form';
 import { maskPhoneNumber } from '../../../utils/form';
 import { Radio } from '../../shared/radio/radio';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
+import { Tooltip } from '../../shared/tooltip/tooltip';
+import { isMobile } from 'react-device-detect';
 
 export const ContactInfo = () => {
     const { answers, handleNextQuestion } = useAppFormState();
@@ -58,6 +60,15 @@ export const ContactInfo = () => {
     const onSubmit = (data: TCommonFormValues) => {
         handleNextQuestion(data);
     };
+
+    const spikTextNode = <span className="text-skip">YOU CAN'T SKIP THIS STEP</span>;
+    const skipBtnNode = isMobile ? (
+        <SkipButton disabled={!isOptional} />
+    ) : (
+        <Tooltip content={spikTextNode} transform={`translate(-50%, 25px)`}>
+            <SkipButton disabled={!isOptional} />
+        </Tooltip>
+    );
 
     return (
         <div className="conetnt-block">
@@ -191,7 +202,7 @@ export const ContactInfo = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <SkipButton disabled={!isOptional} />
+                {skipBtnNode}
                 <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />
             </div>
         </div>
