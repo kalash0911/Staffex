@@ -94,7 +94,11 @@ export const MeetingAppAccess = () => {
     });
 
     const onZoom = () => {
-        const authWindow = window.open(getZoomAuthUrl(), '_blank');
+        const authWindow = window.open(
+            getZoomAuthUrl(),
+            '_blank',
+            'height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes',
+        );
         // TODO:
         // 1. create redirect page
         // 2. set zoom code in localStorage on redirect page
@@ -102,6 +106,7 @@ export const MeetingAppAccess = () => {
         const intervalId = setInterval(() => {
             if (authWindow?.closed) {
                 clearInterval(intervalId);
+                console.log('intervalId: ', intervalId);
                 // TODO: send this code into API
                 // @ts-ignore
                 const code = localStorage.getItem('zoom_code');
