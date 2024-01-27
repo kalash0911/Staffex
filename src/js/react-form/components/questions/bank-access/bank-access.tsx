@@ -12,7 +12,18 @@ export const BankAccess = () => {
 
     const banks = answers?.accessBankAccounts;
 
-    const handleBankAccount = () => {};
+    const handleBankAccount = () => {
+        Lean.connect({
+            app_token: '2c9a80897169b1dd01716a0339e30003',
+            permissions: ['identity', 'accounts', 'transactions', 'balance', 'payments'],
+            customer_id: 'd57a03bc-ef9d-460b-8fa6-3b17e425326c',
+            payment_destination_id: 'f8d6fe12-5cc3-4df2-82c2-48b4dd6f74a7', //if not sent, the default destination ID (your CMA account) will be used
+            sandbox: 'true',
+            callback: (res: any) => {
+                console.log('res: ', res);
+            },
+        });
+    };
 
     const bankAccountList = banks?.length ? (
         banks.map(({ email, serviceType }, index) => {
