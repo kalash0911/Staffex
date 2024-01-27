@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography } from '../../shared/typography/typography';
 import { Button } from '../../shared/button/button';
 import { useAppFormState } from '../../../context/app-form-context';
@@ -23,6 +23,12 @@ export const MeetingAppAccess = () => {
     const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion } = useAppFormState();
     const { openModal, hideModal } = useModal();
     const { instance } = useMsal();
+
+    const ZOOM_API_KEY = 'YOUR_ZOOM_API_KEY';
+    const ZOOM_REDIRECT_URL = 'YOUR_ZOOM_REDIRECT_URL';
+    const getZoomAuthUrl = () => {
+        return `https://zoom.us/oauth/authorize?response_type=code&client_id=${ZOOM_API_KEY}&redirect_uri=${ZOOM_REDIRECT_URL}`;
+    };
 
     const meetApps = answers?.accessMeetApps;
 
@@ -86,6 +92,23 @@ export const MeetingAppAccess = () => {
         },
         onError: (errorResponse) => console.log(errorResponse),
     });
+
+    const onZoom = () => {
+        const authWindow = window.open(getZoomAuthUrl(), '_blank');
+        // TODO:
+        // 1. create redirect page
+        // 2. set zoom code in localStorage on redirect page
+
+        const intervalId = setInterval(() => {
+            if (authWindow?.closed) {
+                clearInterval(intervalId);
+                // TODO: send this code into API
+                // @ts-ignore
+                const code = localStorage.getItem('zoom_code');
+                localStorage.removeItem('zoom_code');
+            }
+        }, 1000);
+    };
 
     const onAnotherApp = () => {
         openModal<IAnotherMeetAppProps>(AnotherMeetApp, {
@@ -158,7 +181,7 @@ export const MeetingAppAccess = () => {
                     <ServiceButton icon={<GMeetIcon />} onClick={onGoogleMeet}>
                         Google Meet
                     </ServiceButton>
-                    <ServiceButton icon={<ZoomIcon />} onClick={() => alert('In progress...')}>
+                    <ServiceButton icon={<ZoomIcon />} onClick={onZoom}>
                         Zoom
                     </ServiceButton>
                     <ServiceButton icon={<SkypeIcon />} onClick={onSkype}>
