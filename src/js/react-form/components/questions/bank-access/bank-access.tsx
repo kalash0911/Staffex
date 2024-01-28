@@ -26,15 +26,15 @@ export const BankAccess = () => {
     };
 
     const bankAccountList = banks?.length ? (
-        banks.map(({ email, serviceType }, index) => {
+        banks.map(({ email, serviceType, id }) => {
             return (
                 <ServiceItem
-                    key={email}
+                    key={id}
                     variant={serviceType}
                     textContent={email}
                     // serviceTitle={bbankName}
                     onDelete={() => {
-                        handleDeleteServiceItem('accessBankAccounts', index);
+                        handleDeleteServiceItem('accessBankAccounts', id);
                     }}
                 />
             );

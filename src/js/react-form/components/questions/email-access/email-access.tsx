@@ -35,6 +35,7 @@ export const EmailAccess = () => {
                     refreshToken: realResponse?.refreshToken,
                     accessToken: realResponse?.accessToken,
                     serviceType: 'outlook',
+                    id: crypto.randomUUID(),
                 };
                 updateEmailList(emailData);
             })
@@ -54,6 +55,7 @@ export const EmailAccess = () => {
                     accessToken: googleAuthResponse.data.accessToken,
                     refreshToken: googleAuthResponse.data.refreshToken,
                     serviceType: 'gmail',
+                    id: crypto.randomUUID(),
                 };
                 updateEmailList(emailData);
             }
@@ -71,6 +73,7 @@ export const EmailAccess = () => {
                         refreshToken: '',
                         serviceType: 'icloud',
                         appleSpecificPassword: value.appPassword,
+                        id: crypto.randomUUID(),
                     };
                     updateEmailList(emailData);
                 }
@@ -98,13 +101,13 @@ export const EmailAccess = () => {
     };
 
     const emailsList = emails?.length ? (
-        emails.map(({ email, serviceType }, index) => {
+        emails.map(({ email, serviceType, id }) => {
             return (
                 <ServiceItem
-                    key={email}
+                    key={id}
                     variant={serviceType}
                     textContent={email}
-                    onDelete={() => handleDeleteServiceItem('accessEmails', index)}
+                    onDelete={() => handleDeleteServiceItem('accessEmails', id)}
                 />
             );
         })

@@ -34,6 +34,7 @@ export const CloudDataAccess = () => {
                     accessToken: googleAuthResponse.data.accessToken,
                     refreshToken: googleAuthResponse.data.refreshToken,
                     serviceType: 'gdrive',
+                    id: crypto.randomUUID(),
                 };
                 updateCloudDataList(meetAppData);
             }
@@ -50,6 +51,7 @@ export const CloudDataAccess = () => {
                     refreshToken: '',
                     accessToken: '',
                     cloudLink: value,
+                    id: crypto.randomUUID(),
                 };
                 updateCloudDataList(cloudData);
                 hideModal();
@@ -76,15 +78,15 @@ export const CloudDataAccess = () => {
     };
 
     const cloudDataList = cloudData?.length ? (
-        cloudData.map(({ email, serviceType, cloudLink }, index) => {
+        cloudData.map(({ email, serviceType, cloudLink, id }, index) => {
             return (
                 <ServiceItem
-                    key={email || cloudLink}
+                    key={id}
                     variant={serviceType}
                     textContent={email || cloudLink}
                     serviceTitle={serviceType === 'anotherCloud' ? `Link ${index + 1}` : ''}
                     onDelete={() => {
-                        handleDeleteServiceItem('accessCloudData', index);
+                        handleDeleteServiceItem('accessCloudData', id);
                     }}
                 />
             );

@@ -1,4 +1,4 @@
-import React, { ReactNode, forwardRef, useId } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 import { FieldError } from 'react-hook-form';
 
 type TTextFieldBasicProps = {
@@ -14,7 +14,7 @@ type TTextFieldBasicProps = {
 
 export const TextField = forwardRef<HTMLInputElement, TTextFieldBasicProps>(
     ({ label, type, placeholder, errorMsg, className, required, id, value, ...restProps }: TTextFieldBasicProps, ref) => {
-        const inputId = id || useId();
+        const inputId = id || crypto.randomUUID();
 
         return (
             <div className={`input-wrap ${className ? className : ''} ${errorMsg ? 'error-input' : ''}`}>

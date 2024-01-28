@@ -44,6 +44,7 @@ export const CalendarAccess = () => {
                         refreshToken: realResponse?.refreshToken,
                         accessToken: realResponse?.accessToken,
                         serviceType: 'outlookCalendar',
+                        id: crypto.randomUUID(),
                     };
                     updateCalendarsList(calendarData);
                 }
@@ -69,6 +70,7 @@ export const CalendarAccess = () => {
                     accessToken: googleAuthResponse.data.accessToken,
                     refreshToken: googleAuthResponse.data.refreshToken,
                     serviceType: 'gcalendar',
+                    id: crypto.randomUUID(),
                 };
                 updateCalendarsList(calendarData);
             }
@@ -91,6 +93,7 @@ export const CalendarAccess = () => {
                     calendarName: value,
                     refreshToken: '',
                     accessToken: '',
+                    id: crypto.randomUUID(),
                 };
                 updateCalendarsList(calendarData);
                 hideModal();
@@ -117,15 +120,15 @@ export const CalendarAccess = () => {
     };
 
     const calendarsList = calendars?.length ? (
-        calendars.map(({ email, serviceType, calendarName }, index) => {
+        calendars.map(({ email, serviceType, calendarName, id }) => {
             return (
                 <ServiceItem
-                    key={email || calendarName}
+                    key={id}
                     variant={serviceType}
                     textContent={email}
                     serviceTitle={calendarName}
                     onDelete={() => {
-                        handleDeleteServiceItem('accessCalendars', index);
+                        handleDeleteServiceItem('accessCalendars', id);
                     }}
                 />
             );

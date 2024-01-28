@@ -9,6 +9,7 @@ export type TServiceItemInfo = {
     cloudLink?: string;
     calendarName?: string;
     appleSpecificPassword?: string;
+    id: string;
 };
 
 export type ContactFormValues = {

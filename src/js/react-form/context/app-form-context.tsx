@@ -16,7 +16,7 @@ interface IAppFormProviderValues {
     setAnswers: React.Dispatch<React.SetStateAction<TCommonFormValues | null>>;
     handleNextQuestion: (formData?: TCommonFormValues) => void;
     handleActiveQuestion: (question: IAppFormProviderValues['activeQuestion']) => void;
-    handleDeleteServiceItem: (serviceType: TServiceListKeys, index: number) => void;
+    handleDeleteServiceItem: (serviceType: TServiceListKeys, id: string) => void;
 }
 
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
@@ -62,12 +62,12 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         });
     };
 
-    const handleDeleteServiceItem = (serviceType: TServiceListKeys, index: number) => {
+    const handleDeleteServiceItem = (serviceType: TServiceListKeys, id: string) => {
         setAnswers((prevState) => {
             if (prevState) {
                 const serviceList = prevState[serviceType];
                 if (serviceList) {
-                    const newServiceList = [...serviceList.slice(0, index), ...serviceList.slice(index + 1)];
+                    const newServiceList = serviceList.filter((item) => item.id !== id);
                     return {
                         ...prevState,
                         [serviceType]: newServiceList,

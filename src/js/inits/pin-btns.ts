@@ -49,7 +49,6 @@ export const pinButtonsOnScroll = () => {
             const pinBtnEndObs = new IntersectionObserver(
                 (entry) => {
                     entry.forEach((btn) => {
-                        console.log('btn: ', btn);
                         if (btn.isIntersecting) {
                             sectionPinBtn.classList.remove('fixed');
                             sectionPinBtn.classList.remove('slideUp');

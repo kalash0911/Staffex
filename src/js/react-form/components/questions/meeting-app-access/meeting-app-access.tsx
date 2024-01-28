@@ -41,6 +41,7 @@ export const MeetingAppAccess = () => {
                         refreshToken: realResponse?.refreshToken,
                         accessToken: realResponse?.accessToken,
                         serviceType: 'skype',
+                        id: crypto.randomUUID(),
                     };
                     updateMeetAppsList(meetAppData);
                 }
@@ -64,6 +65,7 @@ export const MeetingAppAccess = () => {
                         refreshToken: realResponse?.refreshToken,
                         accessToken: realResponse?.accessToken,
                         serviceType: 'teams',
+                        id: crypto.randomUUID(),
                     };
                     updateMeetAppsList(meetAppData);
                 }
@@ -85,6 +87,7 @@ export const MeetingAppAccess = () => {
                     accessToken: googleAuthResponse.data.accessToken,
                     refreshToken: googleAuthResponse.data.refreshToken,
                     serviceType: 'gmeet',
+                    id: crypto.randomUUID(),
                 };
                 updateMeetAppsList(meetAppData);
             }
@@ -114,6 +117,7 @@ export const MeetingAppAccess = () => {
                             accessToken: data.accessToken,
                             refreshToken: data.refreshToken,
                             serviceType: 'zoom',
+                            id: crypto.randomUUID(),
                         };
                         updateMeetAppsList(meetAppData);
                     }
@@ -131,6 +135,7 @@ export const MeetingAppAccess = () => {
                     refreshToken: '',
                     accessToken: '',
                     meetAppName: value,
+                    id: crypto.randomUUID(),
                 };
                 updateMeetAppsList(anotherApp);
                 hideModal();
@@ -158,15 +163,15 @@ export const MeetingAppAccess = () => {
     };
 
     const meetAppsList = meetApps?.length ? (
-        meetApps.map(({ email, serviceType, meetAppName }, index) => {
+        meetApps.map(({ email, serviceType, meetAppName, id }) => {
             return (
                 <ServiceItem
-                    key={email || meetAppName}
+                    key={id}
                     variant={serviceType}
                     textContent={email}
                     serviceTitle={meetAppName}
                     onDelete={() => {
-                        handleDeleteServiceItem('accessMeetApps', index);
+                        handleDeleteServiceItem('accessMeetApps', id);
                     }}
                 />
             );
