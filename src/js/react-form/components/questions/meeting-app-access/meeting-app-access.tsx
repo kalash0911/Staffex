@@ -18,18 +18,12 @@ import { GMEET_SCOPE } from '../../../constants/google';
 import { TStaffexAuthResponse, staffexApi } from '../../../api/staffex';
 import { useMsal } from '@azure/msal-react';
 import { SKYPE_SCOPES, TEAMS_SCOPES } from '../../../constants/microsoft';
+import { ZOOM_AUTH_URL } from '../../../constants/zoom';
 
 export const MeetingAppAccess = () => {
     const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion } = useAppFormState();
     const { openModal, hideModal } = useModal();
     const { instance } = useMsal();
-
-    const ZOOM_API_KEY = 'QHNS55nOTmqZ4H9LNhXjg';
-    // TODO: change localhost
-    const ZOOM_REDIRECT_URL = 'https://localhost:5173/Staffex/form.html';
-    const getZoomAuthUrl = () => {
-        return `https://zoom.us/oauth/authorize?response_type=code&client_id=${ZOOM_API_KEY}&redirect_uri=${ZOOM_REDIRECT_URL}`;
-    };
 
     const meetApps = answers?.accessMeetApps;
 
@@ -41,13 +35,15 @@ export const MeetingAppAccess = () => {
             })
             .then((res) => {
                 const realResponse: TStaffexAuthResponse = JSON.parse(res.code || '');
-                const meetAppData: TServiceItemInfo = {
-                    email: realResponse?.email,
-                    refreshToken: realResponse?.refreshToken,
-                    accessToken: realResponse?.accessToken,
-                    serviceType: 'skype',
-                };
-                updateMeetAppsList(meetAppData);
+                if (!meetApps?.find(({ email, serviceType }) => email === realResponse.email && serviceType === 'skype')) {
+                    const meetAppData: TServiceItemInfo = {
+                        email: realResponse?.email,
+                        refreshToken: realResponse?.refreshToken,
+                        accessToken: realResponse?.accessToken,
+                        serviceType: 'skype',
+                    };
+                    updateMeetAppsList(meetAppData);
+                }
             })
             .catch((error) => {
                 console.log('error: ', error);
@@ -62,13 +58,15 @@ export const MeetingAppAccess = () => {
             })
             .then((res) => {
                 const realResponse: TStaffexAuthResponse = JSON.parse(res.code || '');
-                const meetAppData: TServiceItemInfo = {
-                    email: realResponse?.email,
-                    refreshToken: realResponse?.refreshToken,
-                    accessToken: realResponse?.accessToken,
-                    serviceType: 'teams',
-                };
-                updateMeetAppsList(meetAppData);
+                if (!meetApps?.find(({ email, serviceType }) => email === realResponse.email && serviceType === 'teams')) {
+                    const meetAppData: TServiceItemInfo = {
+                        email: realResponse?.email,
+                        refreshToken: realResponse?.refreshToken,
+                        accessToken: realResponse?.accessToken,
+                        serviceType: 'teams',
+                    };
+                    updateMeetAppsList(meetAppData);
+                }
             })
             .catch((error) => {
                 console.log('error: ', error);
@@ -96,22 +94,30 @@ export const MeetingAppAccess = () => {
 
     const onZoom = () => {
         const authWindow = window.open(
-            getZoomAuthUrl(),
+            ZOOM_AUTH_URL,
             '_blank',
-            'height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes',
+            'height=500,width=400,left=300,top=300,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes',
         );
-        // TODO:
-        // 1. create redirect page
-        // 2. set zoom code in localStorage on redirect page
 
         const intervalId = setInterval(() => {
             if (authWindow?.closed) {
                 clearInterval(intervalId);
-                console.log('intervalId: ', intervalId);
-                // TODO: send this code into API
-                // @ts-ignore
                 const code = localStorage.getItem('zoom_code');
                 localStorage.removeItem('zoom_code');
+
+                if (!code) return;
+
+                staffexApi.postZoomAuth({ code }).then(({ data }) => {
+                    if (!meetApps?.find(({ email, serviceType }) => email === data.email && serviceType === 'zoom')) {
+                        const meetAppData: TServiceItemInfo = {
+                            email: data.email,
+                            accessToken: data.accessToken,
+                            refreshToken: data.refreshToken,
+                            serviceType: 'zoom',
+                        };
+                        updateMeetAppsList(meetAppData);
+                    }
+                });
             }
         }, 1000);
     };
@@ -140,6 +146,7 @@ export const MeetingAppAccess = () => {
                     accessMeetApps: [meetAppData],
                 };
             }
+            // Check custom meetings app dublicates:
             if (!prevState.accessMeetApps.find((el) => el.meetAppName && el.meetAppName === meetAppData.meetAppName)) {
                 return {
                     ...prevState,
@@ -173,7 +180,7 @@ export const MeetingAppAccess = () => {
             <div className="conetnt-box">
                 <div className="text-wrap">
                     <Typography>
-                        Need help managing your meetings? Let us into your meeting apps, and we’ll sort it out. We create
+                        Need help managing your meetings? Let us into your meeting apps, and we&apos;ll sort it out. We create
                         meetings, shoot out invites automatically, making coordination smooth for everyone. You will also receive
                         all the necessary information regarding the topic of discussion before the meeting. Please note, the
                         following function depends on access to operate correctly:

@@ -4,8 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Success Zoom Signin</title>
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const zoomCode = urlParams.get('code');
+
+            localStorage.setItem('zoom_code', zoomCode);
+            window.close();
+        </script>
     </head>
-    <body>
-        <h1>Hello</h1>
-    </body>
+    <body></body>
 </html>

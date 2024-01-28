@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { STAFFEX_GOOGLE_AUTH } from '../constants/urls';
+import { STAFFEX_GOOGLE_AUTH, STAFFEX_ZOOM_AUTH } from '../constants/urls';
 
 export type TStaffexAuthResponse = {
     email: string;
@@ -13,5 +13,5 @@ export type TStaffexAuthPayload = {
 
 export const staffexApi = {
     postGoogleAuth: (payload: TStaffexAuthPayload) => axios.post<TStaffexAuthResponse>(STAFFEX_GOOGLE_AUTH, payload),
-    postZoomAuth: (payload: TStaffexAuthPayload) => axios.post<TStaffexAuthResponse>(STAFFEX_GOOGLE_AUTH, payload),
+    postZoomAuth: (payload: TStaffexAuthPayload) => axios.post<TStaffexAuthResponse>(STAFFEX_ZOOM_AUTH, payload),
 };
