@@ -34,13 +34,19 @@ export const CalendarAccess = () => {
             })
             .then((res) => {
                 const realResponse: TStaffexAuthResponse = JSON.parse(res.code || '');
-                const calendarData: TServiceItemInfo = {
-                    email: realResponse?.email,
-                    refreshToken: realResponse?.refreshToken,
-                    accessToken: realResponse?.accessToken,
-                    serviceType: 'outlookCalendar',
-                };
-                updateCalendarsList(calendarData);
+                if (
+                    !calendars?.find(
+                        ({ email, serviceType }) => email === realResponse.email && serviceType === 'outlookCalendar',
+                    )
+                ) {
+                    const calendarData: TServiceItemInfo = {
+                        email: realResponse?.email,
+                        refreshToken: realResponse?.refreshToken,
+                        accessToken: realResponse?.accessToken,
+                        serviceType: 'outlookCalendar',
+                    };
+                    updateCalendarsList(calendarData);
+                }
             })
             .catch((error) => {
                 console.log('error: ', error);
