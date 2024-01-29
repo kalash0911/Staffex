@@ -393,6 +393,23 @@
 				}
 			}
 		}
+
+		&:last-child {
+
+			.dot {
+
+				&.top.left {
+	
+					@include media('<tablet_s') {
+						top: -3px;
+						right: auto;
+						left: 50%;
+						transform: translate(-50%) translate(35px);
+					}
+				}
+			}
+
+		}
   	}
 
 	.swiper-content {
@@ -507,6 +524,10 @@
 			display: none;
 		}
 
+		@include media('<tablet_s') {
+			display: block;
+		}
+
 		&.top {
 			top: 30%;
 		}
@@ -522,7 +543,47 @@
 		&.right {
 			right: 0;
 		}
-		
+
+		&.top.right {
+
+			@include media('<tablet_s') {
+				top: -3px;
+				right: auto;
+				left: 50%;
+				transform: translate(-50%) translate(35px);
+			}
+		}
+
+		&.top.left {
+
+			@include media('<tablet_s') {
+				top: auto;
+				bottom: -3px;
+				right: auto;
+				left: 50%;
+				transform: translate(-50%) translate(38px);
+			}
+		}
+
+		&.bot.right {
+
+			@include media('<tablet_s') {
+				bottom: -3px;
+				right: auto;
+				left: 50%;
+				transform: translate(-50%) translate(-38px);
+			}
+		}	
+
+		&.bot.left{
+
+			@include media('<tablet_s') {
+				top: -3px;
+				right: auto;
+				left: 50%;
+				transform: translate(-50%) translate(-38px);
+			}
+		}
 	}
 
 	.diagonal {
@@ -552,6 +613,11 @@
 			display: none;
 		}
 
+		@include media('<tablet_s') {
+			display: block;
+			width: 100px;
+		}
+
 		&.left {
 			left: -87px;
 			top: 138px;
@@ -571,6 +637,12 @@
 			@include media('<1100px') {
 				left: -103px;
 				transform: rotate(313deg);
+			}
+
+			@include media('<tablet_s') {
+				top: -30px;
+				left: 50%;
+				transform: translate(-50%) rotate(40deg);
 			}
 		}
 
@@ -604,6 +676,12 @@
 
 			@include media('<1100px') {
 				transform: rotate(47deg);
+			}
+
+			@include media('<tablet_s') {
+				top: -30px;
+				left: 50%;
+				transform: translate(-50%) rotate(-40deg);
 			}
 		}
 	}
