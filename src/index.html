@@ -21,20 +21,7 @@
     </head>
 
     <body id="main-page">
-        <div class="load-wrapper">
-            <img class="line left" src="./images/icons/loader-line.svg" alt="line" />
-            <img class="line right" src="./images/icons/loader-line.svg" alt="line" />
-            <div class="loading-content">
-                <div class="loading-text-wrap">
-                    <p id="loading-text">Loading</p>
-                    <span id="loading-percentage">0%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-value"></div>
-                </div>
-            </div>
-            <script type="module" src="/js/preloader.ts"></script>
-        </div>
+        {{> loader }}
         <div id="wrapper">
             {{> header }}
 
@@ -254,7 +241,6 @@
 
                     <div class="section secretary" data-anchor="secretary">
                         <section class="bot-section bot1">
-
                             <div class="bg-wrap">
                                 <video class="bg bot-v1" autoplay muted playsinline data-keepplaying>
                                     <source src="./files/bot.mp4" type="video/mp4" />
@@ -368,13 +354,11 @@
                                 <span class="icon-line bot-left-line"></span>
                                 <span class="icon-line bot-right-line"></span>
                             </a>
-
                         </section>
                     </div>
 
                     <div class="section smm-manager" data-anchor="smm-manager">
                         <section class="bot-section">
-
                             <div class="bg-wrap">
                                 <video class="bg bot-v1" autoplay muted playsinline data-keepplaying>
                                     <source src="" type="video/mp4" />
@@ -485,13 +469,11 @@
                                 <span class="icon-line bot-left-line"></span>
                                 <span class="icon-line bot-right-line"></span>
                             </a>
-
                         </section>
                     </div>
 
                     <div class="section accountant" data-anchor="accountant">
                         <section class="bot-section">
-
                             <div class="bg-wrap">
                                 <video class="bg bot-v1" autoplay muted playsinline data-keepplaying>
                                     <source src="" type="video/mp4" />
@@ -607,7 +589,6 @@
                                 <span class="icon-line bot-left-line"></span>
                                 <span class="icon-line bot-right-line"></span>
                             </a>
-
                         </section>
                     </div>
 
