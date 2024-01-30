@@ -21,48 +21,48 @@ export const BotInfo = () => {
         .replace(/,/g, '.');
 
     const basicContent = (
-        <div>
-            <div>
-                <h3>{title}</h3>
-                <p>{price}</p>
+        <div className="block-standart">
+            <div className="bot-info-text">
+                <h3 className="bot-info-title">{title}</h3>
+                <p className="bot-info-price">{price}</p>
             </div>
-            <div>
+            <div className="bot-info-avatar">
                 <img src="./images/monica-avatar.png" alt="monica-avatar" />
             </div>
         </div>
     );
 
     const additionalFeaturesContent = (
-        <div>
-            <div>
-                <h3>{title}</h3>
-                <p>{price}</p>
+        <div className="block-full">
+            <div className="bot-info-text">
+                <h3 className="bot-info-title">{title}</h3>
+                <p className="bot-info-price">{price}</p>
+                <p className="bot-info-par">additional features you&apos;ve added</p>
             </div>
-            <p>additional features you&apos;ve added</p>
-            <div>
-                <div>
+            <div className="bot-info-img-wrap">
+                <div className="bot-info-item-wrap">
                     {features?.communicationCoordination && (
-                        <div>
+                        <div className="bot-info-item">
                             <img src="./images/communication-coordination.png" alt="communication-coordination" />
                         </div>
                     )}
                     {features?.voiceRecognation && (
-                        <div>
+                        <div className="bot-info-item">
                             <img src="./images/voice-recognation.png" alt="voice-recognatio" />
                         </div>
                     )}
                     {features?.documentPreparation && (
-                        <div>
+                        <div className="bot-info-item">
                             <img src="./images/document-preparation.png" alt="document-preparation" />
                         </div>
                     )}
                     {features?.crm && (
-                        <div>
+                        <div className="bot-info-item">
                             <img src="./images/crm.png" alt="crm" />
                         </div>
                     )}
                 </div>
-                <div>
+                <div className="bot-info-avatar">
                     <img src="./images/monica-avatar.png" alt="monica-avatar" />
                 </div>
             </div>

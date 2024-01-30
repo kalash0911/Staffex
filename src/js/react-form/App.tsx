@@ -17,13 +17,13 @@ const App = () => {
                 <Typography variant="h1">
                     Let <span>Monica</span> take your case
                 </Typography>
-                <div>
-                    <div className="bot-info-mobile">
-                        <FetureChoosenButton />
-                    </div>
+                <div className="box-btn">
                     <a className="back-btn" href="/">
                         <CrossIcon />
                     </a>
+                    <div className="bot-info-mobile">
+                        <FetureChoosenButton />
+                    </div>
                 </div>
             </div>
 
@@ -61,8 +61,9 @@ const App = () => {
                     </div>
 
                     <p className="text-bot">
-                        &#60;!--&nbsp;Elevate your business with Staffex's custom AI solutions, optimizing workforce efficiency
-                        through seamless integration of advanced digital workers.&nbsp;--&#62;
+                        &#60;!&#8209;&nbsp;&#8209;&nbsp;Elevate your business with Staffex's custom AI solutions, optimizing
+                        workforce efficiency through seamless integration of advanced digital
+                        workers.&nbsp;&#8209;&nbsp;&#8209;&#62;
                     </p>
                 </div>
 
