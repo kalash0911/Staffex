@@ -844,7 +844,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 
 		@include media('<tablet') {
 			align-items: flex-start;
-			min-height: 500px;
+			min-height: 600px;
 		}
 
 		&.show {
