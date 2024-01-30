@@ -892,14 +892,11 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 
 	.name-box {
 	  
-		.avatar {
+		.avatar,
+		.name,
+		.price {
 			transition: $anim-opacity;
 		}
-	  
-		.name {
-			transition: $anim-opacity;
-		}
-	
 	}
 
 	.icon-wrap {

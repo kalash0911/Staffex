@@ -383,9 +383,7 @@
 .burger{
     display: none;
     position: relative;
-    width: 24px;
     min-width: 24px;
-    max-width: 24px;
     height: 15px;
     z-index: 1;
     border: none;
@@ -400,7 +398,7 @@
         position: absolute;
         top: 6px;
         left: 0;
-        width: 100%;
+        width: 24px;
         height: 2px;
         background-color: $white;
         border-radius: 10px;
@@ -410,14 +408,14 @@
         content:'';
         position: absolute;
         height: 2px;
-        width: 100%;
+        width: 24px;
         background-color: $white;
         border-radius: 10px;
     }
 
     &::before{
         top: 0;
-        right: 0;
+        left: 0;
     }
 
     &::after{
