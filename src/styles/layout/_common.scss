@@ -286,7 +286,11 @@
 	}
 
 	.slider-block {
-		margin: auto 0;
+		margin: 0 0 auto 0;
+
+		@include media('<laptop_m') {
+			margin: auto 0;
+		}
 	}
 
 	.about-slider {
@@ -312,7 +316,11 @@
 		align-items: center;
 		justify-content: center;
 		gap: 15px;
-		margin-bottom: 20px;
+		margin-bottom: 60px;
+
+		@include media('<laptop_m') {
+			margin-bottom: 20px;
+		}
 
 		@include media('<desktop') {
 			display: none;
@@ -413,7 +421,11 @@
   	}
 
 	.swiper-content {
-		padding: 32px 20px;
+		padding: 32px;
+
+		@include media('<laptop_m') {
+			padding: 32px 20px;
+		}
 	}
 
 	.triangle {
@@ -589,9 +601,13 @@
 	.diagonal {
 		position: absolute;
 		height: 1px;
-		width: 117px;
+		width: 180px;
 		background-color: rgba($white, .3);
 		z-index: 2;
+
+		@include media('<laptop_m') {
+			width: 117px;
+		}
 
 		@include media('<laptop') {
 			width: 42%;
@@ -619,9 +635,14 @@
 		}
 
 		&.left {
-			left: -87px;
-			top: 138px;
-			transform: rotate(301deg);
+			left: -150px;
+			top: 50%;
+			transform: translateY(-50%) rotate(316deg);
+
+			@include media('<laptop_m') {
+				left: -87px;
+				transform: translateY(-50%) rotate(301deg);
+			}
 
 			@include media('<laptop') {
 				left: -134px;
@@ -664,7 +685,11 @@
 		}
 
 		&.rev {
-			transform: rotate(59deg);
+			transform: translateY(-50%) rotate(44deg);
+
+			@include media('<laptop_m') {
+				transform: translateY(-50%) rotate(59deg);
+			}
 
 			@include media('<laptop') {
 				transform: rotate(34deg);
@@ -691,8 +716,13 @@
 	}
 
 	.icon-anim {
-		width: 30px;
-		height: 30px;
+		width: 40px;
+		height: 40px;
+
+		@include media('<laptop_m') {
+			width: 30px;
+			height: 30px;
+		}
 
 		@include media('<tablet') {
 			margin: 0 auto;
@@ -703,10 +733,14 @@
 		margin-bottom: 8px;
 		color: $white;
 		font-family: $DegularText;
-		font-size: 20px;
+		font-size: 28px;
 		font-weight: 800;
 		line-height: 100%;
 		text-transform: uppercase;
+
+		@include media('<laptop_m') {
+			font-size: 20px;
+		}
 
 		@include media('<laptop') {
 			font-size: 16px;
@@ -720,7 +754,11 @@
 	.text {
 		margin: 0;
 		color: rgba($white, .7);
-		font-size: 14px;
+		font-size: 18px;
+
+		@include media('<laptop_m') {
+			font-size: 14px;
+		}
 
 		@include media('<laptop') {
 			font-size: 12px;

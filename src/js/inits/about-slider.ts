@@ -1,4 +1,3 @@
-
 export const initAboutSlider = () => {
     if (!document.querySelector('.about-slider')) return;
 
@@ -44,6 +43,10 @@ export const initAboutSlider = () => {
                 1441: {
                     slidesPerView: 4,
                     spaceBetween: 54,
+                },
+                1921: {
+                    slidesPerView: 2.7,
+                    spaceBetween: 120,
                 },
             },
         } as Record<string, any>);
