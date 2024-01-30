@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Staffex</title>
+        <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="/styles/preloader.scss" />
+        <link rel="stylesheet" href="/styles/main.scss" />
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js"
+            defer
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    </head>
+
+    <body>
+
+        <div id="wrapper-page">
+            <main id="main">
+                {{> header }}
+
+                <section class="partners-page-section">
+                    <img class="bg" src="./images/partners/partners-bg.png" alt="bg">
+                    <div class="container">
+                        <div class="content">
+                            <h1 class="title">Our partners</h1>
+                            <div class="block">
+                                <img class="item" src="./images/partners/part1.svg" alt="Google">
+                                <img class="item" src="./images/partners/part2.svg" alt="Apple">
+                                <img class="item" src="./images/partners/part3.svg" alt="Microsoft">
+                                <img class="item" src="./images/partners/part4.svg" alt="Meta">
+                                <img class="item" src="./images/partners/part5.svg" alt="OpenAI">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+            {{> footer }}
+        </div>
+
+        <script type="module" src="/js/main.ts"></script>
+    </body>
+</html>

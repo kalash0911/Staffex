@@ -53,6 +53,10 @@
         display: block;
         margin-right: 150px;
         z-index: 1;
+
+        @include media('<widescreen_x'){
+            margin-right: 0;
+        }
         
         svg {
             fill: $white;

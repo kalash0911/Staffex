@@ -47,6 +47,14 @@ html {
 		margin: 0;
 		height: auto;
 	}
+
+	#footer {
+		display: none;
+
+		@include media('<desktop') {
+			display: flex;
+		}
+	}
 }
 
 #main {
