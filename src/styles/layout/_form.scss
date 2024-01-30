@@ -1052,6 +1052,10 @@
             display: block;
         }
 
+        &.no-item {
+            display: none;
+        }
+
         .button-link {
             display: flex;
             align-items: center;
