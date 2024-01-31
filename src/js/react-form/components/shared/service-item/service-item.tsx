@@ -13,6 +13,7 @@ import { FilePlus } from '../../../icons/FilePlus';
 import { MeetingApp } from '../../../icons/MeetingApp';
 import { Calendar } from '../../../icons/Calendar';
 import { Bank } from '../../../icons/Bank';
+import { AnotherEmail } from '../../../icons/AnotherEmail';
 
 export const SERVICE_ITEMS_VARIANTS = {
     gmail: {
@@ -59,6 +60,10 @@ export const SERVICE_ITEMS_VARIANTS = {
         title: 'Google Drive',
         icon: <GoogleDrive />,
     },
+    anotherEmail: {
+        title: '',
+        icon: <AnotherEmail />,
+    },
     anotherCloud: {
         title: '',
         icon: <FilePlus />,
@@ -88,11 +93,9 @@ export type TServiceItemProps = {
 };
 
 export const ServiceItem = ({ variant, icon, serviceTitle, textContent, onDelete }: TServiceItemProps) => {
-    let title: string = variant ? SERVICE_ITEMS_VARIANTS[variant].title : '';
-    title = serviceTitle || title;
+    let title: string | undefined = (variant && SERVICE_ITEMS_VARIANTS[variant].title) || serviceTitle;
 
-    let iconEl: ReactNode | string = variant ? SERVICE_ITEMS_VARIANTS[variant].icon : '';
-    iconEl = icon || iconEl;
+    let iconEl: ReactNode | string | undefined = (variant && SERVICE_ITEMS_VARIANTS[variant].icon) || icon;
 
     return (
         <div className="list-add-item">

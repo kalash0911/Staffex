@@ -14,6 +14,8 @@ import { useMsal } from '@azure/msal-react';
 import { TStaffexAuthResponse, staffexApi } from '../../../api/staffex';
 import { useModal } from '../../../context/modal-context';
 import { IICloudEmailProps, ICloudEmail } from '../../modals/icloud-email/icloud-email';
+import { AnotherEmail as AnotherEmailIcon } from '../../../icons/AnotherEmail';
+import { EmailModal, IEmailModalProps } from '../../modals/email-modal/email-modal';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
@@ -82,6 +84,25 @@ export const EmailAccess = () => {
         });
     };
 
+    const onAnotherEmail = () => {
+        openModal<IEmailModalProps>(EmailModal, {
+            onAdd: (data) => {
+                if (!emails?.find(({ email, serviceType }) => email === data.email && serviceType === 'anotherEmail')) {
+                    const emailData: TServiceItemInfo = {
+                        email: data.email,
+                        accessToken: '',
+                        refreshToken: '',
+                        serviceType: 'anotherEmail',
+                        emailPassword: data.password,
+                        id: crypto.randomUUID(),
+                    };
+                    updateEmailList(emailData);
+                }
+                hideModal();
+            },
+        });
+    };
+
     const updateEmailList = (emailData: TServiceItemInfo) => {
         setAnswers((prevState) => {
             if (!prevState?.accessEmails?.length) {
@@ -101,12 +122,13 @@ export const EmailAccess = () => {
     };
 
     const emailsList = emails?.length ? (
-        emails.map(({ email, serviceType, id }) => {
+        emails.map(({ email, serviceType, id }, ind) => {
             return (
                 <ServiceItem
                     key={id}
                     variant={serviceType}
                     textContent={email}
+                    serviceTitle={`Email ${ind + 1}`}
                     onDelete={() => handleDeleteServiceItem('accessEmails', id)}
                 />
             );
@@ -140,6 +162,9 @@ export const EmailAccess = () => {
                     </ServiceButton>
                     <ServiceButton icon={<ICloudIcon />} onClick={oniCloudLogin}>
                         iCloud Email
+                    </ServiceButton>
+                    <ServiceButton icon={<AnotherEmailIcon />} onClick={onAnotherEmail}>
+                        Another email
                     </ServiceButton>
                 </div>
 
