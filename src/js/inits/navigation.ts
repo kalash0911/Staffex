@@ -14,32 +14,43 @@ export const initNavigation = () => {
         });
     }
 
-    const sectionInHash = window.location.hash?.slice(1);
-    if (sectionInHash) {
-        document.querySelector(`[data-anchor="${sectionInHash}"]`)?.scrollIntoView();
-    }
+    // const sectionInHash = window.location.hash?.slice(1);
+    // if (sectionInHash) {
+    //     document.querySelector(`[data-anchor="${sectionInHash}"]`)?.scrollIntoView();
+    // }
 
     const toggleNav = () => {
         const screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-        if (isMainPage && screenSize <= 1024) {
-            links.forEach((link) => {
-                // link.addEventListener('click', (e) => {
-                //     e.preventDefault();
-                //     const anchor = link.getAttribute('href')?.slice(1);
-                //     if (!anchor) return;
-                //     const section = document.querySelector(`[data-anchor="${anchor}"]`);
-                //     if (!section) return;
-                //     window.location.hash = `#${anchor}`;
-                //     section.scrollIntoView();
-                // });
-                const anchor = link.getAttribute('href')?.slice(1);
-                if (!anchor) return;
-                const section = document.querySelector(`[data-anchor="${anchor}"]`);
-                if (!section) return;
-                section.setAttribute('id', anchor);
-            });
-            return;
+        if (isMainPage) {
+            if (screenSize <= 1024) {
+                links.forEach((link) => {
+                    // link.addEventListener('click', (e) => {
+                    //     e.preventDefault();
+                    //     const anchor = link.getAttribute('href')?.slice(1);
+                    //     if (!anchor) return;
+                    //     const section = document.querySelector(`[data-anchor="${anchor}"]`);
+                    //     if (!section) return;
+                    //     window.location.hash = `#${anchor}`;
+                    //     section.scrollIntoView();
+                    // });
+                    const anchor = link.getAttribute('href')?.slice(1);
+                    if (!anchor) return;
+                    const section = document.querySelector(`[data-anchor="${anchor}"]`);
+                    if (!section) return;
+                    section.setAttribute('id', anchor);
+                });
+                return;
+            } else {
+                links.forEach((link) => {
+                    const anchor = link.getAttribute('href')?.slice(1);
+                    if (!anchor) return;
+                    const section = document.querySelector(`[data-anchor="${anchor}"]`);
+                    if (!section) return;
+                    section.setAttribute('id', '');
+                });
+                return;
+            }
         }
     };
 
