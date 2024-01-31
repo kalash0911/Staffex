@@ -45,7 +45,7 @@ export const EmailModal = ({ onAdd }: IEmailModalProps) => {
                     {...register('password')}
                     label="Password"
                     type="password"
-                    placeholder="Enter your password"
+                    // placeholder="Enter your password"
                     errorMsg={errors.password?.message}
                 />
                 <Button label="Add Email" onClick={handleSubmit(onSubmit)} type="submit" />
