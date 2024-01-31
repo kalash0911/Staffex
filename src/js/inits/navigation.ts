@@ -24,15 +24,20 @@ export const initNavigation = () => {
 
         if (isMainPage && screenSize <= 1024) {
             links.forEach((link) => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const anchor = link.getAttribute('href')?.slice(1);
-                    if (!anchor) return;
-                    const section = document.querySelector(`[data-anchor="${anchor}"]`);
-                    if (!section) return;
-                    window.location.hash = `#${anchor}`;
-                    section.scrollIntoView();
-                });
+                // link.addEventListener('click', (e) => {
+                //     e.preventDefault();
+                //     const anchor = link.getAttribute('href')?.slice(1);
+                //     if (!anchor) return;
+                //     const section = document.querySelector(`[data-anchor="${anchor}"]`);
+                //     if (!section) return;
+                //     window.location.hash = `#${anchor}`;
+                //     section.scrollIntoView();
+                // });
+                const anchor = link.getAttribute('href')?.slice(1);
+                if (!anchor) return;
+                const section = document.querySelector(`[data-anchor="${anchor}"]`);
+                if (!section) return;
+                section.setAttribute('id', anchor);
             });
             return;
         }
