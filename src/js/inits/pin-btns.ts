@@ -29,13 +29,6 @@ export const pinButtonsOnScroll = () => {
                     if (change.isIntersecting && !isUpDirection) {
                         sectionPinBtn.classList.remove('d-none');
                         sectionPinBtn.classList.add('fixed');
-                        sectionPinBtn.classList.add('transition');
-                        setTimeout(() => {
-                            sectionPinBtn.classList.add('slideUp');
-                        }, 50);
-                        setTimeout(() => {
-                            sectionPinBtn.classList.remove('transition');
-                        }, 300);
                     }
                 });
             };
@@ -51,7 +44,6 @@ export const pinButtonsOnScroll = () => {
                     entry.forEach((btn) => {
                         if (btn.isIntersecting) {
                             sectionPinBtn.classList.remove('fixed');
-                            sectionPinBtn.classList.remove('slideUp');
                             // (btn.target as HTMLDivElement).style.height = `0px`;
                         } else {
                             endBtnPlaceholder.style.height = `${sectionPinBtn.getBoundingClientRect().height}px`;
@@ -73,24 +65,15 @@ export const pinButtonsOnScroll = () => {
                     return;
                 }
 
-                if (
-                    !sectionPinBtn.classList.contains('d-none') &&
-                    !sectionPinBtn.classList.contains('slideDown') &&
-                    btnBottom >= windowHeight
-                ) {
+                if (!sectionPinBtn.classList.contains('d-none') && btnBottom >= windowHeight) {
                     sectionPinBtn.classList.add('fixed');
-                    sectionPinBtn.classList.add('slideUp');
                     // setTimeout(() => {
                     //     secretaryPinBtn.classList.add('transition');
                     // }, 350);
                 }
 
                 if (!sectionPinBtn.classList.contains('d-none') && botBlockBottom - 85 >= windowHeight) {
-                    sectionPinBtn.classList.add('transition');
-                    sectionPinBtn.classList.remove('slideUp');
-                    setTimeout(() => {
-                        sectionPinBtn.classList.add('d-none');
-                    }, 150);
+                    sectionPinBtn.classList.add('d-none');
                 }
             });
         });
