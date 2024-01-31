@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppFormState } from './context/app-form-context';
 import { Typography } from './components/shared/typography/typography';
 import { CrossIcon } from './icons/cross';
@@ -8,6 +8,21 @@ import { FetureChoosenButton } from './components/buttons/feature-choosen-btn/fe
 const App = () => {
     const { questions, activeQuestion, handleActiveQuestion } = useAppFormState();
     const listWrapRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        scrollListToActiveQuestion();
+    }, [activeQuestion]);
+
+    const scrollListToActiveQuestion = () => {
+        if (listWrapRef.current) {
+            const activeItem = listWrapRef.current.querySelector('li.active') as HTMLLIElement;
+            if (!activeItem) return;
+            listWrapRef.current?.scrollTo({
+                left: activeItem.offsetLeft - 20,
+                behavior: 'smooth',
+            });
+        }
+    };
 
     const { configInd, questionInd } = activeQuestion;
     const currentForm = questions[configInd].list[questionInd].content;
@@ -48,11 +63,7 @@ const App = () => {
                                             return (
                                                 <li
                                                     className={`list-item ${isActive ? 'active' : ''}`}
-                                                    onClick={(event) => {
-                                                        listWrapRef.current?.scrollTo({
-                                                            left: (event.target as HTMLLIElement).offsetLeft - 20,
-                                                            behavior: 'smooth',
-                                                        });
+                                                    onClick={() => {
                                                         handleActiveQuestion({ configInd, questionInd });
                                                     }}
                                                     key={question.label}
