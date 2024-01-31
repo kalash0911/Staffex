@@ -1,6 +1,7 @@
 import React from 'react';
 import { getFeaturesFromLocalStorage } from '../../utils/general';
 import { BASIC_PRICE, FEATURE_PRICE } from '../../constants/currency';
+import { Tooltip } from '../shared/tooltip/tooltip';
 
 // export type TBotInfoProps = {
 //     title: string | ReactNode;
@@ -42,9 +43,11 @@ export const BotInfo = () => {
             <div className="bot-info-img-wrap">
                 <div className="bot-info-item-wrap">
                     {features?.communicationCoordination && (
-                        <div className="bot-info-item">
-                            <img src="./images/communication-coordination.png" alt="communication-coordination" />
-                        </div>
+                        <Tooltip content={<p>Communication Coordination</p>} transform="translate(-25px, 25px)">
+                            <div className="bot-info-item">
+                                <img src="./images/communication-coordination.png" alt="communication-coordination" />
+                            </div>
+                        </Tooltip>
                     )}
                     {features?.voiceRecognation && (
                         <div className="bot-info-item">
