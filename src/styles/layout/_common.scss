@@ -1135,6 +1135,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 		left: 50%;
 		transform: translate(-50%);
 		bottom: 65px;
+		z-index: 2;
 
 		@include media('<desktop') {
 			bottom: 20px;
