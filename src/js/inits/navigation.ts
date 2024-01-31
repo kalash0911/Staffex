@@ -14,15 +14,15 @@ export const initNavigation = () => {
         });
     }
 
+    const sectionInHash = window.location.hash?.slice(1);
+    if (sectionInHash) {
+        document.querySelector(`[data-anchor="${sectionInHash}"]`)?.scrollIntoView();
+    }
+
     const toggleNav = () => {
         const screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
         if (isMainPage && screenSize <= 1024) {
-            const sectionInHash = window.location.hash?.slice(1);
-            if (sectionInHash) {
-                document.querySelector(`[data-anchor="${sectionInHash}"]`)?.scrollIntoView();
-            }
-
             links.forEach((link) => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
