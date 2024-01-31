@@ -8,7 +8,9 @@ export const initNavigation = () => {
     if (!isMainPage) {
         links.forEach((link) => {
             const anchor = link.getAttribute('href');
-            link.setAttribute('href', `index.html${anchor}`);
+            if (!anchor?.includes('.html')) {
+                link.setAttribute('href', `index.html${anchor}`);
+            }
         });
     }
 
