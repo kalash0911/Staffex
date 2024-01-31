@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useAppFormState } from './context/app-form-context';
 import { Typography } from './components/shared/typography/typography';
 import { CrossIcon } from './icons/cross';
@@ -7,6 +7,7 @@ import { FetureChoosenButton } from './components/buttons/feature-choosen-btn/fe
 
 const App = () => {
     const { questions, activeQuestion, handleActiveQuestion } = useAppFormState();
+    const listWrapRef = useRef<HTMLDivElement | null>(null);
 
     const { configInd, questionInd } = activeQuestion;
     const currentForm = questions[configInd].list[questionInd].content;
@@ -28,7 +29,7 @@ const App = () => {
             </div>
 
             <div className="block">
-                <div className="list-wrap">
+                <div className="list-wrap" ref={listWrapRef}>
                     <div className="bot-info">
                         <BotInfo />
                     </div>
@@ -47,7 +48,13 @@ const App = () => {
                                             return (
                                                 <li
                                                     className={`list-item ${isActive ? 'active' : ''}`}
-                                                    onClick={() => handleActiveQuestion({ configInd, questionInd })}
+                                                    onClick={(event) => {
+                                                        listWrapRef.current?.scrollTo({
+                                                            left: (event.target as HTMLLIElement).offsetLeft - 20,
+                                                            behavior: 'smooth',
+                                                        });
+                                                        handleActiveQuestion({ configInd, questionInd });
+                                                    }}
                                                     key={question.label}
                                                 >
                                                     <button className="list-link click-song">{question.label}</button>
