@@ -95,7 +95,7 @@ export type TServiceItemProps = {
 export const ServiceItem = ({ variant, icon, serviceTitle, textContent, onDelete }: TServiceItemProps) => {
     let title: string | undefined = (variant && SERVICE_ITEMS_VARIANTS[variant].title) || serviceTitle;
 
-    let iconEl: ReactNode | string | undefined = (variant && SERVICE_ITEMS_VARIANTS[variant].icon) || icon;
+    let iconEl: ReactNode | React.JSX.Element = (variant && SERVICE_ITEMS_VARIANTS[variant].icon) || icon;
 
     return (
         <div className="list-add-item">
