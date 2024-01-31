@@ -6,6 +6,7 @@ export const initFeatureChoose = () => {
     const mainVideo = document.querySelector('.bot-video-el') as HTMLVideoElement;
     const botElements = document.querySelectorAll('.bot-element') as NodeListOf<HTMLVideoElement>;
     const priceEl = document.querySelector('.price') as HTMLDivElement;
+    if (!priceEl) return;
     let price = BASIC_PRICE;
     priceEl.textContent = setPrice(price);
 
