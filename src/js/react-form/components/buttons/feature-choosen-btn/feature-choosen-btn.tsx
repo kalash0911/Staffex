@@ -16,9 +16,11 @@ export const FetureChoosenButton = () => {
 
     return (
         <>
-            <Link onClick={handleFeatureModal}>
-                {featureLength} Features <EyeOpenIcon />
-            </Link>
+            {featureLength ? (
+                <Link onClick={handleFeatureModal}>
+                    {featureLength} Features <EyeOpenIcon />
+                </Link>
+            ) : null}
         </>
     );
 };
