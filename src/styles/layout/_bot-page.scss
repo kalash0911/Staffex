@@ -13,6 +13,11 @@
         flex-direction: column;
         justify-content: center;
         flex: 1 0 auto;
+
+        @include media('<phone') {
+            flex: none;
+            padding: 0;
+        }
     }
   
     .content {
@@ -25,7 +30,7 @@
         }
     
         @include media('<phone') {
-            height: calc(100vh - 80px);
+            gap: 0;
         }
     }
   
@@ -36,6 +41,10 @@
         justify-content: center;
         flex: 1;
         z-index: -1;
+
+        @include media('<phone') {
+            padding: 0 20px;
+        }
     
         &::before {
             content: '';
@@ -85,29 +94,30 @@
         }
     
         @include media('<phone') {
-            max-height: 400px;
+            max-height: 300px;
             overflow: hidden;
         }
   
-      .bot {
-        position: relative;
-        width: 500px;
-        z-index: -2;
-  
-        @include media('<laptop') {
-          width: 350px;
+        .bot {
+            position: relative;
+            width: 500px;
+            z-index: -2;
+    
+            @include media('<laptop') {
+                width: 350px;
+            }
+    
+            @include media('<desktop') {
+                width: 100%;
+                max-width: 500px;
+            }
+    
+            @include media('<phone') {
+                bottom: -200px;
+                max-width: 100%;
+                transform: scale(.8);
+            }
         }
-  
-        @include media('<desktop') {
-          width: 100%;
-          max-width: 500px;
-        }
-  
-        @include media('<phone') {
-          bottom: -160px;
-          max-width: 100%;
-        }
-      }
     }
   
     .bot-element {
@@ -126,8 +136,9 @@
         }
     
         @include media('<phone') {
-            bottom: -160px;
+            bottom: -200px;
             max-width: 100%;
+            transform: scale(.8);
         }
     
         &.active {
@@ -139,6 +150,11 @@
         position: absolute;
         top: 0;
         left: 0;
+
+        
+        @include media('<phone') {
+            left: 20px;
+        }
     }
   
     .tex-wrap {
@@ -161,6 +177,11 @@
   
     .tabs {
         display: flex;
+
+        
+        @include media('<phone') {
+            padding: 0 20px;
+        }
     }
   
     .tab-button {
@@ -278,6 +299,7 @@
     
         @include media('<phone') {
             min-height: 0;
+            max-height: calc(100vh - 425px);
         }
     
         &.active {
@@ -297,6 +319,11 @@
         @include media('<laptop') {
             gap: 15px;
         }
+
+        @include media('<phone') {
+            padding: 0 20px 100px 20px;
+            gap: 18px;
+        }
     }
   
     .accordion-item {
@@ -306,6 +333,10 @@
     
         @include media('<tablet_s') {
             padding-left: 25px;
+        }
+
+        @include media('<phone') {
+            padding: 0;
         }
     
         &::before {
@@ -322,7 +353,11 @@
             text-transform: uppercase;
     
             @include media('<tablet_s') {
-            left: 0;
+                left: 0;
+            }
+
+            @include media('<phone') {
+                display: none;
             }
         }
     
@@ -425,18 +460,17 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 20px;
+        scrollbar-color: transparent transparent;
 
         @include media('<laptop_m') {
-            gap: 15px;
+            gap: 12px;
         }
 
         @include media('<phone') {
             flex-wrap: nowrap;
             overflow: scroll;
-        }
+            padding: 0 20px 100px 20px;
 
-        &::-webkit-scrollbar {
-            height: 0;
         }
     }
   
@@ -444,8 +478,6 @@
         position: relative;
         max-width: 47.5%;
         padding: 16px;
-        border: 0.5px solid rgba($white, 0.3);
-        cursor: pointer;
         transition: $anim_03;
     
         @include media('<laptop') {
@@ -455,38 +487,73 @@
   
         @include media('<phone') {
             max-width: 100%;
-            min-width: 220px;
+            min-width: 158px;
+            padding: 0;
+            border: none;
         }
     
         &:hover {
-            border: 0.5px solid $green4F;
+
+            .item-btn {
+                border: 1px solid $green4F;
+
+                @include media('<phone') {
+                    border: none;
+                }
+            }
         }
     
         &.active {
-            border: 0.5px solid $green4F;
+
+            .item-btn {
+                border: 0.5px solid $green4F;
+
+                @include media('<phone') {
+                    border: none;
+                }
+            }
+
+            .item-img-wrap {
+
+                @include media('<phone') {
+                    border: 0.5px solid $green4F;
+                }
+            }
     
             .plus-check {
-            background: $green4F;
-    
-            &::before,
-            &::after {
-                background-color: $black03;
-            }
-    
-            &::before {
-                left: 60%;
-                height: 12px;
-                transform: translate(-50%, -50%) rotate(45deg);
-            }
-    
-            &::after {
-                width: 6px;
-                top: 60%;
-                left: 35%;
-                transform: translate(-50%, -50%) rotate(45deg);
-            }
+                background: $green4F;
+        
+                &::before,
+                &::after {
+                    background-color: $black03;
+                }
+        
+                &::before {
+                    transform: translate(-50%, -50%) rotate(-90deg);
+                }
             }
         }
+    }
+
+    .item-btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background: none;
+        border: 1px solid rgba($white, 0.3);
+        transition: $anim_03;
+
+        @include media('<phone') {
+            top: 7px;
+            right: 7px;
+            left: auto;
+            width: 24px;
+            height: 24px;
+            border: none;
+        } 
     }
   
     .plus-check {
@@ -498,6 +565,12 @@
         border: 0.5px solid $green4F;
         z-index: 2;
         transition: $anim_03;
+        background: transparent;
+
+        @include media('<phone') {
+            top: 0;
+            right: 0;
+        } 
     
         &::before,
         &::after {
@@ -526,14 +599,17 @@
         position: relative;
         margin-bottom: -20px;
         max-height: 140px;
+        transition: $anim_03;
 
         @include media('<laptop') {
            margin: 0;
         }
 
         @include media('<phone') {
-            max-width: 220px;
-            margin: 0 auto -20px auto;
+            max-height: 100%;
+            min-height: 128px;
+            margin: 0 0 15px 0;
+            border: 0.5px solid rgba($white, 0.3);
         }
 
         &::before {
@@ -548,9 +624,14 @@
                 rgba(0, 0, 0, 0) 0%,
                 $black03 100%
             );
+            z-index: 1;
 
             @include media('<laptop') {
                 opacity: .8;
+            }
+
+            @include media('<phone') {
+                background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, $black03 100%);
             }
         }
 
@@ -559,6 +640,10 @@
 
             @include media('<laptop') {
                 max-height: 80px;
+            }
+
+            @include media('<phone') {
+                max-height: 125px;
             }
         }
     }
@@ -574,11 +659,25 @@
         line-height: 140%;
         letter-spacing: 0.24px;
         text-transform: uppercase;
+
+        @include media('<phone') {
+            top: 13px;
+            left: 10px;
+            font-size: 10px;
+        }
     }
 
     .item-text-wrap {
         position: relative;
         z-index: 1;
+    }
+
+
+    .item-title-wrap {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
     }
 
     .item-title {
@@ -590,11 +689,26 @@
         line-height: 140%;
         letter-spacing: 0.32px;
         text-transform: uppercase;
-
+        
         @include media('<laptop') {
-            font-size: 14px;
+            font-size: 12px;
             margin-bottom: 4px;
         }
+
+        span {
+
+            @include media('<phone') {
+                display: none;
+            }
+        }
+    }
+
+    .icon-info {
+        display: none;
+
+        @include media('<phone') {
+            display: block;
+        } 
     }
 
     .item-text {
@@ -609,8 +723,108 @@
             font-size: 12px;
         } 
 
+        @include media('<phone') {
+            display: none;
+        }
+
         span {
             color: $white;
+        }
+    }
+
+    .main-btn {
+
+        @include media('<phone') {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: calc(100% - 40px);
+            z-index: 3;
+        }
+    }
+}
+
+.pop-up {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    min-height: calc(100vh - 70px);
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $black03;
+    padding: 20px;
+    z-index: 5;
+
+    /* @include media('<phone') {
+        display: flex;
+    } */
+
+    .close-pop-up {
+        background: none;
+        border: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 2;
+        padding: 0;
+    }
+
+    .img-wrap {
+        position: relative;
+        margin-bottom: 40px;
+
+        &::before {
+            content:'';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, $black03 100%);
+        }
+    }
+
+    .title {
+        margin-bottom: 22px;
+        color: $green4F;
+        font-family: $PlexMono;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 140%;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+
+        span {
+            display: none;
+        }
+    }
+
+    .text {
+        color: rgba($white, 0.7);
+        
+        span {
+            color: $white;
+            font-weight: 500;
+        }
+    }
+
+    .main-btn {
+        width: 100%;
+
+        &.transp  {
+
+            .btn-text {
+                color: $white;
+            }
+
+            &:hover {
+
+                .btn-text {
+                    color: $black03;
+                }
+            }
         }
     }
 }
