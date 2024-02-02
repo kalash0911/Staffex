@@ -13,7 +13,7 @@ const initFeatureChoose = () => {
               documentPreparation: false,
               crm: false,
           };
-    console.log('features: ', features);
+
     localStorage.setItem(SECRETARY_FEATURES_KEY, JSON.stringify(features));
     const featuresList = Object.keys(features);
     const priceEl = document.querySelector('.price') as HTMLDivElement | null;
