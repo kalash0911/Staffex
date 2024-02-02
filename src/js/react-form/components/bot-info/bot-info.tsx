@@ -43,26 +43,56 @@ export const BotInfo = () => {
             <div className="bot-info-img-wrap">
                 <div className="bot-info-item-wrap">
                     {features?.communicationCoordination && (
-                        <Tooltip content={<p>Communication Coordination</p>} transform="translate(-25px, 25px)">
+                        <Tooltip
+                            content={
+                                <p className="tooltip">
+                                    Communication <br /> Coordination
+                                </p>
+                            }
+                        >
                             <div className="bot-info-item">
                                 <img src="./images/communication-coordination.png" alt="communication-coordination" />
                             </div>
                         </Tooltip>
                     )}
                     {features?.voiceRecognation && (
-                        <div className="bot-info-item">
-                            <img src="./images/voice-recognation.png" alt="voice-recognatio" />
-                        </div>
+                        <Tooltip
+                            content={
+                                <p className="tooltip">
+                                    Voice Recognition <br /> and Command
+                                </p>
+                            }
+                        >
+                            <div className="bot-info-item">
+                                <img src="./images/voice-recognation.png" alt="voice-recognatio" />
+                            </div>
+                        </Tooltip>
                     )}
                     {features?.documentPreparation && (
-                        <div className="bot-info-item">
-                            <img src="./images/document-preparation.png" alt="document-preparation" />
-                        </div>
+                        <Tooltip
+                            content={
+                                <p className="tooltip">
+                                    Document Prepare <br /> and Management
+                                </p>
+                            }
+                        >
+                            <div className="bot-info-item">
+                                <img src="./images/document-preparation.png" alt="document-preparation" />
+                            </div>
+                        </Tooltip>
                     )}
                     {features?.crm && (
-                        <div className="bot-info-item">
-                            <img src="./images/crm.png" alt="crm" />
-                        </div>
+                        <Tooltip
+                            content={
+                                <p className="tooltip">
+                                    Customer Relationship <br /> Management
+                                </p>
+                            }
+                        >
+                            <div className="bot-info-item">
+                                <img src="./images/crm.png" alt="crm" />
+                            </div>
+                        </Tooltip>
                     )}
                 </div>
                 <div className="bot-info-avatar">

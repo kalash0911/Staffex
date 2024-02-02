@@ -10,6 +10,8 @@ import { TDataBaseFormValues } from '../../../models/form';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
 import { ConnectButton } from '../../buttons/connect-btn/connect-btn';
+import { Del } from '../../../icons/Del';
+import { IconPlus } from '../../../icons/plus';
 
 const defaultValues = {
     host: '',
@@ -117,11 +119,12 @@ export const DatabaseAccess = () => {
                                 {...register(`databaseList.${index}.password`)}
                                 id={`databaseList.${index}.password`}
                                 label="Password"
+                                placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
                                 type="text"
                                 className="half"
                                 errorMsg={errors.databaseList?.[index]?.password?.message}
                             />
-                            <p>Or you can enter</p>
+                            <p className="enter-text">Or you can enter</p>
                             <TextField
                                 {...register(`databaseList.${index}.url`)}
                                 id={`databaseList.${index}.url`}
@@ -131,17 +134,23 @@ export const DatabaseAccess = () => {
                                 className="max"
                                 errorMsg={errors.databaseList?.[index]?.url?.message}
                             />
-                            <ConnectButton status="hold" onClick={() => alert('In progress')} />
-                            {fields.length > 1 && (
-                                <button type="button" onClick={() => onDeleteDatabase(index)}>
-                                    Remove
-                                </button>
-                            )}
+                            <div className="link-btn-wrap">
+                                <ConnectButton status="hold" onClick={() => alert('In progress')} />
+                                {fields.length > 1 && (
+                                    <button className="link-btn remove" type="button" onClick={() => onDeleteDatabase(index)}>
+                                        <Del />
+                                        Remove
+                                    </button>
+                                )}
+                            </div>
                         </OpenClose>
                     ))}
-                    <button type="button" onClick={onAddDatabase}>
-                        + Add one more database
-                    </button>
+                    <div className="btn-add-wrap">
+                        <button className="btn-add" type="button" onClick={onAddDatabase}>
+                            <IconPlus />
+                            Add one more database
+                        </button>
+                    </div>
                 </form>
             </div>
             <div className="btn-wrap">
@@ -151,3 +160,10 @@ export const DatabaseAccess = () => {
         </div>
     );
 };
+
+/*
+    status="hold"
+    status="fulfilled"
+    status="rejected"
+    status="pending"
+*/

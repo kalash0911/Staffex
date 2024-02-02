@@ -305,10 +305,18 @@
 
         &.min {
             width: 30%;
+
+            @include media('<phone') {
+                width: 100%;
+            }
         }
 
         &.half {
             width: 47.5%;
+
+            @include media('<phone') {
+                width: 100%;
+            }
         }
 
         &.max {
@@ -474,6 +482,10 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 40px;
+
+        @include media('<phone') {
+            margin-bottom: 32px;
+        }
     }
 
     .btn-wrap {
@@ -1109,6 +1121,21 @@
         line-height: 140%;
         text-transform: uppercase;
     }
+
+}
+
+.tooltip {
+    padding: 6px;
+    border: 0.5px solid rgba(255, 255, 255, 0.10);
+    background: rgba(3, 3, 3, 0.20);
+    backdrop-filter: blur(1.5px);
+    color: $white;
+    font-family: $PlexMono;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 140%;
+    text-transform: uppercase;
+    margin: 0;
 }
 
 .contact-info {
@@ -1148,20 +1175,58 @@
 }
 
 .database-access {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .oc-action-btns-wrap {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
 
     .oc-wrap {
+        position: relative;
+        
+        &::before {
+            content:'';
+            position: absolute;
+            bottom: 0;
+            left: -40px;
+            width: calc(100% + 40px);
+            height: 1px;
+            background: rgba($white, .3);
 
+            @include media('<phone') {
+                width: calc(100% + 80px);
+            }
+        }
 
         &.open {
 
             .arrow {
                 transform: rotate(180deg);
             }
+
+            .oc-content  {
+                padding-bottom: 40px;
+            }
         }
     }
 
     .arrow {
         transition: $anim_03;
+
+        &:hover {
+
+            svg {
+                fill: $green4F;
+            }
+        }
+
+        svg {
+            fill: $white;
+        }
     }
 
     .oc-content {
@@ -1169,6 +1234,39 @@
         flex-wrap: wrap;
         justify-content: space-between;
         row-gap: 40px;
+        transition: $anim_05;
+
+        @include media('<phone') {
+            row-gap: 32px;
+        }
+    }
+
+    .enter-text {
+        color: rgba($white, .5);
+        font-family: $DegularText;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        text-transform: uppercase;
+    }
+
+    .link-btn-wrap {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-left: auto;
+
+        @include media('<phone') {
+            margin: 0 auto;
+        }
+    }
+
+    .btn-add {
+        margin-left: auto;
+
+        @include media('<phone') {
+            width: 100%;
+        }
     }
 }
 

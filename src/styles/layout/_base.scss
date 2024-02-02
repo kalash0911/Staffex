@@ -57,6 +57,10 @@ html {
 	}
 }
 
+#wrapper-form {
+	overflow-x: hidden;
+}
+
 #main {
 	position: relative;
 }
@@ -290,6 +294,67 @@ html {
 
 	svg {
 		transition: transform .3s steps(3) 0s;
+	}
+}
+
+.link-btn {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background: none;
+	border: none;
+	padding: 0 0 8px 0;
+	border-bottom: 1px solid rgba($white, .3);
+	color: $white;
+	font-family: $PlexMono;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 140%;
+	letter-spacing: 0.7px;
+	text-transform: uppercase;
+	transition: $anim_03;
+
+	&.remove {
+
+		svg {
+			fill: $white;
+			transition: $anim_03;
+		}
+
+		&:hover {
+			color: $red4F;
+			border-bottom: 1px solid $red4F;
+
+			svg {
+				fill: $red4F;
+			}
+		}
+	}
+
+	&.fulfilled {
+		color: $green4F;
+	}
+
+	&.rejected {
+		color: $red4F;
+	}
+}
+
+.del {
+	background: none;
+	border: none;
+	padding: 0;
+
+	&:hover {
+
+		svg {
+			fill: $red4F;
+		}
+	}
+
+	svg {
+		fill: $white;
+		transition: $anim_03;
 	}
 }
 
