@@ -19,21 +19,21 @@
             padding: 0;
         }
     }
-  
+
     .content {
         display: flex;
         justify-content: space-between;
         gap: 20px;
-    
+
         @include media('<desktop') {
             flex-direction: column;
         }
-    
+
         @include media('<phone') {
             gap: 0;
         }
     }
-  
+
     .video-wrap {
         position: relative;
         display: flex;
@@ -45,7 +45,7 @@
         @include media('<phone') {
             padding: 0 20px;
         }
-    
+
         &::before {
             content: '';
             position: absolute;
@@ -53,18 +53,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-            50% 50% at 50% 50%,
-            rgba(0, 0, 0, 0) 42.71%,
-            #030303 100%
-            );
-    
+            background: radial-gradient(50% 50% at 50% 50%,
+                    rgba(0, 0, 0, 0) 42.71%,
+                    #030303 100%);
+
             @include media('<phone') {
-                background: radial-gradient(
-                50% 50% at 50% 50%,
-                rgba(0, 0, 0, 0) 42.71%,
-                #030303d5 100%
-                );
+                background: radial-gradient(50% 50% at 50% 50%,
+                        rgba(0, 0, 0, 0) 42.71%,
+                        #030303d5 100%);
             }
         }
     }
@@ -78,40 +74,40 @@
         opacity: 0;
         z-index: 2;
     }
-  
+
     .bg {
         z-index: -2;
     }
-  
+
     .video-block {
         position: relative;
         display: flex;
         justify-content: center;
         align-items: flex-end;
-    
+
         @include media('<desktop') {
             margin: 0 auto;
         }
-    
+
         @include media('<phone') {
             max-height: 300px;
             overflow: hidden;
         }
-  
+
         .bot {
             position: relative;
             width: 500px;
             z-index: -2;
-    
+
             @include media('<laptop') {
                 width: 350px;
             }
-    
+
             @include media('<desktop') {
                 width: 100%;
                 max-width: 500px;
             }
-    
+
             @include media('<phone') {
                 bottom: -200px;
                 max-width: 100%;
@@ -119,44 +115,44 @@
             }
         }
     }
-  
+
     .bot-element {
         opacity: 0;
         position: absolute;
         width: 500px;
         z-index: -1;
-    
+
         @include media('<laptop') {
             width: 350px;
         }
-    
+
         @include media('<desktop') {
             width: 100%;
             max-width: 500px;
         }
-    
+
         @include media('<phone') {
             bottom: -200px;
             max-width: 100%;
             transform: scale(.8);
         }
-    
+
         &.active {
             opacity: 1;
         }
     }
-  
+
     .name-box {
         position: absolute;
         top: 0;
         left: 0;
 
-        
+
         @include media('<phone') {
             left: 20px;
         }
     }
-  
+
     .tex-wrap {
         width: 100%;
         max-width: 650px;
@@ -174,16 +170,16 @@
             overflow-x: hidden;
         }
     }
-  
+
     .tabs {
         display: flex;
 
-        
+
         @include media('<phone') {
             padding: 0 20px;
         }
     }
-  
+
     .tab-button {
         position: relative;
         width: 100%;
@@ -199,12 +195,12 @@
         letter-spacing: 0.7px;
         text-transform: uppercase;
         transition: $anim_03;
-    
+
         @include media('<tablet_s') {
             font-size: 12px;
             padding: 10px 3px;
         }
-  
+
         &::before,
         &::after {
             content: '';
@@ -222,7 +218,7 @@
                 height: 15px;
             }
         }
-    
+
         &::before {
             left: -15px;
             transform: rotate(-45deg);
@@ -231,7 +227,7 @@
                 left: -8px;
             }
         }
-    
+
         &::after {
             right: -15px;
             transform: rotate(45deg);
@@ -241,37 +237,37 @@
                 right: -8px;
             }
         }
-    
+
         &:first-child {
             border-bottom-left-radius: 5px;
         }
-    
+
         &:last-child {
             border-bottom-right-radius: 5px;
         }
-    
+
         &:hover {
             border-color: $green4F;
-    
+
             &::before,
             &::after {
                 border-bottom: 1px solid $green4F;
             }
         }
-  
+
         &.active {
             color: $black03;
             background: $green4F;
             border-color: $green4F;
             text-shadow: 1px 0 $black03;
-    
+
             &::before,
             &::after {
                 border-bottom: 1px solid $green4F;
             }
         }
     }
-  
+
     .tab-content {
         display: none;
         padding: 20px 30px;
@@ -279,34 +275,34 @@
         border-top: none;
         margin: 0 5px 30px 5px;
         min-height: 600px;
-    
+
         @include media('<laptop_m') {
             min-height: 580px;
             padding: 15px 30px;
             margin: 0 5px 15px 5px;
         }
-    
+
         @include media('<laptop') {
             min-height: 0px;
             padding: 12px;
         }
-    
+
         @include media('<tablet_s') {
             padding: 24px 0;
             border: none;
             margin: 0;
         }
-    
+
         @include media('<phone') {
             min-height: 0;
             max-height: calc(100vh - 425px);
         }
-    
+
         &.active {
             display: block;
         }
     }
-  
+
     .accordion {
         display: flex;
         flex-direction: column;
@@ -315,7 +311,7 @@
         counter-reset: my-awesome-counter;
         margin: 0;
         padding: 0;
-    
+
         @include media('<laptop') {
             gap: 15px;
         }
@@ -325,12 +321,12 @@
             gap: 18px;
         }
     }
-  
+
     .accordion-item {
         counter-increment: my-awesome-counter;
         position: relative;
         padding-left: 35px;
-    
+
         @include media('<tablet_s') {
             padding-left: 25px;
         }
@@ -338,7 +334,7 @@
         @include media('<phone') {
             padding: 0;
         }
-    
+
         &::before {
             content: counter(my-awesome-counter);
             position: absolute;
@@ -351,7 +347,7 @@
             line-height: 140%;
             letter-spacing: 0.24px;
             text-transform: uppercase;
-    
+
             @include media('<tablet_s') {
                 left: 0;
             }
@@ -360,21 +356,21 @@
                 display: none;
             }
         }
-    
+
         &.active {
             .accordion-title {
-            color: $green4F;
+                color: $green4F;
             }
-    
+
             .arrow {
-            svg {
-                transform: rotate(90deg);
-                fill: $green4F;
-            }
+                svg {
+                    transform: rotate(90deg);
+                    fill: $green4F;
+                }
             }
         }
     }
-  
+
     .accordion-header {
         display: flex;
         align-items: center;
@@ -383,30 +379,30 @@
         background: none;
         border: none;
         padding: 0;
-    
+
         &:hover {
             .accordion-title {
-            color: $green4F;
+                color: $green4F;
             }
-    
+
             .arrow {
-            svg {
-                fill: $green4F;
-            }
+                svg {
+                    fill: $green4F;
+                }
             }
         }
     }
-  
+
     .arrow {
         display: grid;
         place-items: center;
-    
+
         svg {
             fill: rgba($white, 0.7);
             transition: $anim_05;
         }
     }
-  
+
     .accordion-title {
         text-align: left;
         color: rgba($white, 0.7);
@@ -423,13 +419,13 @@
             font-size: 14px;
         }
     }
-  
+
     .accordion-content {
         position: relative;
         max-height: 0;
         overflow: hidden;
         transition: $anim_05;
-    
+
         &::before {
             content: '';
             position: absolute;
@@ -440,7 +436,7 @@
             background: rgba($white, 0.3);
         }
     }
-  
+
     .accordion-text {
         margin: 0;
         padding: 10px 0 0 32px;
@@ -449,12 +445,12 @@
         font-size: 14px;
         font-weight: 400;
         line-height: 140%;
-    
+
         span {
             color: $white;
         }
     }
-  
+
     .block {
         display: flex;
         justify-content: space-between;
@@ -473,25 +469,25 @@
 
         }
     }
-  
+
     .item {
         position: relative;
         max-width: 47.5%;
         padding: 16px;
         transition: $anim_03;
-    
+
         @include media('<laptop') {
             max-width: 48%;
             padding: 14px;
         }
-  
+
         @include media('<phone') {
             max-width: 100%;
             min-width: 158px;
             padding: 0;
             border: none;
         }
-    
+
         &:hover {
 
             .item-btn {
@@ -502,7 +498,7 @@
                 }
             }
         }
-    
+
         &.active {
 
             .item-btn {
@@ -519,15 +515,15 @@
                     border: 0.5px solid $green4F;
                 }
             }
-    
+
             .plus-check {
                 background: $green4F;
-        
+
                 &::before,
                 &::after {
                     background-color: $black03;
                 }
-        
+
                 &::before {
                     transform: translate(-50%, -50%) rotate(-90deg);
                 }
@@ -553,9 +549,9 @@
             width: 24px;
             height: 24px;
             border: none;
-        } 
+        }
     }
-  
+
     .plus-check {
         position: absolute;
         top: 12px;
@@ -570,8 +566,8 @@
         @include media('<phone') {
             top: 0;
             right: 0;
-        } 
-    
+        }
+
         &::before,
         &::after {
             content: '';
@@ -583,18 +579,18 @@
             transition: all 0.5s steps(3, end) 0s;
             transition: background-color all 0.3s ease 0s;
         }
-    
+
         &::before {
             width: 1px;
             height: 14px;
         }
-    
+
         &::after {
             width: 14px;
             height: 1px;
         }
     }
-  
+
     .item-img-wrap {
         position: relative;
         margin-bottom: -20px;
@@ -602,7 +598,7 @@
         transition: $anim_03;
 
         @include media('<laptop') {
-           margin: 0;
+            margin: 0;
         }
 
         @include media('<phone') {
@@ -619,11 +615,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                50% 50% at 50% 50%,
-                rgba(0, 0, 0, 0) 0%,
-                $black03 100%
-            );
+            background: radial-gradient(50% 50% at 50% 50%,
+                    rgba(0, 0, 0, 0) 0%,
+                    $black03 100%);
             z-index: 1;
 
             @include media('<laptop') {
@@ -647,7 +641,7 @@
             }
         }
     }
-  
+
     .number {
         position: absolute;
         top: 0;
@@ -689,7 +683,7 @@
         line-height: 140%;
         letter-spacing: 0.32px;
         text-transform: uppercase;
-        
+
         @include media('<laptop') {
             font-size: 12px;
             margin-bottom: 4px;
@@ -708,7 +702,7 @@
 
         @include media('<phone') {
             display: block;
-        } 
+        }
     }
 
     .item-text {
@@ -721,7 +715,7 @@
 
         @include media('<laptop') {
             font-size: 12px;
-        } 
+        }
 
         @include media('<phone') {
             display: none;
@@ -760,6 +754,10 @@
         display: flex;
     } */
 
+    &.active {
+        display: flex;
+    }
+
     .close-pop-up {
         background: none;
         border: none;
@@ -775,7 +773,7 @@
         margin-bottom: 40px;
 
         &::before {
-            content:'';
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
@@ -786,7 +784,7 @@
         }
     }
 
-    .title {
+    .item-title {
         margin-bottom: 22px;
         color: $green4F;
         font-family: $PlexMono;
@@ -801,9 +799,9 @@
         }
     }
 
-    .text {
+    .item-text {
         color: rgba($white, 0.7);
-        
+
         span {
             color: $white;
             font-weight: 500;
@@ -813,7 +811,7 @@
     .main-btn {
         width: 100%;
 
-        &.transp  {
+        &.transp {
 
             .btn-text {
                 color: $white;
