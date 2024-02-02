@@ -2,7 +2,6 @@ import { SECRETARY_FEATURES_KEY } from '../react-form/constants/form';
 import { BASIC_PRICE, FEATURE_PRICE } from '../react-form/constants/currency';
 
 const initFeatureChoose = () => {
-    const { popupNode: popup, img: popupImg, text: popupText, title: popupTitle, actionBtn: popupActionBtn } = initPopup();
     const localSaves = localStorage.getItem(SECRETARY_FEATURES_KEY);
 
     const features = localSaves
@@ -23,6 +22,7 @@ const initFeatureChoose = () => {
 
     if (!priceEl) return;
     if (!elementItems.length) return;
+    const { popupNode: popup, img: popupImg, text: popupText, title: popupTitle, actionBtn: popupActionBtn } = initPopup();
 
     let price = BASIC_PRICE;
     calcInitialPrice();
