@@ -1466,7 +1466,7 @@ $anim-opacity-bg: all 3s ease $anim-delay;
 	.img {
 		position: relative;
 		display: block;
-		max-height: 450px;
+		max-height: 500px;
 		margin: 0 auto;
 
 		@include media('<laptop') {
