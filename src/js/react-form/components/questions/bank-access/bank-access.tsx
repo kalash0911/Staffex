@@ -25,7 +25,6 @@ export const BankAccess = () => {
             customer_id: 'a574570a-6acc-4bde-9022-f5070dcc2d09',
             sandbox: true,
             callback: (res: any) => {
-                console.log('res: ', res);
                 const bankName = res?.bank?.bank_identifier || 'Unknown bank';
                 // TODO: This code should be in webhook?
                 if (res.secondary_status === 'ENTITY_ALREADY_CONNECTED' || res.secondary_status === 'OK') {
@@ -76,7 +75,6 @@ export const BankAccess = () => {
         });
     };
 
-    console.log('banks: ', banks);
     const bankAccountList = banks?.length ? (
         banks.map(({ email, serviceType, id, bankName }) => {
             return (
