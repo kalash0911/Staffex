@@ -3,6 +3,7 @@ import React, { forwardRef } from 'react';
 interface ITextFieldBasicProps {
     label?: string;
     placeholder: string;
+    maxLength?: number;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, ITextFieldBasicProps>(

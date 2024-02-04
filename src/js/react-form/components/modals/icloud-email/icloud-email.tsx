@@ -9,6 +9,7 @@ import { Button } from '../../shared/button/button';
 import { Typography } from '../../shared/typography/typography';
 import { Play as PlayIcon } from '../../../icons/play';
 import { Link } from '../../shared/link/link';
+import { DEFAULT_MAX_LENGTH } from '../../../constants/form';
 
 export interface IICloudEmailProps extends IModalBasicProps {
     onAdd: (value: TICloudEmailValues) => void;
@@ -44,6 +45,7 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
                     type="text"
                     placeholder="your@example.com"
                     errorMsg={errors.email?.message}
+                    maxLength={DEFAULT_MAX_LENGTH}
                 ></TextField>
                 <TextField
                     {...register('appPassword')}
@@ -51,6 +53,7 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
                     type="password"
                     placeholder="Enter an app-specific password"
                     errorMsg={errors.appPassword?.message}
+                    maxLength={DEFAULT_MAX_LENGTH}
                 ></TextField>
                 <div className="hint mb20">
                     <WarningSign />

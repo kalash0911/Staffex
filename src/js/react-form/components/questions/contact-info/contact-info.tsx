@@ -10,6 +10,7 @@ import { TCommonFormValues } from '../../../models/form';
 import { maskPhoneNumber } from '../../../utils/form';
 import { Radio } from '../../shared/radio/radio';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
+import { DEFAULT_MAX_LENGTH, MAX_NAME_LENGTH, MAX_PHONE_LENGTH } from '../../../constants/form';
 
 export const ContactInfo = () => {
     const { answers, handleNextQuestion } = useAppFormState();
@@ -94,6 +95,7 @@ export const ContactInfo = () => {
                                 type="text"
                                 required
                                 errorMsg={errors.companyName?.message}
+                                maxLength={DEFAULT_MAX_LENGTH}
                             />
                             <TextField
                                 {...register('contactFirstName')}
@@ -102,6 +104,7 @@ export const ContactInfo = () => {
                                 type="text"
                                 required
                                 errorMsg={errors.contactFirstName?.message}
+                                maxLength={MAX_NAME_LENGTH}
                             />
                             <TextField
                                 {...register('contactLastName')}
@@ -110,6 +113,7 @@ export const ContactInfo = () => {
                                 type="text"
                                 required
                                 errorMsg={errors.contactLastName?.message}
+                                maxLength={MAX_NAME_LENGTH}
                             />
                             <TextField
                                 {...register('contactFirstTitle')}
@@ -118,6 +122,7 @@ export const ContactInfo = () => {
                                 type="text"
                                 required
                                 errorMsg={errors.contactFirstTitle?.message}
+                                maxLength={DEFAULT_MAX_LENGTH}
                             />
                         </>
                     ) : (
@@ -129,6 +134,7 @@ export const ContactInfo = () => {
                                 type="text"
                                 required
                                 errorMsg={errors.firstName?.message}
+                                maxLength={MAX_NAME_LENGTH}
                             />
                             <TextField
                                 {...register('lastName')}
@@ -137,6 +143,7 @@ export const ContactInfo = () => {
                                 type="text"
                                 required
                                 errorMsg={errors.lastName?.message}
+                                maxLength={MAX_NAME_LENGTH}
                             />
                         </>
                     )}
@@ -151,7 +158,7 @@ export const ContactInfo = () => {
                                 type="phone"
                                 required
                                 errorMsg={errors.phone?.message}
-                                maxLength={14}
+                                maxLength={MAX_PHONE_LENGTH}
                                 onBlur={onBlur}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                     event.target.value = maskPhoneNumber(event.target.value.replace(/[\)\( -]/gm, ''));
@@ -170,7 +177,7 @@ export const ContactInfo = () => {
                                 placeholder="Enter your alternate number"
                                 type="phone"
                                 errorMsg={errors.altPhone?.message}
-                                maxLength={14}
+                                maxLength={MAX_PHONE_LENGTH}
                                 onBlur={onBlur}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                     event.target.value = maskPhoneNumber(event.target.value.replace(/[\)\( -]/gm, ''));
@@ -187,6 +194,7 @@ export const ContactInfo = () => {
                         type="email"
                         required
                         errorMsg={errors.email?.message}
+                        maxLength={DEFAULT_MAX_LENGTH}
                     />
                 </form>
             </div>

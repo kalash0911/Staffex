@@ -10,6 +10,13 @@ import { TDataBaseFormValues } from '../../../models/form';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
 import { ConnectButton } from '../../buttons/connect-btn/connect-btn';
+import {
+    DATABASE_NAME_MAX_LENGTH,
+    DATABASE_PASSWORD_MAX_LENGTH,
+    DATABASE_USER_MAX_LENGTH,
+    HOST_MAX_LENGTH,
+    PORT_MAX_LENGTH,
+} from '../../../constants/form';
 
 const defaultValues = {
     host: '',
@@ -85,6 +92,7 @@ export const DatabaseAccess = () => {
                                 type="text"
                                 className="min"
                                 errorMsg={errors.databaseList?.[index]?.host?.message}
+                                maxLength={HOST_MAX_LENGTH}
                             />
                             <TextField
                                 {...register(`databaseList.${index}.port`)}
@@ -94,6 +102,7 @@ export const DatabaseAccess = () => {
                                 type="text"
                                 className="min"
                                 errorMsg={errors.databaseList?.[index]?.port?.message}
+                                maxLength={PORT_MAX_LENGTH}
                             />
                             <TextField
                                 {...register(`databaseList.${index}.database`)}
@@ -103,6 +112,7 @@ export const DatabaseAccess = () => {
                                 type="text"
                                 className="min"
                                 errorMsg={errors.databaseList?.[index]?.database?.message}
+                                maxLength={DATABASE_NAME_MAX_LENGTH}
                             />
                             <TextField
                                 {...register(`databaseList.${index}.user`)}
@@ -112,6 +122,7 @@ export const DatabaseAccess = () => {
                                 type="text"
                                 className="half"
                                 errorMsg={errors.databaseList?.[index]?.user?.message}
+                                maxLength={DATABASE_USER_MAX_LENGTH}
                             />
                             <TextField
                                 {...register(`databaseList.${index}.password`)}
@@ -120,6 +131,7 @@ export const DatabaseAccess = () => {
                                 type="text"
                                 className="half"
                                 errorMsg={errors.databaseList?.[index]?.password?.message}
+                                maxLength={DATABASE_PASSWORD_MAX_LENGTH}
                             />
                             <p>Or you can enter</p>
                             <TextField

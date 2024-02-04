@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { shema } from './validation';
 import { IModalBasicProps } from '../../../models/common/modal';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { DEFAULT_MAX_LENGTH } from '../../../constants/form';
 
 export interface IEmailModalProps extends IModalBasicProps {
     onAdd: (value: TAnotherEmailValues) => void;
@@ -40,6 +41,7 @@ export const EmailModal = ({ onAdd }: IEmailModalProps) => {
                     type="text"
                     placeholder="your@example.com"
                     errorMsg={errors.email?.message}
+                    maxLength={DEFAULT_MAX_LENGTH}
                 />
                 <TextField
                     {...register('password')}
@@ -47,6 +49,7 @@ export const EmailModal = ({ onAdd }: IEmailModalProps) => {
                     type="password"
                     // placeholder="Enter your password"
                     errorMsg={errors.password?.message}
+                    maxLength={DEFAULT_MAX_LENGTH}
                 />
                 <Button label="Add Email" onClick={handleSubmit(onSubmit)} type="submit" />
             </form>

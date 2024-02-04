@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from './validation';
 import { TAdditionalNotesFormValues } from '../../../models/form';
+import { ADDITIONAL_NOTES_MAX_LENGTH } from '../../../constants/form';
 
 export const AdditionalNotes = () => {
     const { handleNextQuestion } = useAppFormState();
@@ -25,7 +26,12 @@ export const AdditionalNotes = () => {
                     <Typography>Use this space to add extra information or pose any questions you may have.</Typography>
                 </div>
                 <form className="email-access" onSubmit={handleSubmit(onSubmit)}>
-                    <Textarea {...register('additionalNotes')} label="Additional Notes" placeholder="Enter Additional Notes" />
+                    <Textarea
+                        {...register('additionalNotes')}
+                        label="Additional Notes"
+                        placeholder="Enter Additional Notes"
+                        maxLength={ADDITIONAL_NOTES_MAX_LENGTH}
+                    />
                 </form>
             </div>
             <div className="btn-wrap">
