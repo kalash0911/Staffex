@@ -10,6 +10,7 @@ export type TServiceItemInfo = {
     calendarName?: string;
     appleSpecificPassword?: string;
     emailPassword?: string;
+    bankName?: string;
     id: string;
 };
 

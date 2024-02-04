@@ -6,33 +6,85 @@ import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { ServiceButton } from '../../buttons/service-button/service-button';
 import { Bank } from '../../../icons/Bank';
 import { ServiceItem } from '../../shared/service-item/service-item';
+import { TServiceItemInfo } from '../../../models/form';
+import axios from 'axios';
 
 export const BankAccess = () => {
-    const { answers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
+    const { answers, handleNextQuestion, handleDeleteServiceItem, setAnswers } = useAppFormState();
 
     const banks = answers?.accessBankAccounts;
 
     const handleBankAccount = () => {
+        // Mock data:
+        // Login: marxschuppe
+        // Password: TaKZNNhKsYxP
+        const APP_TOKEN = 'f4a1ca0a-043e-4263-88ac-425e078acfdf';
         Lean.connect({
-            app_token: '2c9a80897169b1dd01716a0339e30003',
-            permissions: ['identity', 'accounts', 'transactions', 'balance', 'payments'],
-            customer_id: 'd57a03bc-ef9d-460b-8fa6-3b17e425326c',
-            payment_destination_id: 'f8d6fe12-5cc3-4df2-82c2-48b4dd6f74a7', //if not sent, the default destination ID (your CMA account) will be used
-            sandbox: 'true',
+            app_token: APP_TOKEN,
+            permissions: ['identity', 'accounts', 'transactions', 'balance'],
+            customer_id: 'a574570a-6acc-4bde-9022-f5070dcc2d09',
+            sandbox: true,
             callback: (res: any) => {
                 console.log('res: ', res);
+                const bankName = res?.bank?.bank_identifier || 'Unknown bank';
+                // TODO: This code should be in webhook?
+                if (res.secondary_status === 'ENTITY_ALREADY_CONNECTED' || res.secondary_status === 'OK') {
+                    axios
+                        .post(
+                            'https://sandbox.leantech.me/data/v1/identity',
+                            {
+                                entity_id: 'bdabeaf8-da21-4f1e-b40f-3a5c61886e28',
+                            },
+                            {
+                                headers: {
+                                    'lean-app-token': APP_TOKEN,
+                                },
+                            },
+                        )
+                        .then(({ data }) => {
+                            const userEmail = data?.payload?.email_address || '';
+                            const bankData: TServiceItemInfo = {
+                                email: userEmail,
+                                bankName: bankName,
+                                refreshToken: '',
+                                accessToken: '',
+                                id: crypto.randomUUID(),
+                                serviceType: 'bank',
+                            };
+                            updateBanksList(bankData);
+                        });
+                }
             },
         });
     };
 
+    const updateBanksList = (bankData: TServiceItemInfo) => {
+        setAnswers((prevState) => {
+            if (!prevState?.accessBankAccounts?.length) {
+                return {
+                    ...prevState,
+                    accessBankAccounts: [bankData],
+                };
+            }
+            if (!banks?.find((bank) => bank.bankName === bankData.bankName && bank.email === bankData.email)) {
+                return {
+                    ...prevState,
+                    accessBankAccounts: [...prevState?.accessBankAccounts, bankData],
+                };
+            }
+            return prevState;
+        });
+    };
+
+    console.log('banks: ', banks);
     const bankAccountList = banks?.length ? (
-        banks.map(({ email, serviceType, id }) => {
+        banks.map(({ email, serviceType, id, bankName }) => {
             return (
                 <ServiceItem
                     key={id}
                     variant={serviceType}
                     textContent={email}
-                    // serviceTitle={bbankName}
+                    serviceTitle={bankName}
                     onDelete={() => {
                         handleDeleteServiceItem('accessBankAccounts', id);
                     }}
@@ -40,7 +92,7 @@ export const BankAccess = () => {
             );
         })
     ) : (
-        <Typography>The list of emails you added is empty.</Typography>
+        <Typography>The list of applications you added is empty.</Typography>
     );
 
     return (
