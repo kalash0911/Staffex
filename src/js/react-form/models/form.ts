@@ -91,38 +91,3 @@ export type TCommonFormValues = Partial<TB2CContactFormValues> &
     Partial<TCloudDataAccessValues> &
     Partial<TCalendarsAccessValues> &
     Partial<TBankAccountsAccessValues>;
-
-const formValues: Required<TCommonFormValues> = {
-    firstName: '',
-    lastName: '',
-    isB2B: false,
-    phone: '',
-    altPhone: '',
-    email: '',
-    companyName: '',
-    contactFirstName: '',
-    contactLastName: '',
-    contactFirstTitle: '',
-    accessEmails: [
-        {
-            email: string;
-    serviceType: TServiceItemVariants;
-    accessToken: string;
-    refreshToken: string;
-    meetAppName?: string;
-    cloudLink?: string;
-    calendarName?: string;
-    appleSpecificPassword?: string;
-    emailPassword?: string;
-    id: string;
-        }
-    ],
-    databaseList: [],
-    isPhoneRemindersAccept: false,
-    additionalNotes: '',
-    accessMeetApps: [],
-    accessCloudData: [],
-    accessCalendars: [],
-    accessBankAccounts: []
-};
-console.log('formValues: ', formValues);
