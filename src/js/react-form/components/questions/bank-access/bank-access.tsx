@@ -47,10 +47,11 @@ export const BankAccess = () => {
         <div className="conetnt-block">
             <div className="conetnt-box">
                 <div className="text-wrap">
-                    <Typography>
-                        To enable the <span>"Expense Tracking and Reporting"</span> feature, our app requires access to your bank
-                        account details. You can't skip this access.
+                    <Typography classNames="mb40">
+                        To enable the <span>'Expense Tracking and Reporting'</span> feature, our app requires access to your bank
+                        account details. This access cannot be skipped.
                     </Typography>
+                    <Typography variant="ft">Click to add a bank account</Typography>
                 </div>
                 <div className="choose-wrap">
                     <ServiceButton icon={<Bank />} onClick={handleBankAccount} showPlusIcon={false}>

@@ -31,7 +31,7 @@ export type TConnectButonProps = {
 
 export const ConnectButton = ({ status = 'hold', onClick }: TConnectButonProps) => {
     return (
-        <button type="button" onClick={onClick} className={`btn-connect ${status}`}>
+        <button type="button" onClick={onClick} className={`link-btn ${status}`}>
             {BTN_STATUSES[status].icon}
             {BTN_STATUSES[status].label}
         </button>
