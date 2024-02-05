@@ -11,6 +11,7 @@ export type TServiceItemInfo = {
     appleSpecificPassword?: string;
     emailPassword?: string;
     bankName?: string;
+    bankLogo?: string;
     id: string;
 };
 

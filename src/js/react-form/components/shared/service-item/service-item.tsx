@@ -89,10 +89,11 @@ export type TServiceItemProps = {
     serviceTitle?: string;
     textContent?: string;
     icon?: ReactNode;
+    iconSrc?: string;
     onDelete?: () => void;
 };
 
-export const ServiceItem = ({ variant, icon, serviceTitle, textContent, onDelete }: TServiceItemProps) => {
+export const ServiceItem = ({ variant, icon, serviceTitle, textContent, iconSrc, onDelete }: TServiceItemProps) => {
     let title: string | undefined = (variant && SERVICE_ITEMS_VARIANTS[variant].title) || serviceTitle;
 
     let iconEl: ReactNode | React.JSX.Element = (variant && SERVICE_ITEMS_VARIANTS[variant].icon) || icon;
@@ -101,7 +102,7 @@ export const ServiceItem = ({ variant, icon, serviceTitle, textContent, onDelete
         <div className="list-add-item">
             <div className="list-add-icon-wrap">
                 <div className="list-add-icon-box">
-                    {iconEl}
+                    {iconSrc ? <img src={iconSrc} width="48" height="48" /> : iconEl}
                     <p className="list-add-title">{title}</p>
                 </div>
                 <p className="list-add-content">{textContent}</p>
