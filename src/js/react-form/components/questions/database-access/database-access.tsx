@@ -32,7 +32,7 @@ const defaultValues: TDataBase = {
 };
 
 export const DatabaseAccess = () => {
-    const { answers } = useAppFormState();
+    const { answers, handleNextQuestion } = useAppFormState();
     const databaseList = answers?.databaseList;
 
     const {
@@ -54,8 +54,7 @@ export const DatabaseAccess = () => {
     const { fields, append, remove } = useFieldArray({ control, name: 'databaseList' });
 
     const onSubmit = (data: TDataBaseFormValues) => {
-        console.log('data: ', data);
-        // handleNextQuestion(data);
+        handleNextQuestion(data);
     };
 
     const onAddDatabase = () => {
