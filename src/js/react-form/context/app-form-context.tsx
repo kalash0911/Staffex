@@ -33,7 +33,6 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // TODO: set list of question here related to form type
     // store fields from all separate forms:
     const [answers, setAnswers] = useState<IAppFormProviderValues['answers']>(null);
-    console.log('answers: ', answers);
 
     const { configInd, questionInd } = activeQuestion;
 
@@ -92,7 +91,8 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         staffexApi
             .postAllFormData(allAnswers)
             .then(() => {
-                console.log('SUCCESS');
+                // TODO: change to deployed url:
+                window.location.pathname = 'Staffex/success-form-page.html';
             })
             .catch((err) => {
                 console.log(err);
