@@ -174,8 +174,15 @@ export const EmailAccess = () => {
                 </div>
             </div>
             <div className="btn-wrap">
-                <SkipButton />
-                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+                <SkipButton
+                    disabled={!!emails?.length}
+                    requiredText={`${
+                        Number(emails?.length) > 1
+                            ? "You've already added email addresses"
+                            : "You've already added an e-mail address"
+                    }`}
+                />
+                <Button disabled={!emails?.length} label="Next" type="submit" onClick={handleNextQuestion} />
             </div>
         </div>
     );

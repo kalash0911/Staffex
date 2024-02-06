@@ -37,7 +37,7 @@ export const DatabaseAccess = () => {
         control,
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useForm<TDataBaseFormValues>({
         mode: 'onBlur',
         resolver: yupResolver(schema),
@@ -166,7 +166,7 @@ export const DatabaseAccess = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <SkipButton />
+                <SkipButton disabled={isValid} requiredText={`You have already added access to the database`} />
                 <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />
             </div>
         </div>

@@ -128,8 +128,8 @@ export const CloudDataAccess = () => {
                 </div>
             </div>
             <div className="btn-wrap">
-                <SkipButton />
-                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+                <SkipButton disabled={!!cloudData?.length} requiredText={`You have already added access to cloud data`} />
+                <Button disabled={!cloudData?.length} label="Next" type="submit" onClick={handleNextQuestion} />
             </div>
         </div>
     );

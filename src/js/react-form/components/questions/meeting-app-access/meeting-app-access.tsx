@@ -218,8 +218,11 @@ export const MeetingAppAccess = () => {
                 </div>
             </div>
             <div className="btn-wrap">
-                <SkipButton />
-                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+                <SkipButton
+                    disabled={!!meetApps?.length}
+                    requiredText={`You have already added application${Number(meetApps?.length) > 1 ? 's' : ''}`}
+                />
+                <Button disabled={!meetApps?.length} label="Next" type="submit" onClick={handleNextQuestion} />
             </div>
         </div>
     );
