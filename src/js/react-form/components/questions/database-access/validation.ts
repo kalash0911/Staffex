@@ -1,12 +1,13 @@
 import * as yup from 'yup';
 import { INVALID_FIELD, REQUIRED_FIELD } from '../../../constants/err-msgs';
-import { PORT_NUMBER_REGEX, URL_REGEX } from '../../../constants/regex';
+import { PORT_NUMBER_REGEX } from '../../../constants/regex';
 
 const shape = yup
     .object()
     .shape(
         {
-            url: yup.string().trim().matches(URL_REGEX, { message: INVALID_FIELD }),
+            isConnected: yup.string(),
+            url: yup.string().trim(),
             host: yup
                 .string()
                 .trim()

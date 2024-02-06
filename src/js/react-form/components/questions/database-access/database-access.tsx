@@ -6,10 +6,10 @@ import { Button } from '../../shared/button/button';
 import { schema } from './validation';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TDataBaseFormValues } from '../../../models/form';
+import { TDataBase, TDataBaseFormValues } from '../../../models/form';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
-import { ConnectButton } from '../../buttons/connect-btn/connect-btn';
+import { ConnectButton, TConnectButtonStatus } from '../../buttons/connect-btn/connect-btn';
 import { Del } from '../../../icons/Del';
 import { IconPlus } from '../../../icons/plus';
 import {
@@ -19,24 +19,29 @@ import {
     HOST_MAX_LENGTH,
     PORT_MAX_LENGTH,
 } from '../../../constants/form';
+import { staffexApi } from '../../../api/staffex';
 
-const defaultValues = {
+const defaultValues: TDataBase = {
     host: '',
     port: '',
     database: '',
     user: '',
     password: '',
     url: '',
+    isConnected: 'hold',
 };
 
 export const DatabaseAccess = () => {
-    const { answers, handleNextQuestion } = useAppFormState();
+    const { answers } = useAppFormState();
     const databaseList = answers?.databaseList;
 
     const {
         control,
         register,
         handleSubmit,
+        setValue,
+        getValues,
+        trigger,
         formState: { errors, isValid },
     } = useForm<TDataBaseFormValues>({
         mode: 'onBlur',
@@ -49,7 +54,8 @@ export const DatabaseAccess = () => {
     const { fields, append, remove } = useFieldArray({ control, name: 'databaseList' });
 
     const onSubmit = (data: TDataBaseFormValues) => {
-        handleNextQuestion(data);
+        console.log('data: ', data);
+        // handleNextQuestion(data);
     };
 
     const onAddDatabase = () => {
@@ -58,6 +64,27 @@ export const DatabaseAccess = () => {
 
     const onDeleteDatabase = (index: number) => {
         remove(index);
+    };
+
+    const connectDataBase = (index: number) => {
+        const submitBeforeConnect = (data: TDataBaseFormValues) => {
+            const currentDatabase = data.databaseList?.[index];
+            if (!currentDatabase) return;
+
+            setValue(`databaseList.${index}.isConnected`, 'pending');
+
+            staffexApi
+                .connectDataBase(currentDatabase)
+                .then(() => {
+                    setValue(`databaseList.${index}.isConnected`, 'fulfilled');
+                    trigger(`databaseList.${index}.isConnected`);
+                })
+                .catch(() => {
+                    setValue(`databaseList.${index}.isConnected`, 'rejected');
+                    trigger(`databaseList.${index}.isConnected`);
+                });
+        };
+        handleSubmit(submitBeforeConnect)();
     };
 
     return (
@@ -131,7 +158,7 @@ export const DatabaseAccess = () => {
                                 id={`databaseList.${index}.password`}
                                 label="Password"
                                 placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
-                                type="text"
+                                type="password"
                                 className="half"
                                 errorMsg={errors.databaseList?.[index]?.password?.message}
                                 maxLength={DATABASE_PASSWORD_MAX_LENGTH}
@@ -147,7 +174,10 @@ export const DatabaseAccess = () => {
                                 errorMsg={errors.databaseList?.[index]?.url?.message}
                             />
                             <div className="link-btn-wrap">
-                                <ConnectButton status="hold" onClick={() => alert('In progress')} />
+                                <ConnectButton
+                                    status={getValues(`databaseList.${index}.isConnected`) as TConnectButtonStatus}
+                                    onClick={() => connectDataBase(index)}
+                                />
                                 {fields.length > 1 && (
                                     <button className="link-btn remove" type="button" onClick={() => onDeleteDatabase(index)}>
                                         <Del />
