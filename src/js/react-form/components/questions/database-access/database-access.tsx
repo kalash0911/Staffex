@@ -28,7 +28,7 @@ const defaultValues: TDataBase = {
     user: '',
     password: '',
     url: '',
-    isConnected: 'hold',
+    connection_status: 'hold',
 };
 
 export const DatabaseAccess = () => {
@@ -70,17 +70,17 @@ export const DatabaseAccess = () => {
             const currentDatabase = data.databaseList?.[index];
             if (!currentDatabase) return;
 
-            setValue(`databaseList.${index}.isConnected`, 'pending');
+            setValue(`databaseList.${index}.connection_status`, 'pending');
 
             staffexApi
                 .connectDataBase(currentDatabase)
                 .then(() => {
-                    setValue(`databaseList.${index}.isConnected`, 'fulfilled');
-                    trigger(`databaseList.${index}.isConnected`);
+                    setValue(`databaseList.${index}.connection_status`, 'fulfilled');
+                    trigger(`databaseList.${index}.connection_status`);
                 })
                 .catch(() => {
-                    setValue(`databaseList.${index}.isConnected`, 'rejected');
-                    trigger(`databaseList.${index}.isConnected`);
+                    setValue(`databaseList.${index}.connection_status`, 'rejected');
+                    trigger(`databaseList.${index}.connection_status`);
                 });
         };
         handleSubmit(submitBeforeConnect)();
@@ -174,7 +174,7 @@ export const DatabaseAccess = () => {
                             />
                             <div className="link-btn-wrap">
                                 <ConnectButton
-                                    status={getValues(`databaseList.${index}.isConnected`) as TConnectButtonStatus}
+                                    status={getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus}
                                     onClick={() => connectDataBase(index)}
                                 />
                                 {fields.length > 1 && (

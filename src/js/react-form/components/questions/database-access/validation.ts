@@ -6,7 +6,7 @@ const shape = yup
     .object()
     .shape(
         {
-            isConnected: yup.string(),
+            connection_status: yup.string(),
             url: yup.string().trim(),
             host: yup
                 .string()

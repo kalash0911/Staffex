@@ -70,7 +70,7 @@ export type TDataBase = {
     user?: string;
     password?: string;
     url?: string;
-    isConnected?: string;
+    connection_status?: string;
 };
 
 export type TDataBaseFormValues = {
