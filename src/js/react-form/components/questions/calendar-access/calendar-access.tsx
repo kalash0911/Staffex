@@ -175,7 +175,7 @@ export const CalendarAccess = () => {
                     disabled={!!calendars?.length}
                     requiredText={`You have already added calendar${Number(calendars?.length) > 1 ? 's' : ''}`}
                 />
-                <Button disabled={!calendars?.length} label="Next" type="submit" onClick={handleNextQuestion} />
+                <Button disabled={!calendars?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
             </div>
         </div>
     );

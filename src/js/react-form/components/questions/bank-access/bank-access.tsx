@@ -140,7 +140,7 @@ export const BankAccess = () => {
             </div>
             <div className="btn-wrap">
                 <SkipButton />
-                <Button label="Next" type="submit" onClick={handleNextQuestion} />
+                <Button label="Next" type="submit" onClick={() => handleNextQuestion()} />
             </div>
         </div>
     );

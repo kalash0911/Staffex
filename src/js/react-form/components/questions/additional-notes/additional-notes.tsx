@@ -10,12 +10,15 @@ import { TAdditionalNotesFormValues } from '../../../models/form';
 import { ADDITIONAL_NOTES_MAX_LENGTH } from '../../../constants/form';
 
 export const AdditionalNotes = () => {
-    const { handleNextQuestion } = useAppFormState();
+    const { answers, submitAllData } = useAppFormState();
 
-    const { register, handleSubmit } = useForm<TAdditionalNotesFormValues>({ resolver: yupResolver(schema) });
+    const { register, handleSubmit } = useForm<TAdditionalNotesFormValues>({
+        resolver: yupResolver(schema),
+        defaultValues: { additionalNotes: answers?.additionalNotes || '' },
+    });
 
     const onSubmit = (data: TAdditionalNotesFormValues) => {
-        handleNextQuestion(data);
+        submitAllData(data);
     };
 
     return (

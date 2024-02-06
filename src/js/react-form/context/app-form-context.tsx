@@ -2,6 +2,7 @@ import React, { ReactNode, createContext, useContext, useState } from 'react';
 import { FormType, TActiveQuestion, TTopic } from '../models/question';
 import { QUESTIONS_CONFIG } from '../constants/questions';
 import { TCommonFormValues, TServiceListKeys } from '../models/form';
+import { staffexApi } from '../api/staffex';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -17,6 +18,7 @@ interface IAppFormProviderValues {
     handleNextQuestion: (formData?: TCommonFormValues) => void;
     handleActiveQuestion: (question: IAppFormProviderValues['activeQuestion']) => void;
     handleDeleteServiceItem: (serviceType: TServiceListKeys, id: string) => void;
+    submitAllData: (formData?: TCommonFormValues) => void;
 }
 
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
@@ -31,7 +33,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // TODO: set list of question here related to form type
     // store fields from all separate forms:
     const [answers, setAnswers] = useState<IAppFormProviderValues['answers']>(null);
-    // console.log('answers: ', answers);
+    console.log('answers: ', answers);
 
     const { configInd, questionInd } = activeQuestion;
 
@@ -82,6 +84,21 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         setActiveQuestion(question);
     };
 
+    const submitAllData = (formData?: TCommonFormValues) => {
+        const allAnswers = { ...answers, ...formData };
+
+        setAnswers(allAnswers);
+
+        staffexApi
+            .postAllFormData(allAnswers)
+            .then(() => {
+                console.log('SUCCESS');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     return (
         <AppFormContext.Provider
             value={{
@@ -91,6 +108,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 questions,
                 activeQuestion,
                 setAnswers,
+                submitAllData,
                 handleNextQuestion,
                 handleActiveQuestion,
                 handleDeleteServiceItem,

@@ -182,7 +182,7 @@ export const EmailAccess = () => {
                             : "You've already added an e-mail address"
                     }`}
                 />
-                <Button disabled={!emails?.length} label="Next" type="submit" onClick={handleNextQuestion} />
+                <Button disabled={!emails?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
             </div>
         </div>
     );
