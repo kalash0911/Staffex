@@ -1,4 +1,3 @@
-import { TConnectButtonStatus } from '../components/buttons/connect-btn/connect-btn';
 import { TServiceItemVariants } from '../components/shared/service-item/service-item';
 
 export type TServiceItemInfo = {

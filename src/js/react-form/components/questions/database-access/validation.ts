@@ -63,6 +63,7 @@ const shape: yup.ObjectSchema<TDataBase> = yup
     )
     .required();
 
+// @ts-ignore
 export const schema: yup.ObjectSchema<TDataBaseFormValues> = yup.object().shape({
     databaseList: yup.array().of(shape),
 });
