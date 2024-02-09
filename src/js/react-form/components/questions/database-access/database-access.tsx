@@ -182,6 +182,8 @@ export const DatabaseAccess = () => {
                 <form className="database-access" onSubmit={handleSubmit(onSubmit)}>
                     {fields.map((field, index) => {
                         const { value: selectValue } = watch(`databaseList.${index}.databaseType`);
+                        const isConnectBtnDisabled =
+                            (getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus) === 'fulfilled';
                         const urlPlaceholder = placeholderConfig[selectValue];
                         return (
                             <OpenClose
@@ -260,6 +262,7 @@ export const DatabaseAccess = () => {
                                 />
                                 <div className="link-btn-wrap">
                                     <ConnectButton
+                                        disabled={isConnectBtnDisabled}
                                         status={getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus}
                                         onClick={() => connectDataBase(index)}
                                     />

@@ -26,12 +26,13 @@ export type TConnectButtonStatus = keyof typeof BTN_STATUSES;
 
 export type TConnectButonProps = {
     status: TConnectButtonStatus;
+    disabled?: boolean;
     onClick: () => void;
 };
 
-export const ConnectButton = ({ status = 'hold', onClick }: TConnectButonProps) => {
+export const ConnectButton = ({ status = 'hold', disabled, onClick }: TConnectButonProps) => {
     return (
-        <button type="button" onClick={onClick} className={`link-btn ${status}`}>
+        <button disabled={disabled} type="button" onClick={onClick} className={`link-btn ${status}`}>
             {BTN_STATUSES[status].icon}
             {BTN_STATUSES[status].label}
         </button>
