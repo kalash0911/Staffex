@@ -189,7 +189,7 @@ export const DatabaseAccess = () => {
                                 title={`Database ${index + 1}`}
                                 onDelete={fields.length > 1 ? () => onDeleteDatabase(index) : undefined}
                             >
-                                <div className="select">
+                                <div className="select-wrapper">
                                     <Controller
                                         name={`databaseList.${index}.databaseType`}
                                         control={control}
