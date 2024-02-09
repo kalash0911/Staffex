@@ -109,6 +109,7 @@ export const DatabaseAccess = () => {
         setValue,
         getValues,
         trigger,
+        watch,
         formState: { errors, isValid },
     } = useForm<TDataBaseFormValues>({
         mode: 'onBlur',
@@ -153,6 +154,12 @@ export const DatabaseAccess = () => {
         handleSubmit(submitBeforeConnect)();
     };
 
+    const placeholderConfig = {
+        PostgreSQL: 'Enter connection string',
+        MySQL: 'Enter connection string',
+        SQLServer: 'Server=myServerAddress,Port;Database=myDataBase;User Id=myUsername;Password=myPassword;',
+    } as Record<string, string>;
+
     return (
         <div className="conetnt-block">
             <div className="conetnt-box">
@@ -173,95 +180,99 @@ export const DatabaseAccess = () => {
                     </Typography>
                 </div>
                 <form className="database-access" onSubmit={handleSubmit(onSubmit)}>
-                    {fields.map((field, index) => (
-                        <OpenClose
-                            key={field.id}
-                            title={`Database ${index + 1}`}
-                            onDelete={fields.length > 1 ? () => onDeleteDatabase(index) : undefined}
-                        >
-                            <div className="select">
-                                <Controller
-                                    name={`databaseList.${index}.databaseType`}
-                                    control={control}
-                                    render={({ field }) => {
-                                        return <Select {...field} options={options} styles={selectStyles} />;
-                                    }}
+                    {fields.map((field, index) => {
+                        const { value: selectValue } = watch(`databaseList.${index}.databaseType`);
+                        const urlPlaceholder = placeholderConfig[selectValue];
+                        return (
+                            <OpenClose
+                                key={field.id}
+                                title={`Database ${index + 1}`}
+                                onDelete={fields.length > 1 ? () => onDeleteDatabase(index) : undefined}
+                            >
+                                <div className="select">
+                                    <Controller
+                                        name={`databaseList.${index}.databaseType`}
+                                        control={control}
+                                        render={({ field }) => {
+                                            return <Select {...field} options={options} styles={selectStyles} />;
+                                        }}
+                                    />
+                                </div>
+                                <TextField
+                                    {...register(`databaseList.${index}.host`)}
+                                    id={`databaseList.${index}.host`}
+                                    label="Host"
+                                    placeholder="5.161.178.89"
+                                    type="text"
+                                    className="min"
+                                    errorMsg={errors.databaseList?.[index]?.host?.message}
+                                    maxLength={HOST_MAX_LENGTH}
                                 />
-                            </div>
-                            <TextField
-                                {...register(`databaseList.${index}.host`)}
-                                id={`databaseList.${index}.host`}
-                                label="Host"
-                                placeholder="5.161.178.89"
-                                type="text"
-                                className="min"
-                                errorMsg={errors.databaseList?.[index]?.host?.message}
-                                maxLength={HOST_MAX_LENGTH}
-                            />
-                            <TextField
-                                {...register(`databaseList.${index}.port`)}
-                                id={`databaseList.${index}.port`}
-                                label="Port"
-                                placeholder="33060"
-                                type="text"
-                                className="min"
-                                errorMsg={errors.databaseList?.[index]?.port?.message}
-                                maxLength={PORT_MAX_LENGTH}
-                            />
-                            <TextField
-                                {...register(`databaseList.${index}.database`)}
-                                id={`databaseList.${index}.database`}
-                                label="Database"
-                                placeholder="Enter Database"
-                                type="text"
-                                className="min"
-                                errorMsg={errors.databaseList?.[index]?.database?.message}
-                                maxLength={DATABASE_NAME_MAX_LENGTH}
-                            />
-                            <TextField
-                                {...register(`databaseList.${index}.user`)}
-                                id={`databaseList.${index}.user`}
-                                label="User"
-                                placeholder="Bublik"
-                                type="text"
-                                className="half"
-                                errorMsg={errors.databaseList?.[index]?.user?.message}
-                                maxLength={DATABASE_USER_MAX_LENGTH}
-                            />
-                            <TextField
-                                {...register(`databaseList.${index}.password`)}
-                                id={`databaseList.${index}.password`}
-                                label="Password"
-                                placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
-                                type="password"
-                                className="half"
-                                errorMsg={errors.databaseList?.[index]?.password?.message}
-                                maxLength={DATABASE_PASSWORD_MAX_LENGTH}
-                            />
-                            <p className="enter-text">Or you can enter</p>
-                            <TextField
-                                {...register(`databaseList.${index}.url`)}
-                                id={`databaseList.${index}.url`}
-                                label="URL"
-                                placeholder="Enter connection string"
-                                type="url"
-                                className="max"
-                                errorMsg={errors.databaseList?.[index]?.url?.message}
-                            />
-                            <div className="link-btn-wrap">
-                                <ConnectButton
-                                    status={getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus}
-                                    onClick={() => connectDataBase(index)}
+                                <TextField
+                                    {...register(`databaseList.${index}.port`)}
+                                    id={`databaseList.${index}.port`}
+                                    label="Port"
+                                    placeholder="33060"
+                                    type="text"
+                                    className="min"
+                                    errorMsg={errors.databaseList?.[index]?.port?.message}
+                                    maxLength={PORT_MAX_LENGTH}
                                 />
-                                {fields.length > 1 && (
-                                    <button className="link-btn remove" type="button" onClick={() => onDeleteDatabase(index)}>
-                                        <Del />
-                                        Remove
-                                    </button>
-                                )}
-                            </div>
-                        </OpenClose>
-                    ))}
+                                <TextField
+                                    {...register(`databaseList.${index}.database`)}
+                                    id={`databaseList.${index}.database`}
+                                    label="Database"
+                                    placeholder="Enter Database"
+                                    type="text"
+                                    className="min"
+                                    errorMsg={errors.databaseList?.[index]?.database?.message}
+                                    maxLength={DATABASE_NAME_MAX_LENGTH}
+                                />
+                                <TextField
+                                    {...register(`databaseList.${index}.user`)}
+                                    id={`databaseList.${index}.user`}
+                                    label="User"
+                                    placeholder="Bublik"
+                                    type="text"
+                                    className="half"
+                                    errorMsg={errors.databaseList?.[index]?.user?.message}
+                                    maxLength={DATABASE_USER_MAX_LENGTH}
+                                />
+                                <TextField
+                                    {...register(`databaseList.${index}.password`)}
+                                    id={`databaseList.${index}.password`}
+                                    label="Password"
+                                    placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                                    type="password"
+                                    className="half"
+                                    errorMsg={errors.databaseList?.[index]?.password?.message}
+                                    maxLength={DATABASE_PASSWORD_MAX_LENGTH}
+                                />
+                                <p className="enter-text">Or you can enter</p>
+                                <TextField
+                                    {...register(`databaseList.${index}.url`)}
+                                    id={`databaseList.${index}.url`}
+                                    label="URL"
+                                    placeholder={urlPlaceholder}
+                                    type="url"
+                                    className="max"
+                                    errorMsg={errors.databaseList?.[index]?.url?.message}
+                                />
+                                <div className="link-btn-wrap">
+                                    <ConnectButton
+                                        status={getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus}
+                                        onClick={() => connectDataBase(index)}
+                                    />
+                                    {fields.length > 1 && (
+                                        <button className="link-btn remove" type="button" onClick={() => onDeleteDatabase(index)}>
+                                            <Del />
+                                            Remove
+                                        </button>
+                                    )}
+                                </div>
+                            </OpenClose>
+                        );
+                    })}
                     <div className="btn-add-wrap">
                         <button className="btn-add" type="button" onClick={onAddDatabase}>
                             <IconPlus />

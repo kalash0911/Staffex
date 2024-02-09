@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { INVALID_FIELD, REQUIRED_FIELD } from '../../../constants/err-msgs';
-import { PORT_NUMBER_REGEX } from '../../../constants/regex';
+import { PORT_NUMBER_REGEX, SQL_SERVER_REGEX } from '../../../constants/regex';
 import { TDataBase, TDataBaseFormValues, TDataBaseSelectType } from '../../../models/form';
 
 const shape: yup.ObjectSchema<TDataBase> = yup
@@ -12,7 +12,23 @@ const shape: yup.ObjectSchema<TDataBase> = yup
                 value: yup.string(),
                 label: yup.string(),
             }) as yup.Schema<TDataBaseSelectType>,
-            url: yup.string().trim(),
+            url: yup
+                .string()
+                .trim()
+                .when('databaseType.value', {
+                    is: 'SQLServer',
+                    then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
+                })
+                // TODO: change regex
+                .when('databaseType.value', {
+                    is: 'PostgreSQL',
+                    then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
+                })
+                // TODO: change regex
+                .when('databaseType.value', {
+                    is: 'MySQL',
+                    then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
+                }),
             host: yup
                 .string()
                 .trim()
