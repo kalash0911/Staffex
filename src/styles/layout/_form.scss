@@ -331,6 +331,10 @@
         }
     }
 
+    .select {
+        width: 100%;
+    }
+
     .label {
         color: rgba($white, .8);
         font-family: $DegularText;
@@ -1010,7 +1014,7 @@
     }
 
     .block-full {
-      
+
         .bot-info-text {
             padding-right: 20px;
             display: flex;
@@ -1023,7 +1027,7 @@
         .bot-info-title {
             margin: 0;
         }
-        
+
         .bot-info-avatar {
             align-self: flex-end;
 
@@ -1187,9 +1191,9 @@
 
     .oc-wrap {
         position: relative;
-        
+
         &::before {
-            content:'';
+            content: '';
             position: absolute;
             bottom: 0;
             left: -40px;
@@ -1208,7 +1212,7 @@
                 transform: rotate(180deg);
             }
 
-            .oc-content  {
+            .oc-content {
                 padding-bottom: 40px;
             }
         }

@@ -63,7 +63,10 @@ export type TAccessCommonType = TEmailAccessValues &
 
 export type TServiceListKeys = keyof TAccessCommonType;
 
+export type TDataBaseSelectType = { label: string; value: string };
+
 export type TDataBase = {
+    databaseType: TDataBaseSelectType;
     host?: string;
     port?: string;
     database?: string;

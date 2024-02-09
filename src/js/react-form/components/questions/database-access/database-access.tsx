@@ -4,9 +4,9 @@ import { Typography } from '../../shared/typography/typography';
 import { useAppFormState } from '../../../context/app-form-context';
 import { Button } from '../../shared/button/button';
 import { schema } from './validation';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TDataBase, TDataBaseFormValues } from '../../../models/form';
+import { TDataBase, TDataBaseFormValues, TDataBaseSelectType } from '../../../models/form';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
 import { ConnectButton, TConnectButtonStatus } from '../../buttons/connect-btn/connect-btn';
@@ -20,8 +20,16 @@ import {
     PORT_MAX_LENGTH,
 } from '../../../constants/form';
 import { staffexApi } from '../../../api/staffex';
+import Select, { StylesConfig } from 'react-select';
+
+const options: TDataBaseSelectType[] = [
+    { value: 'PostgreSQL', label: 'PostgreSQL' },
+    { value: 'MySQL', label: 'MySQL' },
+    { value: 'SQLServer', label: 'SQL Server' },
+];
 
 const defaultValues: TDataBase = {
+    databaseType: options[0],
     host: '',
     port: '',
     database: '',
@@ -29,6 +37,65 @@ const defaultValues: TDataBase = {
     password: '',
     url: '',
     connection_status: 'hold',
+};
+
+const selectStyles: StylesConfig = {
+    control: (baseStyles, state) => {
+        return {
+            ...baseStyles,
+            background: 'transparent',
+            borderRadius: 0,
+            border: 'none',
+            borderBottom: '1px solid',
+            color: 'rgba(255, 255, 255, .3)',
+            boxShadow: 'none',
+            '&:hover': {
+                borderColor: '#5CFF4F',
+                cursor: 'pointer',
+            },
+            borderColor: state.isFocused || state.menuIsOpen ? '#5CFF4F' : 'rgba(255, 255, 255, .3)',
+        };
+    },
+    indicatorSeparator: (baseStyles) => ({
+        ...baseStyles,
+        backgroundColor: 'rgba(255, 255, 255, .3)',
+    }),
+    valueContainer: (baseStyles) => {
+        return {
+            ...baseStyles,
+            padding: 0,
+        };
+    },
+    singleValue: (baseStyles) => {
+        return {
+            ...baseStyles,
+            color: '#fff',
+        };
+    },
+    menu: (baseStyles) => {
+        return {
+            ...baseStyles,
+            borderRadius: 0,
+            background: '#000',
+            border: '1px solid rgba(255, 255, 255, .3)',
+            borderTop: 0,
+        };
+    },
+    option: (baseStyles, { isSelected }) => {
+        return {
+            ...baseStyles,
+            background: '#000',
+            color: isSelected ? '#5CFF4F' : '#fff',
+            '&:hover': {
+                cursor: 'pointer',
+                background: '#000',
+                color: '#5CFF4F',
+            },
+            ':active': {
+                ...baseStyles[':active'],
+            },
+        };
+    },
 };
 
 export const DatabaseAccess = () => {
@@ -112,6 +179,15 @@ export const DatabaseAccess = () => {
                             title={`Database ${index + 1}`}
                             onDelete={fields.length > 1 ? () => onDeleteDatabase(index) : undefined}
                         >
+                            <div className="select">
+                                <Controller
+                                    name={`databaseList.${index}.databaseType`}
+                                    control={control}
+                                    render={({ field }) => {
+                                        return <Select {...field} options={options} styles={selectStyles} />;
+                                    }}
+                                />
+                            </div>
                             <TextField
                                 {...register(`databaseList.${index}.host`)}
                                 id={`databaseList.${index}.host`}
