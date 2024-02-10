@@ -44,7 +44,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // Websocket
     const [socketUrl, setSocketUrl] = useState<null | string>(null);
     const { readyState, lastJsonMessage: bankInfoMessage } = useWebSocket(socketUrl);
-    console.log('bankInfoMessage: ', bankInfoMessage);
+
     const webSocketStatus = {
         [ReadyState.CONNECTING]: 'Connecting',
         [ReadyState.OPEN]: 'Open',
@@ -52,7 +52,6 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         [ReadyState.CLOSED]: 'Closed',
         [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
     }[readyState] as TWebSocketStatus;
-    console.log('webSocketStatus: ', webSocketStatus);
 
     useEffect(() => {
         if (bankInfoMessage !== null) {
