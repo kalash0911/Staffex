@@ -53,6 +53,9 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
     }[readyState] as TWebSocketStatus;
 
+    // console.log('webSocketStatus: ', webSocketStatus);
+    // console.log('bankInfoMessage: ', bankInfoMessage);
+
     useEffect(() => {
         if (bankInfoMessage !== null) {
             const bankData: TBank = {
