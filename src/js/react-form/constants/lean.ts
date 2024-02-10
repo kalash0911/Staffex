@@ -1,1 +1,1 @@
-export const LEAN_APP_TOKEN = 'f4a1ca0a-043e-4263-88ac-425e078acfdf';
+export const LEAN_APP_TOKEN = '3ed1f398-0431-4511-a8f6-556d1b3d5830';

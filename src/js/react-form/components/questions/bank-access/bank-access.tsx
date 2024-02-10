@@ -10,6 +10,7 @@ import { TServiceItemInfo } from '../../../models/form';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { LEAN_APP_TOKEN } from '../../../constants/lean';
+import { STAFFEX_API } from '../../../constants/urls';
 
 // Mock data:
 // Login: marxschuppe
@@ -67,12 +68,12 @@ export const BankAccess = () => {
 
     const handleBankAccount = async () => {
         // TODO: change to Vetal's API:
-        const customerIdPayload = (await axios.get(`${nodejs_local_server}/get-customer-id?socketId=${socket.id}`)).data;
-
+        const customerPayload = (await axios.post(`${STAFFEX_API}/leantech/create-customer`)).data;
+        let appUserId = customerPayload.app_user_id;
         Lean.connect({
             app_token: LEAN_APP_TOKEN,
             permissions: ['identity', 'accounts', 'transactions', 'balance'],
-            customer_id: customerIdPayload.customer_id,
+            customer_id: customerPayload.customer_id,
             sandbox: true,
         });
     };
