@@ -8,6 +8,7 @@ import { CLIENT_ID as GOOGLE_CLIENT_ID } from './constants/google.ts';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { CLIENT_ID as MICROSOFT_CLIENT_ID } from './constants/microsoft.ts';
 import { MsalProvider } from '@azure/msal-react';
+import { STAFFEX_MICROSOFT_AUTH } from './constants/urls.ts';
 
 const root = document.getElementById('root');
 
@@ -20,7 +21,7 @@ if (root) {
             redirectUri: '',
             authorityMetadata: JSON.stringify({
                 authorization_endpoint: 'https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize',
-                token_endpoint: 'https://localhost:32770/auth/microsoft',
+                token_endpoint: STAFFEX_MICROSOFT_AUTH,
                 issuer: 'https://login.microsoftonline.com/{tenantid}/v2.0',
                 //userinfo_endpoint: 'http://localhost:8180/realms/example-realm/protocol/openid-connect/userinfo'
             }),
