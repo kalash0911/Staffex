@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Typography } from '../../shared/typography/typography';
 import { useAppFormState } from '../../../context/app-form-context';
 import { Button } from '../../shared/button/button';
@@ -6,111 +6,27 @@ import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { ServiceButton } from '../../buttons/service-button/service-button';
 import { Bank } from '../../../icons/Bank';
 import { ServiceItem } from '../../shared/service-item/service-item';
-import { TServiceItemInfo } from '../../../models/form';
-import axios from 'axios';
-import { io } from 'socket.io-client';
-import { LEAN_APP_TOKEN } from '../../../constants/lean';
-import { STAFFEX_API } from '../../../constants/urls';
 
 // Mock data:
 // Login: marxschuppe
 // Password: TaKZNNhKsYxP
 
-// TODO: change to Vetal's API:
-const nodejs_local_server = 'http://localhost:3000';
-
-const socket = io(nodejs_local_server);
-
 export const BankAccess = () => {
-    const [isConnected, setIsConnected] = useState(socket.connected);
-    const { answers, handleNextQuestion, handleDeleteServiceItem, setAnswers } = useAppFormState();
+    const { answers, handleNextQuestion, handleDeleteServiceItem, connectBankAccount } = useAppFormState();
 
-    useEffect(() => {
-        function onConnect() {
-            setIsConnected(true);
-        }
+    const bankList = answers?.accessBankAccounts;
 
-        function onDisconnect() {
-            setIsConnected(false);
-        }
-
-        const onUserInfoEvent = (value: any) => {
-            const bankData: TServiceItemInfo = {
-                bankName: value.bank_details.name,
-                bankLogo: value.bank_details.logo,
-                email: value.email_address,
-                serviceType: 'bank',
-                accessToken: '',
-                refreshToken: '',
-                id: value.entity_id,
-            };
-            updateBanksList(bankData);
-        };
-
-        socket.on('connect', onConnect);
-        socket.on('disconnect', onDisconnect);
-        socket.on('userinfo', onUserInfoEvent);
-
-        return () => {
-            socket.off('connect', onConnect);
-            socket.off('disconnect', onDisconnect);
-            socket.off('userinfo', onUserInfoEvent);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!isConnected) {
-            console.log("socket io isn't connected");
-        }
-    }, [isConnected]);
-
-    const banks = answers?.accessBankAccounts;
-
-    const handleBankAccount = async () => {
-        // TODO: change to Vetal's API:
-        const customerPayload = (await axios.post(`${STAFFEX_API}/leantech/create-customer`)).data;
-        let appUserId = customerPayload.app_user_id;
-        Lean.connect({
-            app_token: LEAN_APP_TOKEN,
-            permissions: ['identity', 'accounts', 'transactions', 'balance'],
-            customer_id: customerPayload.customer_id,
-            sandbox: true,
-        });
-    };
-
-    const updateBanksList = (bankData: TServiceItemInfo) => {
-        setAnswers((prevState) => {
-            if (!prevState?.accessBankAccounts?.length) {
-                return {
-                    ...prevState,
-                    accessBankAccounts: [bankData],
-                };
-            }
-            if (
-                !prevState?.accessBankAccounts?.find(
-                    (bank) => bank.bankName === bankData.bankName && bank.email === bankData.email,
-                )
-            ) {
-                return {
-                    ...prevState,
-                    accessBankAccounts: [...prevState?.accessBankAccounts, bankData],
-                };
-            }
-            return prevState;
-        });
-    };
-
-    const bankAccountList = banks?.length ? (
-        banks.map(({ email, serviceType, id, bankName, bankLogo }) => {
+    const bankAccountList = bankList?.length ? (
+        bankList.map(({ BankLogo, BankName, FullName, EntityId }) => {
             return (
                 <ServiceItem
-                    key={id}
-                    variant={serviceType}
-                    textContent={email}
-                    serviceTitle={bankName}
-                    iconSrc={bankLogo}
+                    key={EntityId}
+                    variant="bank"
+                    textContent={FullName}
+                    serviceTitle={BankName}
+                    iconSrc={BankLogo}
                     onDelete={() => {
-                        handleDeleteServiceItem('accessBankAccounts', id);
+                        handleDeleteServiceItem('accessBankAccounts', EntityId);
                     }}
                 />
             );
@@ -130,7 +46,7 @@ export const BankAccess = () => {
                     <Typography variant="ft">Click to add a bank account</Typography>
                 </div>
                 <div className="choose-wrap">
-                    <ServiceButton icon={<Bank />} onClick={handleBankAccount} showPlusIcon={false}>
+                    <ServiceButton icon={<Bank />} onClick={connectBankAccount} showPlusIcon={false}>
                         Add bank account
                     </ServiceButton>
                 </div>

@@ -1,8 +1,12 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { FormType, TActiveQuestion, TTopic } from '../models/question';
 import { QUESTIONS_CONFIG } from '../constants/questions';
-import { TCommonFormValues, TServiceListKeys } from '../models/form';
-import { staffexApi } from '../api/staffex';
+import { TBank, TCommonFormValues, TServiceItemInfo, TServiceListKeys } from '../models/form';
+import { TBankCustomerResponse, staffexApi } from '../api/staffex';
+import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { STAFFEX_WEB_SOCKET_URL } from '../constants/urls';
+import { TWebSocketStatus } from '../models/websocket';
+import { LEAN_APP_TOKEN } from '../constants/lean';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -19,6 +23,7 @@ interface IAppFormProviderValues {
     handleActiveQuestion: (question: IAppFormProviderValues['activeQuestion']) => void;
     handleDeleteServiceItem: (serviceType: TServiceListKeys, id: string) => void;
     submitAllData: (formData?: TCommonFormValues) => void;
+    connectBankAccount: () => Promise<void>;
 }
 
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
@@ -33,6 +38,53 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // TODO: set list of question here related to form type
     // store fields from all separate forms:
     const [answers, setAnswers] = useState<IAppFormProviderValues['answers']>(null);
+
+    // Bank user data
+    const [bankCustomerData, setBankCustomerData] = useState<TBankCustomerResponse | null>(null);
+    // Websocket
+    const [socketUrl, setSocketUrl] = useState<null | string>(null);
+    const { readyState, lastJsonMessage: bankInfoMessage } = useWebSocket(socketUrl);
+    console.log('bankInfoMessage: ', bankInfoMessage);
+    const webSocketStatus = {
+        [ReadyState.CONNECTING]: 'Connecting',
+        [ReadyState.OPEN]: 'Open',
+        [ReadyState.CLOSING]: 'Closing',
+        [ReadyState.CLOSED]: 'Closed',
+        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+    }[readyState] as TWebSocketStatus;
+    console.log('webSocketStatus: ', webSocketStatus);
+
+    useEffect(() => {
+        if (bankInfoMessage !== null) {
+            const bankData: TBank = {
+                ...(bankInfoMessage as TBank[])[0],
+                appUserId: bankCustomerData?.app_user_id,
+                customerId: bankCustomerData?.customer_id,
+            };
+
+            if (bankData.Success) {
+                setAnswers((prevState) => {
+                    if (!prevState?.accessBankAccounts?.length) {
+                        return {
+                            ...prevState,
+                            accessBankAccounts: [bankData],
+                        };
+                    }
+                    if (
+                        !prevState?.accessBankAccounts?.find(
+                            (bank) => bank.BankName === bankData.BankName && bank.FullName === bankData.FullName,
+                        )
+                    ) {
+                        return {
+                            ...prevState,
+                            accessBankAccounts: [...prevState?.accessBankAccounts, bankData],
+                        };
+                    }
+                    return prevState;
+                });
+            }
+        }
+    }, [bankInfoMessage]);
 
     const { configInd, questionInd } = activeQuestion;
 
@@ -68,7 +120,10 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
             if (prevState) {
                 const serviceList = prevState[serviceType];
                 if (serviceList) {
-                    const newServiceList = serviceList.filter((item) => item.id !== id);
+                    const newServiceList =
+                        serviceType === 'accessBankAccounts'
+                            ? serviceList.filter((item) => (item as TBank).EntityId !== id)
+                            : serviceList.filter((item) => (item as TServiceItemInfo).id !== id);
                     return {
                         ...prevState,
                         [serviceType]: newServiceList,
@@ -99,6 +154,26 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
             });
     };
 
+    const connectBankAccount = async () => {
+        let bankData: TBankCustomerResponse | null = bankCustomerData || null;
+
+        if (webSocketStatus !== 'Open') {
+            await staffexApi.createBankCustomer().then(({ data }) => {
+                setBankCustomerData(data);
+                bankData = data;
+                setSocketUrl(`${STAFFEX_WEB_SOCKET_URL}?customerId=${data.customer_id}`);
+            });
+        }
+        if (bankData?.customer_id) {
+            Lean.connect({
+                app_token: LEAN_APP_TOKEN,
+                permissions: ['identity', 'accounts', 'transactions', 'balance'],
+                customer_id: bankData.customer_id,
+                sandbox: true,
+            });
+        }
+    };
+
     return (
         <AppFormContext.Provider
             value={{
@@ -110,6 +185,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 setAnswers,
                 submitAllData,
                 handleNextQuestion,
+                connectBankAccount,
                 handleActiveQuestion,
                 handleDeleteServiceItem,
             }}

@@ -15,6 +15,17 @@ export type TServiceItemInfo = {
     id: string;
 };
 
+export type TBank = {
+    BankLogo?: string;
+    BankName?: string;
+    EntityId: string;
+    FullName?: string;
+    Permissions?: string[];
+    Success?: boolean;
+    appUserId?: string;
+    customerId?: string;
+};
+
 export type ContactFormValues = {
     isB2B: boolean;
     phone: string;
@@ -51,7 +62,7 @@ export type TCloudDataAccessValues = {
 };
 
 export type TBankAccountsAccessValues = {
-    accessBankAccounts: Array<TServiceItemInfo>;
+    accessBankAccounts: Array<TBank>;
 };
 
 export type TAccessCommonType = TEmailAccessValues &
