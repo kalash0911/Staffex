@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { MOCK_API, STAFFEX_CREATE_BANK_CUSTOMER_URL, STAFFEX_GOOGLE_AUTH, STAFFEX_ZOOM_AUTH } from '../constants/urls';
+import {
+    MOCK_API,
+    STAFFEX_CREATE_BANK_CUSTOMER_URL,
+    STAFFEX_FORM_URL,
+    STAFFEX_GOOGLE_AUTH,
+    STAFFEX_ZOOM_AUTH,
+} from '../constants/urls';
 import { TCommonFormValues, TDataBase } from '../models/form';
 
 export type TStaffexAuthResponse = {
@@ -22,5 +28,5 @@ export const staffexApi = {
     postZoomAuth: (payload: TStaffexAuthPayload) => axios.post<TStaffexAuthResponse>(STAFFEX_ZOOM_AUTH, payload),
     connectDataBase: (payload: TDataBase) => axios.post(MOCK_API, payload),
     createBankCustomer: () => axios.post<TBankCustomerResponse>(STAFFEX_CREATE_BANK_CUSTOMER_URL),
-    postAllFormData: (payload: TCommonFormValues) => axios.post(MOCK_API, payload),
+    postAllFormData: (payload: TCommonFormValues) => axios.post(STAFFEX_FORM_URL, payload),
 };
