@@ -21,7 +21,7 @@ import { SKYPE_SCOPES, TEAMS_SCOPES } from '../../../constants/microsoft';
 import { ZOOM_AUTH_URL } from '../../../constants/zoom';
 
 export const MeetingAppAccess = () => {
-    const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion } = useAppFormState();
+    const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion, showToast } = useAppFormState();
     const { openModal, hideModal } = useModal();
     const { instance } = useMsal();
 
@@ -46,8 +46,8 @@ export const MeetingAppAccess = () => {
                     updateMeetAppsList(meetAppData);
                 }
             })
-            .catch((error) => {
-                console.log('error: ', error);
+            .catch(() => {
+                showToast.error();
             });
     };
 
@@ -70,8 +70,8 @@ export const MeetingAppAccess = () => {
                     updateMeetAppsList(meetAppData);
                 }
             })
-            .catch((error) => {
-                console.log('error: ', error);
+            .catch(() => {
+                showToast.error();
             });
     };
 
@@ -79,20 +79,27 @@ export const MeetingAppAccess = () => {
         flow: 'auth-code',
         scope: GMEET_SCOPE,
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
-
-            if (!meetApps?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmeet')) {
-                const meetAppData: TServiceItemInfo = {
-                    email: googleAuthResponse.data.email,
-                    accessToken: googleAuthResponse.data.accessToken,
-                    refreshToken: googleAuthResponse.data.refreshToken,
-                    serviceType: 'gmeet',
-                    id: crypto.randomUUID(),
-                };
-                updateMeetAppsList(meetAppData);
-            }
+            await staffexApi
+                .postGoogleAuth({ code: codeResponse.code })
+                .then(({ data }) => {
+                    if (!meetApps?.find(({ email, serviceType }) => email === data.email && serviceType === 'gmeet')) {
+                        const meetAppData: TServiceItemInfo = {
+                            email: data.email,
+                            accessToken: data.accessToken,
+                            refreshToken: data.refreshToken,
+                            serviceType: 'gmeet',
+                            id: crypto.randomUUID(),
+                        };
+                        updateMeetAppsList(meetAppData);
+                    }
+                })
+                .catch(() => {
+                    showToast.error();
+                });
         },
-        onError: (errorResponse) => console.log(errorResponse),
+        onError: () => {
+            showToast.error();
+        },
     });
 
     const onZoom = () => {
@@ -110,18 +117,23 @@ export const MeetingAppAccess = () => {
 
                 if (!code) return;
 
-                staffexApi.postZoomAuth({ code }).then(({ data }) => {
-                    if (!meetApps?.find(({ email, serviceType }) => email === data.email && serviceType === 'zoom')) {
-                        const meetAppData: TServiceItemInfo = {
-                            email: data.email,
-                            accessToken: data.accessToken,
-                            refreshToken: data.refreshToken,
-                            serviceType: 'zoom',
-                            id: crypto.randomUUID(),
-                        };
-                        updateMeetAppsList(meetAppData);
-                    }
-                });
+                staffexApi
+                    .postZoomAuth({ code })
+                    .then(({ data }) => {
+                        if (!meetApps?.find(({ email, serviceType }) => email === data.email && serviceType === 'zoom')) {
+                            const meetAppData: TServiceItemInfo = {
+                                email: data.email,
+                                accessToken: data.accessToken,
+                                refreshToken: data.refreshToken,
+                                serviceType: 'zoom',
+                                id: crypto.randomUUID(),
+                            };
+                            updateMeetAppsList(meetAppData);
+                        }
+                    })
+                    .catch(() => {
+                        showToast.error();
+                    });
             }
         }, 1000);
     };
@@ -177,7 +189,7 @@ export const MeetingAppAccess = () => {
             );
         })
     ) : (
-        <Typography>The list of emails you added is empty.</Typography>
+        <Typography>The list of applications you added is empty.</Typography>
     );
 
     return (
@@ -222,7 +234,17 @@ export const MeetingAppAccess = () => {
                     disabled={!!meetApps?.length}
                     requiredText={`You have already added application${Number(meetApps?.length) > 1 ? 's' : ''}`}
                 />
-                <Button disabled={!meetApps?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!meetApps?.length) {
+                            showToast.warning('The list of applications you added is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );

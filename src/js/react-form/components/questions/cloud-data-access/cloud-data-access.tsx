@@ -15,7 +15,7 @@ import { staffexApi } from '../../../api/staffex.ts';
 import { useGoogleLogin } from '@react-oauth/google';
 
 export const CloudDataAccess = () => {
-    const { answers, setAnswers, handleDeleteServiceItem, handleNextQuestion } = useAppFormState();
+    const { answers, setAnswers, handleDeleteServiceItem, handleNextQuestion, showToast } = useAppFormState();
     const { openModal, hideModal } = useModal();
 
     const cloudData = answers?.accessCloudData;
@@ -24,22 +24,27 @@ export const CloudDataAccess = () => {
         flow: 'auth-code',
         scope: GDRIVE_SCOPE,
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
-
-            if (
-                !cloudData?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gdrive')
-            ) {
-                const meetAppData: TServiceItemInfo = {
-                    email: googleAuthResponse.data.email,
-                    accessToken: googleAuthResponse.data.accessToken,
-                    refreshToken: googleAuthResponse.data.refreshToken,
-                    serviceType: 'gdrive',
-                    id: crypto.randomUUID(),
-                };
-                updateCloudDataList(meetAppData);
-            }
+            await staffexApi
+                .postGoogleAuth({ code: codeResponse.code })
+                .then(({ data }) => {
+                    if (!cloudData?.find(({ email, serviceType }) => email === data.email && serviceType === 'gdrive')) {
+                        const meetAppData: TServiceItemInfo = {
+                            email: data.email,
+                            accessToken: data.accessToken,
+                            refreshToken: data.refreshToken,
+                            serviceType: 'gdrive',
+                            id: crypto.randomUUID(),
+                        };
+                        updateCloudDataList(meetAppData);
+                    }
+                })
+                .catch(() => {
+                    showToast.error();
+                });
         },
-        onError: (errorResponse) => console.log(errorResponse),
+        onError: () => {
+            showToast.error();
+        },
     });
 
     const handleAnotherCloudLink = () => [
@@ -92,7 +97,7 @@ export const CloudDataAccess = () => {
             );
         })
     ) : (
-        <Typography>The list of emails you added is empty.</Typography>
+        <Typography>The list of your added files is empty.</Typography>
     );
 
     return (
@@ -129,7 +134,17 @@ export const CloudDataAccess = () => {
             </div>
             <div className="btn-wrap">
                 <SkipButton disabled={!!cloudData?.length} requiredText={`You have already added access to cloud data`} />
-                <Button disabled={!cloudData?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!cloudData?.length) {
+                            showToast.warning('The list of your added files is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );

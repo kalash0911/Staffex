@@ -202,8 +202,10 @@
             font-size: 12px;
         }
 
-        &:hover {
-            color: $green4F
+        &:not(:disabled) {
+            &:hover {
+                color: $green4F
+            }
         }
     }
 

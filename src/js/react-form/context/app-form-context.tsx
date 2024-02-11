@@ -7,6 +7,10 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { STAFFEX_WEB_SOCKET_URL } from '../constants/urls';
 import { TWebSocketStatus } from '../models/websocket';
 import { LEAN_APP_TOKEN } from '../constants/lean';
+import { ToastContainer, toast } from 'react-toastify';
+import { GENERAL_ERROR_MSG } from '../constants/err-msgs';
+import { DEFAULT_TOAST_CONFIG } from '../constants/toast';
+import { IShowToast } from '../models/toast';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -16,6 +20,7 @@ interface IAppFormProviderValues {
     isB2B: boolean;
     answers: TCommonFormValues | null;
     formType: FormType;
+    showToast: IShowToast;
     questions: TTopic[];
     activeQuestion: TActiveQuestion;
     setAnswers: React.Dispatch<React.SetStateAction<TCommonFormValues | null>>;
@@ -30,15 +35,20 @@ const AppFormContext = createContext<IAppFormProviderValues | null>(null);
 
 const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     const [formType] = useState<IAppFormProviderValues['formType']>(FormType.SECRETARY);
-    const [questions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
+    const [questions, setQuestions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
     const [activeQuestion, setActiveQuestion] = useState<IAppFormProviderValues['activeQuestion']>({
         configInd: 0,
         questionInd: 0,
     });
+    const { configInd, questionInd } = activeQuestion;
     // TODO: set list of question here related to form type
     // store fields from all separate forms:
     const [answers, setAnswers] = useState<IAppFormProviderValues['answers']>(null);
+    const isLastTopic = questions.length === configInd + 1;
+    const isLastQuestionInTopic = questions[configInd].list.length === questionInd + 1;
+    const isLastQuestion = isLastTopic && isLastQuestionInTopic;
 
+    const isB2B = !!answers?.isB2B;
     // Bank user data
     const [bankCustomerData, setBankCustomerData] = useState<TBankCustomerResponse | null>(null);
     // Websocket
@@ -55,6 +65,21 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
 
     // console.log('webSocketStatus: ', webSocketStatus);
     // console.log('bankInfoMessage: ', bankInfoMessage);
+
+    const showToast: IShowToast = {
+        error: (message?: string | ReactNode) => toast.error(message || GENERAL_ERROR_MSG, DEFAULT_TOAST_CONFIG),
+        warning: (message: string | ReactNode) => toast.warn(message, DEFAULT_TOAST_CONFIG),
+    };
+
+    useEffect(() => {
+        if (!questions[activeQuestion.configInd].list[activeQuestion.questionInd].isViewed) {
+            setQuestions((prevState) => {
+                const questions = [...prevState];
+                questions[activeQuestion.configInd].list[activeQuestion.questionInd].isViewed = true;
+                return questions;
+            });
+        }
+    }, [activeQuestion]);
 
     useEffect(() => {
         if (bankInfoMessage !== null) {
@@ -84,17 +109,11 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                     }
                     return prevState;
                 });
+            } else {
+                showToast.error();
             }
         }
     }, [bankInfoMessage]);
-
-    const { configInd, questionInd } = activeQuestion;
-
-    const isLastTopic = questions.length === configInd + 1;
-    const isLastQuestionInTopic = questions[configInd].list.length === questionInd + 1;
-    const isLastQuestion = isLastTopic && isLastQuestionInTopic;
-
-    const isB2B = !!answers?.isB2B;
 
     const handleNextQuestion = (formData?: TCommonFormValues) => {
         if (formData) {
@@ -140,31 +159,43 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         setActiveQuestion(question);
     };
 
-    const submitAllData = (formData?: TCommonFormValues) => {
+    const submitAllData = async (formData?: TCommonFormValues) => {
         const allAnswers = { ...answers, ...formData };
 
         setAnswers(allAnswers);
 
-        staffexApi
-            .postAllFormData(allAnswers)
-            .then(() => {
+        await toast.promise(
+            staffexApi.postAllFormData(allAnswers).then(() => {
                 // TODO: change to deployed url:
-                window.location.pathname = 'Staffex/success-form-page.html';
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+                setTimeout(() => {
+                    window.location.pathname = 'Staffex/success-form-page.html';
+                }, 1000);
+            }),
+            {
+                pending: 'Submitting...',
+                success: 'Success!',
+                error: GENERAL_ERROR_MSG,
+            },
+            {
+                ...DEFAULT_TOAST_CONFIG,
+            },
+        );
     };
 
     const connectBankAccount = async () => {
         let bankData: TBankCustomerResponse | null = bankCustomerData || null;
 
         if (webSocketStatus !== 'Open') {
-            await staffexApi.createBankCustomer().then(({ data }) => {
-                setBankCustomerData(data);
-                bankData = data;
-                setSocketUrl(`${STAFFEX_WEB_SOCKET_URL}?customerId=${data.customer_id}`);
-            });
+            await staffexApi
+                .createBankCustomer()
+                .then(({ data }) => {
+                    setBankCustomerData(data);
+                    bankData = data;
+                    setSocketUrl(`${STAFFEX_WEB_SOCKET_URL}?customerId=${data.customer_id}`);
+                })
+                .catch(() => {
+                    showToast.error();
+                });
         }
         if (bankData?.customer_id) {
             Lean.connect({
@@ -182,6 +213,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 isB2B,
                 answers,
                 formType,
+                showToast,
                 questions,
                 activeQuestion,
                 setAnswers,
@@ -192,6 +224,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 handleDeleteServiceItem,
             }}
         >
+            <ToastContainer />
             {children}
         </AppFormContext.Provider>
     );

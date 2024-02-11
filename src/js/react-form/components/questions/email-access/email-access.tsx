@@ -19,7 +19,7 @@ import { EmailModal, IEmailModalProps } from '../../modals/email-modal/email-mod
 import { GMAIL_SCOPE } from '../../../constants/google';
 
 export const EmailAccess = () => {
-    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
+    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showToast } = useAppFormState();
     const { hideModal, openModal } = useModal();
     const { instance } = useMsal();
 
@@ -42,8 +42,8 @@ export const EmailAccess = () => {
                 };
                 updateEmailList(emailData);
             })
-            .catch((error) => {
-                console.log('error: ', error);
+            .catch(() => {
+                showToast.error();
             });
     };
 
@@ -51,20 +51,27 @@ export const EmailAccess = () => {
         flow: 'auth-code',
         scope: GMAIL_SCOPE,
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
-
-            if (!emails?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
-                const emailData: TServiceItemInfo = {
-                    email: googleAuthResponse.data.email,
-                    accessToken: googleAuthResponse.data.accessToken,
-                    refreshToken: googleAuthResponse.data.refreshToken,
-                    serviceType: 'gmail',
-                    id: crypto.randomUUID(),
-                };
-                updateEmailList(emailData);
-            }
+            await staffexApi
+                .postGoogleAuth({ code: codeResponse.code })
+                .then(({ data }) => {
+                    if (!emails?.find(({ email, serviceType }) => email === data.email && serviceType === 'gmail')) {
+                        const emailData: TServiceItemInfo = {
+                            email: data.email,
+                            accessToken: data.accessToken,
+                            refreshToken: data.refreshToken,
+                            serviceType: 'gmail',
+                            id: crypto.randomUUID(),
+                        };
+                        updateEmailList(emailData);
+                    }
+                })
+                .catch(() => {
+                    showToast.error();
+                });
         },
-        onError: (errorResponse) => console.log(errorResponse),
+        onError: () => {
+            showToast.error();
+        },
     });
 
     const oniCloudLogin = () => {
@@ -184,7 +191,17 @@ export const EmailAccess = () => {
                             : "You've already added an e-mail address"
                     }`}
                 />
-                <Button disabled={!emails?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!emails?.length) {
+                            showToast.warning('The list of emails you added is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );

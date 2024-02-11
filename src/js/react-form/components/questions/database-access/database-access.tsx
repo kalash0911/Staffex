@@ -6,7 +6,7 @@ import { Button } from '../../shared/button/button';
 import { schema } from './validation';
 import { useFieldArray, useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TDataBase, TDataBaseFormValues, TDataBaseSelectType } from '../../../models/form';
+import { TDataBase, TDataBaseFormValues, TDataBaseSelectType, TDataBaseTypes } from '../../../models/form';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { OpenClose } from '../../shared/open-close/open-close';
 import { ConnectButton, TConnectButtonStatus } from '../../buttons/connect-btn/connect-btn';
@@ -23,9 +23,12 @@ import { staffexApi } from '../../../api/staffex';
 import Select, { StylesConfig } from 'react-select';
 
 const options: TDataBaseSelectType[] = [
-    { value: 'PostgreSQL', label: 'PostgreSQL' },
+    { value: 'Oracle', label: 'Oracle' },
     { value: 'MySQL', label: 'MySQL' },
     { value: 'SQLServer', label: 'SQL Server' },
+    { value: 'PostgreSQL', label: 'PostgreSQL' },
+    { value: 'MongoDB', label: 'MongoDB' },
+    { value: 'Redis', label: 'Redis' },
 ];
 
 const defaultValues: TDataBase = {
@@ -99,7 +102,7 @@ const selectStyles: StylesConfig = {
 };
 
 export const DatabaseAccess = () => {
-    const { answers, handleNextQuestion } = useAppFormState();
+    const { answers, handleNextQuestion, showToast } = useAppFormState();
     const databaseList = answers?.databaseList;
 
     const {
@@ -110,6 +113,7 @@ export const DatabaseAccess = () => {
         getValues,
         trigger,
         watch,
+        reset,
         formState: { errors, isValid },
     } = useForm<TDataBaseFormValues>({
         mode: 'onBlur',
@@ -122,6 +126,11 @@ export const DatabaseAccess = () => {
     const { fields, append, remove } = useFieldArray({ control, name: 'databaseList' });
 
     const onSubmit = (data: TDataBaseFormValues) => {
+        const rejectedDatabaseInd = data.databaseList?.findIndex((db) => db.connection_status !== 'fulfilled');
+        if (typeof rejectedDatabaseInd === 'number' && rejectedDatabaseInd >= 0) {
+            showToast.warning(`Database ${rejectedDatabaseInd + 1} isn't connected`);
+            return;
+        }
         handleNextQuestion(data);
     };
 
@@ -155,10 +164,13 @@ export const DatabaseAccess = () => {
     };
 
     const placeholderConfig = {
-        PostgreSQL: 'Enter connection string',
-        MySQL: 'Enter connection string',
-        SQLServer: 'Server=myServerAddress,Port;Database=myDataBase;User Id=myUsername;Password=myPassword;',
-    } as Record<string, string>;
+        Oracle: 'User Id={User};Password={Password};Data Source={Host}:{port}/{DataBaseName};',
+        MySQL: 'Server={Host};Port={Port};User ID={User};Password={Password};Database={DataBaseName};',
+        SQLServer: 'Data Source={Host},{Port};Initial Catalog={DataBaseName};User ID={User};Password={Password};',
+        PostgreSQL: 'Host={Host};Port={Port};Username={User};Password={Password};Database={DataBaseName};',
+        MongoDB: 'mongodb://[{User}:{Password}@]{Host}:{Port}/{DataBaseName}',
+        Redis: '{Host}:{Port},password={Password},user={User}',
+    } as Record<TDataBaseTypes, string>;
 
     return (
         <div className="conetnt-block">
@@ -182,9 +194,10 @@ export const DatabaseAccess = () => {
                 <form className="database-access" onSubmit={handleSubmit(onSubmit)}>
                     {fields.map((field, index) => {
                         const { value: selectValue } = watch(`databaseList.${index}.databaseType`);
-                        const isConnectBtnDisabled =
+                        const isFieldsDisabled =
                             (getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus) === 'fulfilled';
                         const urlPlaceholder = placeholderConfig[selectValue];
+                        const isRedisDB = selectValue === 'Redis';
                         return (
                             <OpenClose
                                 key={field.id}
@@ -196,7 +209,14 @@ export const DatabaseAccess = () => {
                                         name={`databaseList.${index}.databaseType`}
                                         control={control}
                                         render={({ field }) => {
-                                            return <Select {...field} options={options} styles={selectStyles} />;
+                                            return (
+                                                <Select
+                                                    {...field}
+                                                    isDisabled={isFieldsDisabled}
+                                                    options={options}
+                                                    styles={selectStyles}
+                                                />
+                                            );
                                         }}
                                     />
                                 </div>
@@ -206,9 +226,10 @@ export const DatabaseAccess = () => {
                                     label="Host"
                                     placeholder="5.161.178.89"
                                     type="text"
-                                    className="min"
+                                    className={`${isRedisDB ? 'half' : 'min'}`}
                                     errorMsg={errors.databaseList?.[index]?.host?.message}
                                     maxLength={HOST_MAX_LENGTH}
+                                    disabled={isFieldsDisabled}
                                 />
                                 <TextField
                                     {...register(`databaseList.${index}.port`)}
@@ -216,20 +237,25 @@ export const DatabaseAccess = () => {
                                     label="Port"
                                     placeholder="33060"
                                     type="text"
-                                    className="min"
+                                    className={`${isRedisDB ? 'half' : 'min'}`}
                                     errorMsg={errors.databaseList?.[index]?.port?.message}
                                     maxLength={PORT_MAX_LENGTH}
+                                    disabled={isFieldsDisabled}
                                 />
-                                <TextField
-                                    {...register(`databaseList.${index}.database`)}
-                                    id={`databaseList.${index}.database`}
-                                    label="Database"
-                                    placeholder="Enter Database"
-                                    type="text"
-                                    className="min"
-                                    errorMsg={errors.databaseList?.[index]?.database?.message}
-                                    maxLength={DATABASE_NAME_MAX_LENGTH}
-                                />
+                                {!isRedisDB && (
+                                    <TextField
+                                        {...register(`databaseList.${index}.database`)}
+                                        id={`databaseList.${index}.database`}
+                                        label="Database"
+                                        placeholder="Enter Database"
+                                        type="text"
+                                        className="min"
+                                        errorMsg={errors.databaseList?.[index]?.database?.message}
+                                        maxLength={DATABASE_NAME_MAX_LENGTH}
+                                        disabled={isFieldsDisabled}
+                                    />
+                                )}
+
                                 <TextField
                                     {...register(`databaseList.${index}.user`)}
                                     id={`databaseList.${index}.user`}
@@ -239,6 +265,7 @@ export const DatabaseAccess = () => {
                                     className="half"
                                     errorMsg={errors.databaseList?.[index]?.user?.message}
                                     maxLength={DATABASE_USER_MAX_LENGTH}
+                                    disabled={isFieldsDisabled}
                                 />
                                 <TextField
                                     {...register(`databaseList.${index}.password`)}
@@ -249,6 +276,7 @@ export const DatabaseAccess = () => {
                                     className="half"
                                     errorMsg={errors.databaseList?.[index]?.password?.message}
                                     maxLength={DATABASE_PASSWORD_MAX_LENGTH}
+                                    disabled={isFieldsDisabled}
                                 />
                                 <p className="enter-text">Or you can enter</p>
                                 <TextField
@@ -259,10 +287,11 @@ export const DatabaseAccess = () => {
                                     type="url"
                                     className="max"
                                     errorMsg={errors.databaseList?.[index]?.url?.message}
+                                    disabled={isFieldsDisabled}
                                 />
                                 <div className="link-btn-wrap">
                                     <ConnectButton
-                                        disabled={isConnectBtnDisabled}
+                                        disabled={isFieldsDisabled}
                                         status={getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus}
                                         onClick={() => connectDataBase(index)}
                                     />
@@ -286,7 +315,13 @@ export const DatabaseAccess = () => {
             </div>
             <div className="btn-wrap">
                 <SkipButton disabled={isValid} requiredText={`You have already added access to the database`} />
-                <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        handleSubmit(onSubmit)();
+                    }}
+                />
             </div>
         </div>
     );
