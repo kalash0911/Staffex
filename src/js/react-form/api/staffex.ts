@@ -1,12 +1,12 @@
 import axios from 'axios';
 import {
-    MOCK_API,
+    STAFFEX_CONNECT_DB,
     STAFFEX_CREATE_BANK_CUSTOMER_URL,
     STAFFEX_FORM_URL,
     STAFFEX_GOOGLE_AUTH,
     STAFFEX_ZOOM_AUTH,
 } from '../constants/urls';
-import { TCommonFormValues, TDataBase } from '../models/form';
+import { TCommonFormValues, TDataBase, TDataBaseTypes } from '../models/form';
 
 export type TStaffexAuthResponse = {
     email: string;
@@ -23,10 +23,14 @@ export type TBankCustomerResponse = {
     app_user_id: string;
 };
 
+export type TDataBasePayload = Omit<TDataBase, 'databaseType' | 'connection_status'> & {
+    databaseType: TDataBaseTypes;
+};
+
 export const staffexApi = {
     postGoogleAuth: (payload: TStaffexAuthPayload) => axios.post<TStaffexAuthResponse>(STAFFEX_GOOGLE_AUTH, payload),
     postZoomAuth: (payload: TStaffexAuthPayload) => axios.post<TStaffexAuthResponse>(STAFFEX_ZOOM_AUTH, payload),
-    connectDataBase: (payload: TDataBase) => axios.post(MOCK_API, payload),
+    connectDataBase: (payload: TDataBasePayload) => axios.post(STAFFEX_CONNECT_DB, payload),
     createBankCustomer: () => axios.post<TBankCustomerResponse>(STAFFEX_CREATE_BANK_CUSTOMER_URL),
     postAllFormData: (payload: TCommonFormValues) => axios.post(STAFFEX_FORM_URL, payload),
 };

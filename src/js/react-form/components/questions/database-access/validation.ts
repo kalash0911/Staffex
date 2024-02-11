@@ -28,11 +28,11 @@ const shape: yup.ObjectSchema<TDataBase> = yup
                     then: (schema) => schema.matches(ORACLE_REGEX, INVALID_FIELD),
                 })
                 .when('databaseType.value', {
-                    is: 'MySql ',
+                    is: 'MySql',
                     then: (schema) => schema.matches(MY_SQL_REGEX, INVALID_FIELD),
                 })
                 .when('databaseType.value', {
-                    is: 'SQLServer',
+                    is: 'SqlServer',
                     then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
                 })
                 .when('databaseType.value', {
