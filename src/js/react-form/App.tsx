@@ -65,6 +65,7 @@ const App = () => {
                                                     <button
                                                         className="list-link click-song"
                                                         onClick={() => {
+                                                            // TODO: uncomment before deploy
                                                             // if (question.isViewed) {
                                                             // }
                                                             handleActiveQuestion({ configInd, questionInd });
