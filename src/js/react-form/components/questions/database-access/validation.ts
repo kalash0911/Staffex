@@ -29,27 +29,27 @@ const shape: yup.ObjectSchema<TDataBase> = yup
                         schema
                             .when('databaseType.value', {
                                 is: 'Oracle',
-                                then: (schema) => schema.nullable().matches(ORACLE_REGEX, INVALID_FIELD),
+                                then: (schema) => schema.matches(ORACLE_REGEX, INVALID_FIELD),
                             })
                             .when('databaseType.value', {
                                 is: 'MySql',
-                                then: (schema) => schema.nullable().matches(MY_SQL_REGEX, INVALID_FIELD),
+                                then: (schema) => schema.matches(MY_SQL_REGEX, INVALID_FIELD),
                             })
                             .when('databaseType.value', {
                                 is: 'SqlServer',
-                                then: (schema) => schema.nullable().matches(SQL_SERVER_REGEX, INVALID_FIELD),
+                                then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
                             })
                             .when('databaseType.value', {
                                 is: 'PostgreSQL',
-                                then: (schema) => schema.nullable().matches(POSTGRE_SQL, INVALID_FIELD),
+                                then: (schema) => schema.matches(POSTGRE_SQL, INVALID_FIELD),
                             })
                             .when('databaseType.value', {
                                 is: 'MongoDB',
-                                then: (schema) => schema.nullable().matches(MONGODB_REGEX, INVALID_FIELD),
+                                then: (schema) => schema.matches(MONGODB_REGEX, INVALID_FIELD),
                             })
                             .when('databaseType.value', {
                                 is: 'Redis',
-                                then: (schema) => schema.nullable().matches(REDIS_REGEX, INVALID_FIELD),
+                                then: (schema) => schema.matches(REDIS_REGEX, INVALID_FIELD),
                             }),
                 }),
             host: yup
