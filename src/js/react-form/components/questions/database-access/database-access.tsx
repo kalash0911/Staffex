@@ -141,6 +141,8 @@ export const DatabaseAccess = () => {
         remove(index);
     };
 
+    const isFormValid = !fields.some((field) => field.connection_status !== 'fulfilled') && isValid;
+
     const connectDataBase = (index: number) => {
         const submitBeforeConnect = (data: TDataBaseFormValues) => {
             const currentDatabase = data.databaseList?.[index];
@@ -321,7 +323,7 @@ export const DatabaseAccess = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <SkipButton disabled={isValid} requiredText={`You have already added access to the database`} />
+                <SkipButton disabled={isFormValid} requiredText={`You have already added access to the database`} />
                 <Button
                     label="Next"
                     type="submit"
