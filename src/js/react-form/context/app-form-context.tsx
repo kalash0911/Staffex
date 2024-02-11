@@ -10,6 +10,7 @@ import { LEAN_APP_TOKEN } from '../constants/lean';
 import { ToastContainer, toast } from 'react-toastify';
 import { GENERAL_ERROR_MSG } from '../constants/err-msgs';
 import { DEFAULT_TOAST_CONFIG } from '../constants/toast';
+import { IShowToast } from '../models/toast';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -19,6 +20,7 @@ interface IAppFormProviderValues {
     isB2B: boolean;
     answers: TCommonFormValues | null;
     formType: FormType;
+    showToast: IShowToast;
     questions: TTopic[];
     activeQuestion: TActiveQuestion;
     setAnswers: React.Dispatch<React.SetStateAction<TCommonFormValues | null>>;
@@ -27,7 +29,6 @@ interface IAppFormProviderValues {
     handleDeleteServiceItem: (serviceType: TServiceListKeys, id: string) => void;
     submitAllData: (formData?: TCommonFormValues) => void;
     connectBankAccount: () => Promise<void>;
-    showErrorToast: () => void;
 }
 
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
@@ -65,7 +66,10 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // console.log('webSocketStatus: ', webSocketStatus);
     // console.log('bankInfoMessage: ', bankInfoMessage);
 
-    const showErrorToast = () => toast.error(GENERAL_ERROR_MSG, DEFAULT_TOAST_CONFIG);
+    const showToast: IShowToast = {
+        error: (message?: string | ReactNode) => toast.error(message || GENERAL_ERROR_MSG, DEFAULT_TOAST_CONFIG),
+        warning: (message: string | ReactNode) => toast.warn(message, DEFAULT_TOAST_CONFIG),
+    };
 
     useEffect(() => {
         if (!questions[activeQuestion.configInd].list[activeQuestion.questionInd].isViewed) {
@@ -106,7 +110,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                     return prevState;
                 });
             } else {
-                showErrorToast();
+                showToast.error();
             }
         }
     }, [bankInfoMessage]);
@@ -190,7 +194,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                     setSocketUrl(`${STAFFEX_WEB_SOCKET_URL}?customerId=${data.customer_id}`);
                 })
                 .catch(() => {
-                    showErrorToast();
+                    showToast.error();
                 });
         }
         if (bankData?.customer_id) {
@@ -209,11 +213,11 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 isB2B,
                 answers,
                 formType,
+                showToast,
                 questions,
                 activeQuestion,
                 setAnswers,
                 submitAllData,
-                showErrorToast,
                 handleNextQuestion,
                 connectBankAccount,
                 handleActiveQuestion,

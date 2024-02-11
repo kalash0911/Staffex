@@ -21,7 +21,7 @@ import { SKYPE_SCOPES, TEAMS_SCOPES } from '../../../constants/microsoft';
 import { ZOOM_AUTH_URL } from '../../../constants/zoom';
 
 export const MeetingAppAccess = () => {
-    const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion, showErrorToast } = useAppFormState();
+    const { answers, handleDeleteServiceItem, setAnswers, handleNextQuestion, showToast } = useAppFormState();
     const { openModal, hideModal } = useModal();
     const { instance } = useMsal();
 
@@ -47,7 +47,7 @@ export const MeetingAppAccess = () => {
                 }
             })
             .catch(() => {
-                showErrorToast();
+                showToast.error();
             });
     };
 
@@ -71,7 +71,7 @@ export const MeetingAppAccess = () => {
                 }
             })
             .catch(() => {
-                showErrorToast();
+                showToast.error();
             });
     };
 
@@ -94,11 +94,11 @@ export const MeetingAppAccess = () => {
                     }
                 })
                 .catch(() => {
-                    showErrorToast();
+                    showToast.error();
                 });
         },
         onError: () => {
-            showErrorToast();
+            showToast.error();
         },
     });
 
@@ -132,7 +132,7 @@ export const MeetingAppAccess = () => {
                         }
                     })
                     .catch(() => {
-                        showErrorToast();
+                        showToast.error();
                     });
             }
         }, 1000);
@@ -189,7 +189,7 @@ export const MeetingAppAccess = () => {
             );
         })
     ) : (
-        <Typography>The list of emails you added is empty.</Typography>
+        <Typography>The list of applications you added is empty.</Typography>
     );
 
     return (
@@ -234,7 +234,17 @@ export const MeetingAppAccess = () => {
                     disabled={!!meetApps?.length}
                     requiredText={`You have already added application${Number(meetApps?.length) > 1 ? 's' : ''}`}
                 />
-                <Button disabled={!meetApps?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!meetApps?.length) {
+                            showToast.warning('The list of applications you added is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ import { ServiceItem } from '../../shared/service-item/service-item';
 // Password: TaKZNNhKsYxP
 
 export const BankAccess = () => {
-    const { answers, handleNextQuestion, handleDeleteServiceItem, connectBankAccount } = useAppFormState();
+    const { answers, handleNextQuestion, handleDeleteServiceItem, connectBankAccount, showToast } = useAppFormState();
 
     const bankList = answers?.accessBankAccounts;
 
@@ -56,8 +56,19 @@ export const BankAccess = () => {
                 </div>
             </div>
             <div className="btn-wrap">
+                {/* TODO: Disable skip button before prod */}
                 <SkipButton />
-                <Button label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!bankList?.length) {
+                            showToast.warning('The list of applications you added is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );

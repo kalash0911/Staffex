@@ -15,7 +15,7 @@ import { staffexApi } from '../../../api/staffex.ts';
 import { useGoogleLogin } from '@react-oauth/google';
 
 export const CloudDataAccess = () => {
-    const { answers, setAnswers, handleDeleteServiceItem, handleNextQuestion, showErrorToast } = useAppFormState();
+    const { answers, setAnswers, handleDeleteServiceItem, handleNextQuestion, showToast } = useAppFormState();
     const { openModal, hideModal } = useModal();
 
     const cloudData = answers?.accessCloudData;
@@ -39,11 +39,11 @@ export const CloudDataAccess = () => {
                     }
                 })
                 .catch(() => {
-                    showErrorToast();
+                    showToast.error();
                 });
         },
         onError: () => {
-            showErrorToast();
+            showToast.error();
         },
     });
 
@@ -97,7 +97,7 @@ export const CloudDataAccess = () => {
             );
         })
     ) : (
-        <Typography>The list of emails you added is empty.</Typography>
+        <Typography>The list of your added files is empty.</Typography>
     );
 
     return (
@@ -134,7 +134,17 @@ export const CloudDataAccess = () => {
             </div>
             <div className="btn-wrap">
                 <SkipButton disabled={!!cloudData?.length} requiredText={`You have already added access to cloud data`} />
-                <Button disabled={!cloudData?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!cloudData?.length) {
+                            showToast.warning('The list of your added files is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );

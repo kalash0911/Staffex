@@ -20,7 +20,7 @@ import { useMsal } from '@azure/msal-react';
 import { CALENDAR_SCOPES as OUTLOOK_CALENDAR_SCOPES } from '../../../constants/microsoft';
 
 export const CalendarAccess = () => {
-    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showErrorToast } = useAppFormState();
+    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showToast } = useAppFormState();
     const { openModal, hideModal } = useModal();
     const { instance } = useMsal();
 
@@ -50,7 +50,7 @@ export const CalendarAccess = () => {
                 }
             })
             .catch(() => {
-                showErrorToast();
+                showToast.error();
             });
     };
 
@@ -73,11 +73,11 @@ export const CalendarAccess = () => {
                     }
                 })
                 .catch(() => {
-                    showErrorToast();
+                    showToast.error();
                 });
         },
         onError: () => {
-            showErrorToast();
+            showToast.error();
         },
     });
 
@@ -137,7 +137,7 @@ export const CalendarAccess = () => {
             );
         })
     ) : (
-        <Typography>The list of emails you added is empty.</Typography>
+        <Typography>The list of calendars you added is empty.</Typography>
     );
 
     return (
@@ -178,7 +178,17 @@ export const CalendarAccess = () => {
                     disabled={!!calendars?.length}
                     requiredText={`You have already added calendar${Number(calendars?.length) > 1 ? 's' : ''}`}
                 />
-                <Button disabled={!calendars?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!calendars?.length) {
+                            showToast.warning('The list of calendars you added is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );

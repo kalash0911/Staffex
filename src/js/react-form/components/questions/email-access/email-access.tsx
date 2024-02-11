@@ -18,7 +18,7 @@ import { AnotherEmail as AnotherEmailIcon } from '../../../icons/AnotherEmail';
 import { EmailModal, IEmailModalProps } from '../../modals/email-modal/email-modal';
 
 export const EmailAccess = () => {
-    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showErrorToast } = useAppFormState();
+    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showToast } = useAppFormState();
     const { hideModal, openModal } = useModal();
     const { instance } = useMsal();
 
@@ -42,7 +42,7 @@ export const EmailAccess = () => {
                 updateEmailList(emailData);
             })
             .catch(() => {
-                showErrorToast();
+                showToast.error();
             });
     };
 
@@ -64,11 +64,11 @@ export const EmailAccess = () => {
                     }
                 })
                 .catch(() => {
-                    showErrorToast();
+                    showToast.error();
                 });
         },
         onError: () => {
-            showErrorToast();
+            showToast.error();
         },
     });
 
@@ -189,7 +189,17 @@ export const EmailAccess = () => {
                             : "You've already added an e-mail address"
                     }`}
                 />
-                <Button disabled={!emails?.length} label="Next" type="submit" onClick={() => handleNextQuestion()} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        if (!emails?.length) {
+                            showToast.warning('The list of emails you added is empty.');
+                            return;
+                        }
+                        handleNextQuestion();
+                    }}
+                />
             </div>
         </div>
     );
