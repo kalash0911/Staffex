@@ -99,7 +99,7 @@ const selectStyles: StylesConfig = {
 };
 
 export const DatabaseAccess = () => {
-    const { answers, handleNextQuestion } = useAppFormState();
+    const { answers, handleNextQuestion, showToast } = useAppFormState();
     const databaseList = answers?.databaseList;
 
     const {
@@ -122,6 +122,11 @@ export const DatabaseAccess = () => {
     const { fields, append, remove } = useFieldArray({ control, name: 'databaseList' });
 
     const onSubmit = (data: TDataBaseFormValues) => {
+        const rejectedDatabaseInd = data.databaseList?.findIndex((db) => db.connection_status !== 'fulfilled');
+        if (typeof rejectedDatabaseInd === 'number' && rejectedDatabaseInd >= 0) {
+            showToast.warning(`Database ${rejectedDatabaseInd + 1} isn't connected`);
+            return;
+        }
         handleNextQuestion(data);
     };
 
@@ -286,7 +291,13 @@ export const DatabaseAccess = () => {
             </div>
             <div className="btn-wrap">
                 <SkipButton disabled={isValid} requiredText={`You have already added access to the database`} />
-                <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />
+                <Button
+                    label="Next"
+                    type="submit"
+                    onClick={() => {
+                        handleSubmit(onSubmit)();
+                    }}
+                />
             </div>
         </div>
     );
