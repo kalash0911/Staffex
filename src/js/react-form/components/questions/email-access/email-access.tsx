@@ -16,6 +16,7 @@ import { useModal } from '../../../context/modal-context';
 import { IICloudEmailProps, ICloudEmail } from '../../modals/icloud-email/icloud-email';
 import { AnotherEmail as AnotherEmailIcon } from '../../../icons/AnotherEmail';
 import { EmailModal, IEmailModalProps } from '../../modals/email-modal/email-modal';
+import { GMAIL_SCOPE } from '../../../constants/google';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
@@ -48,6 +49,7 @@ export const EmailAccess = () => {
 
     const onGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
+        scope: GMAIL_SCOPE,
         onSuccess: async (codeResponse) => {
             const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
 
