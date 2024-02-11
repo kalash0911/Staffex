@@ -18,7 +18,7 @@ import { AnotherEmail as AnotherEmailIcon } from '../../../icons/AnotherEmail';
 import { EmailModal, IEmailModalProps } from '../../modals/email-modal/email-modal';
 
 export const EmailAccess = () => {
-    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
+    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showErrorToast } = useAppFormState();
     const { hideModal, openModal } = useModal();
     const { instance } = useMsal();
 
@@ -41,28 +41,35 @@ export const EmailAccess = () => {
                 };
                 updateEmailList(emailData);
             })
-            .catch((error) => {
-                console.log('error: ', error);
+            .catch(() => {
+                showErrorToast();
             });
     };
 
     const onGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
-
-            if (!emails?.find(({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gmail')) {
-                const emailData: TServiceItemInfo = {
-                    email: googleAuthResponse.data.email,
-                    accessToken: googleAuthResponse.data.accessToken,
-                    refreshToken: googleAuthResponse.data.refreshToken,
-                    serviceType: 'gmail',
-                    id: crypto.randomUUID(),
-                };
-                updateEmailList(emailData);
-            }
+            await staffexApi
+                .postGoogleAuth({ code: codeResponse.code })
+                .then(({ data }) => {
+                    if (!emails?.find(({ email, serviceType }) => email === data.email && serviceType === 'gmail')) {
+                        const emailData: TServiceItemInfo = {
+                            email: data.email,
+                            accessToken: data.accessToken,
+                            refreshToken: data.refreshToken,
+                            serviceType: 'gmail',
+                            id: crypto.randomUUID(),
+                        };
+                        updateEmailList(emailData);
+                    }
+                })
+                .catch(() => {
+                    showErrorToast();
+                });
         },
-        onError: (errorResponse) => console.log(errorResponse),
+        onError: () => {
+            showErrorToast();
+        },
     });
 
     const oniCloudLogin = () => {

@@ -9,6 +9,8 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import { CLIENT_ID as MICROSOFT_CLIENT_ID } from './constants/microsoft.ts';
 import { MsalProvider } from '@azure/msal-react';
 import { STAFFEX_MICROSOFT_AUTH } from './constants/urls.ts';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles/toast.css';
 
 const root = document.getElementById('root');
 

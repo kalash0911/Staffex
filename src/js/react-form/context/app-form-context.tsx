@@ -7,6 +7,9 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { STAFFEX_WEB_SOCKET_URL } from '../constants/urls';
 import { TWebSocketStatus } from '../models/websocket';
 import { LEAN_APP_TOKEN } from '../constants/lean';
+import { ToastContainer, toast } from 'react-toastify';
+import { GENERAL_ERROR_MSG } from '../constants/err-msgs';
+import { ERR_TOAST_CONFIG } from '../constants/toast';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -24,6 +27,7 @@ interface IAppFormProviderValues {
     handleDeleteServiceItem: (serviceType: TServiceListKeys, id: string) => void;
     submitAllData: (formData?: TCommonFormValues) => void;
     connectBankAccount: () => Promise<void>;
+    showErrorToast: () => void;
 }
 
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
@@ -56,6 +60,8 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // console.log('webSocketStatus: ', webSocketStatus);
     // console.log('bankInfoMessage: ', bankInfoMessage);
 
+    const showErrorToast = () => toast.error(GENERAL_ERROR_MSG, ERR_TOAST_CONFIG);
+
     useEffect(() => {
         if (bankInfoMessage !== null) {
             const bankData: TBank = {
@@ -84,6 +90,8 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                     }
                     return prevState;
                 });
+            } else {
+                showErrorToast();
             }
         }
     }, [bankInfoMessage]);
@@ -151,8 +159,8 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 // TODO: change to deployed url:
                 window.location.pathname = 'Staffex/success-form-page.html';
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
+                showErrorToast();
             });
     };
 
@@ -160,11 +168,16 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         let bankData: TBankCustomerResponse | null = bankCustomerData || null;
 
         if (webSocketStatus !== 'Open') {
-            await staffexApi.createBankCustomer().then(({ data }) => {
-                setBankCustomerData(data);
-                bankData = data;
-                setSocketUrl(`${STAFFEX_WEB_SOCKET_URL}?customerId=${data.customer_id}`);
-            });
+            await staffexApi
+                .createBankCustomer()
+                .then(({ data }) => {
+                    setBankCustomerData(data);
+                    bankData = data;
+                    setSocketUrl(`${STAFFEX_WEB_SOCKET_URL}?customerId=${data.customer_id}`);
+                })
+                .catch(() => {
+                    showErrorToast();
+                });
         }
         if (bankData?.customer_id) {
             Lean.connect({
@@ -186,12 +199,14 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 activeQuestion,
                 setAnswers,
                 submitAllData,
+                showErrorToast,
                 handleNextQuestion,
                 connectBankAccount,
                 handleActiveQuestion,
                 handleDeleteServiceItem,
             }}
         >
+            <ToastContainer />
             {children}
         </AppFormContext.Provider>
     );

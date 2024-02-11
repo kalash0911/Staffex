@@ -20,7 +20,7 @@ import { useMsal } from '@azure/msal-react';
 import { CALENDAR_SCOPES as OUTLOOK_CALENDAR_SCOPES } from '../../../constants/microsoft';
 
 export const CalendarAccess = () => {
-    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem } = useAppFormState();
+    const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showErrorToast } = useAppFormState();
     const { openModal, hideModal } = useModal();
     const { instance } = useMsal();
 
@@ -49,8 +49,8 @@ export const CalendarAccess = () => {
                     updateCalendarsList(calendarData);
                 }
             })
-            .catch((error) => {
-                console.log('error: ', error);
+            .catch(() => {
+                showErrorToast();
             });
     };
 
@@ -58,24 +58,27 @@ export const CalendarAccess = () => {
         flow: 'auth-code',
         scope: GCALENDAR_SCOPE,
         onSuccess: async (codeResponse) => {
-            const googleAuthResponse = await staffexApi.postGoogleAuth({ code: codeResponse.code });
-
-            if (
-                !calendars?.find(
-                    ({ email, serviceType }) => email === googleAuthResponse.data.email && serviceType === 'gcalendar',
-                )
-            ) {
-                const calendarData: TServiceItemInfo = {
-                    email: googleAuthResponse.data.email,
-                    accessToken: googleAuthResponse.data.accessToken,
-                    refreshToken: googleAuthResponse.data.refreshToken,
-                    serviceType: 'gcalendar',
-                    id: crypto.randomUUID(),
-                };
-                updateCalendarsList(calendarData);
-            }
+            staffexApi
+                .postGoogleAuth({ code: codeResponse.code })
+                .then(({ data }) => {
+                    if (!calendars?.find(({ email, serviceType }) => email === data.email && serviceType === 'gcalendar')) {
+                        const calendarData: TServiceItemInfo = {
+                            email: data.email,
+                            accessToken: data.accessToken,
+                            refreshToken: data.refreshToken,
+                            serviceType: 'gcalendar',
+                            id: crypto.randomUUID(),
+                        };
+                        updateCalendarsList(calendarData);
+                    }
+                })
+                .catch(() => {
+                    showErrorToast();
+                });
         },
-        onError: (errorResponse) => console.log(errorResponse),
+        onError: () => {
+            showErrorToast();
+        },
     });
 
     const onAppleCalendar = () => {
