@@ -244,7 +244,7 @@ export const DatabaseAccess = () => {
                                     {...register(`databaseList.${index}.password`)}
                                     id={`databaseList.${index}.password`}
                                     label="Password"
-                                    placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                                    placeholder={new Array(16).fill(<>&#8226;</>)}
                                     type="password"
                                     className="half"
                                     errorMsg={errors.databaseList?.[index]?.password?.message}
