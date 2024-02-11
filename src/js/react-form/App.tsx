@@ -61,14 +61,18 @@ const App = () => {
                                                 activeQuestion.configInd === configInd &&
                                                 activeQuestion.questionInd === questionInd;
                                             return (
-                                                <li
-                                                    className={`list-item ${isActive ? 'active' : ''}`}
-                                                    onClick={() => {
-                                                        handleActiveQuestion({ configInd, questionInd });
-                                                    }}
-                                                    key={question.label}
-                                                >
-                                                    <button className="list-link click-song">{question.label}</button>
+                                                <li className={`list-item ${isActive ? 'active' : ''}`} key={question.label}>
+                                                    <button
+                                                        className="list-link click-song"
+                                                        onClick={() => {
+                                                            // if (question.isViewed) {
+                                                            // }
+                                                            handleActiveQuestion({ configInd, questionInd });
+                                                        }}
+                                                        // disabled={!question.isViewed}
+                                                    >
+                                                        {question.label}
+                                                    </button>
                                                 </li>
                                             );
                                         })}

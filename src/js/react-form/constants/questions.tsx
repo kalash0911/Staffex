@@ -17,31 +17,38 @@ export const SECRETARY_QUESTIONS: TTopic[] = [
             {
                 label: 'Contact Info',
                 content: <ContactInfo />,
+                isViewed: false,
             },
             {
                 label: 'Email access',
                 content: <EmailAccess />,
+                isViewed: false,
             },
             {
                 label: 'Calendar access',
                 content: <CalendarAccess />,
+                isViewed: false,
             },
             {
                 label: 'Meeting applications access',
                 content: <MeetingAppAccess />,
+                isViewed: false,
             },
             {
                 label: 'Cloud Data Access',
                 content: <CloudDataAccess />,
+                isViewed: false,
             },
             {
                 label: 'Database Access',
                 content: <DatabaseAccess />,
+                isViewed: false,
             },
 
             {
                 label: "Phone's reminders and to-do lists",
                 content: <PhoneReminders />,
+                isViewed: false,
             },
         ],
     },
@@ -51,6 +58,7 @@ export const SECRETARY_QUESTIONS: TTopic[] = [
             {
                 label: 'Bank access',
                 content: <BankAccess />,
+                isViewed: false,
             },
         ],
     },
@@ -60,6 +68,7 @@ export const SECRETARY_QUESTIONS: TTopic[] = [
             {
                 label: 'Additional Notes',
                 content: <AdditionalNotes />,
+                isViewed: false,
             },
         ],
     },
@@ -73,30 +82,37 @@ const SMM_QUESTIONS: TTopic[] = [
             {
                 label: 'Calendar access',
                 content: <CalendarAccess />,
+                isViewed: false,
             },
             {
                 label: 'Contact Info',
                 content: <ContactInfo />,
+                isViewed: false,
             },
             {
                 label: 'Meeting applications access',
                 content: <MeetingAppAccess />,
+                isViewed: false,
             },
             {
                 label: 'Cloud Data Access',
                 content: <CloudDataAccess />,
+                isViewed: false,
             },
             {
                 label: 'Database Access',
                 content: <DatabaseAccess />,
+                isViewed: false,
             },
             {
                 label: 'Email access',
                 content: <EmailAccess />,
+                isViewed: false,
             },
             {
                 label: "Phone's reminders and to-do lists",
                 content: <PhoneReminders />,
+                isViewed: false,
             },
         ],
     },
@@ -106,6 +122,7 @@ const SMM_QUESTIONS: TTopic[] = [
             {
                 label: 'Bank access',
                 content: <BankAccess />,
+                isViewed: false,
             },
         ],
     },
@@ -115,6 +132,7 @@ const SMM_QUESTIONS: TTopic[] = [
             {
                 label: 'Additional Notes',
                 content: <AdditionalNotes />,
+                isViewed: false,
             },
         ],
     },

@@ -34,15 +34,20 @@ const AppFormContext = createContext<IAppFormProviderValues | null>(null);
 
 const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     const [formType] = useState<IAppFormProviderValues['formType']>(FormType.SECRETARY);
-    const [questions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
+    const [questions, setQuestions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
     const [activeQuestion, setActiveQuestion] = useState<IAppFormProviderValues['activeQuestion']>({
         configInd: 0,
         questionInd: 0,
     });
+    const { configInd, questionInd } = activeQuestion;
     // TODO: set list of question here related to form type
     // store fields from all separate forms:
     const [answers, setAnswers] = useState<IAppFormProviderValues['answers']>(null);
+    const isLastTopic = questions.length === configInd + 1;
+    const isLastQuestionInTopic = questions[configInd].list.length === questionInd + 1;
+    const isLastQuestion = isLastTopic && isLastQuestionInTopic;
 
+    const isB2B = !!answers?.isB2B;
     // Bank user data
     const [bankCustomerData, setBankCustomerData] = useState<TBankCustomerResponse | null>(null);
     // Websocket
@@ -61,6 +66,16 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // console.log('bankInfoMessage: ', bankInfoMessage);
 
     const showErrorToast = () => toast.error(GENERAL_ERROR_MSG, DEFAULT_TOAST_CONFIG);
+
+    useEffect(() => {
+        if (!questions[activeQuestion.configInd].list[activeQuestion.questionInd].isViewed) {
+            setQuestions((prevState) => {
+                const questions = [...prevState];
+                questions[activeQuestion.configInd].list[activeQuestion.questionInd].isViewed = true;
+                return questions;
+            });
+        }
+    }, [activeQuestion]);
 
     useEffect(() => {
         if (bankInfoMessage !== null) {
@@ -95,14 +110,6 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
             }
         }
     }, [bankInfoMessage]);
-
-    const { configInd, questionInd } = activeQuestion;
-
-    const isLastTopic = questions.length === configInd + 1;
-    const isLastQuestionInTopic = questions[configInd].list.length === questionInd + 1;
-    const isLastQuestion = isLastTopic && isLastQuestionInTopic;
-
-    const isB2B = !!answers?.isB2B;
 
     const handleNextQuestion = (formData?: TCommonFormValues) => {
         if (formData) {

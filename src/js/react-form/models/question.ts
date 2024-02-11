@@ -14,6 +14,7 @@ export enum FormType {
 export type TQuestion = {
     label: string;
     content: ReactNode;
+    isViewed: boolean;
 };
 
 export type TTopic = {
