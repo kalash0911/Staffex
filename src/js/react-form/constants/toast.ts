@@ -1,6 +1,6 @@
 import { Bounce, ToastOptions } from 'react-toastify';
 
-export const ERR_TOAST_CONFIG: ToastOptions = {
+export const DEFAULT_TOAST_CONFIG: ToastOptions = {
     position: 'bottom-right',
     autoClose: 5000,
     hideProgressBar: false,

@@ -9,7 +9,7 @@ import { TWebSocketStatus } from '../models/websocket';
 import { LEAN_APP_TOKEN } from '../constants/lean';
 import { ToastContainer, toast } from 'react-toastify';
 import { GENERAL_ERROR_MSG } from '../constants/err-msgs';
-import { ERR_TOAST_CONFIG } from '../constants/toast';
+import { DEFAULT_TOAST_CONFIG } from '../constants/toast';
 
 interface IAppFormProviderProps {
     children: ReactNode;
@@ -60,7 +60,7 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // console.log('webSocketStatus: ', webSocketStatus);
     // console.log('bankInfoMessage: ', bankInfoMessage);
 
-    const showErrorToast = () => toast.error(GENERAL_ERROR_MSG, ERR_TOAST_CONFIG);
+    const showErrorToast = () => toast.error(GENERAL_ERROR_MSG, DEFAULT_TOAST_CONFIG);
 
     useEffect(() => {
         if (bankInfoMessage !== null) {
@@ -148,20 +148,27 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
         setActiveQuestion(question);
     };
 
-    const submitAllData = (formData?: TCommonFormValues) => {
+    const submitAllData = async (formData?: TCommonFormValues) => {
         const allAnswers = { ...answers, ...formData };
 
         setAnswers(allAnswers);
 
-        staffexApi
-            .postAllFormData(allAnswers)
-            .then(() => {
+        await toast.promise(
+            staffexApi.postAllFormData(allAnswers).then(() => {
                 // TODO: change to deployed url:
-                window.location.pathname = 'Staffex/success-form-page.html';
-            })
-            .catch(() => {
-                showErrorToast();
-            });
+                setTimeout(() => {
+                    window.location.pathname = 'Staffex/success-form-page.html';
+                }, 1000);
+            }),
+            {
+                pending: 'Submitting...',
+                success: 'Success!',
+                error: GENERAL_ERROR_MSG,
+            },
+            {
+                ...DEFAULT_TOAST_CONFIG,
+            },
+        );
     };
 
     const connectBankAccount = async () => {
