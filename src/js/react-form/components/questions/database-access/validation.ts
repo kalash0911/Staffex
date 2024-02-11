@@ -1,6 +1,14 @@
 import * as yup from 'yup';
 import { INVALID_FIELD, REQUIRED_FIELD } from '../../../constants/err-msgs';
-import { PORT_NUMBER_REGEX, SQL_SERVER_REGEX } from '../../../constants/regex';
+import {
+    MONGODB_REGEX,
+    MY_SQL_REGEX,
+    ORACLE_REGEX,
+    PORT_NUMBER_REGEX,
+    POSTGRE_SQL,
+    REDIS_REGEX,
+    SQL_SERVER_REGEX,
+} from '../../../constants/regex';
 import { TDataBase, TDataBaseFormValues, TDataBaseSelectType } from '../../../models/form';
 
 const shape: yup.ObjectSchema<TDataBase> = yup
@@ -16,18 +24,28 @@ const shape: yup.ObjectSchema<TDataBase> = yup
                 .string()
                 .trim()
                 .when('databaseType.value', {
+                    is: 'Oracle',
+                    then: (schema) => schema.matches(ORACLE_REGEX, INVALID_FIELD),
+                })
+                .when('databaseType.value', {
+                    is: 'MySql ',
+                    then: (schema) => schema.matches(MY_SQL_REGEX, INVALID_FIELD),
+                })
+                .when('databaseType.value', {
                     is: 'SQLServer',
                     then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
                 })
-                // TODO: change regex
                 .when('databaseType.value', {
                     is: 'PostgreSQL',
-                    then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
+                    then: (schema) => schema.matches(POSTGRE_SQL, INVALID_FIELD),
                 })
-                // TODO: change regex
                 .when('databaseType.value', {
-                    is: 'MySQL',
-                    then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
+                    is: 'MongoDB',
+                    then: (schema) => schema.matches(MONGODB_REGEX, INVALID_FIELD),
+                })
+                .when('databaseType.value', {
+                    is: 'Redis',
+                    then: (schema) => schema.matches(REDIS_REGEX, INVALID_FIELD),
                 }),
             host: yup
                 .string()
@@ -43,6 +61,10 @@ const shape: yup.ObjectSchema<TDataBase> = yup
                 .when('url', {
                     is: (value: string) => !value.length,
                     then: (schema) => schema.required(REQUIRED_FIELD),
+                })
+                .when('databaseType.value', {
+                    is: 'Redis',
+                    then: (schema) => schema.notRequired(),
                 }),
             user: yup
                 .string()

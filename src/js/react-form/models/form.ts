@@ -73,7 +73,7 @@ export type TAccessCommonType = TEmailAccessValues &
 
 export type TServiceListKeys = keyof TAccessCommonType;
 
-export type TDataBaseTypes = 'PostgreSQL' | 'MySQL' | 'SQLServer';
+export type TDataBaseTypes = 'Oracle' | 'PostgreSQL' | 'MySQL' | 'SQLServer' | 'MongoDB' | 'Redis';
 
 export type TDataBaseSelectType = { label: string; value: TDataBaseTypes };
 
