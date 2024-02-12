@@ -22,6 +22,11 @@ import {
 import { staffexApi } from '../../../api/staffex';
 import Select, { StylesConfig } from 'react-select';
 
+const HOST_PLACEHOLDER = '5.161.178.89';
+const USER_PLACEHOLDER = 'Bublik';
+const PASSWORD_PLACEHOLDER = 'password';
+const PORT_PLACEHOLDER = '33060';
+
 const options: TDataBaseSelectType[] = [
     { value: 'Oracle', label: 'Oracle' },
     { value: 'MySql', label: 'MySQL' },
@@ -173,12 +178,12 @@ export const DatabaseAccess = () => {
     };
 
     const placeholderConfig = {
-        Oracle: 'User Id={User};Password={Password};Data Source={Host}:{port}/{DataBaseName};',
-        MySql: 'Server={Host};Port={Port};User ID={User};Password={Password};Database={DataBaseName};',
-        SqlServer: 'Data Source={Host},{Port};Initial Catalog={DataBaseName};User ID={User};Password={Password};',
-        PostgreSQL: 'Host={Host};Port={Port};Username={User};Password={Password};Database={DataBaseName};',
-        MongoDB: 'mongodb://[{User}:{Password}@]{Host}:{Port}/{DataBaseName}',
-        Redis: '{Host}:{Port},password={Password},user={User}',
+        Oracle: `User Id=${USER_PLACEHOLDER};Password=${PASSWORD_PLACEHOLDER};Data Source=${HOST_PLACEHOLDER};`,
+        MySql: `Server=${HOST_PLACEHOLDER};Port=${PORT_PLACEHOLDER};User ID=${USER_PLACEHOLDER};Password=${PASSWORD_PLACEHOLDER};`,
+        SqlServer: `Data Source=${HOST_PLACEHOLDER},${PORT_PLACEHOLDER};User ID=${USER_PLACEHOLDER};Password=${PASSWORD_PLACEHOLDER};`,
+        PostgreSQL: `Host=${HOST_PLACEHOLDER};Port=${PORT_PLACEHOLDER};Username=${USER_PLACEHOLDER};Password=${PASSWORD_PLACEHOLDER};`,
+        MongoDB: `mongodb://${USER_PLACEHOLDER}:${PASSWORD_PLACEHOLDER}@${HOST_PLACEHOLDER}`,
+        Redis: `${HOST_PLACEHOLDER},password=${PASSWORD_PLACEHOLDER},user=${USER_PLACEHOLDER}`,
     } as Record<TDataBaseTypes, string>;
 
     return (
@@ -234,7 +239,7 @@ export const DatabaseAccess = () => {
                                     {...register(`databaseList.${index}.host`)}
                                     id={`databaseList.${index}.host`}
                                     label="Host"
-                                    placeholder="5.161.178.89"
+                                    placeholder={HOST_PLACEHOLDER}
                                     type="text"
                                     className={`${isRedisDB ? 'half' : 'min'}`}
                                     errorMsg={errors.databaseList?.[index]?.host?.message}
@@ -245,7 +250,7 @@ export const DatabaseAccess = () => {
                                     {...register(`databaseList.${index}.port`)}
                                     id={`databaseList.${index}.port`}
                                     label="Port"
-                                    placeholder="33060"
+                                    placeholder={PORT_PLACEHOLDER}
                                     type="text"
                                     className={`${isRedisDB ? 'half' : 'min'}`}
                                     errorMsg={errors.databaseList?.[index]?.port?.message}
@@ -270,7 +275,7 @@ export const DatabaseAccess = () => {
                                     {...register(`databaseList.${index}.user`)}
                                     id={`databaseList.${index}.user`}
                                     label="User"
-                                    placeholder="Bublik"
+                                    placeholder={USER_PLACEHOLDER}
                                     type="text"
                                     className="half"
                                     errorMsg={errors.databaseList?.[index]?.user?.message}

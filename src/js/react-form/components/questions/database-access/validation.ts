@@ -60,17 +60,14 @@ const shape: yup.ObjectSchema<TDataBase> = yup
                     then: (schema) => schema.required(REQUIRED_FIELD),
                 }),
             port: yup.string().optional().trim().matches(PORT_NUMBER_REGEX, { message: INVALID_FIELD }),
-            database: yup
-                .string()
-                .trim()
-                .when('url', {
-                    is: (value: string) => !value.length,
-                    then: (schema) => schema.required(REQUIRED_FIELD),
-                })
-                .when('databaseType.value', {
-                    is: 'Redis',
-                    then: (schema) => schema.notRequired(),
-                }),
+            database: yup.string().trim(), // .when('url', {
+            //     is: (value: string) => !value.length,
+            //     then: (schema) => schema.required(REQUIRED_FIELD),
+            // })
+            // .when('databaseType.value', {
+            //     is: 'Redis',
+            //     then: (schema) => schema.notRequired(),
+            // }),
             user: yup
                 .string()
                 .trim()
