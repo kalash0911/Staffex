@@ -72,6 +72,8 @@ const App = () => {
                                                             }
                                                         }}
                                                         disabled={isClickStepsDisabled || !isViewed}
+                                                        // Note: uncommect to enable clicks on steps:
+                                                        // onClick={() => handleActiveQuestion({ configInd, questionInd })}
                                                     >
                                                         {label}
                                                     </button>
