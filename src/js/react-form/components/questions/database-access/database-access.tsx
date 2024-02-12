@@ -182,8 +182,8 @@ export const DatabaseAccess = () => {
         MySql: `Server=${HOST_PLACEHOLDER};Port=${PORT_PLACEHOLDER};User ID=${USER_PLACEHOLDER};Password=${PASSWORD_PLACEHOLDER};`,
         SqlServer: `Data Source=${HOST_PLACEHOLDER},${PORT_PLACEHOLDER};User ID=${USER_PLACEHOLDER};Password=${PASSWORD_PLACEHOLDER};`,
         PostgreSQL: `Host=${HOST_PLACEHOLDER};Port=${PORT_PLACEHOLDER};Username=${USER_PLACEHOLDER};Password=${PASSWORD_PLACEHOLDER};`,
-        MongoDB: `mongodb://${USER_PLACEHOLDER}:${PASSWORD_PLACEHOLDER}@${HOST_PLACEHOLDER}`,
-        Redis: `${HOST_PLACEHOLDER},password=${PASSWORD_PLACEHOLDER},user=${USER_PLACEHOLDER}`,
+        MongoDB: `mongodb://${USER_PLACEHOLDER}:${PASSWORD_PLACEHOLDER}@${HOST_PLACEHOLDER}:${PORT_PLACEHOLDER}`,
+        Redis: `${HOST_PLACEHOLDER}:${PORT_PLACEHOLDER},password=${PASSWORD_PLACEHOLDER},user=${USER_PLACEHOLDER}`,
     } as Record<TDataBaseTypes, string>;
 
     return (
