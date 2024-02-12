@@ -24,8 +24,8 @@ import Select, { StylesConfig } from 'react-select';
 
 const options: TDataBaseSelectType[] = [
     { value: 'Oracle', label: 'Oracle' },
-    { value: 'MySQL', label: 'MySQL' },
-    { value: 'SQLServer', label: 'SQL Server' },
+    { value: 'MySql', label: 'MySQL' },
+    { value: 'SqlServer', label: 'SQL Server' },
     { value: 'PostgreSQL', label: 'PostgreSQL' },
     { value: 'MongoDB', label: 'MongoDB' },
     { value: 'Redis', label: 'Redis' },
@@ -113,7 +113,6 @@ export const DatabaseAccess = () => {
         getValues,
         trigger,
         watch,
-        reset,
         formState: { errors, isValid },
     } = useForm<TDataBaseFormValues>({
         mode: 'onBlur',
@@ -142,6 +141,8 @@ export const DatabaseAccess = () => {
         remove(index);
     };
 
+    const isFormValid = !fields.some((field) => field.connection_status !== 'fulfilled') && isValid;
+
     const connectDataBase = (index: number) => {
         const submitBeforeConnect = (data: TDataBaseFormValues) => {
             const currentDatabase = data.databaseList?.[index];
@@ -150,7 +151,15 @@ export const DatabaseAccess = () => {
             setValue(`databaseList.${index}.connection_status`, 'pending');
 
             staffexApi
-                .connectDataBase(currentDatabase)
+                .connectDataBase({
+                    host: currentDatabase.host,
+                    port: currentDatabase.port,
+                    password: currentDatabase.password,
+                    user: currentDatabase.user,
+                    database: currentDatabase.database,
+                    databaseType: currentDatabase.databaseType.value,
+                    url: currentDatabase.url,
+                })
                 .then(() => {
                     setValue(`databaseList.${index}.connection_status`, 'fulfilled');
                     trigger(`databaseList.${index}.connection_status`);
@@ -165,8 +174,8 @@ export const DatabaseAccess = () => {
 
     const placeholderConfig = {
         Oracle: 'User Id={User};Password={Password};Data Source={Host}:{port}/{DataBaseName};',
-        MySQL: 'Server={Host};Port={Port};User ID={User};Password={Password};Database={DataBaseName};',
-        SQLServer: 'Data Source={Host},{Port};Initial Catalog={DataBaseName};User ID={User};Password={Password};',
+        MySql: 'Server={Host};Port={Port};User ID={User};Password={Password};Database={DataBaseName};',
+        SqlServer: 'Data Source={Host},{Port};Initial Catalog={DataBaseName};User ID={User};Password={Password};',
         PostgreSQL: 'Host={Host};Port={Port};Username={User};Password={Password};Database={DataBaseName};',
         MongoDB: 'mongodb://[{User}:{Password}@]{Host}:{Port}/{DataBaseName}',
         Redis: '{Host}:{Port},password={Password},user={User}',
@@ -314,7 +323,7 @@ export const DatabaseAccess = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <SkipButton disabled={isValid} requiredText={`You have already added access to the database`} />
+                <SkipButton disabled={isFormValid} requiredText={`You have already added access to the database`} />
                 <Button
                     label="Next"
                     type="submit"

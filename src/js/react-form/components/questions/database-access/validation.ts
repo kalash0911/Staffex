@@ -23,29 +23,34 @@ const shape: yup.ObjectSchema<TDataBase> = yup
             url: yup
                 .string()
                 .trim()
-                .when('databaseType.value', {
-                    is: 'Oracle',
-                    then: (schema) => schema.matches(ORACLE_REGEX, INVALID_FIELD),
-                })
-                .when('databaseType.value', {
-                    is: 'MySql ',
-                    then: (schema) => schema.matches(MY_SQL_REGEX, INVALID_FIELD),
-                })
-                .when('databaseType.value', {
-                    is: 'SQLServer',
-                    then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
-                })
-                .when('databaseType.value', {
-                    is: 'PostgreSQL',
-                    then: (schema) => schema.matches(POSTGRE_SQL, INVALID_FIELD),
-                })
-                .when('databaseType.value', {
-                    is: 'MongoDB',
-                    then: (schema) => schema.matches(MONGODB_REGEX, INVALID_FIELD),
-                })
-                .when('databaseType.value', {
-                    is: 'Redis',
-                    then: (schema) => schema.matches(REDIS_REGEX, INVALID_FIELD),
+                .when('url', {
+                    is: (value: string) => value?.length,
+                    then: (schema) =>
+                        schema
+                            .when('databaseType.value', {
+                                is: 'Oracle',
+                                then: (schema) => schema.matches(ORACLE_REGEX, INVALID_FIELD),
+                            })
+                            .when('databaseType.value', {
+                                is: 'MySql',
+                                then: (schema) => schema.matches(MY_SQL_REGEX, INVALID_FIELD),
+                            })
+                            .when('databaseType.value', {
+                                is: 'SqlServer',
+                                then: (schema) => schema.matches(SQL_SERVER_REGEX, INVALID_FIELD),
+                            })
+                            .when('databaseType.value', {
+                                is: 'PostgreSQL',
+                                then: (schema) => schema.matches(POSTGRE_SQL, INVALID_FIELD),
+                            })
+                            .when('databaseType.value', {
+                                is: 'MongoDB',
+                                then: (schema) => schema.matches(MONGODB_REGEX, INVALID_FIELD),
+                            })
+                            .when('databaseType.value', {
+                                is: 'Redis',
+                                then: (schema) => schema.matches(REDIS_REGEX, INVALID_FIELD),
+                            }),
                 }),
             host: yup
                 .string()
@@ -81,7 +86,7 @@ const shape: yup.ObjectSchema<TDataBase> = yup
                     then: (schema) => schema.required(REQUIRED_FIELD),
                 }),
         },
-        // [['url', 'url']],
+        [['url', 'url']],
     )
     .required();
 
