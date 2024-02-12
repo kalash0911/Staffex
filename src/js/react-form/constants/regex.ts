@@ -10,4 +10,4 @@ export const ORACLE_REGEX = /(?=.*User Id=([^;]+))(?=.*Password=([^;]+))(?=.*Dat
 export const MY_SQL_REGEX = /(?=.*Server=([^;]+))(?=.*User ID=([^;]+))(?=.*Password=([^;]+)).*[^;]+;$/;
 export const POSTGRE_SQL = /(?=.*Host=([^;]+))(?=.*Username=([^;]+))(?=.*Password=([^;]+)).*[^;]+;$/;
 export const MONGODB_REGEX = /^mongodb:\/\/([^:]+):([^@]+)@([^:]+):(\d+)/;
-export const REDIS_REGEX = /^([^:]+):([^,]+)(?=.*password=([^,]+))(?=.*user=([^,]+))/;
+export const REDIS_REGEX = /^([^:]+)(?=.*password=([^,]+))(?=.*user=([^,]+))/;
