@@ -17,6 +17,7 @@ import { IICloudEmailProps, ICloudEmail } from '../../modals/icloud-email/icloud
 import { AnotherEmail as AnotherEmailIcon } from '../../../icons/AnotherEmail';
 import { EmailModal, IEmailModalProps } from '../../modals/email-modal/email-modal';
 import { GMAIL_SCOPE } from '../../../constants/google';
+import { MAIL_SCOPES } from '../../../constants/microsoft';
 
 export const EmailAccess = () => {
     const { answers, setAnswers, handleNextQuestion, handleDeleteServiceItem, showToast } = useAppFormState();
@@ -28,7 +29,7 @@ export const EmailAccess = () => {
     const onOutlookLogin = async () => {
         await instance
             .loginPopup({
-                scopes: ['user.read', 'mail.read'],
+                scopes: MAIL_SCOPES,
                 prompt: 'select_account',
             })
             .then((res) => {
