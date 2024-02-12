@@ -16,3 +16,13 @@ export const getActiveFeatures = () => {
         }
     });
 };
+
+export const getHost = () => {
+    const host = window.location.host;
+    const origin = window.location.origin;
+
+    if (host === 'kalash0911.github.io') {
+        return `${origin}/Staffex`;
+    }
+    return origin;
+};
