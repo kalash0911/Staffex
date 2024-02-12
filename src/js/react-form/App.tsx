@@ -6,7 +6,8 @@ import { BotInfo } from './components/bot-info/bot-info';
 import { FetureChoosenButton } from './components/buttons/feature-choosen-btn/feature-choosen-btn';
 
 const App = () => {
-    const { questions, activeQuestion, handleActiveQuestion } = useAppFormState();
+    const { questions, activeQuestion, handleActiveQuestion, isClickStepsDisabled } = useAppFormState();
+
     const listWrapRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -60,19 +61,19 @@ const App = () => {
                                             const isActive =
                                                 activeQuestion.configInd === configInd &&
                                                 activeQuestion.questionInd === questionInd;
+                                            const { label, isViewed } = question;
                                             return (
-                                                <li className={`list-item ${isActive ? 'active' : ''}`} key={question.label}>
+                                                <li className={`list-item ${isActive ? 'active' : ''}`} key={label}>
                                                     <button
                                                         className="list-link click-song"
                                                         onClick={() => {
-                                                            // TODO: uncomment before deploy
-                                                            // if (question.isViewed) {
-                                                            // }
-                                                            handleActiveQuestion({ configInd, questionInd });
+                                                            if (!isClickStepsDisabled || isViewed) {
+                                                                handleActiveQuestion({ configInd, questionInd });
+                                                            }
                                                         }}
-                                                        // disabled={!question.isViewed}
+                                                        disabled={isClickStepsDisabled || !isViewed}
                                                     >
-                                                        {question.label}
+                                                        {label}
                                                     </button>
                                                 </li>
                                             );

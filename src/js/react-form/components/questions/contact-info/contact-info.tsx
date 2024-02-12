@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextField } from '../../shared/text-field/text-field';
 import { Typography } from '../../shared/typography/typography';
 import { useForm, Controller } from 'react-hook-form';
@@ -13,7 +13,7 @@ import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { DEFAULT_MAX_LENGTH, MAX_NAME_LENGTH, MAX_PHONE_LENGTH } from '../../../constants/form';
 
 export const ContactInfo = () => {
-    const { answers, handleNextQuestion } = useAppFormState();
+    const { answers, handleNextQuestion, setClickStepsDisabled } = useAppFormState();
 
     const {
         control,
@@ -21,7 +21,7 @@ export const ContactInfo = () => {
         setValue,
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid, isDirty },
     } = useForm({
         mode: 'onBlur',
         resolver: yupResolver(schema),
@@ -38,6 +38,14 @@ export const ContactInfo = () => {
             email: answers?.email || '',
         },
     });
+
+    useEffect(() => {
+        if (!isValid) {
+            setClickStepsDisabled(true);
+        } else if (isValid && !isDirty) {
+            setClickStepsDisabled(false);
+        }
+    }, [isValid]);
 
     const isOptional = schema.spec.optional;
     const isB2B = watch('isB2B');
@@ -57,6 +65,7 @@ export const ContactInfo = () => {
     };
 
     const onSubmit = (data: TCommonFormValues) => {
+        setClickStepsDisabled(false);
         handleNextQuestion(data);
     };
 

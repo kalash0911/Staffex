@@ -23,18 +23,21 @@ interface IAppFormProviderValues {
     showToast: IShowToast;
     questions: TTopic[];
     activeQuestion: TActiveQuestion;
+    isClickStepsDisabled: boolean;
     setAnswers: React.Dispatch<React.SetStateAction<TCommonFormValues | null>>;
     handleNextQuestion: (formData?: TCommonFormValues) => void;
     handleActiveQuestion: (question: IAppFormProviderValues['activeQuestion']) => void;
     handleDeleteServiceItem: (serviceType: TServiceListKeys, id: string) => void;
     submitAllData: (formData?: TCommonFormValues) => void;
     connectBankAccount: () => Promise<void>;
+    setClickStepsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppFormContext = createContext<IAppFormProviderValues | null>(null);
 
 const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     const [formType] = useState<IAppFormProviderValues['formType']>(FormType.SECRETARY);
+    const [isClickStepsDisabled, setClickStepsDisabled] = useState(true);
     const [questions, setQuestions] = useState<IAppFormProviderValues['questions']>(QUESTIONS_CONFIG[formType]);
     const [activeQuestion, setActiveQuestion] = useState<IAppFormProviderValues['activeQuestion']>({
         configInd: 0,
@@ -216,11 +219,13 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
                 showToast,
                 questions,
                 activeQuestion,
+                isClickStepsDisabled,
                 setAnswers,
                 submitAllData,
                 handleNextQuestion,
                 connectBankAccount,
                 handleActiveQuestion,
+                setClickStepsDisabled,
                 handleDeleteServiceItem,
             }}
         >

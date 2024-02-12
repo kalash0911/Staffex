@@ -176,7 +176,8 @@
         &.active {
 
             .list-link {
-                color: $green4F
+                color: $green4F;
+                opacity: 1;
             }
         }
     }
@@ -193,6 +194,11 @@
         line-height: 140%;
         text-transform: uppercase;
         transition: $anim_03;
+        opacity: 1;
+
+        &:hover {
+            color: $green4F
+        }
 
         @include media('<tablet_x') {
             white-space: nowrap;
@@ -202,9 +208,11 @@
             font-size: 12px;
         }
 
-        &:not(:disabled) {
+        &:disabled {
+            opacity: .75;
+
             &:hover {
-                color: $green4F
+                color: rgba($white, .5);
             }
         }
     }
