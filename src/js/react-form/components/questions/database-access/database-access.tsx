@@ -204,7 +204,8 @@ export const DatabaseAccess = () => {
                     {fields.map((field, index) => {
                         const { value: selectValue } = watch(`databaseList.${index}.databaseType`);
                         const isFieldsDisabled =
-                            (getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus) === 'fulfilled';
+                            (getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus) === 'fulfilled' ||
+                            (getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus) === 'pending';
                         const urlPlaceholder = placeholderConfig[selectValue];
                         const isRedisDB = selectValue === 'Redis';
                         return (
