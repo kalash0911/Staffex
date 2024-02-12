@@ -11,7 +11,7 @@ htmlFiles.forEach((file) => {
 });
 
 export default defineConfig({
-    base: process.env.NODE_ENV === 'development' ? '/' : '/Staffex',
+    base: '/Staffex',
     root: 'src',
     publicDir: '../public',
     server: {

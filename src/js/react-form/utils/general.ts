@@ -24,5 +24,8 @@ export const getHost = () => {
     if (host === 'kalash0911.github.io') {
         return `${origin}/Staffex`;
     }
+    if (host === 'localhost:5173') {
+        return `${origin}/Staffex`;
+    }
     return origin;
 };
