@@ -390,7 +390,7 @@
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus {
             -webkit-text-fill-color: $white;
-            -webkit-box-shadow: 0 0 0px 40rem #000000 inset;
+            -webkit-box-shadow: 0 0 0px 40rem $black03 inset;
         }
     }
 
@@ -407,7 +407,7 @@
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus {
             -webkit-text-fill-color: $white;
-            -webkit-box-shadow: 0 0 0px 40rem #000000 inset;
+            -webkit-box-shadow: 0 0 0px 40rem $black03 inset;
         }
     }
 
