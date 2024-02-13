@@ -85,12 +85,6 @@ const App = () => {
                             );
                         })}
                     </div>
-
-                    <p className="text-bot">
-                        &#60;!&#8209;&nbsp;&#8209;&nbsp;Elevate your business with Staffex's custom AI solutions, optimizing
-                        workforce efficiency through seamless integration of advanced digital
-                        workers.&nbsp;&#8209;&nbsp;&#8209;&#62;
-                    </p>
                 </div>
 
                 <div className="content-wrap">{currentForm}</div>
