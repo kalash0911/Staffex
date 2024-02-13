@@ -92,6 +92,10 @@ export type TDataBaseFormValues = {
     databaseList?: Array<TDataBase>;
 };
 
+export type TDataBasePayload = Omit<TDataBase, 'databaseType'> & {
+    databaseType: TDataBaseTypes;
+};
+
 export type TPhoneReminderFormValues = {
     isPhoneRemindersAccept?: boolean;
 };
@@ -100,10 +104,13 @@ export type TAdditionalNotesFormValues = {
     additionalNotes?: string;
 };
 
-export type TCommonFormValues = Partial<TB2CContactFormValues> &
-    Partial<TB2BContactFormValues> &
+export type TCommonContactFormValues = Partial<TB2CContactFormValues> & Partial<TB2BContactFormValues>;
+
+export type TCommonFormValues = TCommonContactFormValues &
     Partial<TEmailAccessValues> &
-    Partial<TDataBaseFormValues> &
+    Partial<{
+        databaseList?: Array<TDataBasePayload>;
+    }> &
     Partial<TPhoneReminderFormValues> &
     Partial<TAdditionalNotesFormValues> &
     Partial<TMeetAppsAccessValues> &

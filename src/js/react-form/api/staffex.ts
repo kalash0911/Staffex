@@ -6,7 +6,7 @@ import {
     STAFFEX_GOOGLE_AUTH,
     STAFFEX_ZOOM_AUTH,
 } from '../constants/urls';
-import { TCommonFormValues, TDataBase, TDataBaseTypes } from '../models/form';
+import { TCommonFormValues, TDataBasePayload } from '../models/form';
 
 export type TStaffexAuthResponse = {
     email: string;
@@ -21,10 +21,6 @@ export type TStaffexAuthPayload = {
 export type TBankCustomerResponse = {
     customer_id: string;
     app_user_id: string;
-};
-
-export type TDataBasePayload = Omit<TDataBase, 'databaseType' | 'connection_status'> & {
-    databaseType: TDataBaseTypes;
 };
 
 export const staffexApi = {

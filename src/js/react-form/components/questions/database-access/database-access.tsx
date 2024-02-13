@@ -110,6 +110,11 @@ export const DatabaseAccess = () => {
     const { answers, handleNextQuestion, showToast } = useAppFormState();
     const databaseList = answers?.databaseList;
 
+    const mappedDBList = databaseList?.map((db) => ({
+        ...db,
+        databaseType: options.find((type) => (type as unknown as TDataBaseTypes) === db.databaseType)!,
+    }));
+
     const {
         control,
         register,
@@ -123,7 +128,7 @@ export const DatabaseAccess = () => {
         mode: 'onBlur',
         resolver: yupResolver(schema),
         defaultValues: {
-            databaseList: databaseList || [defaultValues],
+            databaseList: mappedDBList || [defaultValues],
         },
     });
 
@@ -131,11 +136,18 @@ export const DatabaseAccess = () => {
 
     const onSubmit = (data: TDataBaseFormValues) => {
         const rejectedDatabaseInd = data.databaseList?.findIndex((db) => db.connection_status !== 'fulfilled');
+
         if (typeof rejectedDatabaseInd === 'number' && rejectedDatabaseInd >= 0) {
             showToast.warning(`Database ${rejectedDatabaseInd + 1} isn't connected`);
             return;
         }
-        handleNextQuestion(data);
+
+        handleNextQuestion({
+            databaseList: data.databaseList?.map((db) => ({
+                ...db,
+                databaseType: db.databaseType.value,
+            })),
+        });
     };
 
     const onAddDatabase = () => {
