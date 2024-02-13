@@ -385,6 +385,13 @@
         &:focus-within {
             border-bottom: 1px solid $green4F;
         }
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus {
+            -webkit-text-fill-color: $white;
+            -webkit-box-shadow: 0 0 0px 40rem #000000 inset;
+        }
     }
 
     .textarea-wrap {
@@ -395,6 +402,13 @@
         padding: 16px;
         border: 1px solid rgba($white, .3);
         height: 150px;
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus {
+            -webkit-text-fill-color: $white;
+            -webkit-box-shadow: 0 0 0px 40rem #000000 inset;
+        }
     }
 
     .error {
