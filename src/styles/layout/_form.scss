@@ -373,7 +373,7 @@
         font-style: normal;
         font-weight: 400;
         line-height: 140%;
-        transition: $anim_03;
+        transition: color .3s ease-out, border-bottom .3s ease-out;
         outline: none;
 
         &::placeholder {
