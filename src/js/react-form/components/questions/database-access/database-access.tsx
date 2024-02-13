@@ -21,6 +21,7 @@ import {
 } from '../../../constants/form';
 import { staffexApi } from '../../../api/staffex';
 import Select, { StylesConfig } from 'react-select';
+import { detectDBTypeByUrl } from '../../../utils/form';
 
 const HOST_PLACEHOLDER = '5.161.178.89';
 const USER_PLACEHOLDER = 'Bublik';
@@ -306,15 +307,34 @@ export const DatabaseAccess = () => {
                                     disabled={isFieldsDisabled}
                                 />
                                 <p className="enter-text">Or you can enter</p>
-                                <TextField
-                                    {...register(`databaseList.${index}.url`)}
-                                    id={`databaseList.${index}.url`}
-                                    label="URL"
-                                    placeholder={urlPlaceholder}
-                                    type="url"
-                                    className="max"
-                                    errorMsg={errors.databaseList?.[index]?.url?.message}
-                                    disabled={isFieldsDisabled}
+                                <Controller
+                                    name={`databaseList.${index}.url`}
+                                    control={control}
+                                    render={({ field }) => {
+                                        return (
+                                            <TextField
+                                                {...field}
+                                                id={`databaseList.${index}.url`}
+                                                label="URL"
+                                                placeholder={urlPlaceholder}
+                                                type="url"
+                                                className="max"
+                                                errorMsg={errors.databaseList?.[index]?.url?.message}
+                                                disabled={isFieldsDisabled}
+                                                onBlur={() => {
+                                                    const dbType = detectDBTypeByUrl(field.value || '');
+                                                    if (dbType) {
+                                                        setValue(
+                                                            `databaseList.${index}.databaseType`,
+                                                            options.find((db) => db.value === dbType)!,
+                                                        );
+                                                        trigger(`databaseList.${index}.databaseType`);
+                                                    }
+                                                    field.onBlur();
+                                                }}
+                                            />
+                                        );
+                                    }}
                                 />
                                 <div className="link-btn-wrap">
                                     <ConnectButton
