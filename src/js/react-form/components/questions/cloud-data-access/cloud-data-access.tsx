@@ -119,6 +119,7 @@ export const CloudDataAccess = () => {
                         retrieval of documents and information.
                     </Typography>
                 </div>
+                <Typography variant="ft">Click to connect your data</Typography>
                 <div className="choose-wrap">
                     <ServiceButton icon={<GDriveIcon />} onClick={onGoogleMeet}>
                         Google Drive
