@@ -35,7 +35,7 @@ const App = () => {
                     Let <span>Monica</span> take your case
                 </Typography>
                 <div className="box-btn">
-                    <a className="back-btn" href="/">
+                    <a className="back-btn" href="/Staffex">
                         <CrossIcon />
                     </a>
                     <div className="bot-info-mobile">
