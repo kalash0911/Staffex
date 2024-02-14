@@ -208,7 +208,7 @@ export const ContactInfo = () => {
                 </form>
             </div>
             <div className="btn-wrap">
-                <SkipButton disabled={!isOptional} />
+                <SkipButton disabled />
                 <Button label="Next" type="submit" onClick={handleSubmit(onSubmit)} />
             </div>
         </div>

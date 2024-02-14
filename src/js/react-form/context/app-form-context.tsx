@@ -69,6 +69,8 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
     // console.log('webSocketStatus: ', webSocketStatus);
     // console.log('bankInfoMessage: ', bankInfoMessage);
 
+    const bankList = answers?.accessBankAccounts;
+
     const showToast: IShowToast = {
         error: (message?: string | ReactNode) => toast.error(message || GENERAL_ERROR_MSG, DEFAULT_TOAST_CONFIG),
         warning: (message: string | ReactNode) => toast.warn(message, DEFAULT_TOAST_CONFIG),
@@ -83,6 +85,19 @@ const AppFormProvider = ({ children }: IAppFormProviderProps) => {
             });
         }
     }, [activeQuestion]);
+
+    useEffect(() => {
+        if (!bankList?.length && formType === FormType.SECRETARY) {
+            setQuestions((prevState) => {
+                const questions = [...prevState];
+                const lastTopicInd = questions.length - 1;
+                const topicQuestions = questions[lastTopicInd].list;
+                const lastQuestionInTopicInd = topicQuestions.length - 1;
+                questions[lastTopicInd].list[lastQuestionInTopicInd].isViewed = false;
+                return questions;
+            });
+        }
+    }, [bankList]);
 
     useEffect(() => {
         if (bankInfoMessage !== null) {

@@ -56,8 +56,7 @@ export const BankAccess = () => {
                 </div>
             </div>
             <div className="btn-wrap">
-                {/* TODO: Disable skip button before prod */}
-                <SkipButton />
+                <SkipButton disabled />
                 <Button
                     label="Next"
                     type="submit"
