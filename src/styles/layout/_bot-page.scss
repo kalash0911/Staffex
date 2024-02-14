@@ -606,6 +606,8 @@
             min-height: 128px;
             margin: 0 0 15px 0;
             border: 0.5px solid rgba($white, 0.3);
+            display: grid;
+            place-items: center;
         }
 
         &::before {
@@ -625,7 +627,8 @@
             }
 
             @include media('<phone') {
-                background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, $black03 100%);
+                background: rgb(3,3,3);
+                background: radial-gradient(circle, rgba(3,3,3,0) 0%, rgba(3,3,3,1) 40%);
             }
         }
 
