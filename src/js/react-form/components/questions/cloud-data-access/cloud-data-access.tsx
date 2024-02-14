@@ -20,7 +20,7 @@ export const CloudDataAccess = () => {
 
     const cloudData = answers?.accessCloudData;
 
-    const onGoogleMeet = useGoogleLogin({
+    const onGoogleDrive = useGoogleLogin({
         flow: 'auth-code',
         scope: GDRIVE_SCOPE,
         onSuccess: async (codeResponse) => {
@@ -121,7 +121,7 @@ export const CloudDataAccess = () => {
                 </div>
                 <Typography variant="ft">Click to connect your data</Typography>
                 <div className="choose-wrap">
-                    <ServiceButton icon={<GDriveIcon />} onClick={onGoogleMeet}>
+                    <ServiceButton icon={<GDriveIcon />} onClick={onGoogleDrive}>
                         Google Drive
                     </ServiceButton>
                     <ServiceButton icon={<FilePlusIcon />} onClick={handleAnotherCloudLink}>
