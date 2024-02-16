@@ -10,6 +10,8 @@ import { Typography } from '../../shared/typography/typography';
 import { Play as PlayIcon } from '../../../icons/play';
 import { Link } from '../../shared/link/link';
 import { DEFAULT_MAX_LENGTH } from '../../../constants/form';
+import { useModal } from '../../../context/modal-context';
+import { ICloudSpecPassword } from '../icloud-spec-pass/icloud-spec-pass-modal';
 
 export interface IICloudEmailProps extends IModalBasicProps {
     onAdd: (value: TICloudEmailValues) => void;
@@ -31,8 +33,26 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
         resolver: yupResolver(shema),
     });
 
+    const { openModal } = useModal();
+
     const onSubmit = (data: TICloudEmailValues) => {
         onAdd(data);
+    };
+
+    const showVideoModal = () => {
+        openModal(
+            ICloudSpecPassword,
+            {
+                onClose: () => {
+                    openModal<IICloudEmailProps>(ICloudEmail, {
+                        onAdd,
+                    });
+                },
+            },
+            {
+                size: 'lg',
+            },
+        );
     };
 
     return (
@@ -70,7 +90,7 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
                     <PlayIcon />{' '}
                     <p className="text">
                         Watch video{' '}
-                        <Link href="#" size="md">
+                        <Link href="#" size="md" onClick={showVideoModal}>
                             how to create app-specific password
                         </Link>
                     </p>

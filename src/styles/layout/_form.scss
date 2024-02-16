@@ -609,9 +609,10 @@
 
         &.lg {
 
-            .modal-content {
+            .skip-text-content {
                 max-width: 460px;
                 text-align: center;
+                margin: 0 auto;
             }
 
             .modal-title {

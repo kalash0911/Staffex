@@ -96,7 +96,11 @@ const ModalProvider = ({ children }: IModalProviderProps) => {
                 setComponentProps,
             }}
         >
-            <Modal open={modalState.isOpened} onClose={hideModal} {...modalState.modalProps}>
+            <Modal
+                open={modalState.isOpened}
+                onClose={() => (modalState?.componentProps?.onClose ? modalState?.componentProps?.onClose() : hideModal())}
+                {...modalState.modalProps}
+            >
                 {modalState.ContentComponent && (
                     <modalState.ContentComponent hideModal={hideModal} {...modalState.componentProps} />
                 )}
