@@ -14,9 +14,6 @@ export const ICloudSpecPassword = ({ onClose }: ISkipModalProps) => {
             <div className={styles.videoWrap}>
                 <video controls src="./files/icloud-password.mp4"></video>
             </div>
-            <div className="modal-btn-wrap">
-                <Button label="Cancel" onClick={onClose} variant="primary" />
-            </div>
         </div>
     );
 };
