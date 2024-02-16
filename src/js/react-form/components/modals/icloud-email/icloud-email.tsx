@@ -62,7 +62,9 @@ export const ICloudEmail = ({ onAdd }: IICloudEmailProps) => {
                     </Typography>
                 </div>
                 <div className="link-wrap">
-                    <Link href="#">Generate an app-specific password</Link>
+                    <Link href="https://appleid.apple.com/" target="_blank">
+                        Generate an app-specific password
+                    </Link>
                 </div>
                 <div className="how-to-box">
                     <PlayIcon />{' '}

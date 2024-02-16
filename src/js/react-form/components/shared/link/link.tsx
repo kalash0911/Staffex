@@ -6,9 +6,10 @@ export type TLinkProps = {
     size?: 'sm' | 'md';
     className?: string;
     onClick?: () => void;
+    target?: string;
 };
 
-export const Link = ({ href = '#', children, className = '', size = 'sm', onClick, ...rest }: TLinkProps) => {
+export const Link = ({ href = '#', children, className = '', size = 'sm', onClick, target, ...rest }: TLinkProps) => {
     if (onClick) {
         return (
             <button className={`link button-link ${size} ${className}`} onClick={onClick} {...rest}>
@@ -18,7 +19,7 @@ export const Link = ({ href = '#', children, className = '', size = 'sm', onClic
     }
 
     return (
-        <a href={href} className={`link ${size} ${className}`} {...rest}>
+        <a href={href} className={`link ${size} ${className}`} target={target} {...rest}>
             {children}
         </a>
     );
