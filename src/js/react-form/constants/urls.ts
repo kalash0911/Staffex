@@ -1,6 +1,6 @@
 // APIs:
 // TODO: change to deployed url:
-export const STAFFEX_BASE_URL = '6a8d-195-140-224-122.ngrok-free.app';
+export const STAFFEX_BASE_URL = '6a7c-2a01-4f8-c013-90b-00-1.ngrok-free.app';
 export const STAFFEX_API = `https://${STAFFEX_BASE_URL}`;
 export const STAFFEX_WEB_SOCKET_URL = `wss://${STAFFEX_BASE_URL}/ws/leantech/entity`;
 export const STAFFEX_GOOGLE_AUTH = `${STAFFEX_API}/auth/google`;
