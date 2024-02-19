@@ -85,7 +85,7 @@ export const ContactInfo = () => {
                 if (res.data) {
                     setError('email', { message: EMAIL_EXIST });
                     toast.update(toastId, { render: EMAIL_EXIST, type: 'error', isLoading: false });
-                    throw Promise.reject();
+                    return;
                 }
                 toast.done(toastId);
                 setClickStepsDisabled(false);
