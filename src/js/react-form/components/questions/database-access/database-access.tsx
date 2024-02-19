@@ -113,7 +113,7 @@ export const DatabaseAccess = () => {
 
     const mappedDBList = databaseList?.map((db) => ({
         ...db,
-        databaseType: options.find((type) => (type as unknown as TDataBaseTypes) === db.databaseType)!,
+        databaseType: options.find((type) => (type.value as unknown as TDataBaseTypes) === db.databaseType)!,
     }));
 
     const {
@@ -220,12 +220,12 @@ export const DatabaseAccess = () => {
                 </div>
                 <form className="database-access" onSubmit={handleSubmit(onSubmit)}>
                     {fields.map((field, index) => {
-                        const { value: selectValue } = watch(`databaseList.${index}.databaseType`);
+                        const { value: selectedValue } = watch(`databaseList.${index}.databaseType`);
                         const isFieldsDisabled =
                             (getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus) === 'fulfilled' ||
                             (getValues(`databaseList.${index}.connection_status`) as TConnectButtonStatus) === 'pending';
-                        const urlPlaceholder = placeholderConfig[selectValue];
-                        const isRedisDB = selectValue === 'Redis';
+                        const urlPlaceholder = placeholderConfig[selectedValue];
+                        const isRedisDB = selectedValue === 'Redis';
                         return (
                             <OpenClose
                                 key={field.id}
