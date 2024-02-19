@@ -26,7 +26,7 @@ export const ContactInfo = () => {
         register,
         handleSubmit,
         setError,
-        formState: { errors, isValid, isDirty },
+        formState: { errors, isValid, isDirty, dirtyFields },
     } = useForm({
         mode: 'onBlur',
         resolver: yupResolver(schema),
@@ -69,24 +69,31 @@ export const ContactInfo = () => {
     };
 
     const onSubmit = async (data: TCommonFormValues) => {
-        await toast.promise(
-            staffexApi.isEmailExist(data.email!).then((res) => {
+        if (!dirtyFields.email) {
+            setClickStepsDisabled(false);
+            handleNextQuestion(data);
+            return;
+        }
+
+        const toastId = toast.loading('Checking your email...', {
+            ...DEFAULT_TOAST_CONFIG,
+        });
+
+        await staffexApi
+            .isEmailExist(data.email!)
+            .then((res) => {
                 if (res.data) {
                     setError('email', { message: EMAIL_EXIST });
-                    throw new Error();
+                    toast.update(toastId, { render: EMAIL_EXIST, type: 'error', isLoading: false });
+                    throw Promise.reject();
                 }
-            }),
-            {
-                pending: 'Checking your email...',
-                error: EMAIL_EXIST,
-            },
-            {
-                ...DEFAULT_TOAST_CONFIG,
-            },
-        );
-
-        setClickStepsDisabled(false);
-        handleNextQuestion(data);
+                toast.done(toastId);
+                setClickStepsDisabled(false);
+                handleNextQuestion(data);
+            })
+            .catch(() => {
+                toast.update(toastId, { render: GENERAL_ERROR_MSG, type: 'error', isLoading: false });
+            });
     };
 
     return (
