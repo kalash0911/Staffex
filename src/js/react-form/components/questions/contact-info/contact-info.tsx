@@ -11,6 +11,10 @@ import { maskPhoneNumber } from '../../../utils/form';
 import { Radio } from '../../shared/radio/radio';
 import { SkipButton } from '../../buttons/skip-btn/skip-btn';
 import { DEFAULT_MAX_LENGTH, MAX_NAME_LENGTH, MAX_PHONE_LENGTH } from '../../../constants/form';
+import { staffexApi } from '../../../api/staffex';
+import { toast } from 'react-toastify';
+import { EMAIL_EXIST, GENERAL_ERROR_MSG } from '../../../constants/err-msgs';
+import { DEFAULT_TOAST_CONFIG } from '../../../constants/toast';
 
 export const ContactInfo = () => {
     const { answers, handleNextQuestion, setClickStepsDisabled } = useAppFormState();
@@ -21,6 +25,7 @@ export const ContactInfo = () => {
         setValue,
         register,
         handleSubmit,
+        setError,
         formState: { errors, isValid, isDirty },
     } = useForm({
         mode: 'onBlur',
@@ -47,7 +52,6 @@ export const ContactInfo = () => {
         }
     }, [isValid]);
 
-    const isOptional = schema.spec.optional;
     const isB2B = watch('isB2B');
 
     const onChangeToB2B = () => {
@@ -64,7 +68,23 @@ export const ContactInfo = () => {
         setValue('lastName', '');
     };
 
-    const onSubmit = (data: TCommonFormValues) => {
+    const onSubmit = async (data: TCommonFormValues) => {
+        await toast.promise(
+            staffexApi.isEmailExist(data.email!).then((res) => {
+                if (res.data) {
+                    setError('email', { message: EMAIL_EXIST });
+                    throw new Error();
+                }
+            }),
+            {
+                pending: 'Checking your email...',
+                error: EMAIL_EXIST,
+            },
+            {
+                ...DEFAULT_TOAST_CONFIG,
+            },
+        );
+
         setClickStepsDisabled(false);
         handleNextQuestion(data);
     };

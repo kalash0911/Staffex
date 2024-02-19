@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
     STAFFEX_CONNECT_DB,
     STAFFEX_CREATE_BANK_CUSTOMER_URL,
+    STAFFEX_EXIST_EMAIL_URL,
     STAFFEX_FORM_URL,
     STAFFEX_GOOGLE_AUTH,
     STAFFEX_ZOOM_AUTH,
@@ -29,4 +30,10 @@ export const staffexApi = {
     connectDataBase: (payload: TDataBasePayload) => axios.post(STAFFEX_CONNECT_DB, payload),
     createBankCustomer: () => axios.post<TBankCustomerResponse>(STAFFEX_CREATE_BANK_CUSTOMER_URL),
     postAllFormData: (payload: TCommonFormValues) => axios.post(STAFFEX_FORM_URL, payload),
+    isEmailExist: (email: string) =>
+        axios.get(`${STAFFEX_EXIST_EMAIL_URL}/?email=${email}`, {
+            headers: {
+                'ngrok-skip-browser-warning': '69420',
+            },
+        }),
 };
